@@ -1054,7 +1054,7 @@
       jtz: { config: "data/config/dev/jtz.yaml", root: "/home/dev/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
       meekoo: { config: "data/config/dev/meekoo.yaml", root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
       leesa: { config: "data/config/dev/leesa.yaml", root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
-      transworld: { config: "data/config/dev/transworld-chb.yaml", root: "/home/dev/customs-assistant-isf" },
+      transworld: { config: "data/config/dev/transworld-chb.yaml", root: "/home/dev/parse_api/web-platform-2/docparser/customs_assistant" },
       leesachbbruce: { config: "data/config/dev/leesa-bruce.yaml", root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
       ldglobal: { config: "data/config/dev/ld-global.yaml", root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
       Jaak: { config: "data/config/dev/jti.yaml", root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
@@ -1091,12 +1091,10 @@ function autofillJSON() {
   // Special case for transworld
   if (client === "transworld") {
     json = {
-      thread_id: shipmentInput || "",
+      shipment_id: shipmentInput || "string",
       root_path: configMap[client].root,
       config_path: configMap[client].config,
       entry_number: "",
-      mid: "",
-      skip_header: false,
       display: ":2433.0"
     };
   } else {
@@ -1464,4 +1462,5 @@ function copyOutput() {
     
   </script>
 </body>
+
 </html>
