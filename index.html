@@ -25,29 +25,20 @@
 
     .logo-container {
       display: flex;
-      justify-content: center; 
-      align-items: center;     
+      justify-content: center; /* Centers horizontally */
+      align-items: center;     /* Centers vertically */
       width: 100%;
-      /* Removed margin-bottom and padding to pull content up */
-      margin-bottom: 0;        
-      padding: 0;
+      margin-bottom: 1rem;     /* Space between logo and the next element */
+      padding: 10px 0;
       z-index: 10;
       position: relative;
     }
 
-    /* Tighten up the gap for the h1 title below the logo */
-    .header h1 {
-      /* Dramatically reduce this margin */
-      margin-top: 0; 
-      margin-bottom: 0.5rem; 
-    }
-
     .logo-container img {
-      /* Increased from 200px to 400px for a prominent look */
-      max-width: 400px; 
+      max-width: 200px;        /* Set the width to a professional size */
       height: auto;
       object-fit: contain;
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05)); /* Subtle depth */
     }
     body.dark-mode {
       --bg: #111827; /* Dark slate background */
@@ -1496,7 +1487,5 @@ function copyOutput() {
   </script>
 </body>
 </html>
-
-
 
 
