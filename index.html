@@ -23,6 +23,23 @@
       --title-glow: rgba(139, 163, 199, 0.3); /* Soft blue glow */
     }
 
+    .logo-container {
+      display: flex;
+      justify-content: center; /* Centers horizontally */
+      align-items: center;     /* Centers vertically */
+      width: 100%;
+      margin-bottom: 1rem;     /* Space between logo and the next element */
+      padding: 10px 0;
+      z-index: 10;
+      position: relative;
+    }
+
+    .logo-container img {
+      max-width: 200px;        /* Set the width to a professional size */
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05)); /* Subtle depth */
+    }
     body.dark-mode {
       --bg: #111827; /* Dark slate background */
       --primary: #9bb1d6; /* Lighter blue for dark mode readability */
@@ -742,7 +759,9 @@
 </head>
 <body>
   <div class="ocean-background" id="oceanBackground"></div>
-
+<div class="logo-container">
+    <img src="amariai.png" alt="Amari AI Logo">
+  </div>
   <div class="header">
     <h1 id="title"></h1>
   </div>
@@ -1475,3 +1494,4 @@ function copyOutput() {
   </script>
 </body>
 </html>
+
