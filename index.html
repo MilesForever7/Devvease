@@ -1051,7 +1051,7 @@
       ever: { config: "data/config/dev/ever-customs.yaml", root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
       whitzard: { config: "data/config/dev/whitzard-customs.yaml", root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
       jl: { config: "data/config/dev/jl-customs-service-2.yaml", root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
-      jtz: { config: "data/config/dev/jtz.yaml", root: "/home/dev/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
+      jtz: { config: "data/config/dev/jtz.yaml", root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
       meekoo: { config: "data/config/dev/meekoo.yaml", root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
       leesa: { config: "data/config/dev/leesa.yaml", root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
       transworld: { config: "data/config/dev/transworld-chb.yaml", root: "/home/dev/parse_api/web-platform-2/docparser/customs_assistant" },
@@ -1124,7 +1124,7 @@ function openTransworldLogs() {
   const id = getShipmentId();
   if (!id) return;
 
-  const url = `http://34.30.43.174:8080/commands/logs/${id}/stream?token=operatorToken543&root_path=/home/dev/customs-assistant-isf`;
+  const url = `http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/web-platform-2/docparser/customs_assistant`;
 
   window.open(url, "_blank");
 }
@@ -1134,7 +1134,7 @@ function openPlatformLogs() {
   const id = getShipmentId();
   if (!id) return;
 
-  const url = `http://34.30.43.174:8080/commands/logs/shipment/${id}/formatted?token=operatorToken543&root_path=%2Fhome%2Fdev%2Fparse_api%2Fweb-platform%2Fdocparser%2Fcustoms_assistant`;
+  const url = `http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/web-platform/docparser/customs_assistant`;
 
   window.open(url, "_blank");
 }
@@ -1464,3 +1464,4 @@ function copyOutput() {
 </body>
 
 </html>
+
