@@ -1215,7 +1215,39 @@ function resetTemplateFields() {
   // regenerate the JSON with default values
   autofillTemplateJSON();
 }
+function copyTemplateJSON() {
+    const outputBox = document.getElementById("skipOutput");
 
+    // 1. If it's empty, don't do anything
+    if (!outputBox.value) {
+      alert("There is nothing to copy yet!");
+      return;
+    }
+
+    // 2. Select the text inside the box
+    outputBox.select();
+    outputBox.setSelectionRange(0, 99999); // For mobile compatibility
+
+    try {
+      // 3. The "Old Reliable" copy command (works locally without HTTPS)
+      document.execCommand('copy');
+      
+      // 4. Visual feedback
+      const copyBtn = document.querySelector('button[onclick="copyTemplateJSON()"]');
+      const originalText = copyBtn.innerHTML;
+      
+      copyBtn.innerHTML = "✅ Copied!";
+      
+      // Change it back after 2 seconds
+      setTimeout(() => {
+        copyBtn.innerHTML = originalText;
+      }, 2000);
+
+    } catch (err) {
+      console.error("Oops, unable to copy", err);
+      alert("Browser blocked the copy. Please press Ctrl+C / Cmd+C.");
+    }
+  }
     // Autofill Config and Root Paths
     function generateSkipRegex() {
 
@@ -1487,6 +1519,7 @@ function copyOutput() {
   </script>
 </body>
 </html>
+
 
 
 
