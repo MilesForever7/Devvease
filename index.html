@@ -579,31 +579,40 @@
       <div class="field-group">
         <label class="field-label">Client & Error Type</label>
         <div class="select-group">
-          <select id="clientMsgSelect" onchange="autofillTemplateJSON()">
-            <option value="">— Client —</option>
-            <option value="guardian">Guardian</option>
-            <option value="ilogix">Ilogix</option>
-            <option value="ever">Ever</option>
-            <option value="whitzard">Whitzard</option>
-            <option value="jl">JL</option>
-            <option value="jtz">JTZ</option>
-            <option value="meekoo">Meekoo</option>
-            <option value="leesa">Leesa</option>
-            <option value="transworld">Transworld</option>
-            <option value="leesachbbruce">Leesa-chb-bruce</option>
-            <option value="ldglobal">Ld-global</option>
-            <option value="Jaak">Jaak</option>
-            <option value="Tkk">Tkk</option>
-            <option value="onpointhub">On Point Hub</option>
-            <option value="perennial1">Perennial</option>
-            <option value="slchbnhp">SLCHB NHP</option>
-            <option value="slchb">SLCHB</option>
-            <option value="yifangchb">Yifang CHB</option>
-            <option value="pieschb">Pies CHB</option>
-            <option value="bhchb">BH CHB</option>
-            <option value="abj">ABJ</option>
-            <option value="newave">Newave</option>
-          </select>
+          <div class="custom-dropdown">
+  <input type="text" id="clientMsgSelect" placeholder="— Choose Client —" readonly onclick="toggleMsgDropdown()">
+  <div id="clientMsgDropdown" class="dropdown-panel">
+    <div class="dropdown-column">
+      <div class="dropdown-title">Web Platform Main</div>
+      <div data-msg-client="guardian">Guardian</div>
+      <div data-msg-client="ilogix">Ilogix</div>
+      <div data-msg-client="ever">Ever</div>
+      <div data-msg-client="whitzard">Whitzard</div>
+      <div data-msg-client="jl">JL</div>
+      <div data-msg-client="jtz">JTZ</div>
+      <div data-msg-client="meekoo">Meekoo</div>
+      <div data-msg-client="leesa">Leesa</div>
+      <div data-msg-client="transworld">Transworld</div>
+      <div data-msg-client="leesachbbruce">Leesa-chb-bruce</div>
+      <div data-msg-client="ldglobal">Ld-global</div>
+      <div data-msg-client="Jaak">Jaak</div>
+      <div data-msg-client="Tkk">Tkk</div>
+    </div>
+    <div class="dropdown-column">
+      <div class="dropdown-title">Web Platform</div>
+      <div data-msg-client="onpointhub">On Point Hub</div>
+      <div data-msg-client="perennial1">Perennial</div>
+      <div data-msg-client="slchbnhp">SLCHB NHP</div>
+      <div data-msg-client="slchb">SLCHB</div>
+      <div data-msg-client="yifangchb">Yifang CHB</div>
+      <div data-msg-client="pieschb">Pies CHB</div>
+      <div data-msg-client="bhchb">BH CHB</div>
+      <div data-msg-client="abj">ABJ</div>
+      <div data-msg-client="newave">Newave</div>
+      <div data-msg-client="GHY">GHY</div>
+    </div>
+  </div>
+</div>
           <select id="templateSelect" onchange="autofillTemplateJSON()">
             <option value="">— Error Type —</option>
             <option value="importer">Importer ID Error</option>
@@ -897,7 +906,7 @@
     // CARD 2: MESSAGE TEMPLATE
     // ─────────────────────────────────────────
     function autofillTemplateJSON() {
-      const client  = document.getElementById("clientMsgSelect").value;
+      const client  = document.getElementById("clientMsgSelect").getAttribute("data-value") || "";
       const type    = document.getElementById("templateSelect").value;
       const thread  = document.getElementById("threadInput").value.trim();
       const str     = document.getElementById("stringInput").value.trim();
@@ -917,7 +926,30 @@
         warning.classList.remove("show");
       }
     }
+// Message template client dropdown
+const msgInput    = document.getElementById("clientMsgSelect");
+const msgDropdown = document.getElementById("clientMsgDropdown");
 
+document.querySelectorAll("[data-msg-client]").forEach(item => {
+  item.addEventListener("click", function () {
+    const client = this.getAttribute("data-msg-client");
+    const label  = this.textContent.trim();
+    msgInput.value = label;
+    msgInput.setAttribute("data-value", client);
+    msgDropdown.style.display = "none";
+    autofillTemplateJSON();
+  });
+});
+
+document.addEventListener("click", e => {
+  if (!e.target.closest("#clientMsgSelect") && !e.target.closest("#clientMsgDropdown")) {
+    msgDropdown.style.display = "none";
+  }
+});
+function toggleMsgDropdown() {
+  const dd = document.getElementById("clientMsgDropdown");
+  dd.style.display = dd.style.display === "grid" ? "none" : "grid";
+}
     function resetTemplateFields() {
       document.getElementById("threadInput").value = "";
       document.getElementById("stringInput").value = "";
