@@ -834,7 +834,7 @@
   onkeypress="handleEnter(event)"
 >
 
-    <button onclick="copyAutoFilled()">📋 Copy JSON</button>
+    <button onclick="copyAutoFilled(this)">📋 Copy JSON</button>
    <div class="log-buttons">
   <button onclick="openTransworldLogs()">Transworld</button>
   <button onclick="openPlatformLogs()">Platform</button>
@@ -918,7 +918,7 @@
   <button onclick="copySkipRegex()">📋 Copy Regex</button>
 </div>
 
-    // JSON Corrector
+    
 <div class="autofill-box">
 
   <label>JSON Tool (HTS Corrector / Line Merger)</label>
@@ -1520,6 +1520,7 @@ function copyOutput() {
   </script>
 </body>
 </html>
+
 
 
 
