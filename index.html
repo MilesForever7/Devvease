@@ -755,6 +755,56 @@
         font-size: 1.5rem;
       }
     }
+    
+  .custom-dropdown{
+  position:relative;
+  width:100%;
+  z-index:1000;
+}
+
+.custom-dropdown input{
+  width:100%;
+  padding:8px;
+  cursor:pointer;
+}
+
+.dropdown-panel{
+  display:none;
+  position:absolute;
+  top:100%;
+  left:0;
+  width:420px;
+  background:white;
+  border:1px solid #ccc;
+  padding:10px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.15);
+
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+
+  max-height:300px;   /* limits height */
+  overflow-y:auto;    /* enables vertical scrolling */
+
+  z-index:9999;
+}
+
+.dropdown-panel.show{
+  display:grid;
+}
+
+.dropdown-column div{
+  padding:6px;
+  cursor:pointer;
+}
+
+.dropdown-column div:hover{
+  background:#f2f2f2;
+}
+
+.dropdown-title{
+  font-weight:bold;
+  margin-bottom:6px;
+}
   </style>
 </head>
 <body>
@@ -805,23 +855,55 @@
 <div class="container">
   <div class="autofill-box">
     <label>Run (Fill Entry)</label>
+<select id="modeSelect" onchange="autofillJSON()">
+  <option value="fill">Fill Entry</option>
+  <option value="extract">Get Extraction</option>
+</select>
+   <div class="custom-dropdown">
+  <input 
+  type="text" 
+  id="clientSelect"
+  placeholder="-- Choose Client --"
+  readonly
+  onclick="toggleDropdown()"
+>
+  <div id="clientDropdown" class="dropdown-panel">
 
-    <select id="clientSelect" onchange="autofillJSON()">
-      <option value="">-- Choose Client --</option>
-      <option value="guardian">Guardian</option>
-      <option value="ilogix">Ilogix</option>
-      <option value="ever">Ever</option>
-      <option value="whitzard">Whitzard</option>
-      <option value="jl">JL</option>
-      <option value="jtz">JTZ</option>
-      <option value="meekoo">Meekoo</option>
-      <option value="leesa">Leesa</option>
-      <option value="transworld">Transworld</option>
-      <option value="leesachbbruce">Leesa-chb-bruce</option>
-      <option value="ldglobal">Ld-global</option>
-      <option value="Jaak">Jaak</option>
-      <option value="Tkk">Tkk</option>
-    </select>
+    <div class="dropdown-column">
+      <div class="dropdown-title">Web Platform Main / 2</div>
+
+      <div data-client="guardian">Guardian</div>
+      <div data-client="ilogix">Ilogix</div>
+      <div data-client="ever">Ever</div>
+      <div data-client="whitzard">Whitzard</div>
+      <div data-client="jl">JL</div>
+      <div data-client="jtz">JTZ</div>
+      <div data-client="meekoo">Meekoo</div>
+      <div data-client="leesa">Leesa</div>
+      <div data-client="transworld">Transworld</div>
+      <div data-client="leesachbbruce">Leesa-chb-bruce</div>
+      <div data-client="ldglobal">Ld-global</div>
+      <div data-client="Jaak">Jaak</div>
+      <div data-client="Tkk">Tkk</div>
+      <div data-client="GHY">GHY</div>
+    </div>
+
+    <div class="dropdown-column">
+      <div class="dropdown-title">Web Platform</div>
+
+      <div data-client="onpointhub">On Point Hub</div>
+      <div data-client="perennial1">Perennial</div>
+      <div data-client="slchbnhp">SLCHB NHP</div>
+      <div data-client="slchb">SLCHB</div>
+      <div data-client="yifangchb">Yifang CHB</div>
+      <div data-client="pieschb">Pies CHB</div>
+      <div data-client="bhchb">BH CHB</div>
+      <div data-client="abj">ABJ</div>
+      <div data-client="newave">Newave</div>
+    </div>
+
+  </div>
+</div>
 
     <textarea id="jsonBox" readonly></textarea>
 
@@ -860,6 +942,15 @@
       <option value="ldglobal">Ld-global</option>
       <option value="Jaak">Jaak</option>
       <option value="Tkk">Tkk</option>
+      <option value="onpointhub">On Point Hub</option>
+<option value="perennial1">Perennial</option>
+<option value="slchbnhp">SLCHB NHP</option>
+<option value="slchb">SLCHB</option>
+<option value="yifangchb">Yifang CHB</option>
+<option value="pieschb">Pies CHB</option>
+<option value="bhchb">BH CHB</option>
+<option value="abj">ABJ</option>
+<option value="newave">Newave</option>
     </select>
 
     <select id="templateSelect" onchange="autofillTemplateJSON()">
@@ -1069,9 +1160,27 @@
       meekoo: { config: "data/config/dev/meekoo.yaml", root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
       leesa: { config: "data/config/dev/leesa.yaml", root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
       transworld: { config: "data/config/dev/transworld-chb.yaml", root: "/home/dev/parse_api/web-platform-2/docparser/customs_assistant" },
-      leesachbbruce: { config: "data/config/dev/leesa-bruce.yaml", root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
+      leesachbbruce: { config: "data/config/dev/leesa-chb-bruce.yaml", root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
       ldglobal: { config: "data/config/dev/ld-global.yaml", root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
       Jaak: { config: "data/config/dev/jti.yaml", root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
+      GHY: { config: "data/config/dev/ghy.yaml", root: "/home/dev/ghy/web-platform/docparser/customs_assistant" },
+      onpointhub: { config: "data/config/dev/on-point-hub.yaml", root: "/home/dev/parse_api/web-platform/docparser/customs_assistant" },
+
+perennial1: { config: "data/config/dev/perennial-1.yaml", root: "/home/dev/parse_api/web-platform/docparser/customs_assistant" },
+
+slchbnhp: { config: "data/config/dev/slchb-nhp.yaml", root: "/home/dev/parse_api/web-platform/docparser/customs_assistant" },
+
+slchb: { config: "data/config/dev/slchb.yaml", root: "/home/dev/parse_api/web-platform/docparser/customs_assistant" },
+
+yifangchb: { config: "data/config/dev/yifangchb.yaml", root: "/home/dev/parse_api/web-platform/docparser/customs_assistant" },
+
+pieschb: { config: "data/config/dev/pieschb.yaml", root: "/home/dev/parse_api/web-platform/docparser/customs_assistant" },
+
+bhchb: { config: "data/config/dev/bhchb.yaml", root: "/home/dev/parse_api/web-platform/docparser/customs_assistant" },
+
+abj: { config: "data/config/dev/abj.yaml", root: "/home/dev/parse_api/web-platform/docparser/customs_assistant" },
+
+newave: { config: "data/config/dev/newave.yaml", root: "/home/dev/parse_api/web-platform/docparser/customs_assistant" },
       Tkk: { config: "data/config/dev/tkk.yaml", root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" }
     };
 
@@ -1091,7 +1200,10 @@
 
     // Autofill JSON for Run
 function autofillJSON() {
+
   const client = document.getElementById("clientSelect").value;
+  const mode = document.getElementById("modeSelect").value;
+
   const box = document.getElementById("jsonBox");
   const shipmentInput = document.getElementById("shipmentInput").value.trim();
 
@@ -1102,8 +1214,9 @@ function autofillJSON() {
 
   let json;
 
-  // Special case for transworld
-  if (client === "transworld") {
+  // FILL ENTRY MODE (your current format)
+  if (mode === "fill") {
+
     json = {
       shipment_id: shipmentInput || "string",
       root_path: configMap[client].root,
@@ -1111,14 +1224,23 @@ function autofillJSON() {
       entry_number: "",
       display: ":2433.0"
     };
-  } else {
+
+  }
+
+  // GET EXTRACTION MODE
+  if (mode === "extract") {
+
     json = {
+      thread_id: "string",
       shipment_id: shipmentInput || "string",
       root_path: configMap[client].root,
       config_path: configMap[client].config,
-      entry_number: "",
+      ignore_files_regex: "",
+      ignore_sheets_regex: "",
+      force_process_attachments: true,
       display: ":2433.0"
     };
+
   }
 
   box.value = JSON.stringify(json, null, 2);
@@ -1166,7 +1288,40 @@ function handleEnter(event) {
 
     window.open(url, "_blank");
   }
-}
+}   // ← THIS BRACKET WAS MISSING
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const input = document.getElementById("clientSelect");
+  const dropdown = document.getElementById("clientDropdown");
+
+  input.addEventListener("click", function () {
+
+    if (dropdown.style.display === "grid") {
+      dropdown.style.display = "none";
+    } else {
+      dropdown.style.display = "grid";
+    }
+
+  });
+
+  document.querySelectorAll("[data-client]").forEach(item => {
+
+    item.addEventListener("click", function () {
+
+      const client = this.getAttribute("data-client");
+
+      input.value = client;
+
+      dropdown.style.display = "none";
+
+      autofillJSON();
+
+    });
+
+  });
+
+});
 
 
 
@@ -1520,10 +1675,3 @@ function copyOutput() {
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
