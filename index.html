@@ -31,7 +31,6 @@
       --radius-sm: 6px;
       --transition: 0.18s ease;
     }
-
     body.dark-mode {
       --bg: #0f172a;
       --primary: #93b4d8;
@@ -53,431 +52,136 @@
       --ship-color: #334155;
       --title-glow: rgba(147,180,216,0.2);
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); font-family: 'Inter', sans-serif; min-height: 100vh; padding: 2rem; transition: background 0.3s, color 0.3s; color: var(--text-color); overflow-x: hidden; }
 
-    body {
-      background: var(--bg);
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
-      padding: 2rem;
-      transition: background 0.3s, color 0.3s;
-      color: var(--text-color);
-      overflow-x: hidden;
-    }
+    .ocean-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; }
+    .ship { position: absolute; font-size: 1rem; color: var(--ship-color); opacity: 0.25; transition: transform 0.3s ease; pointer-events: auto; }
 
-    /* ── OCEAN BG ── */
-    .ocean-background {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -2; pointer-events: none;
-    }
-    .ship {
-      position: absolute; font-size: 1rem;
-      color: var(--ship-color); opacity: 0.25;
-      transition: transform 0.3s ease; pointer-events: auto;
-    }
+    .logo-container { display: flex; justify-content: center; align-items: center; width: 100%; margin-bottom: 0.25rem; padding: 5px 0; position: relative; z-index: 10; }
+    .logo-container img { max-width: 260px; height: auto; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.06)); }
 
-    /* ── LOGO ── */
-    .logo-container {
-      display: flex; justify-content: center; align-items: center;
-      width: 100%; margin-bottom: 0.25rem; padding: 5px 0;
-      position: relative; z-index: 10;
-    }
-    .logo-container img {
-      max-width: 260px; height: auto; object-fit: contain;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.06));
-    }
-
-    /* ── HEADER ── */
-    .header {
-      text-align: center; margin-bottom: 2rem;
-      position: relative; z-index: 2;
-    }
-    .header h1 {
-      font-size: 2.2rem; color: var(--primary);
-      font-weight: 700; display: inline-block;
-      text-shadow: 0 0 20px var(--title-glow);
-      letter-spacing: -0.5px;
-    }
+    .header { text-align: center; margin-bottom: 2rem; position: relative; z-index: 2; }
+    .header h1 { font-size: 2.2rem; color: var(--primary); font-weight: 700; display: inline-block; text-shadow: 0 0 20px var(--title-glow); letter-spacing: -0.5px; }
     .header h1:hover { animation: shake 0.2s ease-in-out; }
-    @keyframes shake {
-      0%,100% { transform: translate(0,0) rotate(0deg); }
-      50% { transform: translate(2px,-2px) rotate(2deg); }
-    }
+    @keyframes shake { 0%,100% { transform: translate(0,0) rotate(0deg); } 50% { transform: translate(2px,-2px) rotate(2deg); } }
 
-    /* ── THEME TOGGLE ── */
-    .mode-toggle {
-      position: fixed; top: 1.5rem; right: 1.5rem;
-      z-index: 1000; display: flex; flex-direction: column;
-      align-items: center; gap: 0.4rem;
-    }
+    .mode-toggle { position: fixed; top: 1.5rem; right: 1.5rem; z-index: 1000; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
     .mode-toggle input { display: none; }
-    .mode-toggle label {
-      background-color: var(--secondary); width: 4rem; height: 2rem;
-      border-radius: 2rem; display: flex; align-items: center;
-      justify-content: space-between; padding: 0.4rem 0.6rem;
-      cursor: pointer; position: relative;
-      transition: background-color 0.3s, box-shadow 0.3s;
-    }
+    .mode-toggle label { background-color: var(--secondary); width: 4rem; height: 2rem; border-radius: 2rem; display: flex; align-items: center; justify-content: space-between; padding: 0.4rem 0.6rem; cursor: pointer; position: relative; transition: background-color 0.3s, box-shadow 0.3s; }
     .mode-toggle label:hover { box-shadow: 0 0 12px var(--title-glow); }
-    .mode-toggle .sun, .mode-toggle .moon {
-      font-size: 1.1rem; color: var(--accent); transition: transform 0.4s;
-    }
+    .mode-toggle .sun, .mode-toggle .moon { font-size: 1.1rem; color: var(--accent); transition: transform 0.4s; }
     .mode-toggle input:checked + label .sun { transform: scale(0.8); }
     .mode-toggle input:not(:checked) + label .moon { transform: scale(0.8); }
-    .mode-toggle input:checked + label .moon,
-    .mode-toggle input:not(:checked) + label .sun { transform: scale(1.2); }
-    .mode-toggle .ball {
-      width: 1.5rem; height: 1.5rem; background: var(--accent);
-      position: absolute; top: 0.25rem; left: 0.25rem;
-      border-radius: 50%; transition: transform 0.4s, box-shadow 0.4s;
-    }
-    .mode-toggle input:checked + label .ball {
-      transform: translateX(2rem); box-shadow: 0 0 8px var(--title-glow);
-    }
-    .mode-toggle .vibe {
-      font-size: 0.8rem; color: var(--text-muted);
-      font-weight: 500; text-transform: capitalize;
-    }
+    .mode-toggle input:checked + label .moon, .mode-toggle input:not(:checked) + label .sun { transform: scale(1.2); }
+    .mode-toggle .ball { width: 1.5rem; height: 1.5rem; background: var(--accent); position: absolute; top: 0.25rem; left: 0.25rem; border-radius: 50%; transition: transform 0.4s, box-shadow 0.4s; }
+    .mode-toggle input:checked + label .ball { transform: translateX(2rem); box-shadow: 0 0 8px var(--title-glow); }
+    .mode-toggle .vibe { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; text-transform: capitalize; }
 
-    /* ── SETTINGS ── */
-    .settings-toggle {
-      position: fixed; top: 4.5rem; right: 1.5rem;
-      z-index: 1000; display: flex; flex-direction: column;
-      align-items: center; gap: 0.5rem;
-    }
-    .settings-toggle button {
-      width: 4rem; height: 2rem; background: #6b7280;
-      border: none; border-radius: var(--radius-sm);
-      font-size: 1.1rem; color: white; cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
+    .settings-toggle { position: fixed; top: 4.5rem; right: 1.5rem; z-index: 1000; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+    .settings-toggle button { width: 4rem; height: 2rem; background: #6b7280; border: none; border-radius: var(--radius-sm); font-size: 1.1rem; color: white; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; }
     .settings-toggle button:hover { box-shadow: 0 0 10px var(--title-glow); }
     .settings-toggle button.spin { animation: tireSpin 0.5s linear; }
     @keyframes tireSpin { to { transform: rotate(360deg); } }
-
-    .smoke {
-      position: absolute; width: 10px; height: 10px;
-      background: rgba(107,114,128,0.5); border-radius: 50%;
-      animation: smokeEffect 1s ease forwards;
-    }
-    @keyframes smokeEffect {
-      0% { transform: translateY(0) scale(1); opacity: 0.5; }
-      100% { transform: translateY(-30px) scale(1.5); opacity: 0; }
-    }
-
-    .settings-panel {
-      display: none; position: fixed; top: 6.5rem; right: 1.5rem;
-      background: var(--card-bg); padding: 1.25rem;
-      border-radius: var(--radius); box-shadow: var(--shadow-lg);
-      width: 230px; z-index: 1000; color: var(--text-color);
-      border: 1px solid var(--border-color);
-    }
+    .smoke { position: absolute; width: 10px; height: 10px; background: rgba(107,114,128,0.5); border-radius: 50%; animation: smokeEffect 1s ease forwards; }
+    @keyframes smokeEffect { 0% { transform: translateY(0) scale(1); opacity: 0.5; } 100% { transform: translateY(-30px) scale(1.5); opacity: 0; } }
+    .settings-panel { display: none; position: fixed; top: 6.5rem; right: 1.5rem; background: var(--card-bg); padding: 1.25rem; border-radius: var(--radius); box-shadow: var(--shadow-lg); width: 230px; z-index: 1000; color: var(--text-color); border: 1px solid var(--border-color); }
     .settings-panel.active { display: block; }
-    .settings-panel label {
-      display: flex; align-items: center; gap: 0.5rem;
-      font-size: 0.85rem; font-weight: 500; margin-bottom: 0.4rem;
-      color: var(--text-muted);
-    }
-    .settings-panel select, .settings-panel button {
-      width: 100%; padding: 0.45rem 0.6rem;
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-sm); background: var(--box-bg);
-      color: var(--text-color); font-size: 0.85rem; margin-bottom: 0.9rem;
-    }
-    .settings-panel button {
-      background: var(--secondary); color: white;
-      font-weight: 600; cursor: pointer; border: none;
-      transition: background 0.2s;
-    }
+    .settings-panel label { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 500; margin-bottom: 0.4rem; color: var(--text-muted); }
+    .settings-panel select, .settings-panel button { width: 100%; padding: 0.45rem 0.6rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); background: var(--box-bg); color: var(--text-color); font-size: 0.85rem; margin-bottom: 0.9rem; }
+    .settings-panel button { background: var(--secondary); color: white; font-weight: 600; cursor: pointer; border: none; transition: background 0.2s; }
     .settings-panel button:hover { background: var(--primary); }
     .settings-panel .toggle-switch { display: flex; align-items: center; gap: 0.5rem; }
     .settings-panel .toggle-switch input { display: none; }
-    .settings-panel .toggle-switch label {
-      width: 2.5rem; height: 1.4rem; background: var(--secondary);
-      border-radius: 1.4rem; display: flex; align-items: center;
-      padding: 0.2rem; cursor: pointer; position: relative; margin-bottom: 0;
-    }
-    .settings-panel .toggle-switch .ball {
-      width: 1rem; height: 1rem; background: white;
-      border-radius: 50%; transition: transform 0.3s;
-    }
+    .settings-panel .toggle-switch label { width: 2.5rem; height: 1.4rem; background: var(--secondary); border-radius: 1.4rem; display: flex; align-items: center; padding: 0.2rem; cursor: pointer; position: relative; margin-bottom: 0; }
+    .settings-panel .toggle-switch .ball { width: 1rem; height: 1rem; background: white; border-radius: 50%; transition: transform 0.3s; }
     .settings-panel .toggle-switch input:checked + label .ball { transform: translateX(1.1rem); }
 
-    /* ── MAIN GRID ── */
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 1.25rem;
-      max-width: 1280px;
-      margin: 3.5rem auto 0;
-      position: relative; z-index: 2;
-    }
+    .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.25rem; max-width: 1280px; margin: 3.5rem auto 0; position: relative; z-index: 2; }
 
-    /* ── CARD ── */
-    .autofill-box {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      padding: 1.5rem;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-sm);
-      transition: box-shadow var(--transition), border-color var(--transition);
-      position: relative;
-      overflow: visible;
-    }
-    .autofill-box:hover {
-      box-shadow: var(--shadow);
-      border-color: var(--secondary);
-    }
+    .autofill-box { background: var(--card-bg); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow-sm); transition: box-shadow var(--transition), border-color var(--transition); position: relative; overflow: visible; }
+    .autofill-box:hover { box-shadow: var(--shadow); border-color: var(--secondary); }
+    .card-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); }
+    .card-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--secondary), var(--primary)); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: white; flex-shrink: 0; }
+    .card-title { font-weight: 700; font-size: 0.95rem; color: var(--text-color); letter-spacing: -0.2px; }
 
-    /* Card header row */
-    .card-header {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      margin-bottom: 1rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid var(--border-color);
-    }
-    .card-icon {
-      width: 32px; height: 32px;
-      background: linear-gradient(135deg, var(--secondary), var(--primary));
-      border-radius: var(--radius-sm);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.85rem; color: white; flex-shrink: 0;
-    }
-    .card-title {
-      font-weight: 700; font-size: 0.95rem;
-      color: var(--text-color); letter-spacing: -0.2px;
-    }
-
-    /* ── FORM ELEMENTS ── */
     .field-group { margin-bottom: 0.75rem; }
-    .field-label {
-      display: block; font-size: 0.75rem; font-weight: 600;
-      color: var(--text-muted); text-transform: uppercase;
-      letter-spacing: 0.05em; margin-bottom: 0.35rem;
-    }
+    .field-label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; }
 
-    .autofill-box select,
-    .autofill-box textarea,
-    .autofill-box input {
-      width: 100%;
-      border-radius: var(--radius-sm);
-      font-family: inherit;
-      background: var(--box-bg);
-      color: var(--text-color);
-      border: 1px solid var(--border-color);
-      transition: border-color var(--transition), box-shadow var(--transition);
-      outline: none;
-      font-size: 0.9rem;
-    }
-
-    .autofill-box select {
-      padding: 0.55rem 0.75rem;
-      cursor: pointer;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 0.75rem center;
-      padding-right: 2rem;
-    }
-
-    .autofill-box input {
-      padding: 0.55rem 0.75rem;
-    }
-
-    .autofill-box textarea {
-      padding: 0.65rem 0.75rem;
-      font-family: 'Fira Code', monospace;
-      font-size: 0.82rem;
-      resize: none;
-      line-height: 1.6;
-    }
-
-    .autofill-box select:focus,
-    .autofill-box input:focus,
-    .autofill-box textarea:focus {
-      border-color: var(--border-focus);
-      box-shadow: 0 0 0 3px rgba(42,67,101,0.12);
-    }
-
-    /* textarea heights */
+    .autofill-box select, .autofill-box textarea, .autofill-box input { width: 100%; border-radius: var(--radius-sm); font-family: inherit; background: var(--box-bg); color: var(--text-color); border: 1px solid var(--border-color); transition: border-color var(--transition), box-shadow var(--transition); outline: none; font-size: 0.9rem; }
+    .autofill-box select { padding: 0.55rem 0.75rem; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.75rem center; padding-right: 2rem; }
+    .autofill-box input { padding: 0.55rem 0.75rem; }
+    .autofill-box textarea { padding: 0.65rem 0.75rem; font-family: 'Fira Code', monospace; font-size: 0.82rem; resize: none; line-height: 1.6; }
+    .autofill-box select:focus, .autofill-box input:focus, .autofill-box textarea:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(42,67,101,0.12); }
     .textarea-sm { height: 90px; }
     .textarea-md { height: 130px; }
     .textarea-lg { height: 160px; }
 
-    /* ── BUTTONS ── */
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      gap: 0.4rem; padding: 0.6rem 1rem;
-      border: none; border-radius: var(--radius-sm);
-      font-family: inherit; font-size: 0.875rem; font-weight: 600;
-      cursor: pointer; transition: all var(--transition);
-      white-space: nowrap;
-    }
-    .btn-primary {
-      background: var(--primary); color: white;
-    }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.6rem 1rem; border: none; border-radius: var(--radius-sm); font-family: inherit; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all var(--transition); white-space: nowrap; }
+    .btn-primary { background: var(--primary); color: white; }
     .btn-primary:hover { background: var(--primary-light); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
-    .btn-secondary {
-      background: var(--box-bg); color: var(--text-color);
-      border: 1px solid var(--border-color);
-    }
+    .btn-secondary { background: var(--box-bg); color: var(--text-color); border: 1px solid var(--border-color); }
     .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
-    .btn-danger {
-      background: #fee2e2; color: var(--error); border: 1px solid #fecaca;
-    }
+    .btn-danger { background: #fee2e2; color: var(--error); border: 1px solid #fecaca; }
     .btn-danger:hover { background: #fecaca; }
-    .btn-success {
-      background: var(--success-bg) !important; color: var(--success) !important;
-      border: 1px solid var(--success) !important;
-    }
-
+    .btn-success { background: var(--success-bg) !important; color: var(--success) !important; border: 1px solid var(--success) !important; }
     .btn-full { width: 100%; }
-    .btn-row {
-      display: flex; gap: 0.5rem; margin-top: 0.6rem; flex-wrap: wrap;
-    }
+    .btn-row { display: flex; gap: 0.5rem; margin-top: 0.6rem; flex-wrap: wrap; }
     .btn-row .btn { flex: 1; min-width: 100px; }
 
-    /* ── SELECT GROUP ── */
-    .select-group {
-      display: flex; gap: 0.5rem; margin-bottom: 0.75rem;
-    }
-    .select-group select { flex: 1; }
-
-    /* ── CUSTOM DROPDOWN ── */
+    /* CUSTOM DROPDOWN */
     .custom-dropdown { position: relative; width: 100%; z-index: 100; }
-    .custom-dropdown input { width: 100%; cursor: pointer; }
+    .dropdown-trigger { position: relative; width: 100%; }
+    .dropdown-trigger input { width: 100%; cursor: pointer; padding-right: 2rem !important; }
+    .dropdown-trigger::after { content: ''; position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); width: 12px; height: 12px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-size: contain; pointer-events: none; }
 
-    .dropdown-panel {
-      display: none;
-      position: absolute; top: calc(100% + 4px); left: 0;
-      width: 440px;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius);
-      padding: 0.75rem;
-      box-shadow: var(--shadow-lg);
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      max-height: 280px;
-      overflow-y: auto;
-      z-index: 9999;
-    }
+    .dropdown-panel { display: none; position: absolute; top: calc(100% + 4px); left: 0; width: 440px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 0.75rem; box-shadow: var(--shadow-lg); grid-template-columns: 1fr 1fr; gap: 1rem; max-height: 280px; overflow-y: auto; z-index: 9999; }
+    .dropdown-panel.single-col { grid-template-columns: 1fr; width: 220px; }
     .dropdown-panel.show { display: grid; }
+    .dropdown-column div { padding: 0.45rem 0.6rem; cursor: pointer; border-radius: var(--radius-sm); font-size: 0.875rem; transition: background var(--transition), color var(--transition); color: var(--text-color); }
+    .dropdown-column div:hover { background: var(--box-bg); color: var(--primary); }
+    .dropdown-title { font-weight: 700; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 0.4rem; padding: 0.3rem 0.6rem; border-bottom: 1px solid var(--border-color); }
 
-    .dropdown-column div {
-      padding: 0.45rem 0.6rem;
-      cursor: pointer;
-      border-radius: var(--radius-sm);
-      font-size: 0.875rem;
-      transition: background var(--transition), color var(--transition);
-      color: var(--text-color);
-    }
-    .dropdown-column div:hover {
-      background: var(--box-bg); color: var(--primary);
-    }
-    .dropdown-title {
-      font-weight: 700; font-size: 0.7rem;
-      text-transform: uppercase; letter-spacing: 0.08em;
-      color: var(--text-muted); margin-bottom: 0.4rem;
-      padding: 0.3rem 0.6rem;
-      border-bottom: 1px solid var(--border-color);
-    }
+    /* side by side dropdowns in message template */
+    .dropdown-row { display: flex; gap: 0.5rem; }
+    .dropdown-row .custom-dropdown { flex: 1; min-width: 0; }
 
-    /* ── BADGE / STATUS ── */
-    .status-bar {
-      display: flex; align-items: center; gap: 0.5rem;
-      padding: 0.4rem 0.6rem;
-      border-radius: var(--radius-sm);
-      font-size: 0.78rem; font-weight: 500;
-      margin-top: 0.5rem;
-      opacity: 0; transition: opacity 0.2s;
-    }
+    .status-bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.6rem; border-radius: var(--radius-sm); font-size: 0.78rem; font-weight: 500; margin-top: 0.5rem; opacity: 0; transition: opacity 0.2s; }
     .status-bar.show { opacity: 1; }
     .status-bar.info { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
-    .status-bar.success { background: var(--success-bg); color: var(--success); border: 1px solid #bbf7d0; }
     .status-bar.warn { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
     body.dark-mode .status-bar.info { background: #1e3a5f; color: #93c5fd; border-color: #1e40af; }
-    body.dark-mode .status-bar.success { background: #052e16; color: #4ade80; border-color: #166534; }
     body.dark-mode .status-bar.warn { background: #2d1b00; color: #fbbf24; border-color: #92400e; }
 
-    /* ── TOAST ── */
-    #toast {
-      display: none; position: fixed; bottom: 2rem; left: 50%;
-      transform: translateX(-50%);
-      background: var(--primary); color: white;
-      padding: 0.65rem 1.25rem; border-radius: var(--radius);
-      font-size: 0.875rem; font-weight: 500;
-      z-index: 2000; box-shadow: var(--shadow-lg);
-      animation: fadeInOut 2.5s ease;
-    }
-    @keyframes fadeInOut {
-      0%,100% { opacity: 0; transform: translate(-50%, 8px); }
-      10%,90% { opacity: 1; transform: translate(-50%, 0); }
-    }
+    #toast { display: none; position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.65rem 1.25rem; border-radius: var(--radius); font-size: 0.875rem; font-weight: 500; z-index: 2000; box-shadow: var(--shadow-lg); animation: fadeInOut 2.5s ease; }
+    @keyframes fadeInOut { 0%,100% { opacity: 0; transform: translate(-50%,8px); } 10%,90% { opacity: 1; transform: translate(-50%,0); } }
 
-    /* ── SIGNATURE ── */
-    .signature {
-      font-family: 'Cinzel', serif; font-size: 1.6rem;
-      color: var(--primary); text-align: center; margin: 1rem 0;
-      text-shadow: 0 0 5px var(--title-glow); cursor: pointer;
-      grid-column: 1 / -1; position: relative; z-index: 2;
-    }
-    .signature span { display: inline-block; transition: transform 1s ease-out, opacity 1s ease; }
-    .signature.shatter span { opacity: 0; }
-    .signature.shatter span:nth-child(1) { transform: translate(-50px,-200px) rotate(-15deg); }
-    .signature.shatter span:nth-child(2) { transform: translate(-40px,-210px) rotate(10deg); }
-    .signature.shatter span:nth-child(3) { transform: translate(-30px,-190px) rotate(20deg); }
-    .signature.shatter span:nth-child(4) { transform: translate(-20px,-220px) rotate(-10deg); }
-    .signature.shatter span:nth-child(5) { transform: translate(-10px,-200px) rotate(15deg); }
-    .signature.shatter span:nth-child(6) { transform: translate(0,-210px) rotate(-20deg); }
-    .signature.shatter span:nth-child(7) { transform: translate(10px,-190px) rotate(10deg); }
-    .signature.shatter span:nth-child(8) { transform: translate(20px,-220px) rotate(-15deg); }
-    .signature.shatter span:nth-child(9) { transform: translate(30px,-200px) rotate(20deg); }
-    .signature.shatter span:nth-child(10) { transform: translate(40px,-210px) rotate(-10deg); }
-    .signature.shatter span:nth-child(11) { transform: translate(50px,-190px) rotate(15deg); }
-    .signature.shatter span:nth-child(12) { transform: translate(60px,-220px) rotate(-20deg); }
-    .signature.shatter span:nth-child(13) { transform: translate(70px,-200px) rotate(10deg); }
-
-    /* ── RESPONSIVE ── */
     @media (max-width: 640px) {
       body { padding: 1rem; }
       .header h1 { font-size: 1.7rem; }
       .mode-toggle { top: 1rem; right: 1rem; }
       .settings-toggle { top: 3.8rem; right: 1rem; }
       .container { grid-template-columns: 1fr; margin-top: 5rem; }
-      .dropdown-panel { width: 100%; }
-      .btn-row { flex-direction: column; }
+      .dropdown-panel, .dropdown-panel.single-col { width: 100%; }
+      .btn-row, .dropdown-row { flex-direction: column; }
       .btn-row .btn { width: 100%; }
     }
   </style>
 </head>
 <body>
   <div class="ocean-background" id="oceanBackground"></div>
+  <div class="logo-container"><img src="amariai.PNG" alt="Amari AI Logo"></div>
+  <div class="header"><h1 id="title"></h1></div>
 
-  <div class="logo-container">
-    <img src="amariai.PNG" alt="Amari AI Logo">
-  </div>
-
-  <div class="header">
-    <h1 id="title"></h1>
-  </div>
-
-  <!-- Theme Toggle -->
   <div class="mode-toggle">
     <input type="checkbox" id="themeSwitch" onchange="toggleTheme()" checked />
     <label for="themeSwitch">
-      <span class="sun">☀️</span>
-      <span class="moon">🌙</span>
+      <span class="sun">☀️</span><span class="moon">🌙</span>
       <div class="ball"></div>
     </label>
     <span class="vibe">Dark</span>
   </div>
 
-  <!-- Settings -->
   <div class="settings-toggle">
     <button onclick="toggleSettings()">⚙️</button>
     <div class="settings-panel">
@@ -496,13 +200,12 @@
 
   <div class="container">
 
-    <!-- ── CARD 1: Run / Fill Entry ── -->
+    <!-- CARD 1: Run Entry -->
     <div class="autofill-box">
       <div class="card-header">
         <div class="card-icon">▶</div>
         <span class="card-title">Run Entry</span>
       </div>
-
       <div class="field-group">
         <label class="field-label">Mode</label>
         <select id="modeSelect" onchange="autofillJSON()">
@@ -510,11 +213,12 @@
           <option value="extract">Get Extraction</option>
         </select>
       </div>
-
       <div class="field-group">
         <label class="field-label">Client</label>
         <div class="custom-dropdown">
-          <input type="text" id="clientSelect" placeholder="— Choose Client —" readonly onclick="toggleDropdown()">
+          <div class="dropdown-trigger">
+            <input type="text" id="clientSelect" placeholder="— Choose Client —" readonly onclick="toggleDropdown('clientDropdown')">
+          </div>
           <div id="clientDropdown" class="dropdown-panel">
             <div class="dropdown-column">
               <div class="dropdown-title">Web Platform Main</div>
@@ -548,18 +252,14 @@
           </div>
         </div>
       </div>
-
       <div class="field-group">
         <label class="field-label">Shipment ID</label>
-        <input type="text" id="shipmentInput" placeholder="Enter Shipment ID"
-          oninput="autofillJSON()" onkeypress="handleEnter(event)">
+        <input type="text" id="shipmentInput" placeholder="Enter Shipment ID" oninput="autofillJSON()" onkeypress="handleEnter(event)">
       </div>
-
       <div class="field-group">
         <label class="field-label">Output JSON</label>
         <textarea id="jsonBox" class="textarea-md" readonly placeholder="Select a client to generate JSON…"></textarea>
       </div>
-
       <div class="btn-row">
         <button class="btn btn-primary btn-full" onclick="copyAutoFilled(this)">📋 Copy JSON</button>
       </div>
@@ -569,7 +269,7 @@
       </div>
     </div>
 
-    <!-- ── CARD 2: Message Template ── -->
+    <!-- CARD 2: Message Template -->
     <div class="autofill-box">
       <div class="card-header">
         <div class="card-icon">✉</div>
@@ -578,53 +278,66 @@
 
       <div class="field-group">
         <label class="field-label">Client & Error Type</label>
-        <div class="select-group">
+        <div class="dropdown-row">
+
+          <!-- Client -->
           <div class="custom-dropdown">
-  <input type="text" id="clientMsgSelect" placeholder="— Choose Client —" readonly onclick="toggleMsgDropdown()">
-  <div id="clientMsgDropdown" class="dropdown-panel">
-    <div class="dropdown-column">
-      <div class="dropdown-title">Web Platform Main</div>
-      <div data-msg-client="guardian">Guardian</div>
-      <div data-msg-client="ilogix">Ilogix</div>
-      <div data-msg-client="ever">Ever</div>
-      <div data-msg-client="whitzard">Whitzard</div>
-      <div data-msg-client="jl">JL</div>
-      <div data-msg-client="jtz">JTZ</div>
-      <div data-msg-client="meekoo">Meekoo</div>
-      <div data-msg-client="leesa">Leesa</div>
-      <div data-msg-client="transworld">Transworld</div>
-      <div data-msg-client="leesachbbruce">Leesa-chb-bruce</div>
-      <div data-msg-client="ldglobal">Ld-global</div>
-      <div data-msg-client="Jaak">Jaak</div>
-      <div data-msg-client="Tkk">Tkk</div>
-    </div>
-    <div class="dropdown-column">
-      <div class="dropdown-title">Web Platform</div>
-      <div data-msg-client="onpointhub">On Point Hub</div>
-      <div data-msg-client="perennial1">Perennial</div>
-      <div data-msg-client="slchbnhp">SLCHB NHP</div>
-      <div data-msg-client="slchb">SLCHB</div>
-      <div data-msg-client="yifangchb">Yifang CHB</div>
-      <div data-msg-client="pieschb">Pies CHB</div>
-      <div data-msg-client="bhchb">BH CHB</div>
-      <div data-msg-client="abj">ABJ</div>
-      <div data-msg-client="newave">Newave</div>
-      <div data-msg-client="GHY">GHY</div>
-    </div>
-  </div>
-</div>
-          <select id="templateSelect" onchange="autofillTemplateJSON()">
-            <option value="">— Error Type —</option>
-            <option value="importer">Importer ID Error</option>
-            <option value="autocomplete">Could not find</option>
-            <option value="mid">MID Error</option>
-            <option value="profile">Profile Not Found</option>
-            <option value="masterbol">Master BOL Error</option>
-            <option value="hts">HTS not Found</option>
-            <option value="invoice">Invoice not Found</option>
-            <option value="fileref">File Reference Error</option>
-            <option value="nodocs">No Documents Error</option>
-          </select>
+            <div class="dropdown-trigger">
+              <input type="text" id="clientMsgSelect" placeholder="— Client —" readonly onclick="toggleDropdown('clientMsgDropdown')">
+            </div>
+            <div id="clientMsgDropdown" class="dropdown-panel">
+              <div class="dropdown-column">
+                <div class="dropdown-title">Web Platform Main</div>
+                <div data-msg-client="guardian">Guardian</div>
+                <div data-msg-client="ilogix">Ilogix</div>
+                <div data-msg-client="ever">Ever</div>
+                <div data-msg-client="whitzard">Whitzard</div>
+                <div data-msg-client="jl">JL</div>
+                <div data-msg-client="jtz">JTZ</div>
+                <div data-msg-client="meekoo">Meekoo</div>
+                <div data-msg-client="leesa">Leesa</div>
+                <div data-msg-client="transworld">Transworld</div>
+                <div data-msg-client="leesachbbruce">Leesa-chb-bruce</div>
+                <div data-msg-client="ldglobal">Ld-global</div>
+                <div data-msg-client="Jaak">Jaak</div>
+                <div data-msg-client="Tkk">Tkk</div>
+              </div>
+              <div class="dropdown-column">
+                <div class="dropdown-title">Web Platform</div>
+                <div data-msg-client="onpointhub">On Point Hub</div>
+                <div data-msg-client="perennial1">Perennial</div>
+                <div data-msg-client="slchbnhp">SLCHB NHP</div>
+                <div data-msg-client="slchb">SLCHB</div>
+                <div data-msg-client="yifangchb">Yifang CHB</div>
+                <div data-msg-client="pieschb">Pies CHB</div>
+                <div data-msg-client="bhchb">BH CHB</div>
+                <div data-msg-client="abj">ABJ</div>
+                <div data-msg-client="newave">Newave</div>
+                <div data-msg-client="GHY">GHY</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Error Type -->
+          <div class="custom-dropdown">
+            <div class="dropdown-trigger">
+              <input type="text" id="templateSelect" placeholder="— Error Type —" readonly onclick="toggleDropdown('templateDropdown')">
+            </div>
+            <div id="templateDropdown" class="dropdown-panel single-col">
+              <div class="dropdown-column">
+                <div data-template="importer">Importer ID Error</div>
+                <div data-template="autocomplete">Could not find</div>
+                <div data-template="mid">MID Error</div>
+                <div data-template="profile">Profile Not Found</div>
+                <div data-template="masterbol">Master BOL Error</div>
+                <div data-template="hts">HTS not Found</div>
+                <div data-template="invoice">Invoice not Found</div>
+                <div data-template="fileref">File Reference Error</div>
+                <div data-template="nodocs">No Documents Error</div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -632,34 +345,27 @@
         <label class="field-label">Thread ID <span style="font-weight:400;text-transform:none">(optional)</span></label>
         <input type="text" id="threadInput" placeholder="Enter Thread ID" oninput="autofillTemplateJSON()">
       </div>
-
       <div class="field-group">
         <label class="field-label">Replace STRING <span style="font-weight:400;text-transform:none">(optional)</span></label>
         <input type="text" id="stringInput" placeholder="Replacement text for STRING" oninput="autofillTemplateJSON()">
       </div>
-
       <div class="field-group">
         <label class="field-label">Output JSON</label>
         <textarea id="templateBox" class="textarea-lg" readonly placeholder="Select client + error type to generate…"></textarea>
       </div>
-
-      <div id="stringWarning" class="status-bar warn">
-        ⚠️ Template still contains unreplaced STRING
-      </div>
-
+      <div id="stringWarning" class="status-bar warn">⚠️ Template still contains unreplaced STRING</div>
       <div class="btn-row">
         <button class="btn btn-primary" onclick="copyTemplateJSON(this)">📋 Copy JSON</button>
         <button class="btn btn-danger" onclick="resetTemplateFields()">🔄 Reset</button>
       </div>
     </div>
 
-    <!-- ── CARD 3: Skip Regex ── -->
+    <!-- CARD 3: Skip Regex -->
     <div class="autofill-box">
       <div class="card-header">
         <div class="card-icon">⊘</div>
         <span class="card-title">Skip Regex</span>
       </div>
-
       <div class="field-group">
         <label class="field-label">Type</label>
         <select id="skipMode">
@@ -668,122 +374,52 @@
           <option value="files">Skip Files</option>
         </select>
       </div>
-
       <div class="field-group">
-        <label class="field-label">Filenames <span style="font-weight:400;text-transform:none">(one per line)</span></label>
-        <textarea id="skipInput" class="textarea-sm"
-          placeholder="invoice.pdf&#10;packinglist.pdf"></textarea>
+        <label class="field-label">Filenames <span style="font-weight:400;text-transform:none">(one per line, must include extension)</span></label>
+        <textarea id="skipInput" class="textarea-sm" placeholder="invoice.pdf&#10;packinglist.pdf"></textarea>
       </div>
-
       <div id="skipStatus" class="status-bar"></div>
-
       <div class="field-group" style="margin-top:0.75rem">
         <label class="field-label">Generated Regex</label>
         <textarea id="skipOutput" class="textarea-sm" readonly placeholder="Regex will appear here…"></textarea>
       </div>
-
       <div class="btn-row">
         <button class="btn btn-primary" onclick="copySkipRegex(this)">📋 Copy Regex</button>
         <button class="btn btn-danger" onclick="resetSkip()">🔄 Reset</button>
       </div>
     </div>
 
-    <!-- ── CARD 4: JSON Tool ── -->
-    <div class="autofill-box">
-      <div class="card-header">
-        <div class="card-icon">⚙</div>
-        <span class="card-title">JSON Tool</span>
-      </div>
-
-      <div class="field-group">
-        <label class="field-label">Mode</label>
-        <select id="jsonMode">
-          <option value="clean">HTS Corrector (Remove 981)</option>
-          <option value="merge">Merge Line Items</option>
-        </select>
-      </div>
-
-      <div class="field-group">
-        <label class="field-label">Input JSON</label>
-        <textarea id="jsonInput" class="textarea-md" placeholder="Paste JSON here…" oninput="validateJsonInput()"></textarea>
-        <div id="jsonInputStatus" class="status-bar"></div>
-      </div>
-
-      <div class="btn-row">
-        <button class="btn btn-primary btn-full" onclick="processJSON()">⚙️ Run Tool</button>
-      </div>
-
-      <div id="jsonToolStatus" class="status-bar" style="margin-top:0.5rem"></div>
-
-      <div class="field-group" style="margin-top:0.75rem">
-        <label class="field-label">Output JSON</label>
-        <textarea id="jsonOutput" class="textarea-md" readonly placeholder="Result will appear here…"></textarea>
-      </div>
-
-      <div class="btn-row">
-        <button class="btn btn-secondary btn-full" onclick="copyOutput(this)">📋 Copy Output</button>
-      </div>
-    </div>
-
-  </div><!-- end .container -->
-
+  </div>
   <div id="toast"></div>
 
   <script>
-    // ─────────────────────────────────────────
-    // TITLE TYPING
-    // ─────────────────────────────────────────
     function typeTitle() {
-      const el = document.getElementById("title");
-      const text = "DevEase.io";
-      let i = 0;
-      function type() {
-        if (i < text.length) { el.textContent += text[i++]; setTimeout(type, 100); }
-        else { setTimeout(() => { el.textContent = ""; i = 0; type(); }, 2500); }
-      }
+      const el = document.getElementById("title"), text = "DevEase.io"; let i = 0;
+      function type() { if (i < text.length) { el.textContent += text[i++]; setTimeout(type, 100); } else { setTimeout(() => { el.textContent = ""; i = 0; type(); }, 2500); } }
       type();
     }
 
-    // ─────────────────────────────────────────
-    // SHIPS
-    // ─────────────────────────────────────────
     function createShips() {
       const ocean = document.getElementById("oceanBackground");
       const n = window.innerWidth < 640 ? 4 : 8;
       for (let i = 0; i < n; i++) {
         const ship = document.createElement("div");
         ship.className = "ship"; ship.textContent = "🚢";
-        ship.style.left = `${Math.random() * 100}vw`;
-        ship.style.top  = `${Math.random() * 100}vh`;
-        ship.style.animation = `sail ${12 + Math.random() * 10}s linear ${Math.random() * 5}s infinite`;
+        ship.style.left = `${Math.random()*100}vw`; ship.style.top = `${Math.random()*100}vh`;
+        ship.style.animation = `sail ${12+Math.random()*10}s linear ${Math.random()*5}s infinite`;
         ocean.appendChild(ship);
       }
       const style = document.createElement("style");
-      style.textContent = `@keyframes sail {
-        0%   { transform: translateX(0) translateY(0) rotate(0deg); }
-        25%  { transform: translateX(${Math.random()*40-20}vw) translateY(${Math.random()*8-4}vh) rotate(${Math.random()*8-4}deg); }
-        50%  { transform: translateX(${Math.random()*40-20}vw) translateY(${Math.random()*8-4}vh) rotate(${Math.random()*8-4}deg); }
-        75%  { transform: translateX(${Math.random()*40-20}vw) translateY(${Math.random()*8-4}vh) rotate(${Math.random()*8-4}deg); }
-        100% { transform: translateX(0) translateY(0) rotate(0deg); }
-      }`;
+      style.textContent = `@keyframes sail { 0% { transform:translateX(0) translateY(0) rotate(0deg); } 25% { transform:translateX(${Math.random()*40-20}vw) translateY(${Math.random()*8-4}vh) rotate(${Math.random()*8-4}deg); } 50% { transform:translateX(${Math.random()*40-20}vw) translateY(${Math.random()*8-4}vh) rotate(${Math.random()*8-4}deg); } 75% { transform:translateX(${Math.random()*40-20}vw) translateY(${Math.random()*8-4}vh) rotate(${Math.random()*8-4}deg); } 100% { transform:translateX(0) translateY(0) rotate(0deg); } }`;
       document.head.appendChild(style);
       document.addEventListener("mousemove", e => {
         document.querySelectorAll(".ship").forEach(s => {
-          const r = s.getBoundingClientRect();
-          const dx = e.clientX - (r.left + r.width/2);
-          const dy = e.clientY - (r.top  + r.height/2);
-          if (Math.hypot(dx, dy) < 100) {
-            const a = Math.atan2(dy, dx);
-            s.style.transform = `translate(${-Math.cos(a)*50}px,${-Math.sin(a)*50}px)`;
-            setTimeout(() => s.style.transform = "", 300);
-          }
+          const r = s.getBoundingClientRect(), dx = e.clientX-(r.left+r.width/2), dy = e.clientY-(r.top+r.height/2);
+          if (Math.hypot(dx,dy) < 100) { const a = Math.atan2(dy,dx); s.style.transform = `translate(${-Math.cos(a)*50}px,${-Math.sin(a)*50}px)`; setTimeout(()=>s.style.transform="",300); }
         });
       });
     }
 
-    // ─────────────────────────────────────────
-    // THEME
-    // ─────────────────────────────────────────
     function toggleTheme() {
       document.body.classList.toggle("dark-mode");
       const isDark = document.body.classList.contains("dark-mode");
@@ -791,33 +427,21 @@
       document.getElementById("themeSwitch").checked = isDark;
     }
 
-    // ─────────────────────────────────────────
-    // SETTINGS
-    // ─────────────────────────────────────────
     function toggleSettings() {
-      const panel = document.querySelector(".settings-panel");
-      const btn   = document.querySelector(".settings-toggle button");
+      const panel = document.querySelector(".settings-panel"), btn = document.querySelector(".settings-toggle button");
       btn.classList.add("spin");
-      for (let i = 0; i < 4; i++) {
-        const s = document.createElement("div"); s.className = "smoke";
-        s.style.left = `${Math.random()*30}px`; s.style.top = `${Math.random()*15}px`;
-        btn.appendChild(s); setTimeout(() => s.remove(), 1000);
-      }
-      setTimeout(() => { btn.classList.remove("spin"); panel.classList.toggle("active"); }, 500);
+      for (let i=0;i<4;i++) { const s=document.createElement("div"); s.className="smoke"; s.style.left=`${Math.random()*30}px`; s.style.top=`${Math.random()*15}px`; btn.appendChild(s); setTimeout(()=>s.remove(),1000); }
+      setTimeout(()=>{ btn.classList.remove("spin"); panel.classList.toggle("active"); },500);
     }
 
-    // ─────────────────────────────────────────
-    // TOAST
-    // ─────────────────────────────────────────
-    function showToast(msg) {
-      const t = document.getElementById("toast");
-      t.textContent = msg; t.style.display = "block";
-      setTimeout(() => t.style.display = "none", 2500);
+    function showToast(msg) { const t=document.getElementById("toast"); t.textContent=msg; t.style.display="block"; setTimeout(()=>t.style.display="none",2500); }
+
+    function toggleDropdown(id) {
+      document.querySelectorAll(".dropdown-panel").forEach(p => { if (p.id !== id) p.style.display = "none"; });
+      const dd = document.getElementById(id);
+      dd.style.display = dd.style.display === "grid" ? "none" : "grid";
     }
 
-    // ─────────────────────────────────────────
-    // CONFIG MAP
-    // ─────────────────────────────────────────
     const configMap = {
       guardian:      { config: "data/config/dev/guardian-customs.yaml",     root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
       ilogix:        { config: "data/config/dev/ilogix.yaml",               root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
@@ -856,276 +480,116 @@
       nodocs:       `Hi,\n\nNo documents were found attached with this request.\n\nPlease review and attach the required documents.\n\nBest regards`,
     };
 
-    // ─────────────────────────────────────────
-    // CARD 1: RUN / FILL ENTRY
-    // ─────────────────────────────────────────
+    // CARD 1
     function autofillJSON() {
-      const client = document.getElementById("clientSelect").value;
-      const mode   = document.getElementById("modeSelect").value;
-      const box    = document.getElementById("jsonBox");
-      const id     = document.getElementById("shipmentInput").value.trim();
+      const client = document.getElementById("clientSelect").getAttribute("data-value") || "";
+      const mode = document.getElementById("modeSelect").value;
+      const box = document.getElementById("jsonBox");
+      const id = document.getElementById("shipmentInput").value.trim();
       if (!configMap[client]) { box.value = ""; return; }
       let json;
-      if (mode === "fill") {
-        json = { shipment_id: id || "string", root_path: configMap[client].root, config_path: configMap[client].config, entry_number: "", display: ":2433.0" };
-      } else {
-        json = { thread_id: "string", shipment_id: id || "string", root_path: configMap[client].root, config_path: configMap[client].config, ignore_files_regex: "", ignore_sheets_regex: "", force_process_attachments: true, display: ":2433.0" };
-      }
+      if (mode === "fill") { json = { shipment_id: id||"string", root_path: configMap[client].root, config_path: configMap[client].config, entry_number: "", display: ":2433.0" }; }
+      else { json = { thread_id: "string", shipment_id: id||"string", root_path: configMap[client].root, config_path: configMap[client].config, ignore_files_regex: "", ignore_sheets_regex: "", force_process_attachments: true, display: ":2433.0" }; }
       box.value = JSON.stringify(json, null, 2);
     }
+    function getShipmentId() { const id=document.getElementById("shipmentInput").value.trim(); if(!id){showToast("⚠️ Please enter a Shipment ID first");return null;} return id; }
+    function openTransworldLogs() { const id=getShipmentId(); if(!id)return; window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/web-platform-2/docparser/customs_assistant`,"_blank"); }
+    function openPlatformLogs()   { const id=getShipmentId(); if(!id)return; window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/web-platform/docparser/customs_assistant`,"_blank"); }
+    function handleEnter(e) { if(e.key==="Enter"){const id=getShipmentId();if(!id)return;window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/web-platform-main/docparser/customs_assistant`,"_blank");} }
+    function copyAutoFilled(btn) { const box=document.getElementById("jsonBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
 
-    function getShipmentId() {
-      const id = document.getElementById("shipmentInput").value.trim();
-      if (!id) { showToast("⚠️ Please enter a Shipment ID first"); return null; }
-      return id;
-    }
-
-    function openTransworldLogs() {
-      const id = getShipmentId(); if (!id) return;
-      window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/web-platform-2/docparser/customs_assistant`, "_blank");
-    }
-    function openPlatformLogs() {
-      const id = getShipmentId(); if (!id) return;
-      window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/web-platform/docparser/customs_assistant`, "_blank");
-    }
-    function handleEnter(e) {
-      if (e.key === "Enter") {
-        const id = getShipmentId(); if (!id) return;
-        window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/web-platform-main/docparser/customs_assistant`, "_blank");
-      }
-    }
-
-    function copyAutoFilled(btn) {
-      const box = document.getElementById("jsonBox");
-      if (!box.value) { showToast("Nothing to copy yet"); return; }
-      box.select(); document.execCommand("copy");
-      flashBtn(btn, "✅ Copied!");
-    }
-
-    // ─────────────────────────────────────────
-    // CARD 2: MESSAGE TEMPLATE
-    // ─────────────────────────────────────────
+    // CARD 2
     function autofillTemplateJSON() {
       const client  = document.getElementById("clientMsgSelect").getAttribute("data-value") || "";
-      const type    = document.getElementById("templateSelect").value;
+      const type    = document.getElementById("templateSelect").getAttribute("data-value") || "";
       const thread  = document.getElementById("threadInput").value.trim();
       const str     = document.getElementById("stringInput").value.trim();
       const box     = document.getElementById("templateBox");
       const warning = document.getElementById("stringWarning");
-
       if (configMap[client] && messageTemplates[type]) {
         let msg = messageTemplates[type];
         if (str) msg = msg.replace("STRING", str);
-        const json = { thread_id: thread || "string", root_path: configMap[client].root, config_path: configMap[client].config, message: msg };
-        box.value = JSON.stringify(json, null, 2);
-        // Warn if STRING still present
-        const hasString = box.value.includes("STRING");
-        warning.classList.toggle("show", hasString);
-      } else {
-        box.value = "";
-        warning.classList.remove("show");
-      }
+        box.value = JSON.stringify({ thread_id: thread||"string", root_path: configMap[client].root, config_path: configMap[client].config, message: msg }, null, 2);
+        warning.classList.toggle("show", box.value.includes("STRING"));
+      } else { box.value = ""; warning.classList.remove("show"); }
     }
-// Message template client dropdown
-const msgInput    = document.getElementById("clientMsgSelect");
-const msgDropdown = document.getElementById("clientMsgDropdown");
-
-document.querySelectorAll("[data-msg-client]").forEach(item => {
-  item.addEventListener("click", function () {
-    const client = this.getAttribute("data-msg-client");
-    const label  = this.textContent.trim();
-    msgInput.value = label;
-    msgInput.setAttribute("data-value", client);
-    msgDropdown.style.display = "none";
-    autofillTemplateJSON();
-  });
-});
-
-document.addEventListener("click", e => {
-  if (!e.target.closest("#clientMsgSelect") && !e.target.closest("#clientMsgDropdown")) {
-    msgDropdown.style.display = "none";
-  }
-});
-function toggleMsgDropdown() {
-  const dd = document.getElementById("clientMsgDropdown");
-  dd.style.display = dd.style.display === "grid" ? "none" : "grid";
-}
     function resetTemplateFields() {
+      const cm = document.getElementById("clientMsgSelect"); cm.value=""; cm.removeAttribute("data-value");
+      const ts = document.getElementById("templateSelect");  ts.value=""; ts.removeAttribute("data-value");
       document.getElementById("threadInput").value = "";
       document.getElementById("stringInput").value = "";
+      document.getElementById("templateBox").value = "";
       document.getElementById("stringWarning").classList.remove("show");
-      autofillTemplateJSON();
     }
+    function copyTemplateJSON(btn) { const box=document.getElementById("templateBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
 
-    function copyTemplateJSON(btn) {
-      const box = document.getElementById("templateBox");
-      if (!box.value) { showToast("Nothing to copy yet"); return; }
-      box.select(); document.execCommand("copy");
-      flashBtn(btn, "✅ Copied!");
-    }
-
-    // ─────────────────────────────────────────
-    // CARD 3: SKIP REGEX
-    // ─────────────────────────────────────────
-    function resetSkip() {
-      document.getElementById("skipInput").value = "";
-      document.getElementById("skipOutput").value = "";
-      const s = document.getElementById("skipStatus");
-      s.className = "status-bar"; s.textContent = "";
-    }
-
+    // CARD 3
+    function resetSkip() { document.getElementById("skipInput").value=""; document.getElementById("skipOutput").value=""; const s=document.getElementById("skipStatus"); s.className="status-bar"; s.textContent=""; }
     function generateSkipRegex() {
-      const mode   = document.getElementById("skipMode").value;
-      const input  = document.getElementById("skipInput").value.trim();
-      const output = document.getElementById("skipOutput");
-      const status = document.getElementById("skipStatus");
-
-      if (mode === "sheet") {
-        output.value = "^(?!YOUR_TEXT_HERE$).*";
-        status.className = "status-bar warn show";
-        status.textContent = "⚠️ Remember to replace YOUR_TEXT_HERE";
-        return;
+      const mode=document.getElementById("skipMode").value, input=document.getElementById("skipInput").value.trim();
+      const output=document.getElementById("skipOutput"), status=document.getElementById("skipStatus");
+      if (mode==="sheet") { output.value="^(?!YOUR_TEXT_HERE$).*"; status.className="status-bar warn show"; status.textContent="⚠️ Remember to replace YOUR_TEXT_HERE"; return; }
+      if (mode==="files") {
+        if (!input) { output.value=""; status.className="status-bar"; status.textContent=""; return; }
+        const files = input.split("\n").map(f=>f.trim()).filter(f=>f.length>0 && f.includes("."));
+        if (!files.length) { output.value=""; status.className="status-bar warn show"; status.textContent="⚠️ No valid filenames — must include extension"; return; }
+        output.value = "^(" + files.map(f=>f.replace(/\./g,"\\\\." )).join("|") + ")$";
+        status.className="status-bar info show"; status.textContent=`📄 ${files.length} file${files.length!==1?"s":""} will be skipped`; return;
       }
-
-      if (mode === "files") {
-        if (!input) { output.value = ""; status.className = "status-bar"; status.textContent = ""; return; }
-        const files = input.split("\n").map(f => f.trim()).filter(f => f.length > 0 && f.includes("."));
-const escaped = files.map(f => f.replace(/\./g, '\\\\.'));
-        output.value = "^(" + escaped.join("|") + ")$";
-        status.className = "status-bar info show";
-        status.textContent = `📄 ${files.length} file${files.length !== 1 ? "s" : ""} will be skipped`;
-        return;
-      }
-
-      output.value = "";
-      status.className = "status-bar"; status.textContent = "";
+      output.value=""; status.className="status-bar"; status.textContent="";
     }
+    function copySkipRegex(btn) { const box=document.getElementById("skipOutput"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
 
-    function copySkipRegex(btn) {
-      const box = document.getElementById("skipOutput");
-      if (!box.value) { showToast("Nothing to copy yet"); return; }
-      box.select(); document.execCommand("copy");
-      flashBtn(btn, "✅ Copied!");
-    }
-
+    // DOM READY
     document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("skipMode").addEventListener("change", generateSkipRegex);
       document.getElementById("skipInput").addEventListener("input", generateSkipRegex);
 
-      // Client dropdown
-      const input    = document.getElementById("clientSelect");
-      const dropdown = document.getElementById("clientDropdown");
-      input.addEventListener("click", () => {
-        dropdown.style.display = dropdown.style.display === "grid" ? "none" : "grid";
+      // close all dropdowns on outside click
+      document.addEventListener("click", e => {
+        if (!e.target.closest(".custom-dropdown")) {
+          document.querySelectorAll(".dropdown-panel").forEach(p => p.style.display="none");
+        }
       });
+
+      // Card 1 client
       document.querySelectorAll("[data-client]").forEach(item => {
-        item.addEventListener("click", function () {
-          input.value = this.getAttribute("data-client");
-          dropdown.style.display = "none";
+        item.addEventListener("click", function() {
+          const el = document.getElementById("clientSelect");
+          el.value = this.textContent.trim();
+          el.setAttribute("data-value", this.getAttribute("data-client"));
+          document.getElementById("clientDropdown").style.display="none";
           autofillJSON();
         });
       });
-      document.addEventListener("click", e => {
-        if (!e.target.closest(".custom-dropdown")) dropdown.style.display = "none";
+
+      // Card 2 client
+      document.querySelectorAll("[data-msg-client]").forEach(item => {
+        item.addEventListener("click", function() {
+          const el = document.getElementById("clientMsgSelect");
+          el.value = this.textContent.trim();
+          el.setAttribute("data-value", this.getAttribute("data-msg-client"));
+          document.getElementById("clientMsgDropdown").style.display="none";
+          autofillTemplateJSON();
+        });
+      });
+
+      // Card 2 error type
+      document.querySelectorAll("[data-template]").forEach(item => {
+        item.addEventListener("click", function() {
+          const el = document.getElementById("templateSelect");
+          el.value = this.textContent.trim();
+          el.setAttribute("data-value", this.getAttribute("data-template"));
+          document.getElementById("templateDropdown").style.display="none";
+          autofillTemplateJSON();
+        });
       });
 
       typeTitle();
       createShips();
     });
 
-    // ─────────────────────────────────────────
-    // CARD 4: JSON TOOL
-    // ─────────────────────────────────────────
-    function validateJsonInput() {
-      const val    = document.getElementById("jsonInput").value.trim();
-      const status = document.getElementById("jsonInputStatus");
-      if (!val) { status.className = "status-bar"; status.textContent = ""; return; }
-      try {
-        JSON.parse(val);
-        status.className = "status-bar success show";
-        status.textContent = "✓ Valid JSON";
-      } catch {
-        status.className = "status-bar warn show";
-        status.textContent = "✗ Invalid JSON";
-      }
-    }
-
-    function processJSON() {
-      const mode = document.getElementById("jsonMode").value;
-      if (mode === "clean") cleanHTS();
-      else mergeLines();
-    }
-
-    function cleanHTS() {
-      const status = document.getElementById("jsonToolStatus");
-      try {
-        const data = JSON.parse(document.getElementById("jsonInput").value);
-        let removed = 0;
-        if (data.products && Array.isArray(data.products)) {
-          data.products.forEach(p => {
-            if (p.tariff_codes) {
-              const before = p.tariff_codes.length;
-              const codes = [];
-              p.tariff_codes.forEach(c => c.split(",").forEach(x => { x = x.trim(); if (x && !x.startsWith("981")) codes.push(x); }));
-              p.tariff_codes = codes;
-              removed += before - codes.length;
-            }
-          });
-        }
-        document.getElementById("jsonOutput").value = JSON.stringify(data, null, 2);
-        status.className = "status-bar success show";
-        status.textContent = `✓ Removed ${removed} 981 code${removed !== 1 ? "s" : ""}`;
-      } catch { showToast("⚠️ Invalid JSON"); }
-    }
-
-    function mergeLines() {
-      const status = document.getElementById("jsonToolStatus");
-      try {
-        const data = JSON.parse(document.getElementById("jsonInput").value);
-        if (!data.products?.length) { showToast("No products found"); return; }
-        const before = data.products.length;
-        const groups = {};
-        data.products.forEach(p => {
-          let codes = [];
-          if (p.tariff_codes) p.tariff_codes.forEach(c => c.split(",").forEach(x => { x = x.trim(); if (x && !x.startsWith("981")) codes.push(x); }));
-          codes.sort();
-          const key = codes.join("|");
-          if (!groups[key]) groups[key] = [];
-          groups[key].push(p);
-        });
-        data.products = Object.keys(groups).map(key => {
-          const items = groups[key];
-          let tv = 0, tq = 0, tg = 0, hasG = false;
-          items.forEach(p => {
-            tv += parseFloat(p.total_line_value || 0);
-            tq += parseFloat(p.quantity || 0);
-            if (p.gross_weight) { tg += parseFloat(p.gross_weight); hasG = true; }
-          });
-          return { total_line_value: tv.toFixed(2), country_of_origin_code: items[0].country_of_origin_code, tariff_codes: key.split("|"), quantity: tq.toString(), description: items[0].description, net_weight: "", gross_weight: hasG ? tg.toFixed(2) : "" };
-        });
-        document.getElementById("jsonOutput").value = JSON.stringify(data, null, 2);
-        const after = data.products.length;
-        status.className = "status-bar success show";
-        status.textContent = `✓ Merged ${before} → ${after} line items`;
-      } catch { showToast("⚠️ Invalid JSON"); }
-    }
-
-    function copyOutput(btn) {
-      const box = document.getElementById("jsonOutput");
-      if (!box.value) { showToast("Nothing to copy"); return; }
-      box.select(); document.execCommand("copy");
-      flashBtn(btn, "✅ Copied!");
-    }
-
-    // ─────────────────────────────────────────
-    // HELPERS
-    // ─────────────────────────────────────────
-    function flashBtn(btn, msg) {
-      const orig = btn.innerHTML;
-      btn.innerHTML = msg;
-      btn.classList.add("btn-success");
-      setTimeout(() => { btn.innerHTML = orig; btn.classList.remove("btn-success"); }, 1500);
-    }
+    function flashBtn(btn, msg) { const orig=btn.innerHTML; btn.innerHTML=msg; btn.classList.add("btn-success"); setTimeout(()=>{ btn.innerHTML=orig; btn.classList.remove("btn-success"); },1500); }
   </script>
 </body>
 </html>
