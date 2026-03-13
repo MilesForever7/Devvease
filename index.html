@@ -251,8 +251,7 @@
       </div>
       <div class="field-group">
         <label class="field-label">Shipment ID</label>
-        <input type="text" id="shipmentInput" placeholder="Enter Shipment ID" oninput="autofillJSON()" onkeypress="handleEnter(event)">
-      </div>
+        <input type="text" id="shipmentInput" placeholder="Enter Shipment ID — Ctrl/Cmd+Click to open logs" oninput="autofillJSON()">
       <div class="field-group">
         <label class="field-label">Output JSON</label>
         <textarea id="jsonBox" class="textarea-md" readonly placeholder="Select a client to generate JSON…"></textarea>
@@ -492,7 +491,19 @@
     function getShipmentId() { const id=document.getElementById("shipmentInput").value.trim(); if(!id){showToast("⚠️ Please enter a Shipment ID first");return null;} return id; }
     function openTransworldLogs() { const id=getShipmentId(); if(!id)return; window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/web-platform-2/docparser/customs_assistant`,"_blank"); }
     function openPlatformLogs()   { const id=getShipmentId(); if(!id)return; window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/web-platform/docparser/customs_assistant`,"_blank"); }
-    function handleEnter(e) { if(e.key==="Enter"){const id=getShipmentId();if(!id)return;window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/web-platform-main/docparser/customs_assistant`,"_blank");} }
+    function handleEnter(e) {}  // no longer used
+
+// ADD this inside your DOMContentLoaded block, after the other listeners:
+document.getElementById("shipmentInput").addEventListener("click", function(e) {
+  if (e.ctrlKey || e.metaKey) {
+    const id = getShipmentId();
+    if (!id) return;
+    window.open(
+      `http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/web-platform-main/docparser/customs_assistant`,
+      "_blank"
+    );
+  }
+});
     function copyAutoFilled(btn) { const box=document.getElementById("jsonBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
 
     // CARD 2
@@ -590,5 +601,6 @@
   </script>
 </body>
 </html>
+
 
 
