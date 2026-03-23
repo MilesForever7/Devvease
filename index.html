@@ -108,11 +108,11 @@
     .field-group { margin-bottom: 0.75rem; }
     .field-label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; }
 
-    .autofill-box select, .autofill-box textarea, .autofill-box input { width: 100%; border-radius: var(--radius-sm); font-family: inherit; background: var(--box-bg); color: var(--text-color); border: 1px solid var(--border-color); transition: border-color var(--transition), box-shadow var(--transition); outline: none; font-size: 0.9rem; }
+    .autofill-box select, .autofill-box textarea, .autofill-box input[type="text"] { width: 100%; border-radius: var(--radius-sm); font-family: inherit; background: var(--box-bg); color: var(--text-color); border: 1px solid var(--border-color); transition: border-color var(--transition), box-shadow var(--transition); outline: none; font-size: 0.9rem; }
     .autofill-box select { padding: 0.55rem 0.75rem; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.75rem center; padding-right: 2rem; }
-    .autofill-box input { padding: 0.55rem 0.75rem; }
+    .autofill-box input[type="text"] { padding: 0.55rem 0.75rem; }
     .autofill-box textarea { padding: 0.65rem 0.75rem; font-family: 'Fira Code', monospace; font-size: 0.82rem; resize: none; line-height: 1.6; }
-    .autofill-box select:focus, .autofill-box input:focus, .autofill-box textarea:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(42,67,101,0.12); }
+    .autofill-box select:focus, .autofill-box input[type="text"]:focus, .autofill-box textarea:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(42,67,101,0.12); }
     .textarea-sm { height: 90px; }
     .textarea-md { height: 130px; }
     .textarea-lg { height: 160px; }
@@ -134,18 +134,16 @@
     .dropdown-trigger { position: relative; width: 100%; }
     .dropdown-trigger input { width: 100%; cursor: pointer; padding-right: 2rem !important; }
     .dropdown-trigger::after { content: ''; position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); width: 12px; height: 12px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-size: contain; pointer-events: none; }
-
     .dropdown-panel { display: none; position: absolute; top: calc(100% + 4px); left: 0; width: 440px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 0.75rem; box-shadow: var(--shadow-lg); grid-template-columns: 1fr 1fr; gap: 1rem; max-height: 280px; overflow-y: auto; z-index: 9999; }
     .dropdown-panel.single-col { grid-template-columns: 1fr; width: 220px; }
     .dropdown-panel.show { display: grid; }
     .dropdown-column div { padding: 0.45rem 0.6rem; cursor: pointer; border-radius: var(--radius-sm); font-size: 0.875rem; transition: background var(--transition), color var(--transition); color: var(--text-color); }
     .dropdown-column div:hover { background: var(--box-bg); color: var(--primary); }
     .dropdown-title { font-weight: 700; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 0.4rem; padding: 0.3rem 0.6rem; border-bottom: 1px solid var(--border-color); }
-
-    /* side by side dropdowns in message template */
     .dropdown-row { display: flex; gap: 0.5rem; }
     .dropdown-row .custom-dropdown { flex: 1; min-width: 0; }
 
+    /* STATUS BAR */
     .status-bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.6rem; border-radius: var(--radius-sm); font-size: 0.78rem; font-weight: 500; margin-top: 0.5rem; opacity: 0; transition: opacity 0.2s; }
     .status-bar.show { opacity: 1; }
     .status-bar.info { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
@@ -153,6 +151,27 @@
     body.dark-mode .status-bar.info { background: #1e3a5f; color: #93c5fd; border-color: #1e40af; }
     body.dark-mode .status-bar.warn { background: #2d1b00; color: #fbbf24; border-color: #92400e; }
 
+    /* SMART PASTE */
+    .smart-paste-area { width: 100%; min-height: 70px; padding: 0.65rem 0.75rem; border: 1px dashed var(--border-color); border-radius: var(--radius-sm); font-family: 'Fira Code', monospace; font-size: 0.82rem; background: var(--box-bg); color: var(--text-muted); resize: none; line-height: 1.6; transition: border-color var(--transition); }
+    .smart-paste-area:focus { border-color: var(--border-focus); outline: none; box-shadow: 0 0 0 3px rgba(42,67,101,0.12); color: var(--text-color); }
+    .detected-pills { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem; }
+    .pill { font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 999px; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+    .pill.warn { background: #fffbeb; color: #92400e; border-color: #fde68a; }
+
+    /* SMART PASTE ROW */
+    .smart-row { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+
+    /* COLLAPSIBLE */
+    .collapsible-section { border-top: 1px dashed var(--border-color); margin-top: 0.75rem; padding-top: 0.75rem; }
+    .collapsible-toggle { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.78rem; font-weight: 600; color: var(--text-muted); user-select: none; background: none; border: none; padding: 0; font-family: inherit; transition: color var(--transition); }
+    .collapsible-toggle:hover { color: var(--primary); }
+    .collapsible-toggle .chevron { font-size: 0.65rem; transition: transform 0.2s; }
+    .collapsible-toggle.open .chevron { transform: rotate(180deg); }
+    .collapsible-body { display: none; margin-top: 0.65rem; }
+    .collapsible-body.open { display: block; }
+    .skip-sheet-body { display: none; margin-top: 0.4rem; }
+
+    /* TOAST */
     #toast { display: none; position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.65rem 1.25rem; border-radius: var(--radius); font-size: 0.875rem; font-weight: 500; z-index: 2000; box-shadow: var(--shadow-lg); animation: fadeInOut 2.5s ease; }
     @keyframes fadeInOut { 0%,100% { opacity: 0; transform: translate(-50%,8px); } 10%,90% { opacity: 1; transform: translate(-50%,0); } }
 
@@ -165,6 +184,7 @@
       .dropdown-panel, .dropdown-panel.single-col { width: 100%; }
       .btn-row, .dropdown-row { flex-direction: column; }
       .btn-row .btn { width: 100%; }
+      .smart-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -178,6 +198,7 @@
     <span class="vibe">Dark</span>
   </div>
   <div class="ocean-background" id="oceanBackground"></div>
+  <div class="logo-container"><img src="amariai.PNG" alt="Amari AI Logo"></div>
   <div class="header"><h1 id="title"></h1></div>
   <div class="settings-toggle">
     <button onclick="toggleSettings()">⚙️</button>
@@ -231,6 +252,8 @@
               <div data-client="leesachbbruce">Leesa-chb-bruce</div>
               <div data-client="ldglobal">Ld-global</div>
               <div data-client="Jaak">Jaak</div>
+<div data-client="jdusa">jdusa</div>
+<div data-client="pinnacle">Pinnacle</div>
               <div data-client="Tkk">Tkk</div>
             </div>
             <div class="dropdown-column">
@@ -252,7 +275,7 @@
       <div class="field-group">
         <label class="field-label">Shipment ID</label>
         <input type="text" id="shipmentInput" placeholder="Enter Shipment ID — Ctrl/Cmd+Click to open logs" oninput="autofillJSON()">
-        </div>
+      </div>
       <div class="field-group">
         <label class="field-label">Output JSON</label>
         <textarea id="jsonBox" class="textarea-md" readonly placeholder="Select a client to generate JSON…"></textarea>
@@ -272,12 +295,9 @@
         <div class="card-icon">✉</div>
         <span class="card-title">Message Template</span>
       </div>
-
       <div class="field-group">
         <label class="field-label">Client & Error Type</label>
         <div class="dropdown-row">
-
-          <!-- Client -->
           <div class="custom-dropdown">
             <div class="dropdown-trigger">
               <input type="text" id="clientMsgSelect" placeholder="— Client —" readonly onclick="toggleDropdown('clientMsgDropdown')">
@@ -297,6 +317,8 @@
                 <div data-msg-client="leesachbbruce">Leesa-chb-bruce</div>
                 <div data-msg-client="ldglobal">Ld-global</div>
                 <div data-msg-client="Jaak">Jaak</div>
+<div data-client="jdusa">jdusa</div>
+<div data-client="pinnacle">Pinnacle</div>
                 <div data-msg-client="Tkk">Tkk</div>
               </div>
               <div class="dropdown-column">
@@ -314,8 +336,6 @@
               </div>
             </div>
           </div>
-
-          <!-- Error Type -->
           <div class="custom-dropdown">
             <div class="dropdown-trigger">
               <input type="text" id="templateSelect" placeholder="— Error Type —" readonly onclick="toggleDropdown('templateDropdown')">
@@ -334,10 +354,8 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
-
       <div class="field-group">
         <label class="field-label">Thread ID <span style="font-weight:400;text-transform:none">(optional)</span></label>
         <input type="text" id="threadInput" placeholder="Enter Thread ID" oninput="autofillTemplateJSON()">
@@ -386,7 +404,89 @@
       </div>
     </div>
 
-  </div>
+    <!-- CARDS 4 + 5: Smart Paste row -->
+    <div class="smart-row">
+
+      <!-- CARD 4: Smart Paste — Fill Entry -->
+      <div class="autofill-box">
+        <div class="card-header">
+          <div class="card-icon">⚡</div>
+          <span class="card-title">Smart Paste — Fill Entry</span>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Paste Alert Text</label>
+          <textarea id="smartPaste" class="smart-paste-area" placeholder="Paste alert text — client + shipment ID detected automatically…" oninput="handleSmartPaste()"></textarea>
+        </div>
+        <div id="smartPills" class="detected-pills"></div>
+        <div id="smartStatus" class="status-bar" style="margin-top:0.5rem"></div>
+        <div class="field-group" style="margin-top:0.75rem">
+          <label class="field-label">Output JSON</label>
+          <textarea id="smartJsonBox" class="textarea-md" readonly placeholder="JSON will appear here…"></textarea>
+        </div>
+       <div class="btn-row">
+  <button class="btn btn-primary" onclick="copySmartJSON(this)">📋 Copy JSON</button>
+  <button class="btn btn-secondary" id="logsBtn1" onclick="openFillEntryLogs()" style="display:none">🔗 Open Logs</button>
+  <button class="btn btn-danger" onclick="resetSmartPaste()">🔄 Reset</button>
+</div>
+      </div>
+
+
+      <!-- CARD 5: Smart Paste — Get Extraction -->
+      <div class="autofill-box">
+        <div class="card-header">
+          <div class="card-icon">🔍</div>
+          <span class="card-title">Smart Paste — Get Extraction</span>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Paste Alert Text</label>
+          <textarea id="smartPaste2" class="smart-paste-area" placeholder="Paste alert text — uses Message ID if present, else Thread ID…" oninput="handleSmartPaste2()"></textarea>
+        </div>
+        <div id="smartPills2" class="detected-pills"></div>
+        <div id="smartStatus2" class="status-bar" style="margin-top:0.5rem"></div>
+        <div class="field-group" style="margin-top:0.75rem">
+          <label class="field-label">Output JSON</label>
+          <textarea id="smartJsonBox2" class="textarea-md" readonly placeholder="JSON will appear here…"></textarea>
+        </div>
+
+        <!-- SKIP OPTIONS collapsible -->
+        <div class="collapsible-section">
+          <button class="collapsible-toggle" id="skipToggle2" onclick="toggleSkipSection2()">
+            <span class="chevron">▼</span> Skip Options <span style="font-weight:400;opacity:0.6;margin-left:0.25rem">(optional)</span>
+          </button>
+          <div class="collapsible-body" id="skipBody2">
+
+            <!-- Skip Files -->
+            <div class="field-group" style="margin-top:0.65rem">
+              <label class="field-label">Skip Files <span style="font-weight:400;text-transform:none">(one per line, with extension)</span></label>
+              <textarea id="skipInline2" class="textarea-sm" placeholder="invoice.pdf&#10;packinglist.pdf" oninput="handleInlineSkip2()"></textarea>
+              <div id="skipInlineStatus2" class="status-bar" style="margin-top:0.4rem"></div>
+            </div>
+
+            <!-- Skip Sheet -->
+            <div class="field-group">
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.4rem">
+                <input type="checkbox" id="skipSheetToggle2" onchange="handleSheetToggle2()">
+                <label for="skipSheetToggle2" class="field-label" style="margin-bottom:0;cursor:pointer">Skip Sheet — keep only one sheet</label>
+              </div>
+              <div class="skip-sheet-body" id="skipSheetBody2">
+                <input type="text" id="skipSheetName2" placeholder="Sheet name to KEEP e.g. Invoice" oninput="handleSheetToggle2()">
+                <div id="skipSheetStatus2" class="status-bar" style="margin-top:0.4rem"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+       <div class="btn-row">
+  <button class="btn btn-primary" onclick="copySmartJSON2(this)">📋 Copy JSON</button>
+  <button class="btn btn-secondary" id="logsBtn2" onclick="openExtractionLogs()" style="display:none">🔗 Open Logs</button>
+  <button class="btn btn-danger" onclick="resetSmartPaste2()">🔄 Reset</button>
+</div>
+      </div>
+
+    </div><!-- end smart-row -->
+
+  </div><!-- end container -->
   <div id="toast"></div>
 
   <script>
@@ -451,6 +551,8 @@
       transworld:    { config: "data/config/dev/transworld-chb.yaml",        root: "/home/dev/parse_api/web-platform-2/docparser/customs_assistant" },
       leesachbbruce: { config: "data/config/dev/leesa-chb-bruce.yaml",       root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
       ldglobal:      { config: "data/config/dev/ld-global.yaml",             root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
+jdusa:          { config: "data/config/dev/jd-usa.yaml",                   root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
+pinnacle:          { config: "data/config/dev/pinnacle-clearing-solution.yaml",                   root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
       Jaak:          { config: "data/config/dev/jti.yaml",                   root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
       GHY:           { config: "data/config/dev/ghy.yaml",                   root: "/home/dev/ghy/web-platform/docparser/customs_assistant" },
       onpointhub:    { config: "data/config/dev/on-point-hub.yaml",          root: "/home/dev/parse_api/web-platform/docparser/customs_assistant" },
@@ -477,37 +579,27 @@
       nodocs:       `Hi,\n\nNo documents were found attached with this request.\n\nPlease review and attach the required documents.\n\nBest regards`,
     };
 
-    // CARD 1
+    // ── CARD 1 ──
     function autofillJSON() {
       const client = document.getElementById("clientSelect").getAttribute("data-value") || "";
-      const mode = document.getElementById("modeSelect").value;
-      const box = document.getElementById("jsonBox");
-      const id = document.getElementById("shipmentInput").value.trim();
+      const mode   = document.getElementById("modeSelect").value;
+      const box    = document.getElementById("jsonBox");
+      const id     = document.getElementById("shipmentInput").value.trim();
       if (!configMap[client]) { box.value = ""; return; }
       let json;
-      if (mode === "fill") { json = { shipment_id: id||"string", root_path: configMap[client].root, config_path: configMap[client].config, entry_number: "", display: ":2433.0" }; }
-      else { json = { thread_id: "string", shipment_id: id||"string", root_path: configMap[client].root, config_path: configMap[client].config, ignore_files_regex: "", ignore_sheets_regex: "", force_process_attachments: true, display: ":2433.0" }; }
+      if (mode === "fill") {
+        json = { shipment_id: id||"string", root_path: configMap[client].root, config_path: configMap[client].config, entry_number: "", display: ":2433.0" };
+      } else {
+        json = { thread_id: "string", shipment_id: id||"string", root_path: configMap[client].root, config_path: configMap[client].config, ignore_files_regex: "", ignore_sheets_regex: "", force_process_attachments: true, display: ":2433.0" };
+      }
       box.value = JSON.stringify(json, null, 2);
     }
     function getShipmentId() { const id=document.getElementById("shipmentInput").value.trim(); if(!id){showToast("⚠️ Please enter a Shipment ID first");return null;} return id; }
     function openTransworldLogs() { const id=getShipmentId(); if(!id)return; window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/web-platform-2/docparser/customs_assistant`,"_blank"); }
     function openPlatformLogs()   { const id=getShipmentId(); if(!id)return; window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/web-platform/docparser/customs_assistant`,"_blank"); }
-    function handleEnter(e) {}  // no longer used
+    function copyAutoFilled(btn)  { const box=document.getElementById("jsonBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
 
-// ADD this inside your DOMContentLoaded block, after the other listeners:
-document.getElementById("shipmentInput").addEventListener("click", function(e) {
-  if (e.ctrlKey || e.metaKey) {
-    const id = getShipmentId();
-    if (!id) return;
-    window.open(
-      `http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/web-platform-main/docparser/customs_assistant`,
-      "_blank"
-    );
-  }
-});
-    function copyAutoFilled(btn) { const box=document.getElementById("jsonBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
-
-    // CARD 2
+    // ── CARD 2 ──
     function autofillTemplateJSON() {
       const client  = document.getElementById("clientMsgSelect").getAttribute("data-value") || "";
       const type    = document.getElementById("templateSelect").getAttribute("data-value") || "";
@@ -525,14 +617,14 @@ document.getElementById("shipmentInput").addEventListener("click", function(e) {
     function resetTemplateFields() {
       const cm = document.getElementById("clientMsgSelect"); cm.value=""; cm.removeAttribute("data-value");
       const ts = document.getElementById("templateSelect");  ts.value=""; ts.removeAttribute("data-value");
-      document.getElementById("threadInput").value = "";
-      document.getElementById("stringInput").value = "";
-      document.getElementById("templateBox").value = "";
+      document.getElementById("threadInput").value="";
+      document.getElementById("stringInput").value="";
+      document.getElementById("templateBox").value="";
       document.getElementById("stringWarning").classList.remove("show");
     }
     function copyTemplateJSON(btn) { const box=document.getElementById("templateBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
 
-    // CARD 3
+    // ── CARD 3 ──
     function resetSkip() { document.getElementById("skipInput").value=""; document.getElementById("skipOutput").value=""; const s=document.getElementById("skipStatus"); s.className="status-bar"; s.textContent=""; }
     function generateSkipRegex() {
       const mode=document.getElementById("skipMode").value, input=document.getElementById("skipInput").value.trim();
@@ -540,7 +632,7 @@ document.getElementById("shipmentInput").addEventListener("click", function(e) {
       if (mode==="sheet") { output.value="^(?!YOUR_TEXT_HERE$).*"; status.className="status-bar warn show"; status.textContent="⚠️ Remember to replace YOUR_TEXT_HERE"; return; }
       if (mode==="files") {
         if (!input) { output.value=""; status.className="status-bar"; status.textContent=""; return; }
-        const files = input.split("\n").map(f=>f.trim()).filter(f=>f.length>0 && f.includes("."));
+        const files = input.split("\n").map(f=>f.trim()).filter(f=>f.length>0&&f.includes("."));
         if (!files.length) { output.value=""; status.className="status-bar warn show"; status.textContent="⚠️ No valid filenames — must include extension"; return; }
         output.value = "^(" + files.map(f=>f.replace(/\./g,"\\\\." )).join("|") + ")$";
         status.className="status-bar info show"; status.textContent=`📄 ${files.length} file${files.length!==1?"s":""} will be skipped`; return;
@@ -549,12 +641,227 @@ document.getElementById("shipmentInput").addEventListener("click", function(e) {
     }
     function copySkipRegex(btn) { const box=document.getElementById("skipOutput"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
 
-    // DOM READY
+    // ── CLIENT ALIAS MAP ──
+    const clientAliases = {
+      guardian:      ["guardian", "guardian-customs"],
+      ilogix:        ["ilogix"],
+      ever:          ["ever", "ever-customs"],
+      whitzard:      ["whitzard", "whitzard-customs"],
+      jl:            ["jl", "jl-customs"],
+      jtz:           ["jtz"],
+      meekoo:        ["meekoo"],
+      leesa:         ["label:leesa-chb`", "customer: `leesa`"],
+      transworld:    ["transworld", "transworld-chb"],
+      leesachbbruce: ["leesa-chb-bruce", "leesachbbruce", "label:leesa-chb-bruce"],
+      ldglobal:      ["ld-global", "ldglobal", "ld global"],
+      Jaak:          ["jaak", "jti", "jaak-transport"],
+jdusa:    ["jdusa", "jd-usa", "jd usa"],
+pinnacle: ["pinnacle", "pinnacle-clearing-solution", "pinnacle clearing"],
+      GHY:           ["ghy"],
+      onpointhub:    ["on-point-hub", "onpointhub", "on point hub", "label:on-point-hub"],
+      perennial1:    ["perennial", "perennial-1"],
+      slchbnhp:      ["slchb-nhp", "slchbnhp"],
+      slchb:         ["slchb"],
+      yifangchb:     ["yifangchb", "yifang", "lz management"],
+      pieschb:       ["pieschb", "pies"],
+      bhchb:         ["bhchb", "bh chb"],
+      abj:           ["abj"],
+      newave:        ["newave"],
+      Tkk:           ["tkk"],
+    };
+
+    function extractClient(text) {
+      const textLower = text.toLowerCase();
+      const clientRaw = text.match(/Customer:\s*`([^`]+)`/)?.[1]?.trim().toLowerCase()
+        || text.match(/Email Label:\s*`?label:([^`\s]+)`?/i)?.[1]?.trim().toLowerCase();
+
+      if (clientRaw) {
+        for (const [key, aliases] of Object.entries(clientAliases)) {
+          if (aliases.some(a => clientRaw.includes(a) || a.includes(clientRaw))) {
+            return { matchedKey: key, clientRaw };
+          }
+        }
+      }
+
+      const entries = Object.entries(clientAliases).sort((a,b) =>
+        Math.max(...b[1].map(x=>x.length)) - Math.max(...a[1].map(x=>x.length))
+      );
+      for (const [key, aliases] of entries) {
+        if (aliases.some(a => textLower.includes(a.toLowerCase()))) {
+          return { matchedKey: key, clientRaw };
+        }
+      }
+      return { matchedKey: null, clientRaw };
+    }
+
+    // ── CARD 4: Smart Paste — Fill Entry ──
+    function handleSmartPaste() {
+      const text   = document.getElementById("smartPaste").value;
+      const pills  = document.getElementById("smartPills");
+      const status = document.getElementById("smartStatus");
+      const box    = document.getElementById("smartJsonBox");
+      if (!text.trim()) { pills.innerHTML=""; box.value=""; status.className="status-bar"; return; }
+
+      const shipmentId = text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i)?.[0];
+      const { matchedKey, clientRaw } = extractClient(text);
+
+      const pillsHTML = [];
+      if (matchedKey)     pillsHTML.push(`<span class="pill">🏢 ${matchedKey}</span>`);
+      else if (clientRaw) pillsHTML.push(`<span class="pill warn">⚠️ "${clientRaw}" not in config</span>`);
+      if (shipmentId)     pillsHTML.push(`<span class="pill">🆔 ${shipmentId.slice(0,8)}…</span>`);
+      pills.innerHTML = pillsHTML.join("");
+
+      if (matchedKey && shipmentId) {
+        const cfg = configMap[matchedKey];
+        box.value = JSON.stringify({ shipment_id: shipmentId, root_path: cfg.root, config_path: cfg.config, entry_number: "", display: ":2433.0" }, null, 2);
+        status.className = "status-bar info show";
+        status.textContent = "✅ Fill Entry JSON ready";
+document.getElementById("logsBtn1").style.display = "";
+      } else {
+        box.value = "";
+        status.className = "status-bar warn show";
+        status.textContent = !matchedKey ? "⚠️ Client not recognised" : "⚠️ No Shipment ID found";
+      }
+    }
+    function copySmartJSON(btn) { const box=document.getElementById("smartJsonBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
+    function resetSmartPaste() { document.getElementById("smartPaste").value=""; document.getElementById("smartJsonBox").value=""; document.getElementById("smartPills").innerHTML=""; const s=document.getElementById("smartStatus"); s.className="status-bar"; s.textContent="";
+document.getElementById("logsBtn1").style.display = "none"; }
+
+function openFillEntryLogs() {
+  try {
+    const json = JSON.parse(document.getElementById("smartJsonBox").value);
+    const shipmentId = json.shipment_id;
+    const rootPath   = json.root_path;
+    if (!shipmentId || shipmentId === "string") { showToast("⚠️ No Shipment ID found"); return; }
+    window.open(
+      `http://34.30.43.174:8080/commands/logs/shipment/${shipmentId}/stream?token=operatorToken543&root_path=${rootPath}`,
+      "_blank"
+    );
+  } catch(e) { showToast("⚠️ Could not read JSON"); }
+}
+
+    // ── CARD 5: Smart Paste — Get Extraction ──
+    function getInlineRegex2() {
+      if (!document.getElementById("skipBody2").classList.contains("open")) return "";
+      const input = document.getElementById("skipInline2").value.trim();
+      if (!input) return "";
+      const files = input.split("\n").map(f=>f.trim()).filter(f=>f.length>0&&f.includes("."));
+      if (!files.length) return "";
+      return "^(" + files.map(f=>f.replace(/\./g,"\\." )).join("|") + ")$";
+    }
+
+    function getSheetRegex2() {
+      if (!document.getElementById("skipBody2").classList.contains("open")) return "";
+      if (!document.getElementById("skipSheetToggle2").checked) return "";
+      const name = document.getElementById("skipSheetName2").value.trim();
+      if (!name) return "";
+      return `^(?!${name}$).*`;
+    }
+
+    function handleSmartPaste2() {
+      const text   = document.getElementById("smartPaste2").value;
+      const pills  = document.getElementById("smartPills2");
+      const status = document.getElementById("smartStatus2");
+      const box    = document.getElementById("smartJsonBox2");
+      if (!text.trim()) { pills.innerHTML=""; box.value=""; status.className="status-bar"; return; }
+
+      const shipmentId = text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i)?.[0];
+      const threadId   = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
+const messageId  = text.match(/Message ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
+const resolvedId = messageId || threadId || null; // message ID for JSON
+// logs always use thread ID regardless
+      const { matchedKey, clientRaw } = extractClient(text);
+
+      const pillsHTML = [];
+      if (matchedKey)     pillsHTML.push(`<span class="pill">🏢 ${matchedKey}</span>`);
+      else if (clientRaw) pillsHTML.push(`<span class="pill warn">⚠️ "${clientRaw}" not in config</span>`);
+      if (shipmentId)     pillsHTML.push(`<span class="pill">🆔 ${shipmentId.slice(0,8)}…</span>`);
+      if (messageId)      pillsHTML.push(`<span class="pill">✉️ msg: ${messageId.slice(0,8)}…</span>`);
+      else if (threadId)  pillsHTML.push(`<span class="pill">🧵 thread: ${threadId.slice(0,8)}…</span>`);
+      pills.innerHTML = pillsHTML.join("");
+
+      if (matchedKey && shipmentId) {
+        const cfg = configMap[matchedKey];
+        box.value = JSON.stringify({
+          thread_id:                 resolvedId || "string",
+          shipment_id:               shipmentId,
+          root_path:                 cfg.root,
+          config_path:               cfg.config,
+          ignore_files_regex:        getInlineRegex2(),
+          ignore_sheets_regex:       getSheetRegex2(),
+          force_process_attachments: true,
+          display:                   ":2433.0"
+        }, null, 2);
+        status.className = "status-bar info show";
+        status.textContent = `✅ Get Extraction ready — using ${messageId ? "Message ID" : threadId ? "Thread ID" : "no ID found"}`;
+document.getElementById("logsBtn2").style.display = "";
+
+      } else {
+        box.value = "";
+        status.className = "status-bar warn show";
+        status.textContent = !matchedKey ? "⚠️ Client not recognised" : "⚠️ No Shipment ID found";
+      }
+    }
+function openExtractionLogs() {
+  const text = document.getElementById("smartPaste2").value;
+  const threadId = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
+  if (!threadId) { showToast("⚠️ No Thread ID found in pasted text"); return; }
+  try {
+    const json = JSON.parse(document.getElementById("smartJsonBox2").value);
+    window.open(
+      `http://34.30.43.174:8080/commands/logs/${threadId}/stream?token=operatorToken543&root_path=${json.root_path}`,
+      "_blank"
+    );
+  } catch(e) { showToast("⚠️ Could not read root path — copy JSON first"); }
+}
+
+    function handleInlineSkip2() {
+      const input  = document.getElementById("skipInline2").value.trim();
+      const status = document.getElementById("skipInlineStatus2");
+      const files  = input.split("\n").map(f=>f.trim()).filter(f=>f.length>0&&f.includes("."));
+      if (!input)          { status.className="status-bar"; }
+      else if (!files.length) { status.className="status-bar warn show"; status.textContent="⚠️ No valid filenames — must include extension"; }
+      else                 { status.className="status-bar info show"; status.textContent=`📄 ${files.length} file(s) will be skipped`; }
+      handleSmartPaste2();
+    }
+
+    function handleSheetToggle2() {
+      const checked = document.getElementById("skipSheetToggle2").checked;
+      const body    = document.getElementById("skipSheetBody2");
+      const status  = document.getElementById("skipSheetStatus2");
+      body.style.display = checked ? "block" : "none";
+      if (checked) {
+        const name = document.getElementById("skipSheetName2").value.trim();
+        if (name) { status.className="status-bar info show"; status.textContent=`📋 Keeping only: "${name}"`; }
+        else      { status.className="status-bar warn show"; status.textContent="⚠️ Enter the sheet name to keep"; }
+      } else { status.className="status-bar"; }
+      handleSmartPaste2();
+    }
+
+    function toggleSkipSection2() {
+      document.getElementById("skipToggle2").classList.toggle("open");
+      document.getElementById("skipBody2").classList.toggle("open");
+      handleSmartPaste2();
+    }
+
+    function copySmartJSON2(btn) { const box=document.getElementById("smartJsonBox2"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
+
+    function resetSmartPaste2() {
+      document.getElementById("smartPaste2").value="";
+      document.getElementById("smartJsonBox2").value="";
+      document.getElementById("smartPills2").innerHTML="";
+      const s=document.getElementById("smartStatus2"); s.className="status-bar"; s.textContent="";
+document.getElementById("logsBtn2").style.display = "none";
+      document.getElementById("skipToggle2").classList.remove("open");
+      document.getElementById("skipBody2").classList.remove("open");
+      handleSmartPaste2();
+    }
+
+    // ── DOM READY ──
     document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("skipMode").addEventListener("change", generateSkipRegex);
       document.getElementById("skipInput").addEventListener("input", generateSkipRegex);
 
-      // close all dropdowns on outside click
       document.addEventListener("click", e => {
         if (!e.target.closest(".custom-dropdown")) {
           document.querySelectorAll(".dropdown-panel").forEach(p => p.style.display="none");
@@ -570,6 +877,15 @@ document.getElementById("shipmentInput").addEventListener("click", function(e) {
           document.getElementById("clientDropdown").style.display="none";
           autofillJSON();
         });
+      });
+
+      // Ctrl/Cmd+Click on shipment input opens logs
+      document.getElementById("shipmentInput").addEventListener("click", function(e) {
+        if (e.ctrlKey || e.metaKey) {
+          const id = getShipmentId();
+          if (!id) return;
+          window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/web-platform-main/docparser/customs_assistant`, "_blank");
+        }
       });
 
       // Card 2 client
@@ -602,7 +918,3 @@ document.getElementById("shipmentInput").addEventListener("click", function(e) {
   </script>
 </body>
 </html>
-
-
-
-
