@@ -32,25 +32,14 @@
       --transition: 0.18s ease;
     }
     body.dark-mode {
-      --bg: #0f172a;
-      --primary: #93b4d8;
-      --primary-light: #b8d0ed;
-      --secondary: #3b82f6;
-      --accent: #1e293b;
-      --card-bg: #1e293b;
-      --text-color: #f1f5f9;
-      --text-muted: #94a3b8;
-      --box-bg: #0f172a;
-      --border-color: #334155;
-      --border-focus: #93b4d8;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
-      --shadow: 0 4px 12px rgba(0,0,0,0.4);
+      --bg: #0f172a; --primary: #93b4d8; --primary-light: #b8d0ed;
+      --secondary: #3b82f6; --accent: #1e293b; --card-bg: #1e293b;
+      --text-color: #f1f5f9; --text-muted: #94a3b8; --box-bg: #0f172a;
+      --border-color: #334155; --border-focus: #93b4d8;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.3); --shadow: 0 4px 12px rgba(0,0,0,0.4);
       --shadow-lg: 0 8px 24px rgba(0,0,0,0.5);
-      --error: #f87171;
-      --success: #4ade80;
-      --success-bg: #052e16;
-      --ship-color: #334155;
-      --title-glow: rgba(147,180,216,0.2);
+      --error: #f87171; --success: #4ade80; --success-bg: #052e16;
+      --ship-color: #334155; --title-glow: rgba(147,180,216,0.2);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--bg); font-family: 'Inter', sans-serif; min-height: 100vh; padding: 2rem; transition: background 0.3s, color 0.3s; color: var(--text-color); overflow-x: hidden; }
@@ -129,7 +118,6 @@
     .btn-row { display: flex; gap: 0.5rem; margin-top: 0.6rem; flex-wrap: wrap; }
     .btn-row .btn { flex: 1; min-width: 100px; }
 
-    /* CUSTOM DROPDOWN */
     .custom-dropdown { position: relative; width: 100%; z-index: 100; }
     .dropdown-trigger { position: relative; width: 100%; }
     .dropdown-trigger input { width: 100%; cursor: pointer; padding-right: 2rem !important; }
@@ -143,7 +131,6 @@
     .dropdown-row { display: flex; gap: 0.5rem; }
     .dropdown-row .custom-dropdown { flex: 1; min-width: 0; }
 
-    /* STATUS BAR */
     .status-bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.6rem; border-radius: var(--radius-sm); font-size: 0.78rem; font-weight: 500; margin-top: 0.5rem; opacity: 0; transition: opacity 0.2s; }
     .status-bar.show { opacity: 1; }
     .status-bar.info { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
@@ -151,17 +138,14 @@
     body.dark-mode .status-bar.info { background: #1e3a5f; color: #93c5fd; border-color: #1e40af; }
     body.dark-mode .status-bar.warn { background: #2d1b00; color: #fbbf24; border-color: #92400e; }
 
-    /* SMART PASTE */
     .smart-paste-area { width: 100%; min-height: 70px; padding: 0.65rem 0.75rem; border: 1px dashed var(--border-color); border-radius: var(--radius-sm); font-family: 'Fira Code', monospace; font-size: 0.82rem; background: var(--box-bg); color: var(--text-muted); resize: none; line-height: 1.6; transition: border-color var(--transition); }
     .smart-paste-area:focus { border-color: var(--border-focus); outline: none; box-shadow: 0 0 0 3px rgba(42,67,101,0.12); color: var(--text-color); }
     .detected-pills { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem; }
     .pill { font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 999px; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
     .pill.warn { background: #fffbeb; color: #92400e; border-color: #fde68a; }
 
-    /* SMART PASTE ROW */
     .smart-row { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
 
-    /* COLLAPSIBLE */
     .collapsible-section { border-top: 1px dashed var(--border-color); margin-top: 0.75rem; padding-top: 0.75rem; }
     .collapsible-toggle { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.78rem; font-weight: 600; color: var(--text-muted); user-select: none; background: none; border: none; padding: 0; font-family: inherit; transition: color var(--transition); }
     .collapsible-toggle:hover { color: var(--primary); }
@@ -171,7 +155,6 @@
     .collapsible-body.open { display: block; }
     .skip-sheet-body { display: none; margin-top: 0.4rem; }
 
-    /* TOAST */
     #toast { display: none; position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.65rem 1.25rem; border-radius: var(--radius); font-size: 0.875rem; font-weight: 500; z-index: 2000; box-shadow: var(--shadow-lg); animation: fadeInOut 2.5s ease; }
     @keyframes fadeInOut { 0%,100% { opacity: 0; transform: translate(-50%,8px); } 10%,90% { opacity: 1; transform: translate(-50%,0); } }
 
@@ -251,8 +234,8 @@
               <div data-client="leesachbbruce">Leesa-chb-bruce</div>
               <div data-client="ldglobal">Ld-global</div>
               <div data-client="Jaak">Jaak</div>
-<div data-client="jdusa">jdusa</div>
-<div data-client="pinnacle">Pinnacle</div>
+              <div data-client="jdusa">JD USA</div>
+              <div data-client="pinnacle">Pinnacle</div>
               <div data-client="Tkk">Tkk</div>
             </div>
             <div class="dropdown-column">
@@ -316,8 +299,8 @@
                 <div data-msg-client="leesachbbruce">Leesa-chb-bruce</div>
                 <div data-msg-client="ldglobal">Ld-global</div>
                 <div data-msg-client="Jaak">Jaak</div>
-<div data-msg-client="jdusa">jdusa</div>
-<div data-msg-client="pinnacle">Pinnacle</div>
+                <div data-msg-client="jdusa">JD USA</div>
+                <div data-msg-client="pinnacle">Pinnacle</div>
                 <div data-msg-client="Tkk">Tkk</div>
               </div>
               <div class="dropdown-column">
@@ -422,13 +405,12 @@
           <label class="field-label">Output JSON</label>
           <textarea id="smartJsonBox" class="textarea-md" readonly placeholder="JSON will appear here…"></textarea>
         </div>
-       <div class="btn-row">
-  <button class="btn btn-primary" onclick="copySmartJSON(this)">📋 Copy JSON</button>
-  <button class="btn btn-secondary" id="logsBtn1" onclick="openFillEntryLogs()" style="display:none">🔗 Open Logs</button>
-  <button class="btn btn-danger" onclick="resetSmartPaste()">🔄 Reset</button>
-</div>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="copySmartJSON(this)">📋 Copy JSON</button>
+          <button class="btn btn-secondary" id="logsBtn1" onclick="openFillEntryLogs()" style="display:none">🔗 Open Logs</button>
+          <button class="btn btn-danger" onclick="resetSmartPaste()">🔄 Reset</button>
+        </div>
       </div>
-
 
       <!-- CARD 5: Smart Paste — Get Extraction -->
       <div class="autofill-box">
@@ -446,22 +428,16 @@
           <label class="field-label">Output JSON</label>
           <textarea id="smartJsonBox2" class="textarea-md" readonly placeholder="JSON will appear here…"></textarea>
         </div>
-
-        <!-- SKIP OPTIONS collapsible -->
         <div class="collapsible-section">
           <button class="collapsible-toggle" id="skipToggle2" onclick="toggleSkipSection2()">
             <span class="chevron">▼</span> Skip Options <span style="font-weight:400;opacity:0.6;margin-left:0.25rem">(optional)</span>
           </button>
           <div class="collapsible-body" id="skipBody2">
-
-            <!-- Skip Files -->
             <div class="field-group" style="margin-top:0.65rem">
               <label class="field-label">Skip Files <span style="font-weight:400;text-transform:none">(one per line, with extension)</span></label>
               <textarea id="skipInline2" class="textarea-sm" placeholder="invoice.pdf&#10;packinglist.pdf" oninput="handleInlineSkip2()"></textarea>
               <div id="skipInlineStatus2" class="status-bar" style="margin-top:0.4rem"></div>
             </div>
-
-            <!-- Skip Sheet -->
             <div class="field-group">
               <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.4rem">
                 <input type="checkbox" id="skipSheetToggle2" onchange="handleSheetToggle2()">
@@ -472,18 +448,38 @@
                 <div id="skipSheetStatus2" class="status-bar" style="margin-top:0.4rem"></div>
               </div>
             </div>
-
           </div>
         </div>
-
-       <div class="btn-row">
-  <button class="btn btn-primary" onclick="copySmartJSON2(this)">📋 Copy JSON</button>
-  <button class="btn btn-secondary" id="logsBtn2" onclick="openExtractionLogs()" style="display:none">🔗 Open Logs</button>
-  <button class="btn btn-danger" onclick="resetSmartPaste2()">🔄 Reset</button>
-</div>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="copySmartJSON2(this)">📋 Copy JSON</button>
+          <button class="btn btn-secondary" id="logsBtn2" onclick="openExtractionLogs()" style="display:none">🔗 Open Logs</button>
+          <button class="btn btn-danger" onclick="resetSmartPaste2()">🔄 Reset</button>
+        </div>
       </div>
 
     </div><!-- end smart-row -->
+
+    <!-- CARD 6: Smart Message -->
+    <div class="autofill-box">
+      <div class="card-header">
+        <div class="card-icon">💬</div>
+        <span class="card-title">Smart Message</span>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Paste Slack Alert</label>
+        <textarea id="smartMsg" class="smart-paste-area" style="min-height:90px" placeholder="Paste the full Slack error — client, thread ID and error type will be detected automatically…" oninput="handleSmartMessage()"></textarea>
+      </div>
+      <div id="msgPills" class="detected-pills"></div>
+      <div id="msgStatus" class="status-bar" style="margin-top:0.5rem"></div>
+      <div class="field-group" style="margin-top:0.75rem">
+        <label class="field-label">Output JSON</label>
+        <textarea id="msgJsonBox" class="textarea-lg" readonly placeholder="JSON will appear here…"></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="copyMsgJSON(this)">📋 Copy JSON</button>
+        <button class="btn btn-danger" onclick="resetSmartMsg()">🔄 Reset</button>
+      </div>
+    </div>
 
   </div><!-- end container -->
   <div id="toast"></div>
@@ -550,8 +546,8 @@
       transworld:    { config: "data/config/dev/transworld-chb.yaml",        root: "/home/dev/parse_api/web-platform-2/docparser/customs_assistant" },
       leesachbbruce: { config: "data/config/dev/leesa-chb-bruce.yaml",       root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
       ldglobal:      { config: "data/config/dev/ld-global.yaml",             root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
-jdusa:          { config: "data/config/dev/jd-usa.yaml",                   root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
-pinnacle:          { config: "data/config/dev/pinnacle-clearing-solution.yaml",                   root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
+      jdusa:         { config: "data/config/dev/jd-usa.yaml",                root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
+      pinnacle:      { config: "data/config/dev/pinnacle-clearing-solution.yaml", root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
       Jaak:          { config: "data/config/dev/jti.yaml",                   root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
       GHY:           { config: "data/config/dev/ghy.yaml",                   root: "/home/dev/ghy/web-platform/docparser/customs_assistant" },
       onpointhub:    { config: "data/config/dev/on-point-hub.yaml",          root: "/home/dev/parse_api/web-platform/docparser/customs_assistant" },
@@ -633,7 +629,7 @@ pinnacle:          { config: "data/config/dev/pinnacle-clearing-solution.yaml", 
         if (!input) { output.value=""; status.className="status-bar"; status.textContent=""; return; }
         const files = input.split("\n").map(f=>f.trim()).filter(f=>f.length>0&&f.includes("."));
         if (!files.length) { output.value=""; status.className="status-bar warn show"; status.textContent="⚠️ No valid filenames — must include extension"; return; }
-        output.value = "^(" + files.map(f=>f.replace(/\./g,"\\\\." )).join("|") + ")$";
+        output.value = "^(" + files.map(f=>f.replace(/\./g,"\\." )).join("|") + ")$";
         status.className="status-bar info show"; status.textContent=`📄 ${files.length} file${files.length!==1?"s":""} will be skipped`; return;
       }
       output.value=""; status.className="status-bar"; status.textContent="";
@@ -654,8 +650,8 @@ pinnacle:          { config: "data/config/dev/pinnacle-clearing-solution.yaml", 
       leesachbbruce: ["leesa-chb-bruce", "leesachbbruce", "label:leesa-chb-bruce"],
       ldglobal:      ["ld-global", "ldglobal", "ld global"],
       Jaak:          ["jaak", "jti", "jaak-transport"],
-jdusa:    ["jdusa", "jd-usa", "jd usa"],
-pinnacle: ["pinnacle", "pinnacle-clearing-solution", "pinnacle clearing"],
+      jdusa:         ["jdusa", "jd-usa", "jd usa"],
+      pinnacle:      ["pinnacle", "pinnacle-clearing-solution", "pinnacle clearing"],
       GHY:           ["ghy"],
       onpointhub:    ["on-point-hub", "onpointhub", "on point hub", "label:on-point-hub"],
       perennial1:    ["perennial", "perennial-1"],
@@ -671,12 +667,12 @@ pinnacle: ["pinnacle", "pinnacle-clearing-solution", "pinnacle clearing"],
 
     function extractClient(text) {
       const textLower = text.toLowerCase();
-      const clientRaw = text.match(/Customer:\s*`([^`]+)`/)?.[1]?.trim().toLowerCase()
+      const clientRaw = text.match(/Customer(?:\s+Name)?:\s*`([^`]+)`/i)?.[1]?.trim().toLowerCase()
         || text.match(/Email Label:\s*`?label:([^`\s]+)`?/i)?.[1]?.trim().toLowerCase();
 
       if (clientRaw) {
         for (const [key, aliases] of Object.entries(clientAliases)) {
-          if (aliases.some(a => clientRaw.includes(a) || a.includes(clientRaw))) {
+          if (aliases.some(a => clientRaw.includes(a.toLowerCase()) || a.toLowerCase().includes(clientRaw))) {
             return { matchedKey: key, clientRaw };
           }
         }
@@ -707,7 +703,7 @@ pinnacle: ["pinnacle", "pinnacle-clearing-solution", "pinnacle clearing"],
       const pillsHTML = [];
       if (matchedKey)     pillsHTML.push(`<span class="pill">🏢 ${matchedKey}</span>`);
       else if (clientRaw) pillsHTML.push(`<span class="pill warn">⚠️ "${clientRaw}" not in config</span>`);
-      if (shipmentId)     pillsHTML.push(`<span class="pill">🆔 ${shipmentId.slice(0,8)}…</span>`);
+      if (shipmentId)     pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${shipmentId}',this)" title="Click to copy">🆔 ${shipmentId.slice(0,8)}…</span>`);
       pills.innerHTML = pillsHTML.join("");
 
       if (matchedKey && shipmentId) {
@@ -715,7 +711,7 @@ pinnacle: ["pinnacle", "pinnacle-clearing-solution", "pinnacle clearing"],
         box.value = JSON.stringify({ shipment_id: shipmentId, root_path: cfg.root, config_path: cfg.config, entry_number: "", display: ":2433.0" }, null, 2);
         status.className = "status-bar info show";
         status.textContent = "✅ Fill Entry JSON ready";
-document.getElementById("logsBtn1").style.display = "";
+        document.getElementById("logsBtn1").style.display = "";
       } else {
         box.value = "";
         status.className = "status-bar warn show";
@@ -723,21 +719,18 @@ document.getElementById("logsBtn1").style.display = "";
       }
     }
     function copySmartJSON(btn) { const box=document.getElementById("smartJsonBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
-    function resetSmartPaste() { document.getElementById("smartPaste").value=""; document.getElementById("smartJsonBox").value=""; document.getElementById("smartPills").innerHTML=""; const s=document.getElementById("smartStatus"); s.className="status-bar"; s.textContent="";
-document.getElementById("logsBtn1").style.display = "none"; }
-
-function openFillEntryLogs() {
-  try {
-    const json = JSON.parse(document.getElementById("smartJsonBox").value);
-    const shipmentId = json.shipment_id;
-    const rootPath   = json.root_path;
-    if (!shipmentId || shipmentId === "string") { showToast("⚠️ No Shipment ID found"); return; }
-    window.open(
-      `http://34.30.43.174:8080/commands/logs/shipment/${shipmentId}/stream?token=operatorToken543&root_path=${rootPath}`,
-      "_blank"
-    );
-  } catch(e) { showToast("⚠️ Could not read JSON"); }
-}
+    function resetSmartPaste() {
+      document.getElementById("smartPaste").value=""; document.getElementById("smartJsonBox").value="";
+      document.getElementById("smartPills").innerHTML=""; const s=document.getElementById("smartStatus"); s.className="status-bar"; s.textContent="";
+      document.getElementById("logsBtn1").style.display="none";
+    }
+    function openFillEntryLogs() {
+      try {
+        const json = JSON.parse(document.getElementById("smartJsonBox").value);
+        if (!json.shipment_id||json.shipment_id==="string") { showToast("⚠️ No Shipment ID found"); return; }
+        window.open(`http://34.30.43.174:8080/commands/logs/shipment/${json.shipment_id}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank");
+      } catch(e) { showToast("⚠️ Could not read JSON"); }
+    }
 
     // ── CARD 5: Smart Paste — Get Extraction ──
     function getInlineRegex2() {
@@ -748,7 +741,6 @@ function openFillEntryLogs() {
       if (!files.length) return "";
       return "^(" + files.map(f=>f.replace(/\./g,"\\." )).join("|") + ")$";
     }
-
     function getSheetRegex2() {
       if (!document.getElementById("skipBody2").classList.contains("open")) return "";
       if (!document.getElementById("skipSheetToggle2").checked) return "";
@@ -756,7 +748,6 @@ function openFillEntryLogs() {
       if (!name) return "";
       return `^(?!${name}$).*`;
     }
-
     function handleSmartPaste2() {
       const text   = document.getElementById("smartPaste2").value;
       const pills  = document.getElementById("smartPills2");
@@ -766,15 +757,14 @@ function openFillEntryLogs() {
 
       const shipmentId = text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i)?.[0];
       const threadId   = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
-const messageId  = text.match(/Message ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
-const resolvedId = messageId || threadId || null; // message ID for JSON
-// logs always use thread ID regardless
+      const messageId  = text.match(/Message ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
+      const resolvedId = messageId || threadId || null;
       const { matchedKey, clientRaw } = extractClient(text);
 
       const pillsHTML = [];
       if (matchedKey)     pillsHTML.push(`<span class="pill">🏢 ${matchedKey}</span>`);
       else if (clientRaw) pillsHTML.push(`<span class="pill warn">⚠️ "${clientRaw}" not in config</span>`);
-      if (shipmentId)     pillsHTML.push(`<span class="pill">🆔 ${shipmentId.slice(0,8)}…</span>`);
+      if (shipmentId)     pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${shipmentId}',this)" title="Click to copy">🆔 ${shipmentId.slice(0,8)}…</span>`);
       if (messageId)      pillsHTML.push(`<span class="pill">✉️ msg: ${messageId.slice(0,8)}…</span>`);
       else if (threadId)  pillsHTML.push(`<span class="pill">🧵 thread: ${threadId.slice(0,8)}…</span>`);
       pills.innerHTML = pillsHTML.join("");
@@ -782,78 +772,148 @@ const resolvedId = messageId || threadId || null; // message ID for JSON
       if (matchedKey && shipmentId) {
         const cfg = configMap[matchedKey];
         box.value = JSON.stringify({
-          thread_id:                 resolvedId || "string",
-          shipment_id:               shipmentId,
-          root_path:                 cfg.root,
-          config_path:               cfg.config,
-          ignore_files_regex:        getInlineRegex2(),
-          ignore_sheets_regex:       getSheetRegex2(),
-          force_process_attachments: true,
-          display:                   ":2433.0"
+          thread_id: resolvedId||"string", shipment_id: shipmentId,
+          root_path: cfg.root, config_path: cfg.config,
+          ignore_files_regex: getInlineRegex2(), ignore_sheets_regex: getSheetRegex2(),
+          force_process_attachments: true, display: ":2433.0"
         }, null, 2);
         status.className = "status-bar info show";
-        status.textContent = `✅ Get Extraction ready — using ${messageId ? "Message ID" : threadId ? "Thread ID" : "no ID found"}`;
-document.getElementById("logsBtn2").style.display = "";
-
+        status.textContent = `✅ Get Extraction ready — using ${messageId?"Message ID":threadId?"Thread ID":"no ID found"}`;
+        document.getElementById("logsBtn2").style.display = "";
       } else {
         box.value = "";
         status.className = "status-bar warn show";
         status.textContent = !matchedKey ? "⚠️ Client not recognised" : "⚠️ No Shipment ID found";
       }
     }
-function openExtractionLogs() {
-  const text = document.getElementById("smartPaste2").value;
-  const threadId = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
-  if (!threadId) { showToast("⚠️ No Thread ID found in pasted text"); return; }
-  try {
-    const json = JSON.parse(document.getElementById("smartJsonBox2").value);
-    window.open(
-      `http://34.30.43.174:8080/commands/logs/${threadId}/stream?token=operatorToken543&root_path=${json.root_path}`,
-      "_blank"
-    );
-  } catch(e) { showToast("⚠️ Could not read root path — copy JSON first"); }
-}
-
+    function openExtractionLogs() {
+      const text = document.getElementById("smartPaste2").value;
+      const threadId = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
+      if (!threadId) { showToast("⚠️ No Thread ID found in pasted text"); return; }
+      try {
+        const json = JSON.parse(document.getElementById("smartJsonBox2").value);
+        window.open(`http://34.30.43.174:8080/commands/logs/${threadId}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank");
+      } catch(e) { showToast("⚠️ Could not read root path — copy JSON first"); }
+    }
     function handleInlineSkip2() {
-      const input  = document.getElementById("skipInline2").value.trim();
-      const status = document.getElementById("skipInlineStatus2");
-      const files  = input.split("\n").map(f=>f.trim()).filter(f=>f.length>0&&f.includes("."));
-      if (!input)          { status.className="status-bar"; }
+      const input=document.getElementById("skipInline2").value.trim();
+      const status=document.getElementById("skipInlineStatus2");
+      const files=input.split("\n").map(f=>f.trim()).filter(f=>f.length>0&&f.includes("."));
+      if (!input) { status.className="status-bar"; }
       else if (!files.length) { status.className="status-bar warn show"; status.textContent="⚠️ No valid filenames — must include extension"; }
-      else                 { status.className="status-bar info show"; status.textContent=`📄 ${files.length} file(s) will be skipped`; }
+      else { status.className="status-bar info show"; status.textContent=`📄 ${files.length} file(s) will be skipped`; }
       handleSmartPaste2();
     }
-
     function handleSheetToggle2() {
-      const checked = document.getElementById("skipSheetToggle2").checked;
-      const body    = document.getElementById("skipSheetBody2");
-      const status  = document.getElementById("skipSheetStatus2");
-      body.style.display = checked ? "block" : "none";
+      const checked=document.getElementById("skipSheetToggle2").checked;
+      const body=document.getElementById("skipSheetBody2");
+      const status=document.getElementById("skipSheetStatus2");
+      body.style.display=checked?"block":"none";
       if (checked) {
-        const name = document.getElementById("skipSheetName2").value.trim();
+        const name=document.getElementById("skipSheetName2").value.trim();
         if (name) { status.className="status-bar info show"; status.textContent=`📋 Keeping only: "${name}"`; }
         else      { status.className="status-bar warn show"; status.textContent="⚠️ Enter the sheet name to keep"; }
       } else { status.className="status-bar"; }
       handleSmartPaste2();
     }
-
     function toggleSkipSection2() {
       document.getElementById("skipToggle2").classList.toggle("open");
       document.getElementById("skipBody2").classList.toggle("open");
       handleSmartPaste2();
     }
-
     function copySmartJSON2(btn) { const box=document.getElementById("smartJsonBox2"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
-
     function resetSmartPaste2() {
-      document.getElementById("smartPaste2").value="";
-      document.getElementById("smartJsonBox2").value="";
-      document.getElementById("smartPills2").innerHTML="";
-      const s=document.getElementById("smartStatus2"); s.className="status-bar"; s.textContent="";
-document.getElementById("logsBtn2").style.display = "none";
+      document.getElementById("smartPaste2").value=""; document.getElementById("smartJsonBox2").value="";
+      document.getElementById("smartPills2").innerHTML=""; const s=document.getElementById("smartStatus2"); s.className="status-bar"; s.textContent="";
+      document.getElementById("logsBtn2").style.display="none";
       document.getElementById("skipToggle2").classList.remove("open");
       document.getElementById("skipBody2").classList.remove("open");
       handleSmartPaste2();
+    }
+
+    // ── CARD 6: Smart Message ──
+    function detectError(text) {
+      const t = text.toLowerCase();
+
+      if (t.includes("mid not found") || (t.includes("manufacturer") && t.includes("not found"))) {
+        const name = text.match(/MID not found for manufacturer:\s*(.+?)(?:\n|$)/i)?.[1]?.trim()
+          || text.match(/manufacturer[:\s]+([A-Z][^\n]+?)(?:\n|$)/im)?.[1]?.trim();
+        return { type: "mid", extractedName: name||null, label: "MID Error" };
+      }
+      if (t.includes("importer id not found") || t.includes("trade partner") || (t.includes("consignee") && t.includes("not found"))) {
+        const name = text.match(/(?:trade partner|importer|consignee)[:\s"]+([A-Z][^\n"]+?)(?:"|\n|$)/im)?.[1]?.trim();
+        return { type: "importer", extractedName: name||null, label: "Importer ID Error" };
+      }
+      if (t.includes("autocomplete") || t.includes("could not find matching")) {
+        return { type: "autocomplete", extractedName: null, label: "Could Not Find" };
+      }
+      if (t.includes("master bol") || t.includes("master awb") || t.includes("bol is required") || t.includes("awb is required")) {
+        return { type: "masterbol", extractedName: null, label: "Master BOL Error" };
+      }
+      if (t.includes("hts") || (t.includes("tariff") && t.includes("not found")) || t.includes("invalid tariff")) {
+        return { type: "hts", extractedName: null, label: "HTS Not Found" };
+      }
+      if (t.includes("no documents") || t.includes("no attachment") || t.includes("documents attached")) {
+        return { type: "nodocs", extractedName: null, label: "No Documents" };
+      }
+      if (t.includes("invoice") || t.includes("packing list") || (t.includes("convert") && t.includes("float"))) {
+        return { type: "invoice", extractedName: null, label: "Invoice Not Found" };
+      }
+      if (t.includes("file reference") || t.includes("already exists in the database")) {
+        const ref = text.match(/File Reference Number[,\s]+([A-Z0-9-]+)[,\s]/i)?.[1]?.trim();
+        return { type: "fileref", extractedName: ref||null, label: "File Reference Error" };
+      }
+      if (t.includes("profile not found") || (t.includes("profile") && t.includes("not found"))) {
+        return { type: "profile", extractedName: null, label: "Profile Not Found" };
+      }
+      return { type: null, extractedName: null, label: null };
+    }
+
+    function handleSmartMessage() {
+      const text   = document.getElementById("smartMsg").value;
+      const pills  = document.getElementById("msgPills");
+      const status = document.getElementById("msgStatus");
+      const box    = document.getElementById("msgJsonBox");
+
+      if (!text.trim()) { pills.innerHTML=""; box.value=""; status.className="status-bar"; return; }
+
+      const threadId = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
+      const { matchedKey, clientRaw } = extractClient(text);
+      const { type, extractedName, label } = detectError(text);
+
+      const pillsHTML = [];
+      if (matchedKey)     pillsHTML.push(`<span class="pill">🏢 ${matchedKey}</span>`);
+      else if (clientRaw) pillsHTML.push(`<span class="pill warn">⚠️ "${clientRaw}" not recognised</span>`);
+      if (threadId)       pillsHTML.push(`<span class="pill">🧵 ${threadId.slice(0,8)}…</span>`);
+      if (label)          pillsHTML.push(`<span class="pill">⚠️ ${label}</span>`);
+      if (extractedName)  pillsHTML.push(`<span class="pill">📝 ${extractedName}</span>`);
+      pills.innerHTML = pillsHTML.join("");
+
+      if (!matchedKey) { status.className="status-bar warn show"; status.textContent="⚠️ Client not recognised"; box.value=""; return; }
+      if (!threadId)   { status.className="status-bar warn show"; status.textContent="⚠️ Thread ID not found"; box.value=""; return; }
+      if (!type)       { status.className="status-bar warn show"; status.textContent="⚠️ Could not detect error type — check paste"; box.value=""; return; }
+
+      const cfg = configMap[matchedKey];
+      let msg = messageTemplates[type];
+      if (extractedName) msg = msg.replace("STRING", extractedName);
+
+      box.value = JSON.stringify({ thread_id: threadId, root_path: cfg.root, config_path: cfg.config, message: msg }, null, 2);
+      status.className = "status-bar info show";
+      status.textContent = `✅ ${label} detected — message ready`;
+    }
+
+    function copyMsgJSON(btn) { const box=document.getElementById("msgJsonBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
+    function resetSmartMsg() {
+      document.getElementById("smartMsg").value=""; document.getElementById("msgJsonBox").value="";
+      document.getElementById("msgPills").innerHTML=""; const s=document.getElementById("msgStatus"); s.className="status-bar"; s.textContent="";
+    }
+
+    // ── SHARED ──
+    function copyPill(text, el) {
+      navigator.clipboard.writeText(text).then(() => {
+        const orig=el.textContent; el.textContent="✅ Copied!";
+        setTimeout(()=>el.textContent=orig, 1500);
+      });
     }
 
     // ── DOM READY ──
@@ -867,7 +927,6 @@ document.getElementById("logsBtn2").style.display = "none";
         }
       });
 
-      // Card 1 client
       document.querySelectorAll("[data-client]").forEach(item => {
         item.addEventListener("click", function() {
           const el = document.getElementById("clientSelect");
@@ -878,16 +937,13 @@ document.getElementById("logsBtn2").style.display = "none";
         });
       });
 
-      // Ctrl/Cmd+Click on shipment input opens logs
       document.getElementById("shipmentInput").addEventListener("click", function(e) {
         if (e.ctrlKey || e.metaKey) {
-          const id = getShipmentId();
-          if (!id) return;
-          window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/web-platform-main/docparser/customs_assistant`, "_blank");
+          const id = getShipmentId(); if (!id) return;
+          window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/web-platform-main/docparser/customs_assistant`,"_blank");
         }
       });
 
-      // Card 2 client
       document.querySelectorAll("[data-msg-client]").forEach(item => {
         item.addEventListener("click", function() {
           const el = document.getElementById("clientMsgSelect");
@@ -898,7 +954,6 @@ document.getElementById("logsBtn2").style.display = "none";
         });
       });
 
-      // Card 2 error type
       document.querySelectorAll("[data-template]").forEach(item => {
         item.addEventListener("click", function() {
           const el = document.getElementById("templateSelect");
