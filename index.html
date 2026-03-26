@@ -766,7 +766,7 @@
       else if (clientRaw) pillsHTML.push(`<span class="pill warn">⚠️ "${clientRaw}" not in config</span>`);
       if (shipmentId)     pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${shipmentId}',this)" title="Click to copy">🆔 ${shipmentId.slice(0,8)}…</span>`);
       if (messageId)      pillsHTML.push(`<span class="pill">✉️ msg: ${messageId.slice(0,8)}…</span>`);
-      else if (threadId)  pillsHTML.push(`<span class="pill">🧵 thread: ${threadId.slice(0,8)}…</span>`);
+      else if (threadId)  pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${threadId}',this)" title="Click to copy">🧵 ${threadId.slice(0,8)}…</span>`);
       pills.innerHTML = pillsHTML.join("");
 
       if (matchedKey && shipmentId) {
