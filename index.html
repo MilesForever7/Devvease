@@ -387,7 +387,8 @@
     </div>
 
     <!-- CARDS 4 + 5: Smart Paste row -->
-    <div class="smart-row">
+    <div class="smart-row" style="grid-template-columns: 1fr 1fr 1fr;">
+
 
       <!-- CARD 4: Smart Paste — Fill Entry -->
       <div class="autofill-box">
@@ -457,8 +458,7 @@
         </div>
       </div>
 
-    </div><!-- end smart-row -->
-
+    
     <!-- CARD 6: Smart Message -->
     <div class="autofill-box">
       <div class="card-header">
@@ -483,7 +483,7 @@
 
   </div><!-- end container -->
   <div id="toast"></div>
-
+</div><!-- end smart-row -->
   <script>
     function typeTitle() {
       const el = document.getElementById("title"), text = "DevEase.io"; let i = 0;
