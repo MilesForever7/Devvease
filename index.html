@@ -144,16 +144,27 @@
     .pill { font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 999px; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
     .pill.warn { background: #fffbeb; color: #92400e; border-color: #fde68a; }
 
-    .smart-row { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .smart-row { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.25rem; }
 
-    .collapsible-section { border-top: 1px dashed var(--border-color); margin-top: 0.75rem; padding-top: 0.75rem; }
-    .collapsible-toggle { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.78rem; font-weight: 600; color: var(--text-muted); user-select: none; background: none; border: none; padding: 0; font-family: inherit; transition: color var(--transition); }
-    .collapsible-toggle:hover { color: var(--primary); }
-    .collapsible-toggle .chevron { font-size: 0.65rem; transition: transform 0.2s; }
-    .collapsible-toggle.open .chevron { transform: rotate(180deg); }
-    .collapsible-body { display: none; margin-top: 0.65rem; }
-    .collapsible-body.open { display: block; }
-    .skip-sheet-body { display: none; margin-top: 0.4rem; }
+    /* SKIP PILL SYSTEM */
+    .skip-section { background: var(--box-bg); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 0.7rem 0.85rem; margin-bottom: 0.85rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .skip-row { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+    .skip-row .field-label { margin-bottom: 0; flex-shrink: 0; }
+    .skip-pill { padding: 0.2rem 0.55rem; border-radius: 999px; font-size: 0.7rem; font-weight: 600; cursor: pointer; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-muted); transition: all 0.15s; user-select: none; white-space: nowrap; }
+    .skip-pill:hover { border-color: var(--primary); color: var(--primary); }
+    .skip-pill.active { background: var(--primary); color: white; border-color: var(--primary); }
+    .skip-pill.none-pill.active { background: var(--text-muted); border-color: var(--text-muted); color: white; }
+    .sheet-check-row { display: flex; align-items: center; gap: 0.45rem; }
+    .sheet-check-row input[type="checkbox"] { cursor: pointer; width: 13px; height: 13px; flex-shrink: 0; }
+    .sheet-check-row .field-label { margin-bottom: 0; cursor: pointer; }
+    .custom-input-row { display: flex; gap: 0.35rem; }
+    .custom-input-row input { flex: 1; padding: 0.32rem 0.55rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 0.78rem; font-family: 'Fira Code', monospace; outline: none; background: var(--card-bg); color: var(--text-color); min-width: 0; }
+    .custom-input-row input:focus { border-color: var(--border-focus); }
+    .custom-input-row button { padding: 0.32rem 0.6rem; background: var(--primary); color: white; border: none; border-radius: var(--radius-sm); font-size: 0.75rem; font-weight: 600; cursor: pointer; font-family: inherit; }
+    .custom-input-row button:hover { background: var(--primary-light); }
+    .regex-preview { font-family: 'Fira Code', monospace; font-size: 0.72rem; color: var(--text-color); background: var(--box-bg); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 0.35rem 0.55rem; word-break: break-all; display: none; }
+    .regex-preview.show { display: block; }
+    .regex-preview .lbl { color: var(--text-muted); font-size: 0.65rem; display: block; margin-bottom: 0.1rem; }
 
     #toast { display: none; position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.65rem 1.25rem; border-radius: var(--radius); font-size: 0.875rem; font-weight: 500; z-index: 2000; box-shadow: var(--shadow-lg); animation: fadeInOut 2.5s ease; }
     @keyframes fadeInOut { 0%,100% { opacity: 0; transform: translate(-50%,8px); } 10%,90% { opacity: 1; transform: translate(-50%,0); } }
@@ -386,9 +397,8 @@
       </div>
     </div>
 
-    <!-- CARDS 4 + 5: Smart Paste row -->
-    <div class="smart-row" style="grid-template-columns: 1fr 1fr 1fr;">
-
+    <!-- CARDS 4 + 5 + 6: Smart row -->
+    <div class="smart-row">
 
       <!-- CARD 4: Smart Paste — Fill Entry -->
       <div class="autofill-box">
@@ -419,6 +429,33 @@
           <div class="card-icon">🔍</div>
           <span class="card-title">Smart Paste — Get Extraction</span>
         </div>
+
+        <!-- SKIP SECTION — always visible, pill-based -->
+        <div class="skip-section">
+          <div class="skip-row">
+            <span class="field-label">Skip Files</span>
+            <span class="skip-pill none-pill active" onclick="toggleNone(this)">None</span>
+            <span class="skip-pill predefined-pill" data-regex=".*.pdf$" onclick="togglePredefinedPill(this)">All PDFs</span>
+            <span class="skip-pill predefined-pill" data-regex=".*.(xls|xlsx)$" onclick="togglePredefinedPill(this)">All Excel</span>
+            <span class="skip-pill predefined-pill" data-regex=".*.(jpg|jpeg|png|gif)$" onclick="togglePredefinedPill(this)">All Images</span>
+            <span class="skip-pill" data-add-custom onclick="showCustomInput()">+ Custom</span>
+          </div>
+          <div class="custom-input-row" id="customInputRow" style="display:none">
+            <input type="text" id="customFileInput" placeholder="e.g. invoice.pdf">
+            <button onclick="addCustomFile()">Add</button>
+          </div>
+          <div class="sheet-check-row">
+            <input type="checkbox" id="skipSheetCheck" onchange="onSheetToggle()">
+            <label for="skipSheetCheck" class="field-label">Skip Sheet</label>
+            <span id="sheetActiveLabel" style="font-size:.7rem;color:#16a34a;font-weight:600;display:none;margin-left:.25rem">✅ active — replace YOUR_TEXT_HERE before use</span>
+          </div>
+          <div class="regex-preview" id="regexPreview">
+            <span class="lbl">Active regexes:</span>
+            <div id="previewFiles" style="display:none"><span class="lbl">ignore_files_regex:</span><span id="previewFilesVal"></span></div>
+            <div id="previewSheet" style="display:none"><span class="lbl">ignore_sheets_regex:</span><span id="previewSheetVal"></span></div>
+          </div>
+        </div>
+
         <div class="field-group">
           <label class="field-label">Paste Alert Text</label>
           <textarea id="smartPaste2" class="smart-paste-area" placeholder="Paste alert text — uses Message ID if present, else Thread ID…" oninput="handleSmartPaste2()"></textarea>
@@ -429,28 +466,6 @@
           <label class="field-label">Output JSON</label>
           <textarea id="smartJsonBox2" class="textarea-md" readonly placeholder="JSON will appear here…"></textarea>
         </div>
-        <div class="collapsible-section">
-          <button class="collapsible-toggle" id="skipToggle2" onclick="toggleSkipSection2()">
-            <span class="chevron">▼</span> Skip Options <span style="font-weight:400;opacity:0.6;margin-left:0.25rem">(optional)</span>
-          </button>
-          <div class="collapsible-body" id="skipBody2">
-            <div class="field-group" style="margin-top:0.65rem">
-              <label class="field-label">Skip Files <span style="font-weight:400;text-transform:none">(one per line, with extension)</span></label>
-              <textarea id="skipInline2" class="textarea-sm" placeholder="invoice.pdf&#10;packinglist.pdf" oninput="handleInlineSkip2()"></textarea>
-              <div id="skipInlineStatus2" class="status-bar" style="margin-top:0.4rem"></div>
-            </div>
-            <div class="field-group">
-              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.4rem">
-                <input type="checkbox" id="skipSheetToggle2" onchange="handleSheetToggle2()">
-                <label for="skipSheetToggle2" class="field-label" style="margin-bottom:0;cursor:pointer">Skip Sheet — keep only one sheet</label>
-              </div>
-              <div class="skip-sheet-body" id="skipSheetBody2">
-                <input type="text" id="skipSheetName2" placeholder="Sheet name to KEEP e.g. Invoice" oninput="handleSheetToggle2()">
-                <div id="skipSheetStatus2" class="status-bar" style="margin-top:0.4rem"></div>
-              </div>
-            </div>
-          </div>
-        </div>
         <div class="btn-row">
           <button class="btn btn-primary" onclick="copySmartJSON2(this)">📋 Copy JSON</button>
           <button class="btn btn-secondary" id="logsBtn2" onclick="openExtractionLogs()" style="display:none">🔗 Open Logs</button>
@@ -458,32 +473,33 @@
         </div>
       </div>
 
-    
-    <!-- CARD 6: Smart Message -->
-    <div class="autofill-box">
-      <div class="card-header">
-        <div class="card-icon">💬</div>
-        <span class="card-title">Smart Message</span>
+      <!-- CARD 6: Smart Message -->
+      <div class="autofill-box">
+        <div class="card-header">
+          <div class="card-icon">💬</div>
+          <span class="card-title">Smart Message</span>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Paste Slack Alert</label>
+          <textarea id="smartMsg" class="smart-paste-area" style="min-height:90px" placeholder="Paste the full Slack error — client, thread ID and error type will be detected automatically…" oninput="handleSmartMessage()"></textarea>
+        </div>
+        <div id="msgPills" class="detected-pills"></div>
+        <div id="msgStatus" class="status-bar" style="margin-top:0.5rem"></div>
+        <div class="field-group" style="margin-top:0.75rem">
+          <label class="field-label">Output JSON</label>
+          <textarea id="msgJsonBox" class="textarea-lg" readonly placeholder="JSON will appear here…"></textarea>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="copyMsgJSON(this)">📋 Copy JSON</button>
+          <button class="btn btn-danger" onclick="resetSmartMsg()">🔄 Reset</button>
+        </div>
       </div>
-      <div class="field-group">
-        <label class="field-label">Paste Slack Alert</label>
-        <textarea id="smartMsg" class="smart-paste-area" style="min-height:90px" placeholder="Paste the full Slack error — client, thread ID and error type will be detected automatically…" oninput="handleSmartMessage()"></textarea>
-      </div>
-      <div id="msgPills" class="detected-pills"></div>
-      <div id="msgStatus" class="status-bar" style="margin-top:0.5rem"></div>
-      <div class="field-group" style="margin-top:0.75rem">
-        <label class="field-label">Output JSON</label>
-        <textarea id="msgJsonBox" class="textarea-lg" readonly placeholder="JSON will appear here…"></textarea>
-      </div>
-      <div class="btn-row">
-        <button class="btn btn-primary" onclick="copyMsgJSON(this)">📋 Copy JSON</button>
-        <button class="btn btn-danger" onclick="resetSmartMsg()">🔄 Reset</button>
-      </div>
-    </div>
+
+    </div><!-- end smart-row -->
 
   </div><!-- end container -->
   <div id="toast"></div>
-</div><!-- end smart-row -->
+
   <script>
     function typeTitle() {
       const el = document.getElementById("title"), text = "DevEase.io"; let i = 0;
@@ -669,7 +685,6 @@
       const textLower = text.toLowerCase();
       const clientRaw = text.match(/Customer(?:\s+Name)?:\s*`([^`]+)`/i)?.[1]?.trim().toLowerCase()
         || text.match(/Email Label:\s*`?label:([^`\s]+)`?/i)?.[1]?.trim().toLowerCase();
-
       if (clientRaw) {
         for (const [key, aliases] of Object.entries(clientAliases)) {
           if (aliases.some(a => clientRaw.includes(a.toLowerCase()) || a.toLowerCase().includes(clientRaw))) {
@@ -677,7 +692,6 @@
           }
         }
       }
-
       const entries = Object.entries(clientAliases).sort((a,b) =>
         Math.max(...b[1].map(x=>x.length)) - Math.max(...a[1].map(x=>x.length))
       );
@@ -696,16 +710,13 @@
       const status = document.getElementById("smartStatus");
       const box    = document.getElementById("smartJsonBox");
       if (!text.trim()) { pills.innerHTML=""; box.value=""; status.className="status-bar"; return; }
-
       const shipmentId = text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i)?.[0];
       const { matchedKey, clientRaw } = extractClient(text);
-
       const pillsHTML = [];
       if (matchedKey)     pillsHTML.push(`<span class="pill">🏢 ${matchedKey}</span>`);
       else if (clientRaw) pillsHTML.push(`<span class="pill warn">⚠️ "${clientRaw}" not in config</span>`);
       if (shipmentId)     pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${shipmentId}',this)" title="Click to copy">🆔 ${shipmentId.slice(0,8)}…</span>`);
       pills.innerHTML = pillsHTML.join("");
-
       if (matchedKey && shipmentId) {
         const cfg = configMap[matchedKey];
         box.value = JSON.stringify({ shipment_id: shipmentId, root_path: cfg.root, config_path: cfg.config, entry_number: "", display: ":2433.0" }, null, 2);
@@ -713,8 +724,7 @@
         status.textContent = "✅ Fill Entry JSON ready";
         document.getElementById("logsBtn1").style.display = "";
       } else {
-        box.value = "";
-        status.className = "status-bar warn show";
+        box.value = ""; status.className = "status-bar warn show";
         status.textContent = !matchedKey ? "⚠️ Client not recognised" : "⚠️ No Shipment ID found";
       }
     }
@@ -732,35 +742,105 @@
       } catch(e) { showToast("⚠️ Could not read JSON"); }
     }
 
+    // ── CARD 5: Skip Pill System ──
+    let activePredefinedPills = new Set();
+    let activeCustomPills = new Set();
+    let noneActive = true;
+
+    function toggleNone(el) {
+      activePredefinedPills.clear(); activeCustomPills.clear(); noneActive = true;
+      document.querySelectorAll(".skip-pill:not(.none-pill)").forEach(p => p.classList.remove("active"));
+      el.classList.add("active");
+      document.getElementById("customInputRow").style.display = "none";
+      updateRegexPreview();
+      handleSmartPaste2();
+    }
+
+    function togglePredefinedPill(el) {
+      const regex = el.getAttribute("data-regex");
+      if (el.classList.contains("active")) { el.classList.remove("active"); activePredefinedPills.delete(regex); }
+      else {
+        document.querySelector(".none-pill").classList.remove("active");
+        noneActive = false; el.classList.add("active"); activePredefinedPills.add(regex);
+      }
+      if (activePredefinedPills.size > 0) {
+        document.querySelectorAll(".custom-pill").forEach(p => { p.classList.remove("active"); activeCustomPills.delete(p.getAttribute("data-regex")); });
+      }
+      if (activePredefinedPills.size === 0 && activeCustomPills.size === 0) {
+        document.querySelector(".none-pill").classList.add("active"); noneActive = true;
+      }
+      updateRegexPreview();
+      handleSmartPaste2();
+    }
+
+    function showCustomInput() {
+      const row = document.getElementById("customInputRow");
+      row.style.display = row.style.display === "none" ? "flex" : "none";
+      if (row.style.display === "flex") document.getElementById("customFileInput").focus();
+    }
+
+    function addCustomFile() {
+      const input = document.getElementById("customFileInput");
+      const val = input.value.trim(); if (!val) return;
+      const regex = `^(${val.replace(/\./g,"\\.")})$`;
+      const pill = document.createElement("span");
+      pill.className = "skip-pill custom-pill active";
+      pill.setAttribute("data-regex", regex);
+      pill.textContent = val + " ✕";
+      pill.onclick = function() {
+        activeCustomPills.delete(regex); pill.remove();
+        if (activePredefinedPills.size === 0 && activeCustomPills.size === 0) {
+          document.querySelector(".none-pill").classList.add("active"); noneActive = true;
+        }
+        updateRegexPreview(); handleSmartPaste2();
+      };
+      document.querySelector("[data-add-custom]").parentNode.insertBefore(pill, document.querySelector("[data-add-custom]"));
+      activeCustomPills.add(regex); noneActive = false;
+      document.querySelector(".none-pill").classList.remove("active");
+      document.querySelectorAll(".predefined-pill").forEach(p => { p.classList.remove("active"); activePredefinedPills.delete(p.getAttribute("data-regex")); });
+      input.value = ""; document.getElementById("customInputRow").style.display = "none";
+      updateRegexPreview(); handleSmartPaste2();
+    }
+
+    function onSheetToggle() {
+      document.getElementById("sheetActiveLabel").style.display = document.getElementById("skipSheetCheck").checked ? "inline" : "none";
+      updateRegexPreview(); handleSmartPaste2();
+    }
+
+    function getFileRegex() {
+      if (noneActive) return "";
+      if (activePredefinedPills.size > 0) { const p=[...activePredefinedPills]; return p.length===1?p[0]:"("+p.join("|")+")"; }
+      if (activeCustomPills.size > 0)     { const p=[...activeCustomPills];     return p.length===1?p[0]:"("+p.join("|")+")"; }
+      return "";
+    }
+
+    function getSheetRegex() {
+      return document.getElementById("skipSheetCheck").checked ? "^(?!YOUR_TEXT_HERE$).*" : "";
+    }
+
+    function updateRegexPreview() {
+      const fileRegex  = getFileRegex();
+      const sheetRegex = getSheetRegex();
+      const preview    = document.getElementById("regexPreview");
+      preview.classList.toggle("show", !!(fileRegex || sheetRegex));
+      document.getElementById("previewFiles").style.display  = fileRegex  ? "block" : "none";
+      document.getElementById("previewFilesVal").textContent = fileRegex;
+      document.getElementById("previewSheet").style.display  = sheetRegex ? "block" : "none";
+      document.getElementById("previewSheetVal").textContent = sheetRegex;
+    }
+
     // ── CARD 5: Smart Paste — Get Extraction ──
-    function getInlineRegex2() {
-      if (!document.getElementById("skipBody2").classList.contains("open")) return "";
-      const input = document.getElementById("skipInline2").value.trim();
-      if (!input) return "";
-      const files = input.split("\n").map(f=>f.trim()).filter(f=>f.length>0&&f.includes("."));
-      if (!files.length) return "";
-      return "^(" + files.map(f=>f.replace(/\./g,"\\." )).join("|") + ")$";
-    }
-    function getSheetRegex2() {
-      if (!document.getElementById("skipBody2").classList.contains("open")) return "";
-      if (!document.getElementById("skipSheetToggle2").checked) return "";
-      const name = document.getElementById("skipSheetName2").value.trim();
-      if (!name) return "";
-      return `^(?!${name}$).*`;
-    }
     function handleSmartPaste2() {
       const text   = document.getElementById("smartPaste2").value;
       const pills  = document.getElementById("smartPills2");
       const status = document.getElementById("smartStatus2");
       const box    = document.getElementById("smartJsonBox2");
       if (!text.trim()) { pills.innerHTML=""; box.value=""; status.className="status-bar"; return; }
-
       const shipmentId = text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i)?.[0];
       const threadId   = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
       const messageId  = text.match(/Message ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
       const resolvedId = messageId || threadId || null;
       const { matchedKey, clientRaw } = extractClient(text);
-
       const pillsHTML = [];
       if (matchedKey)     pillsHTML.push(`<span class="pill">🏢 ${matchedKey}</span>`);
       else if (clientRaw) pillsHTML.push(`<span class="pill warn">⚠️ "${clientRaw}" not in config</span>`);
@@ -768,21 +848,19 @@
       if (messageId)      pillsHTML.push(`<span class="pill">✉️ msg: ${messageId.slice(0,8)}…</span>`);
       else if (threadId)  pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${threadId}',this)" title="Click to copy">🧵 ${threadId.slice(0,8)}…</span>`);
       pills.innerHTML = pillsHTML.join("");
-
       if (matchedKey && shipmentId) {
         const cfg = configMap[matchedKey];
         box.value = JSON.stringify({
           thread_id: resolvedId||"string", shipment_id: shipmentId,
           root_path: cfg.root, config_path: cfg.config,
-          ignore_files_regex: getInlineRegex2(), ignore_sheets_regex: getSheetRegex2(),
+          ignore_files_regex: getFileRegex(), ignore_sheets_regex: getSheetRegex(),
           force_process_attachments: true, display: ":2433.0"
         }, null, 2);
         status.className = "status-bar info show";
         status.textContent = `✅ Get Extraction ready — using ${messageId?"Message ID":threadId?"Thread ID":"no ID found"}`;
         document.getElementById("logsBtn2").style.display = "";
       } else {
-        box.value = "";
-        status.className = "status-bar warn show";
+        box.value = ""; status.className = "status-bar warn show";
         status.textContent = !matchedKey ? "⚠️ Client not recognised" : "⚠️ No Shipment ID found";
       }
     }
@@ -795,46 +873,25 @@
         window.open(`http://34.30.43.174:8080/commands/logs/${threadId}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank");
       } catch(e) { showToast("⚠️ Could not read root path — copy JSON first"); }
     }
-    function handleInlineSkip2() {
-      const input=document.getElementById("skipInline2").value.trim();
-      const status=document.getElementById("skipInlineStatus2");
-      const files=input.split("\n").map(f=>f.trim()).filter(f=>f.length>0&&f.includes("."));
-      if (!input) { status.className="status-bar"; }
-      else if (!files.length) { status.className="status-bar warn show"; status.textContent="⚠️ No valid filenames — must include extension"; }
-      else { status.className="status-bar info show"; status.textContent=`📄 ${files.length} file(s) will be skipped`; }
-      handleSmartPaste2();
-    }
-    function handleSheetToggle2() {
-      const checked=document.getElementById("skipSheetToggle2").checked;
-      const body=document.getElementById("skipSheetBody2");
-      const status=document.getElementById("skipSheetStatus2");
-      body.style.display=checked?"block":"none";
-      if (checked) {
-        const name=document.getElementById("skipSheetName2").value.trim();
-        if (name) { status.className="status-bar info show"; status.textContent=`📋 Keeping only: "${name}"`; }
-        else      { status.className="status-bar warn show"; status.textContent="⚠️ Enter the sheet name to keep"; }
-      } else { status.className="status-bar"; }
-      handleSmartPaste2();
-    }
-    function toggleSkipSection2() {
-      document.getElementById("skipToggle2").classList.toggle("open");
-      document.getElementById("skipBody2").classList.toggle("open");
-      handleSmartPaste2();
-    }
     function copySmartJSON2(btn) { const box=document.getElementById("smartJsonBox2"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
     function resetSmartPaste2() {
       document.getElementById("smartPaste2").value=""; document.getElementById("smartJsonBox2").value="";
       document.getElementById("smartPills2").innerHTML=""; const s=document.getElementById("smartStatus2"); s.className="status-bar"; s.textContent="";
       document.getElementById("logsBtn2").style.display="none";
-      document.getElementById("skipToggle2").classList.remove("open");
-      document.getElementById("skipBody2").classList.remove("open");
-      handleSmartPaste2();
+      // reset skip pills to None
+      activePredefinedPills.clear(); activeCustomPills.clear(); noneActive = true;
+      document.querySelectorAll(".skip-pill.custom-pill").forEach(p => p.remove());
+      document.querySelectorAll(".skip-pill:not(.none-pill):not([data-add-custom])").forEach(p => p.classList.remove("active"));
+      document.querySelector(".none-pill").classList.add("active");
+      document.getElementById("customInputRow").style.display = "none";
+      document.getElementById("skipSheetCheck").checked = false;
+      document.getElementById("sheetActiveLabel").style.display = "none";
+      updateRegexPreview();
     }
 
     // ── CARD 6: Smart Message ──
     function detectError(text) {
       const t = text.toLowerCase();
-
       if (t.includes("mid not found") || (t.includes("manufacturer") && t.includes("not found"))) {
         const name = text.match(/MID not found for manufacturer:\s*(.+?)(?:\n|$)/i)?.[1]?.trim()
           || text.match(/manufacturer[:\s]+([A-Z][^\n]+?)(?:\n|$)/im)?.[1]?.trim();
@@ -874,13 +931,10 @@
       const pills  = document.getElementById("msgPills");
       const status = document.getElementById("msgStatus");
       const box    = document.getElementById("msgJsonBox");
-
       if (!text.trim()) { pills.innerHTML=""; box.value=""; status.className="status-bar"; return; }
-
       const threadId = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
       const { matchedKey, clientRaw } = extractClient(text);
       const { type, extractedName, label } = detectError(text);
-
       const pillsHTML = [];
       if (matchedKey)     pillsHTML.push(`<span class="pill">🏢 ${matchedKey}</span>`);
       else if (clientRaw) pillsHTML.push(`<span class="pill warn">⚠️ "${clientRaw}" not recognised</span>`);
@@ -888,20 +942,16 @@
       if (label)          pillsHTML.push(`<span class="pill">⚠️ ${label}</span>`);
       if (extractedName)  pillsHTML.push(`<span class="pill">📝 ${extractedName}</span>`);
       pills.innerHTML = pillsHTML.join("");
-
       if (!matchedKey) { status.className="status-bar warn show"; status.textContent="⚠️ Client not recognised"; box.value=""; return; }
       if (!threadId)   { status.className="status-bar warn show"; status.textContent="⚠️ Thread ID not found"; box.value=""; return; }
       if (!type)       { status.className="status-bar warn show"; status.textContent="⚠️ Could not detect error type — check paste"; box.value=""; return; }
-
       const cfg = configMap[matchedKey];
       let msg = messageTemplates[type];
       if (extractedName) msg = msg.replace("STRING", extractedName);
-
       box.value = JSON.stringify({ thread_id: threadId, root_path: cfg.root, config_path: cfg.config, message: msg }, null, 2);
       status.className = "status-bar info show";
       status.textContent = `✅ ${label} detected — message ready`;
     }
-
     function copyMsgJSON(btn) { const box=document.getElementById("msgJsonBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
     function resetSmartMsg() {
       document.getElementById("smartMsg").value=""; document.getElementById("msgJsonBox").value="";
@@ -920,6 +970,11 @@
     document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("skipMode").addEventListener("change", generateSkipRegex);
       document.getElementById("skipInput").addEventListener("input", generateSkipRegex);
+
+      document.getElementById("customFileInput").addEventListener("keydown", e => {
+        if (e.key === "Enter") addCustomFile();
+        if (e.key === "Escape") document.getElementById("customInputRow").style.display = "none";
+      });
 
       document.addEventListener("click", e => {
         if (!e.target.closest(".custom-dropdown")) {
