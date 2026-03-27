@@ -898,7 +898,8 @@
         return { type: "mid", extractedName: name||null, label: "MID Error" };
       }
       if (t.includes("importer id not found") || t.includes("trade partner") || (t.includes("consignee") && t.includes("not found"))) {
-        const name = text.match(/(?:trade partner|importer|consignee)[:\s"]+([A-Z][^\n"]+?)(?:"|\n|$)/im)?.[1]?.trim();
+        const name = text.match(/Importer ID not found for\s+(.+?)(?:\n|$)/i)?.[1]?.trim()
+  || text.match(/(?:trade partner|consignee)[:\s"]+([A-Z][^\n"]+?)(?:"|\n|$)/im)?.[1]?.trim();
         return { type: "importer", extractedName: name||null, label: "Importer ID Error" };
       }
       if (t.includes("autocomplete") || t.includes("could not find matching")) {
