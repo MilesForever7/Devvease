@@ -438,6 +438,7 @@
             <span class="skip-pill predefined-pill" data-regex=".*.pdf$" onclick="togglePredefinedPill(this)">All PDFs</span>
             <span class="skip-pill predefined-pill" data-regex=".*.(xls|xlsx)$" onclick="togglePredefinedPill(this)">All Excel</span>
             <span class="skip-pill predefined-pill" data-regex=".*.(jpg|jpeg|png|gif)$" onclick="togglePredefinedPill(this)">All Images</span>
+            <span class="skip-pill" id="forceFalsePill" onclick="toggleForceFalse(this)">force: false</span>
             <span class="skip-pill" data-add-custom onclick="showCustomInput()">+ Custom</span>
           </div>
           <div class="custom-input-row" id="customInputRow" style="display:none">
@@ -586,7 +587,7 @@
       masterbol:    `Hi,\n\nAI cannot find Master BOL number. Please clarify\n\nBest Regards`,
       hts:          `Hi,\n\nAI cannot find HTS Codes. Please clarify\n\nBest Regards`,
       invoice:      `Hi,\n\nAI cannot find Invoice And Packing list. Please clarify\n\nBest Regards`,
-      fileref:      `Hi,\n\nThe File Reference Number, <>, already exists in the database.\n\nPlease review\n\nBest regards`,
+      fileref:      `Hi,\n\nThe File Reference Number, STRING, already exists in the database.\n\nPlease review\n\nBest regards`,
       nodocs:       `Hi,\n\nNo documents were found attached with this request.\n\nPlease review and attach the required documents.\n\nBest regards`,
     };
 
@@ -743,9 +744,45 @@
     }
 
     // ── CARD 5: Skip Pill System ──
+    // FIX 1: Declare forceFalse variable (was missing — caused ReferenceError)
+    let forceFalse = false;
     let activePredefinedPills = new Set();
     let activeCustomPills = new Set();
     let noneActive = true;
+
+    // FIX 2: Define toggleForceFalse (was referenced in HTML but never defined)
+    function toggleForceFalse(el) {
+      forceFalse = !forceFalse;
+      el.classList.toggle("active", forceFalse);
+      handleSmartPaste2();
+    }
+
+    // FIX 3: Define updateRegexPreview (was called everywhere but never defined)
+    function updateRegexPreview() {
+      const fileRegex  = getFileRegex();
+      const sheetRegex = getSheetRegex();
+      const preview    = document.getElementById("regexPreview");
+      const filesDiv   = document.getElementById("previewFiles");
+      const sheetDiv   = document.getElementById("previewSheet");
+
+      if (fileRegex || sheetRegex) {
+        preview.classList.add("show");
+        if (fileRegex) {
+          filesDiv.style.display = "block";
+          document.getElementById("previewFilesVal").textContent = fileRegex;
+        } else {
+          filesDiv.style.display = "none";
+        }
+        if (sheetRegex) {
+          sheetDiv.style.display = "block";
+          document.getElementById("previewSheetVal").textContent = sheetRegex;
+        } else {
+          sheetDiv.style.display = "none";
+        }
+      } else {
+        preview.classList.remove("show");
+      }
+    }
 
     function toggleNone(el) {
       activePredefinedPills.clear(); activeCustomPills.clear(); noneActive = true;
@@ -818,17 +855,6 @@
       return document.getElementById("skipSheetCheck").checked ? "^(?!YOUR_TEXT_HERE$).*" : "";
     }
 
-    function updateRegexPreview() {
-      const fileRegex  = getFileRegex();
-      const sheetRegex = getSheetRegex();
-      const preview    = document.getElementById("regexPreview");
-      preview.classList.toggle("show", !!(fileRegex || sheetRegex));
-      document.getElementById("previewFiles").style.display  = fileRegex  ? "block" : "none";
-      document.getElementById("previewFilesVal").textContent = fileRegex;
-      document.getElementById("previewSheet").style.display  = sheetRegex ? "block" : "none";
-      document.getElementById("previewSheetVal").textContent = sheetRegex;
-    }
-
     // ── CARD 5: Smart Paste — Get Extraction ──
     function handleSmartPaste2() {
       const text   = document.getElementById("smartPaste2").value;
@@ -854,7 +880,7 @@
           thread_id: resolvedId||"string", shipment_id: shipmentId,
           root_path: cfg.root, config_path: cfg.config,
           ignore_files_regex: getFileRegex(), ignore_sheets_regex: getSheetRegex(),
-          force_process_attachments: true, display: ":2433.0"
+          force_process_attachments: !forceFalse, display: ":2433.0"
         }, null, 2);
         status.className = "status-bar info show";
         status.textContent = `✅ Get Extraction ready — using ${messageId?"Message ID":threadId?"Thread ID":"no ID found"}`;
@@ -880,6 +906,8 @@
       document.getElementById("logsBtn2").style.display="none";
       // reset skip pills to None
       activePredefinedPills.clear(); activeCustomPills.clear(); noneActive = true;
+      forceFalse = false;
+      document.getElementById("forceFalsePill").classList.remove("active");
       document.querySelectorAll(".skip-pill.custom-pill").forEach(p => p.remove());
       document.querySelectorAll(".skip-pill:not(.none-pill):not([data-add-custom])").forEach(p => p.classList.remove("active"));
       document.querySelector(".none-pill").classList.add("active");
@@ -899,7 +927,7 @@
       }
       if (t.includes("importer id not found") || t.includes("trade partner") || (t.includes("consignee") && t.includes("not found"))) {
         const name = text.match(/Importer ID not found for\s+(.+?)(?:\n|$)/i)?.[1]?.trim()
-  || text.match(/(?:trade partner|consignee)[:\s"]+([A-Z][^\n"]+?)(?:"|\n|$)/im)?.[1]?.trim();
+          || text.match(/(?:trade partner|consignee)[:\s"]+([A-Z][^\n"]+?)(?:"|\n|$)/im)?.[1]?.trim();
         return { type: "importer", extractedName: name||null, label: "Importer ID Error" };
       }
       if (t.includes("autocomplete") || t.includes("could not find matching")) {
