@@ -90,9 +90,16 @@
 
     .autofill-box { background: var(--card-bg); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow-sm); transition: box-shadow var(--transition), border-color var(--transition); position: relative; overflow: visible; }
     .autofill-box:hover { box-shadow: var(--shadow); border-color: var(--secondary); }
-    .card-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); }
+    .card-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); cursor: pointer; user-select: none; }
     .card-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--secondary), var(--primary)); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: white; flex-shrink: 0; }
-    .card-title { font-weight: 700; font-size: 0.95rem; color: var(--text-color); letter-spacing: -0.2px; }
+    .card-title { font-weight: 700; font-size: 0.95rem; color: var(--text-color); letter-spacing: -0.2px; flex: 1; }
+    .card-minimize { margin-left: auto; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 4px; color: var(--text-muted); font-size: 0.75rem; transition: background var(--transition), color var(--transition), transform 0.25s; flex-shrink: 0; }
+    .card-minimize:hover { background: var(--box-bg); color: var(--primary); }
+    .card-body { }
+    .autofill-box.minimized .card-header { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .autofill-box.minimized .card-body { display: none; }
+    .autofill-box.minimized { padding-bottom: 1rem; }
+    .autofill-box.minimized .card-minimize { transform: rotate(180deg); }
 
     .field-group { margin-bottom: 0.75rem; }
     .field-label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; }
@@ -213,10 +220,12 @@
 
     <!-- CARD 1: Run Entry -->
     <div class="autofill-box">
-      <div class="card-header">
+      <div class="card-header" onclick="toggleCard(this)">
         <div class="card-icon">▶</div>
         <span class="card-title">Run Entry</span>
+        <span class="card-minimize">▼</span>
       </div>
+      <div class="card-body">
       <div class="field-group">
         <label class="field-label">Mode</label>
         <select id="modeSelect" onchange="autofillJSON()">
@@ -280,14 +289,17 @@
         <button class="btn btn-secondary" onclick="openTransworldLogs()">🚢 Transworld Logs</button>
         <button class="btn btn-secondary" onclick="openPlatformLogs()">🖥 Platform Logs</button>
       </div>
+      </div><!-- end card-body -->
     </div>
 
     <!-- CARD 2: Message Template -->
     <div class="autofill-box">
-      <div class="card-header">
+      <div class="card-header" onclick="toggleCard(this)">
         <div class="card-icon">✉</div>
         <span class="card-title">Message Template</span>
+        <span class="card-minimize">▼</span>
       </div>
+      <div class="card-body">
       <div class="field-group">
         <label class="field-label">Client & Error Type</label>
         <div class="dropdown-row">
@@ -366,14 +378,17 @@
         <button class="btn btn-primary" onclick="copyTemplateJSON(this)">📋 Copy JSON</button>
         <button class="btn btn-danger" onclick="resetTemplateFields()">🔄 Reset</button>
       </div>
+      </div><!-- end card-body -->
     </div>
 
     <!-- CARD 3: Skip Regex -->
     <div class="autofill-box">
-      <div class="card-header">
+      <div class="card-header" onclick="toggleCard(this)">
         <div class="card-icon">⊘</div>
         <span class="card-title">Skip Regex</span>
+        <span class="card-minimize">▼</span>
       </div>
+      <div class="card-body">
       <div class="field-group">
         <label class="field-label">Type</label>
         <select id="skipMode">
@@ -395,6 +410,7 @@
         <button class="btn btn-primary" onclick="copySkipRegex(this)">📋 Copy Regex</button>
         <button class="btn btn-danger" onclick="resetSkip()">🔄 Reset</button>
       </div>
+      </div><!-- end card-body -->
     </div>
 
     <!-- CARDS 4 + 5 + 6: Smart row -->
@@ -402,10 +418,12 @@
 
       <!-- CARD 4: Smart Paste — Fill Entry -->
       <div class="autofill-box">
-        <div class="card-header">
+        <div class="card-header" onclick="toggleCard(this)">
           <div class="card-icon">⚡</div>
           <span class="card-title">Smart Paste — Fill Entry</span>
+          <span class="card-minimize">▼</span>
         </div>
+        <div class="card-body">
         <div class="field-group">
           <label class="field-label">Paste Alert Text</label>
           <textarea id="smartPaste" class="smart-paste-area" placeholder="Paste alert text — client + shipment ID detected automatically…" oninput="handleSmartPaste()"></textarea>
@@ -421,14 +439,17 @@
           <button class="btn btn-secondary" id="logsBtn1" onclick="openFillEntryLogs()" style="display:none">🔗 Open Logs</button>
           <button class="btn btn-danger" onclick="resetSmartPaste()">🔄 Reset</button>
         </div>
+        </div><!-- end card-body -->
       </div>
 
       <!-- CARD 5: Smart Paste — Get Extraction -->
       <div class="autofill-box">
-        <div class="card-header">
+        <div class="card-header" onclick="toggleCard(this)">
           <div class="card-icon">🔍</div>
           <span class="card-title">Smart Paste — Get Extraction</span>
+          <span class="card-minimize">▼</span>
         </div>
+        <div class="card-body">
 
         <!-- SKIP SECTION — always visible, pill-based -->
         <div class="skip-section">
@@ -468,14 +489,17 @@
           <button class="btn btn-secondary" id="logsBtn2" onclick="openExtractionLogs()" style="display:none">🔗 Open Logs</button>
           <button class="btn btn-danger" onclick="resetSmartPaste2()">🔄 Reset</button>
         </div>
+        </div><!-- end card-body -->
       </div>
 
       <!-- CARD 6: Smart Message -->
       <div class="autofill-box">
-        <div class="card-header">
+        <div class="card-header" onclick="toggleCard(this)">
           <div class="card-icon">💬</div>
           <span class="card-title">Smart Message</span>
+          <span class="card-minimize">▼</span>
         </div>
+        <div class="card-body">
         <div class="field-group">
           <label class="field-label">Paste Slack Alert</label>
           <textarea id="smartMsg" class="smart-paste-area" style="min-height:90px" placeholder="Paste the full Slack error — client, thread ID and error type will be detected automatically…" oninput="handleSmartMessage()"></textarea>
@@ -490,6 +514,7 @@
           <button class="btn btn-primary" onclick="copyMsgJSON(this)">📋 Copy JSON</button>
           <button class="btn btn-danger" onclick="resetSmartMsg()">🔄 Reset</button>
         </div>
+        </div><!-- end card-body -->
       </div>
 
     </div><!-- end smart-row -->
@@ -1022,9 +1047,34 @@
 
       typeTitle();
       createShips();
+      restoreCardStates();
     });
 
     function flashBtn(btn, msg) { const orig=btn.innerHTML; btn.innerHTML=msg; btn.classList.add("btn-success"); setTimeout(()=>{ btn.innerHTML=orig; btn.classList.remove("btn-success"); },1500); }
+
+    // ── MINIMIZE / EXPAND CARDS ──
+    function toggleCard(header) {
+      const card = header.closest(".autofill-box");
+      card.classList.toggle("minimized");
+      saveCardStates();
+    }
+
+    function saveCardStates() {
+      const states = [];
+      document.querySelectorAll(".autofill-box").forEach((card, i) => {
+        states[i] = card.classList.contains("minimized");
+      });
+      localStorage.setItem("devease_card_states", JSON.stringify(states));
+    }
+
+    function restoreCardStates() {
+      try {
+        const states = JSON.parse(localStorage.getItem("devease_card_states") || "[]");
+        document.querySelectorAll(".autofill-box").forEach((card, i) => {
+          if (states[i]) card.classList.add("minimized");
+        });
+      } catch(e) {}
+    }
   </script>
 </body>
 </html>
