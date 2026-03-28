@@ -450,11 +450,7 @@
             <label for="skipSheetCheck" class="field-label">Skip Sheet</label>
             <span id="sheetActiveLabel" style="font-size:.7rem;color:#16a34a;font-weight:600;display:none;margin-left:.25rem">✅ active — replace YOUR_TEXT_HERE before use</span>
           </div>
-          <div class="regex-preview" id="regexPreview">
-            <span class="lbl">Active regexes:</span>
-            <div id="previewFiles" style="display:none"><span class="lbl">ignore_files_regex:</span><span id="previewFilesVal"></span></div>
-            <div id="previewSheet" style="display:none"><span class="lbl">ignore_sheets_regex:</span><span id="previewSheetVal"></span></div>
-          </div>
+
         </div>
 
         <div class="field-group">
@@ -757,32 +753,8 @@
       handleSmartPaste2();
     }
 
-    // FIX 3: Define updateRegexPreview (was called everywhere but never defined)
-    function updateRegexPreview() {
-      const fileRegex  = getFileRegex();
-      const sheetRegex = getSheetRegex();
-      const preview    = document.getElementById("regexPreview");
-      const filesDiv   = document.getElementById("previewFiles");
-      const sheetDiv   = document.getElementById("previewSheet");
-
-      if (fileRegex || sheetRegex) {
-        preview.classList.add("show");
-        if (fileRegex) {
-          filesDiv.style.display = "block";
-          document.getElementById("previewFilesVal").textContent = fileRegex;
-        } else {
-          filesDiv.style.display = "none";
-        }
-        if (sheetRegex) {
-          sheetDiv.style.display = "block";
-          document.getElementById("previewSheetVal").textContent = sheetRegex;
-        } else {
-          sheetDiv.style.display = "none";
-        }
-      } else {
-        preview.classList.remove("show");
-      }
-    }
+    // Regex preview removed — kept as no-op so pill handlers don't break
+    function updateRegexPreview() {}
 
     function toggleNone(el) {
       activePredefinedPills.clear(); activeCustomPills.clear(); noneActive = true;
