@@ -8,53 +8,30 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
     :root {
-      --bg: #f0f2f5;
-      --primary: #2a4365;
-      --primary-light: #3a5a8a;
-      --secondary: #8ba3c7;
-      --accent: #ffffff;
-      --card-bg: #ffffff;
-      --text-color: #1f2937;
-      --text-muted: #6b7280;
-      --box-bg: #f9fafb;
-      --border-color: #e5e7eb;
-      --border-focus: #2a4365;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-      --shadow: 0 4px 12px rgba(0,0,0,0.08);
-      --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
-      --error: #dc2626;
-      --success: #16a34a;
-      --success-bg: #f0fdf4;
-      --ship-color: #8ba3c7;
-      --title-glow: rgba(139,163,199,0.3);
-      --radius: 10px;
-      --radius-sm: 6px;
-      --transition: 0.18s ease;
+      --bg: #f0f2f5; --primary: #2a4365; --primary-light: #3a5a8a; --secondary: #8ba3c7;
+      --accent: #ffffff; --card-bg: #ffffff; --text-color: #1f2937; --text-muted: #6b7280;
+      --box-bg: #f9fafb; --border-color: #e5e7eb; --border-focus: #2a4365;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08); --shadow: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.12); --error: #dc2626; --success: #16a34a;
+      --success-bg: #f0fdf4; --ship-color: #8ba3c7; --title-glow: rgba(139,163,199,0.3);
+      --radius: 10px; --radius-sm: 6px; --transition: 0.18s ease;
     }
     body.dark-mode {
-      --bg: #0f172a; --primary: #93b4d8; --primary-light: #b8d0ed;
-      --secondary: #3b82f6; --accent: #1e293b; --card-bg: #1e293b;
-      --text-color: #f1f5f9; --text-muted: #94a3b8; --box-bg: #0f172a;
-      --border-color: #334155; --border-focus: #93b4d8;
+      --bg: #0f172a; --primary: #93b4d8; --primary-light: #b8d0ed; --secondary: #3b82f6;
+      --accent: #1e293b; --card-bg: #1e293b; --text-color: #f1f5f9; --text-muted: #94a3b8;
+      --box-bg: #0f172a; --border-color: #334155; --border-focus: #93b4d8;
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.3); --shadow: 0 4px 12px rgba(0,0,0,0.4);
-      --shadow-lg: 0 8px 24px rgba(0,0,0,0.5);
-      --error: #f87171; --success: #4ade80; --success-bg: #052e16;
-      --ship-color: #334155; --title-glow: rgba(147,180,216,0.2);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.5); --error: #f87171; --success: #4ade80;
+      --success-bg: #052e16; --ship-color: #334155; --title-glow: rgba(147,180,216,0.2);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--bg); font-family: 'Inter', sans-serif; min-height: 100vh; padding: 2rem; transition: background 0.3s, color 0.3s; color: var(--text-color); overflow-x: hidden; }
-
     .ocean-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; }
     .ship { position: absolute; font-size: 1rem; color: var(--ship-color); opacity: 0.25; transition: transform 0.3s ease; pointer-events: auto; }
-
-    .logo-container { display: flex; justify-content: center; align-items: center; width: 100%; margin-bottom: 0.25rem; padding: 5px 0; position: relative; z-index: 10; }
-    .logo-container img { max-width: 260px; height: auto; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.06)); }
-
     .header { text-align: center; margin-bottom: 2rem; position: relative; z-index: 2; }
     .header h1 { font-size: 2.2rem; color: var(--primary); font-weight: 700; display: inline-block; text-shadow: 0 0 20px var(--title-glow); letter-spacing: -0.5px; }
     .header h1:hover { animation: shake 0.2s ease-in-out; }
     @keyframes shake { 0%,100% { transform: translate(0,0) rotate(0deg); } 50% { transform: translate(2px,-2px) rotate(2deg); } }
-
     .mode-toggle { position: fixed; top: 1.5rem; right: 1.5rem; z-index: 1000; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
     .mode-toggle input { display: none; }
     .mode-toggle label { background-color: var(--secondary); width: 4rem; height: 2rem; border-radius: 2rem; display: flex; align-items: center; justify-content: space-between; padding: 0.4rem 0.6rem; cursor: pointer; position: relative; transition: background-color 0.3s, box-shadow 0.3s; }
@@ -66,7 +43,6 @@
     .mode-toggle .ball { width: 1.5rem; height: 1.5rem; background: var(--accent); position: absolute; top: 0.25rem; left: 0.25rem; border-radius: 50%; transition: transform 0.4s, box-shadow 0.4s; }
     .mode-toggle input:checked + label .ball { transform: translateX(2rem); box-shadow: 0 0 8px var(--title-glow); }
     .mode-toggle .vibe { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; text-transform: capitalize; }
-
     .settings-toggle { position: fixed; top: 4.5rem; right: 1.5rem; z-index: 1000; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
     .settings-toggle button { width: 4rem; height: 2rem; background: #6b7280; border: none; border-radius: var(--radius-sm); font-size: 1.1rem; color: white; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; }
     .settings-toggle button:hover { box-shadow: 0 0 10px var(--title-glow); }
@@ -76,43 +52,29 @@
     @keyframes smokeEffect { 0% { transform: translateY(0) scale(1); opacity: 0.5; } 100% { transform: translateY(-30px) scale(1.5); opacity: 0; } }
     .settings-panel { display: none; position: fixed; top: 6.5rem; right: 1.5rem; background: var(--card-bg); padding: 1.25rem; border-radius: var(--radius); box-shadow: var(--shadow-lg); width: 230px; z-index: 1000; color: var(--text-color); border: 1px solid var(--border-color); }
     .settings-panel.active { display: block; }
-    .settings-panel label { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 500; margin-bottom: 0.4rem; color: var(--text-muted); }
-    .settings-panel select, .settings-panel button { width: 100%; padding: 0.45rem 0.6rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); background: var(--box-bg); color: var(--text-color); font-size: 0.85rem; margin-bottom: 0.9rem; }
-    .settings-panel button { background: var(--secondary); color: white; font-weight: 600; cursor: pointer; border: none; transition: background 0.2s; }
-    .settings-panel button:hover { background: var(--primary); }
-    .settings-panel .toggle-switch { display: flex; align-items: center; gap: 0.5rem; }
+    .settings-panel .section-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 0.5rem; }
+    .settings-panel select { width: 100%; padding: 0.45rem 0.6rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); background: var(--box-bg); color: var(--text-color); font-size: 0.85rem; margin-bottom: 0.9rem; outline: none; }
+    .settings-panel .toggle-row { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem; }
     .settings-panel .toggle-switch input { display: none; }
-    .settings-panel .toggle-switch label { width: 2.5rem; height: 1.4rem; background: var(--secondary); border-radius: 1.4rem; display: flex; align-items: center; padding: 0.2rem; cursor: pointer; position: relative; margin-bottom: 0; }
+    .settings-panel .toggle-switch label { width: 2.5rem; height: 1.4rem; background: var(--secondary); border-radius: 1.4rem; display: flex; align-items: center; padding: 0.2rem; cursor: pointer; position: relative; flex-shrink: 0; }
     .settings-panel .toggle-switch .ball { width: 1rem; height: 1rem; background: white; border-radius: 50%; transition: transform 0.3s; }
+    .settings-panel .toggle-switch input:checked + label { background: var(--primary); }
     .settings-panel .toggle-switch input:checked + label .ball { transform: translateX(1.1rem); }
-
+    .settings-panel .toggle-label { font-size: 0.82rem; color: var(--text-color); font-weight: 500; }
     .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.25rem; max-width: 1280px; margin: 3.5rem auto 0; position: relative; z-index: 2; }
-
     .autofill-box { background: var(--card-bg); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow-sm); transition: box-shadow var(--transition), border-color var(--transition); position: relative; overflow: visible; }
     .autofill-box:hover { box-shadow: var(--shadow); border-color: var(--secondary); }
-    .card-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); cursor: pointer; user-select: none; }
+    .card-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); }
     .card-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--secondary), var(--primary)); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: white; flex-shrink: 0; }
-    .card-title { font-weight: 700; font-size: 0.95rem; color: var(--text-color); letter-spacing: -0.2px; flex: 1; }
-    .card-minimize { margin-left: auto; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 4px; color: var(--text-muted); font-size: 0.75rem; transition: background var(--transition), color var(--transition), transform 0.25s; flex-shrink: 0; }
-    .card-minimize:hover { background: var(--box-bg); color: var(--primary); }
-    .card-body { }
-    .autofill-box.minimized .card-header { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-    .autofill-box.minimized .card-body { display: none; }
-    .autofill-box.minimized { padding-bottom: 1rem; }
-    .autofill-box.minimized .card-minimize { transform: rotate(180deg); }
-
+    .card-title { font-weight: 700; font-size: 0.95rem; color: var(--text-color); letter-spacing: -0.2px; }
     .field-group { margin-bottom: 0.75rem; }
     .field-label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; }
-
     .autofill-box select, .autofill-box textarea, .autofill-box input[type="text"] { width: 100%; border-radius: var(--radius-sm); font-family: inherit; background: var(--box-bg); color: var(--text-color); border: 1px solid var(--border-color); transition: border-color var(--transition), box-shadow var(--transition); outline: none; font-size: 0.9rem; }
     .autofill-box select { padding: 0.55rem 0.75rem; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.75rem center; padding-right: 2rem; }
     .autofill-box input[type="text"] { padding: 0.55rem 0.75rem; }
     .autofill-box textarea { padding: 0.65rem 0.75rem; font-family: 'Fira Code', monospace; font-size: 0.82rem; resize: none; line-height: 1.6; }
     .autofill-box select:focus, .autofill-box input[type="text"]:focus, .autofill-box textarea:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(42,67,101,0.12); }
-    .textarea-sm { height: 90px; }
-    .textarea-md { height: 130px; }
-    .textarea-lg { height: 160px; }
-
+    .textarea-sm { height: 90px; } .textarea-md { height: 130px; } .textarea-lg { height: 160px; }
     .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.6rem 1rem; border: none; border-radius: var(--radius-sm); font-family: inherit; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all var(--transition); white-space: nowrap; }
     .btn-primary { background: var(--primary); color: white; }
     .btn-primary:hover { background: var(--primary-light); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
@@ -124,7 +86,6 @@
     .btn-full { width: 100%; }
     .btn-row { display: flex; gap: 0.5rem; margin-top: 0.6rem; flex-wrap: wrap; }
     .btn-row .btn { flex: 1; min-width: 100px; }
-
     .custom-dropdown { position: relative; width: 100%; z-index: 100; }
     .dropdown-trigger { position: relative; width: 100%; }
     .dropdown-trigger input { width: 100%; cursor: pointer; padding-right: 2rem !important; }
@@ -137,22 +98,18 @@
     .dropdown-title { font-weight: 700; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 0.4rem; padding: 0.3rem 0.6rem; border-bottom: 1px solid var(--border-color); }
     .dropdown-row { display: flex; gap: 0.5rem; }
     .dropdown-row .custom-dropdown { flex: 1; min-width: 0; }
-
     .status-bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.6rem; border-radius: var(--radius-sm); font-size: 0.78rem; font-weight: 500; margin-top: 0.5rem; opacity: 0; transition: opacity 0.2s; }
     .status-bar.show { opacity: 1; }
     .status-bar.info { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
     .status-bar.warn { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
     body.dark-mode .status-bar.info { background: #1e3a5f; color: #93c5fd; border-color: #1e40af; }
     body.dark-mode .status-bar.warn { background: #2d1b00; color: #fbbf24; border-color: #92400e; }
-
     .smart-paste-area { width: 100%; min-height: 70px; padding: 0.65rem 0.75rem; border: 1px dashed var(--border-color); border-radius: var(--radius-sm); font-family: 'Fira Code', monospace; font-size: 0.82rem; background: var(--box-bg); color: var(--text-muted); resize: none; line-height: 1.6; transition: border-color var(--transition); }
     .smart-paste-area:focus { border-color: var(--border-focus); outline: none; box-shadow: 0 0 0 3px rgba(42,67,101,0.12); color: var(--text-color); }
     .detected-pills { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem; }
     .pill { font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 999px; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
     .pill.warn { background: #fffbeb; color: #92400e; border-color: #fde68a; }
-
     .smart-row { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.25rem; }
-
     /* SKIP PILL SYSTEM */
     .skip-section { background: var(--box-bg); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 0.7rem 0.85rem; margin-bottom: 0.85rem; display: flex; flex-direction: column; gap: 0.5rem; }
     .skip-row { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
@@ -169,13 +126,18 @@
     .custom-input-row input:focus { border-color: var(--border-focus); }
     .custom-input-row button { padding: 0.32rem 0.6rem; background: var(--primary); color: white; border: none; border-radius: var(--radius-sm); font-size: 0.75rem; font-weight: 600; cursor: pointer; font-family: inherit; }
     .custom-input-row button:hover { background: var(--primary-light); }
-    .regex-preview { font-family: 'Fira Code', monospace; font-size: 0.72rem; color: var(--text-color); background: var(--box-bg); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 0.35rem 0.55rem; word-break: break-all; display: none; }
-    .regex-preview.show { display: block; }
-    .regex-preview .lbl { color: var(--text-muted); font-size: 0.65rem; display: block; margin-bottom: 0.1rem; }
-
+    /* SHIPMENT HISTORY */
+    .shipment-wrapper { position: relative; }
+    .history-dropdown { display: none; position: absolute; top: calc(100% + 3px); left: 0; right: 0; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius-sm); box-shadow: var(--shadow); z-index: 500; overflow: hidden; }
+    .history-dropdown.show { display: block; }
+    .history-item { padding: 0.45rem 0.75rem; font-size: 0.8rem; font-family: 'Fira Code', monospace; cursor: pointer; color: var(--text-color); display: flex; align-items: center; gap: 0.5rem; transition: background var(--transition); }
+    .history-item:hover { background: var(--box-bg); color: var(--primary); }
+    .history-item .hist-id { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.78rem; }
+    .history-item .hist-remove { font-size: 0.68rem; color: var(--text-muted); padding: 0.1rem 0.3rem; border-radius: 3px; flex-shrink: 0; }
+    .history-item .hist-remove:hover { color: var(--error); background: #fee2e2; }
+    .history-empty { padding: 0.5rem 0.75rem; font-size: 0.78rem; color: var(--text-muted); font-style: italic; }
     #toast { display: none; position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.65rem 1.25rem; border-radius: var(--radius); font-size: 0.875rem; font-weight: 500; z-index: 2000; box-shadow: var(--shadow-lg); animation: fadeInOut 2.5s ease; }
     @keyframes fadeInOut { 0%,100% { opacity: 0; transform: translate(-50%,8px); } 10%,90% { opacity: 1; transform: translate(-50%,0); } }
-
     @media (max-width: 640px) {
       body { padding: 1rem; }
       .header h1 { font-size: 1.7rem; }
@@ -192,10 +154,7 @@
 <body>
   <div class="mode-toggle">
     <input type="checkbox" id="themeSwitch" onchange="toggleTheme()" checked />
-    <label for="themeSwitch">
-      <span class="sun">☀️</span><span class="moon">🌙</span>
-      <div class="ball"></div>
-    </label>
+    <label for="themeSwitch"><span class="sun">☀️</span><span class="moon">🌙</span><div class="ball"></div></label>
     <span class="vibe">Dark</span>
   </div>
   <div class="ocean-background" id="oceanBackground"></div>
@@ -203,15 +162,18 @@
   <div class="settings-toggle">
     <button onclick="toggleSettings()">⚙️</button>
     <div class="settings-panel">
-      <label><i class="fas fa-sun"></i> Theme</label>
+      <div class="section-title">Theme</div>
       <select id="themeSelect" onchange="toggleTheme()">
         <option value="light" selected>Light</option>
         <option value="dark">Dark</option>
       </select>
-      <label><i class="fas fa-bell"></i> Notifications</label>
-      <div class="toggle-switch">
-        <input type="checkbox" id="notificationsSwitch" checked />
-        <label for="notificationsSwitch"><div class="ball"></div></label>
+      <div class="section-title">Auto-Copy on Detection</div>
+      <div class="toggle-row">
+        <div class="toggle-switch">
+          <input type="checkbox" id="autoCopySwitch" />
+          <label for="autoCopySwitch"><div class="ball"></div></label>
+        </div>
+        <span class="toggle-label" id="autoCopyLabel">Off</span>
       </div>
     </div>
   </div>
@@ -220,12 +182,10 @@
 
     <!-- CARD 1: Run Entry -->
     <div class="autofill-box">
-      <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-header">
         <div class="card-icon">▶</div>
         <span class="card-title">Run Entry</span>
-        <span class="card-minimize">▼</span>
       </div>
-      <div class="card-body">
       <div class="field-group">
         <label class="field-label">Mode</label>
         <select id="modeSelect" onchange="autofillJSON()">
@@ -242,41 +202,32 @@
           <div id="clientDropdown" class="dropdown-panel">
             <div class="dropdown-column">
               <div class="dropdown-title">Web Platform Main</div>
-              <div data-client="guardian">Guardian</div>
-              <div data-client="ilogix">Ilogix</div>
-              <div data-client="ever">Ever</div>
-              <div data-client="whitzard">Whitzard</div>
-              <div data-client="jl">JL</div>
-              <div data-client="jtz">JTZ</div>
-              <div data-client="meekoo">Meekoo</div>
-              <div data-client="leesa">Leesa</div>
-              <div data-client="transworld">Transworld</div>
-              <div data-client="leesachbbruce">Leesa-chb-bruce</div>
-              <div data-client="ldglobal">Ld-global</div>
-              <div data-client="Jaak">Jaak</div>
-              <div data-client="jdusa">JD USA</div>
-              <div data-client="pinnacle">Pinnacle</div>
+              <div data-client="guardian">Guardian</div><div data-client="ilogix">Ilogix</div>
+              <div data-client="ever">Ever</div><div data-client="whitzard">Whitzard</div>
+              <div data-client="jl">JL</div><div data-client="jtz">JTZ</div>
+              <div data-client="meekoo">Meekoo</div><div data-client="leesa">Leesa</div>
+              <div data-client="transworld">Transworld</div><div data-client="leesachbbruce">Leesa-chb-bruce</div>
+              <div data-client="ldglobal">Ld-global</div><div data-client="Jaak">Jaak</div>
+              <div data-client="jdusa">JD USA</div><div data-client="pinnacle">Pinnacle</div>
               <div data-client="Tkk">Tkk</div>
             </div>
             <div class="dropdown-column">
               <div class="dropdown-title">Web Platform</div>
-              <div data-client="onpointhub">On Point Hub</div>
-              <div data-client="perennial1">Perennial</div>
-              <div data-client="slchbnhp">SLCHB NHP</div>
-              <div data-client="slchb">SLCHB</div>
-              <div data-client="yifangchb">Yifang CHB</div>
-              <div data-client="pieschb">Pies CHB</div>
-              <div data-client="bhchb">BH CHB</div>
-              <div data-client="abj">ABJ</div>
-              <div data-client="newave">Newave</div>
-              <div data-client="GHY">GHY</div>
+              <div data-client="onpointhub">On Point Hub</div><div data-client="perennial1">Perennial</div>
+              <div data-client="slchbnhp">SLCHB NHP</div><div data-client="slchb">SLCHB</div>
+              <div data-client="yifangchb">Yifang CHB</div><div data-client="pieschb">Pies CHB</div>
+              <div data-client="bhchb">BH CHB</div><div data-client="abj">ABJ</div>
+              <div data-client="newave">Newave</div><div data-client="GHY">GHY</div>
             </div>
           </div>
         </div>
       </div>
       <div class="field-group">
         <label class="field-label">Shipment ID</label>
-        <input type="text" id="shipmentInput" placeholder="Enter Shipment ID — Ctrl/Cmd+Click to open logs" oninput="autofillJSON()">
+        <div class="shipment-wrapper">
+          <input type="text" id="shipmentInput" placeholder="Enter Shipment ID — Ctrl/Cmd+Click to open logs" oninput="autofillJSON()" onfocus="showHistory()" autocomplete="off">
+          <div class="history-dropdown" id="historyDropdown"></div>
+        </div>
       </div>
       <div class="field-group">
         <label class="field-label">Output JSON</label>
@@ -289,17 +240,14 @@
         <button class="btn btn-secondary" onclick="openTransworldLogs()">🚢 Transworld Logs</button>
         <button class="btn btn-secondary" onclick="openPlatformLogs()">🖥 Platform Logs</button>
       </div>
-      </div><!-- end card-body -->
     </div>
 
     <!-- CARD 2: Message Template -->
     <div class="autofill-box">
-      <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-header">
         <div class="card-icon">✉</div>
         <span class="card-title">Message Template</span>
-        <span class="card-minimize">▼</span>
       </div>
-      <div class="card-body">
       <div class="field-group">
         <label class="field-label">Client & Error Type</label>
         <div class="dropdown-row">
@@ -310,34 +258,22 @@
             <div id="clientMsgDropdown" class="dropdown-panel">
               <div class="dropdown-column">
                 <div class="dropdown-title">Web Platform Main</div>
-                <div data-msg-client="guardian">Guardian</div>
-                <div data-msg-client="ilogix">Ilogix</div>
-                <div data-msg-client="ever">Ever</div>
-                <div data-msg-client="whitzard">Whitzard</div>
-                <div data-msg-client="jl">JL</div>
-                <div data-msg-client="jtz">JTZ</div>
-                <div data-msg-client="meekoo">Meekoo</div>
-                <div data-msg-client="leesa">Leesa</div>
-                <div data-msg-client="transworld">Transworld</div>
-                <div data-msg-client="leesachbbruce">Leesa-chb-bruce</div>
-                <div data-msg-client="ldglobal">Ld-global</div>
-                <div data-msg-client="Jaak">Jaak</div>
-                <div data-msg-client="jdusa">JD USA</div>
-                <div data-msg-client="pinnacle">Pinnacle</div>
+                <div data-msg-client="guardian">Guardian</div><div data-msg-client="ilogix">Ilogix</div>
+                <div data-msg-client="ever">Ever</div><div data-msg-client="whitzard">Whitzard</div>
+                <div data-msg-client="jl">JL</div><div data-msg-client="jtz">JTZ</div>
+                <div data-msg-client="meekoo">Meekoo</div><div data-msg-client="leesa">Leesa</div>
+                <div data-msg-client="transworld">Transworld</div><div data-msg-client="leesachbbruce">Leesa-chb-bruce</div>
+                <div data-msg-client="ldglobal">Ld-global</div><div data-msg-client="Jaak">Jaak</div>
+                <div data-msg-client="jdusa">JD USA</div><div data-msg-client="pinnacle">Pinnacle</div>
                 <div data-msg-client="Tkk">Tkk</div>
               </div>
               <div class="dropdown-column">
                 <div class="dropdown-title">Web Platform</div>
-                <div data-msg-client="onpointhub">On Point Hub</div>
-                <div data-msg-client="perennial1">Perennial</div>
-                <div data-msg-client="slchbnhp">SLCHB NHP</div>
-                <div data-msg-client="slchb">SLCHB</div>
-                <div data-msg-client="yifangchb">Yifang CHB</div>
-                <div data-msg-client="pieschb">Pies CHB</div>
-                <div data-msg-client="bhchb">BH CHB</div>
-                <div data-msg-client="abj">ABJ</div>
-                <div data-msg-client="newave">Newave</div>
-                <div data-msg-client="GHY">GHY</div>
+                <div data-msg-client="onpointhub">On Point Hub</div><div data-msg-client="perennial1">Perennial</div>
+                <div data-msg-client="slchbnhp">SLCHB NHP</div><div data-msg-client="slchb">SLCHB</div>
+                <div data-msg-client="yifangchb">Yifang CHB</div><div data-msg-client="pieschb">Pies CHB</div>
+                <div data-msg-client="bhchb">BH CHB</div><div data-msg-client="abj">ABJ</div>
+                <div data-msg-client="newave">Newave</div><div data-msg-client="GHY">GHY</div>
               </div>
             </div>
           </div>
@@ -350,12 +286,12 @@
                 <div data-template="importer">Importer ID Error</div>
                 <div data-template="autocomplete">Could not find</div>
                 <div data-template="mid">MID Error</div>
+                <div data-template="midior">MID + IOR Error</div>
                 <div data-template="profile">Profile Not Found</div>
                 <div data-template="masterbol">Master BOL Error</div>
                 <div data-template="hts">HTS not Found</div>
                 <div data-template="invoice">Invoice not Found</div>
                 <div data-template="fileref">File Reference Error</div>
-                <div data-template="nodocs">No Documents Error</div>
               </div>
             </div>
           </div>
@@ -378,17 +314,14 @@
         <button class="btn btn-primary" onclick="copyTemplateJSON(this)">📋 Copy JSON</button>
         <button class="btn btn-danger" onclick="resetTemplateFields()">🔄 Reset</button>
       </div>
-      </div><!-- end card-body -->
     </div>
 
     <!-- CARD 3: Skip Regex -->
     <div class="autofill-box">
-      <div class="card-header" onclick="toggleCard(this)">
+      <div class="card-header">
         <div class="card-icon">⊘</div>
         <span class="card-title">Skip Regex</span>
-        <span class="card-minimize">▼</span>
       </div>
-      <div class="card-body">
       <div class="field-group">
         <label class="field-label">Type</label>
         <select id="skipMode">
@@ -410,7 +343,6 @@
         <button class="btn btn-primary" onclick="copySkipRegex(this)">📋 Copy Regex</button>
         <button class="btn btn-danger" onclick="resetSkip()">🔄 Reset</button>
       </div>
-      </div><!-- end card-body -->
     </div>
 
     <!-- CARDS 4 + 5 + 6: Smart row -->
@@ -418,12 +350,10 @@
 
       <!-- CARD 4: Smart Paste — Fill Entry -->
       <div class="autofill-box">
-        <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header">
           <div class="card-icon">⚡</div>
           <span class="card-title">Smart Paste — Fill Entry</span>
-          <span class="card-minimize">▼</span>
         </div>
-        <div class="card-body">
         <div class="field-group">
           <label class="field-label">Paste Alert Text</label>
           <textarea id="smartPaste" class="smart-paste-area" placeholder="Paste alert text — client + shipment ID detected automatically…" oninput="handleSmartPaste()"></textarea>
@@ -439,19 +369,14 @@
           <button class="btn btn-secondary" id="logsBtn1" onclick="openFillEntryLogs()" style="display:none">🔗 Open Logs</button>
           <button class="btn btn-danger" onclick="resetSmartPaste()">🔄 Reset</button>
         </div>
-        </div><!-- end card-body -->
       </div>
 
       <!-- CARD 5: Smart Paste — Get Extraction -->
       <div class="autofill-box">
-        <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header">
           <div class="card-icon">🔍</div>
           <span class="card-title">Smart Paste — Get Extraction</span>
-          <span class="card-minimize">▼</span>
         </div>
-        <div class="card-body">
-
-        <!-- SKIP SECTION — always visible, pill-based -->
         <div class="skip-section">
           <div class="skip-row">
             <span class="field-label">Skip Files</span>
@@ -471,9 +396,7 @@
             <label for="skipSheetCheck" class="field-label">Skip Sheet</label>
             <span id="sheetActiveLabel" style="font-size:.7rem;color:#16a34a;font-weight:600;display:none;margin-left:.25rem">✅ active — replace YOUR_TEXT_HERE before use</span>
           </div>
-
         </div>
-
         <div class="field-group">
           <label class="field-label">Paste Alert Text</label>
           <textarea id="smartPaste2" class="smart-paste-area" placeholder="Paste alert text — uses Message ID if present, else Thread ID…" oninput="handleSmartPaste2()"></textarea>
@@ -489,17 +412,14 @@
           <button class="btn btn-secondary" id="logsBtn2" onclick="openExtractionLogs()" style="display:none">🔗 Open Logs</button>
           <button class="btn btn-danger" onclick="resetSmartPaste2()">🔄 Reset</button>
         </div>
-        </div><!-- end card-body -->
       </div>
 
       <!-- CARD 6: Smart Message -->
       <div class="autofill-box">
-        <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header">
           <div class="card-icon">💬</div>
           <span class="card-title">Smart Message</span>
-          <span class="card-minimize">▼</span>
         </div>
-        <div class="card-body">
         <div class="field-group">
           <label class="field-label">Paste Slack Alert</label>
           <textarea id="smartMsg" class="smart-paste-area" style="min-height:90px" placeholder="Paste the full Slack error — client, thread ID and error type will be detected automatically…" oninput="handleSmartMessage()"></textarea>
@@ -510,25 +430,69 @@
           <label class="field-label">Output JSON</label>
           <textarea id="msgJsonBox" class="textarea-lg" readonly placeholder="JSON will appear here…"></textarea>
         </div>
+        <div id="msgStringWarning" class="status-bar warn">⚠️ Template still contains unreplaced STRING</div>
         <div class="btn-row">
           <button class="btn btn-primary" onclick="copyMsgJSON(this)">📋 Copy JSON</button>
           <button class="btn btn-danger" onclick="resetSmartMsg()">🔄 Reset</button>
         </div>
-        </div><!-- end card-body -->
       </div>
 
     </div><!-- end smart-row -->
-
   </div><!-- end container -->
   <div id="toast"></div>
 
   <script>
+    // ── AUTO-COPY ──
+    let autoCopyEnabled = false;
+    document.getElementById("autoCopySwitch").addEventListener("change", function() {
+      autoCopyEnabled = this.checked;
+      document.getElementById("autoCopyLabel").textContent = autoCopyEnabled ? "On" : "Off";
+    });
+    function autoCopyToClipboard(text) {
+      if (!autoCopyEnabled) return;
+      try {
+        navigator.clipboard.writeText(text).then(() => showToast("⚡ Auto-copied!"));
+      } catch(e) {
+        const ta = document.createElement("textarea"); ta.value = text;
+        document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
+        showToast("⚡ Auto-copied!");
+      }
+    }
+
+    // ── SHIPMENT HISTORY ──
+    const HISTORY_KEY = "devease_shipment_history";
+    const HISTORY_MAX = 5;
+    function getHistory() { try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]"); } catch(e) { return []; } }
+    function saveToHistory(id) {
+      if (!id || id.length < 10) return;
+      let h = getHistory().filter(x => x !== id);
+      h.unshift(id);
+      if (h.length > HISTORY_MAX) h = h.slice(0, HISTORY_MAX);
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(h));
+    }
+    function removeFromHistory(id) {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(getHistory().filter(x => x !== id)));
+      renderHistory();
+    }
+    function renderHistory() {
+      const dd = document.getElementById("historyDropdown");
+      const h = getHistory();
+      if (!h.length) { dd.innerHTML = '<div class="history-empty">No recent shipment IDs</div>'; return; }
+      dd.innerHTML = h.map(id => `<div class="history-item" onclick="selectHistory('${id}')"><span class="hist-id">${id}</span><span class="hist-remove" onclick="event.stopPropagation();removeFromHistory('${id}')" title="Remove">✕</span></div>`).join("");
+    }
+    function showHistory() { renderHistory(); document.getElementById("historyDropdown").classList.add("show"); }
+    function selectHistory(id) {
+      document.getElementById("shipmentInput").value = id;
+      document.getElementById("historyDropdown").classList.remove("show");
+      autofillJSON();
+    }
+
+    // ── TITLE + SHIPS ──
     function typeTitle() {
       const el = document.getElementById("title"), text = "DevEase.io"; let i = 0;
       function type() { if (i < text.length) { el.textContent += text[i++]; setTimeout(type, 100); } else { setTimeout(() => { el.textContent = ""; i = 0; type(); }, 2500); } }
       type();
     }
-
     function createShips() {
       const ocean = document.getElementById("oceanBackground");
       const n = window.innerWidth < 640 ? 4 : 8;
@@ -556,16 +520,13 @@
       document.querySelector(".vibe").textContent = isDark ? "Dark" : "Light";
       document.getElementById("themeSwitch").checked = isDark;
     }
-
     function toggleSettings() {
       const panel = document.querySelector(".settings-panel"), btn = document.querySelector(".settings-toggle button");
       btn.classList.add("spin");
       for (let i=0;i<4;i++) { const s=document.createElement("div"); s.className="smoke"; s.style.left=`${Math.random()*30}px`; s.style.top=`${Math.random()*15}px`; btn.appendChild(s); setTimeout(()=>s.remove(),1000); }
       setTimeout(()=>{ btn.classList.remove("spin"); panel.classList.toggle("active"); },500);
     }
-
     function showToast(msg) { const t=document.getElementById("toast"); t.textContent=msg; t.style.display="block"; setTimeout(()=>t.style.display="none",2500); }
-
     function toggleDropdown(id) {
       document.querySelectorAll(".dropdown-panel").forEach(p => { if (p.id !== id) p.style.display = "none"; });
       const dd = document.getElementById(id);
@@ -604,12 +565,12 @@
       importer:     `Hi,\n\nAI cannot find the trade partner "STRING" on NetCHB.\n\nCan you please clarify the IOR for the entry?\n\nBest Regards`,
       autocomplete: `Hi,\n\n"Consignee_name" cannot be used as IOR, and AI cannot find "shipper_name"\n\nCan you please clarify the IOR for the entry\n\nBest Regards,`,
       mid:          `Hi,\n\nAI cannot find the manufacturer "STRING".\n\nPlease help clarify the MID for the entry.\n\nBest Regards`,
+      midior:       `Hi,\n\nAI cannot find the manufacturer "STRING_MID" and the trade partner "STRING_IOR" on NetCHB.\n\nCould you please help clarify the MID and the Importer ID (IOR) for the entry?\n\nBest Regards`,
       profile:      `Hi,\n\nNo documents attached. Can you please review and send a new email.\n\nBest Regards`,
       masterbol:    `Hi,\n\nAI cannot find Master BOL number. Please clarify\n\nBest Regards`,
       hts:          `Hi,\n\nAI cannot find HTS Codes. Please clarify\n\nBest Regards`,
       invoice:      `Hi,\n\nAI cannot find Invoice And Packing list. Please clarify\n\nBest Regards`,
       fileref:      `Hi,\n\nThe File Reference Number, STRING, already exists in the database.\n\nPlease review\n\nBest regards`,
-      nodocs:       `Hi,\n\nNo documents were found attached with this request.\n\nPlease review and attach the required documents.\n\nBest regards`,
     };
 
     // ── CARD 1 ──
@@ -626,6 +587,7 @@
         json = { thread_id: "string", shipment_id: id||"string", root_path: configMap[client].root, config_path: configMap[client].config, ignore_files_regex: "", ignore_sheets_regex: "", force_process_attachments: true, display: ":2433.0" };
       }
       box.value = JSON.stringify(json, null, 2);
+      if (id && id.length > 10) saveToHistory(id);
     }
     function getShipmentId() { const id=document.getElementById("shipmentInput").value.trim(); if(!id){showToast("⚠️ Please enter a Shipment ID first");return null;} return id; }
     function openTransworldLogs() { const id=getShipmentId(); if(!id)return; window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/web-platform-2/docparser/customs_assistant`,"_blank"); }
@@ -650,10 +612,8 @@
     function resetTemplateFields() {
       const cm = document.getElementById("clientMsgSelect"); cm.value=""; cm.removeAttribute("data-value");
       const ts = document.getElementById("templateSelect");  ts.value=""; ts.removeAttribute("data-value");
-      document.getElementById("threadInput").value="";
-      document.getElementById("stringInput").value="";
-      document.getElementById("templateBox").value="";
-      document.getElementById("stringWarning").classList.remove("show");
+      document.getElementById("threadInput").value=""; document.getElementById("stringInput").value="";
+      document.getElementById("templateBox").value=""; document.getElementById("stringWarning").classList.remove("show");
     }
     function copyTemplateJSON(btn) { const box=document.getElementById("templateBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
 
@@ -680,7 +640,7 @@
       ilogix:        ["ilogix"],
       ever:          ["ever", "ever-customs"],
       whitzard:      ["whitzard", "whitzard-customs"],
-      jl:            ["jl", "jl-customs"],
+      jl:            ["jl", "jl-customs", "jl-customs-service"],
       jtz:           ["jtz"],
       meekoo:        ["meekoo"],
       leesa:         ["label:leesa-chb`", "customer: `leesa`"],
@@ -709,28 +669,21 @@
         || text.match(/Email Label:\s*`?label:([^`\s]+)`?/i)?.[1]?.trim().toLowerCase();
       if (clientRaw) {
         for (const [key, aliases] of Object.entries(clientAliases)) {
-          if (aliases.some(a => clientRaw.includes(a.toLowerCase()) || a.toLowerCase().includes(clientRaw))) {
+          if (aliases.some(a => clientRaw.includes(a.toLowerCase()) || a.toLowerCase().includes(clientRaw)))
             return { matchedKey: key, clientRaw };
-          }
         }
       }
-      const entries = Object.entries(clientAliases).sort((a,b) =>
-        Math.max(...b[1].map(x=>x.length)) - Math.max(...a[1].map(x=>x.length))
-      );
+      const entries = Object.entries(clientAliases).sort((a,b) => Math.max(...b[1].map(x=>x.length)) - Math.max(...a[1].map(x=>x.length)));
       for (const [key, aliases] of entries) {
-        if (aliases.some(a => textLower.includes(a.toLowerCase()))) {
-          return { matchedKey: key, clientRaw };
-        }
+        if (aliases.some(a => textLower.includes(a.toLowerCase()))) return { matchedKey: key, clientRaw };
       }
       return { matchedKey: null, clientRaw };
     }
 
-    // ── CARD 4: Smart Paste — Fill Entry ──
+    // ── CARD 4 ──
     function handleSmartPaste() {
-      const text   = document.getElementById("smartPaste").value;
-      const pills  = document.getElementById("smartPills");
-      const status = document.getElementById("smartStatus");
-      const box    = document.getElementById("smartJsonBox");
+      const text=document.getElementById("smartPaste").value, pills=document.getElementById("smartPills"),
+            status=document.getElementById("smartStatus"), box=document.getElementById("smartJsonBox");
       if (!text.trim()) { pills.innerHTML=""; box.value=""; status.className="status-bar"; return; }
       const shipmentId = text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i)?.[0];
       const { matchedKey, clientRaw } = extractClient(text);
@@ -741,12 +694,13 @@
       pills.innerHTML = pillsHTML.join("");
       if (matchedKey && shipmentId) {
         const cfg = configMap[matchedKey];
-        box.value = JSON.stringify({ shipment_id: shipmentId, root_path: cfg.root, config_path: cfg.config, entry_number: "", display: ":2433.0" }, null, 2);
-        status.className = "status-bar info show";
-        status.textContent = "✅ Fill Entry JSON ready";
-        document.getElementById("logsBtn1").style.display = "";
+        const jsonStr = JSON.stringify({ shipment_id: shipmentId, root_path: cfg.root, config_path: cfg.config, entry_number: "", display: ":2433.0" }, null, 2);
+        box.value = jsonStr;
+        status.className="status-bar info show"; status.textContent="✅ Fill Entry JSON ready";
+        document.getElementById("logsBtn1").style.display="";
+        autoCopyToClipboard(jsonStr);
       } else {
-        box.value = ""; status.className = "status-bar warn show";
+        box.value=""; status.className="status-bar warn show";
         status.textContent = !matchedKey ? "⚠️ Client not recognised" : "⚠️ No Shipment ID found";
       }
     }
@@ -758,323 +712,245 @@
     }
     function openFillEntryLogs() {
       try {
-        const json = JSON.parse(document.getElementById("smartJsonBox").value);
-        if (!json.shipment_id||json.shipment_id==="string") { showToast("⚠️ No Shipment ID found"); return; }
+        const json=JSON.parse(document.getElementById("smartJsonBox").value);
+        if (!json.shipment_id||json.shipment_id==="string"){showToast("⚠️ No Shipment ID found");return;}
         window.open(`http://34.30.43.174:8080/commands/logs/shipment/${json.shipment_id}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank");
-      } catch(e) { showToast("⚠️ Could not read JSON"); }
+      } catch(e){showToast("⚠️ Could not read JSON");}
     }
 
     // ── CARD 5: Skip Pill System ──
-    // FIX 1: Declare forceFalse variable (was missing — caused ReferenceError)
-    let forceFalse = false;
-    let activePredefinedPills = new Set();
-    let activeCustomPills = new Set();
-    let noneActive = true;
-
-    // FIX 2: Define toggleForceFalse (was referenced in HTML but never defined)
-    function toggleForceFalse(el) {
-      forceFalse = !forceFalse;
-      el.classList.toggle("active", forceFalse);
-      handleSmartPaste2();
-    }
-
-    // Regex preview removed — kept as no-op so pill handlers don't break
+    let forceFalse=false, activePredefinedPills=new Set(), activeCustomPills=new Set(), noneActive=true;
+    function toggleForceFalse(el) { forceFalse=!forceFalse; el.classList.toggle("active",forceFalse); handleSmartPaste2(); }
     function updateRegexPreview() {}
-
     function toggleNone(el) {
-      activePredefinedPills.clear(); activeCustomPills.clear(); noneActive = true;
-      document.querySelectorAll(".skip-pill:not(.none-pill)").forEach(p => p.classList.remove("active"));
-      el.classList.add("active");
-      document.getElementById("customInputRow").style.display = "none";
-      updateRegexPreview();
+      activePredefinedPills.clear(); activeCustomPills.clear(); noneActive=true;
+      document.querySelectorAll(".skip-pill:not(.none-pill)").forEach(p=>p.classList.remove("active"));
+      el.classList.add("active"); document.getElementById("customInputRow").style.display="none";
       handleSmartPaste2();
     }
-
     function togglePredefinedPill(el) {
-      const regex = el.getAttribute("data-regex");
+      const regex=el.getAttribute("data-regex");
       if (el.classList.contains("active")) { el.classList.remove("active"); activePredefinedPills.delete(regex); }
-      else {
-        document.querySelector(".none-pill").classList.remove("active");
-        noneActive = false; el.classList.add("active"); activePredefinedPills.add(regex);
-      }
-      if (activePredefinedPills.size > 0) {
-        document.querySelectorAll(".custom-pill").forEach(p => { p.classList.remove("active"); activeCustomPills.delete(p.getAttribute("data-regex")); });
-      }
-      if (activePredefinedPills.size === 0 && activeCustomPills.size === 0) {
-        document.querySelector(".none-pill").classList.add("active"); noneActive = true;
-      }
-      updateRegexPreview();
+      else { document.querySelector(".none-pill").classList.remove("active"); noneActive=false; el.classList.add("active"); activePredefinedPills.add(regex); }
+      if (activePredefinedPills.size>0) { document.querySelectorAll(".custom-pill").forEach(p=>{p.classList.remove("active");activeCustomPills.delete(p.getAttribute("data-regex"));}); }
+      if (activePredefinedPills.size===0&&activeCustomPills.size===0) { document.querySelector(".none-pill").classList.add("active"); noneActive=true; }
       handleSmartPaste2();
     }
-
     function showCustomInput() {
-      const row = document.getElementById("customInputRow");
-      row.style.display = row.style.display === "none" ? "flex" : "none";
-      if (row.style.display === "flex") document.getElementById("customFileInput").focus();
+      const row=document.getElementById("customInputRow");
+      row.style.display=row.style.display==="none"?"flex":"none";
+      if (row.style.display==="flex") document.getElementById("customFileInput").focus();
     }
-
     function addCustomFile() {
-      const input = document.getElementById("customFileInput");
-      const val = input.value.trim(); if (!val) return;
-      const regex = `^(${val.replace(/\./g,"\\.")})$`;
-      const pill = document.createElement("span");
-      pill.className = "skip-pill custom-pill active";
-      pill.setAttribute("data-regex", regex);
-      pill.textContent = val + " ✕";
-      pill.onclick = function() {
-        activeCustomPills.delete(regex); pill.remove();
-        if (activePredefinedPills.size === 0 && activeCustomPills.size === 0) {
-          document.querySelector(".none-pill").classList.add("active"); noneActive = true;
-        }
-        updateRegexPreview(); handleSmartPaste2();
-      };
-      document.querySelector("[data-add-custom]").parentNode.insertBefore(pill, document.querySelector("[data-add-custom]"));
-      activeCustomPills.add(regex); noneActive = false;
+      const input=document.getElementById("customFileInput"), val=input.value.trim(); if (!val) return;
+      const regex=`^(${val.replace(/\./g,"\\.")})$`;
+      const pill=document.createElement("span");
+      pill.className="skip-pill custom-pill active"; pill.setAttribute("data-regex",regex); pill.textContent=val+" ✕";
+      pill.onclick=function(){activeCustomPills.delete(regex);pill.remove();if(activePredefinedPills.size===0&&activeCustomPills.size===0){document.querySelector(".none-pill").classList.add("active");noneActive=true;}handleSmartPaste2();};
+      document.querySelector("[data-add-custom]").parentNode.insertBefore(pill,document.querySelector("[data-add-custom]"));
+      activeCustomPills.add(regex); noneActive=false;
       document.querySelector(".none-pill").classList.remove("active");
-      document.querySelectorAll(".predefined-pill").forEach(p => { p.classList.remove("active"); activePredefinedPills.delete(p.getAttribute("data-regex")); });
-      input.value = ""; document.getElementById("customInputRow").style.display = "none";
-      updateRegexPreview(); handleSmartPaste2();
+      document.querySelectorAll(".predefined-pill").forEach(p=>{p.classList.remove("active");activePredefinedPills.delete(p.getAttribute("data-regex"));});
+      input.value=""; document.getElementById("customInputRow").style.display="none";
+      handleSmartPaste2();
     }
-
     function onSheetToggle() {
-      document.getElementById("sheetActiveLabel").style.display = document.getElementById("skipSheetCheck").checked ? "inline" : "none";
-      updateRegexPreview(); handleSmartPaste2();
+      document.getElementById("sheetActiveLabel").style.display=document.getElementById("skipSheetCheck").checked?"inline":"none";
+      handleSmartPaste2();
     }
-
     function getFileRegex() {
       if (noneActive) return "";
-      if (activePredefinedPills.size > 0) { const p=[...activePredefinedPills]; return p.length===1?p[0]:"("+p.join("|")+")"; }
-      if (activeCustomPills.size > 0)     { const p=[...activeCustomPills];     return p.length===1?p[0]:"("+p.join("|")+")"; }
+      if (activePredefinedPills.size>0){const p=[...activePredefinedPills];return p.length===1?p[0]:"("+p.join("|")+")";}
+      if (activeCustomPills.size>0){const p=[...activeCustomPills];return p.length===1?p[0]:"("+p.join("|")+")";}
       return "";
     }
-
-    function getSheetRegex() {
-      return document.getElementById("skipSheetCheck").checked ? "^(?!YOUR_TEXT_HERE$).*" : "";
-    }
+    function getSheetRegex() { return document.getElementById("skipSheetCheck").checked?"^(?!YOUR_TEXT_HERE$).*":""; }
 
     // ── CARD 5: Smart Paste — Get Extraction ──
     function handleSmartPaste2() {
-      const text   = document.getElementById("smartPaste2").value;
-      const pills  = document.getElementById("smartPills2");
-      const status = document.getElementById("smartStatus2");
-      const box    = document.getElementById("smartJsonBox2");
-      if (!text.trim()) { pills.innerHTML=""; box.value=""; status.className="status-bar"; return; }
-      const shipmentId = text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i)?.[0];
-      const threadId   = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
-      const messageId  = text.match(/Message ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
-      const resolvedId = messageId || threadId || null;
-      const { matchedKey, clientRaw } = extractClient(text);
-      const pillsHTML = [];
+      const text=document.getElementById("smartPaste2").value, pills=document.getElementById("smartPills2"),
+            status=document.getElementById("smartStatus2"), box=document.getElementById("smartJsonBox2");
+      if (!text.trim()){pills.innerHTML="";box.value="";status.className="status-bar";return;}
+      const shipmentId=text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i)?.[0];
+      const threadId=text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
+      const messageId=text.match(/Message ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
+      const resolvedId=messageId||threadId||null;
+      const {matchedKey,clientRaw}=extractClient(text);
+      const pillsHTML=[];
       if (matchedKey)     pillsHTML.push(`<span class="pill">🏢 ${matchedKey}</span>`);
       else if (clientRaw) pillsHTML.push(`<span class="pill warn">⚠️ "${clientRaw}" not in config</span>`);
       if (shipmentId)     pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${shipmentId}',this)" title="Click to copy">🆔 ${shipmentId.slice(0,8)}…</span>`);
       if (messageId)      pillsHTML.push(`<span class="pill">✉️ msg: ${messageId.slice(0,8)}…</span>`);
       else if (threadId)  pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${threadId}',this)" title="Click to copy">🧵 ${threadId.slice(0,8)}…</span>`);
-      pills.innerHTML = pillsHTML.join("");
-      if (matchedKey && shipmentId) {
-        const cfg = configMap[matchedKey];
-        box.value = JSON.stringify({
-          thread_id: resolvedId||"string", shipment_id: shipmentId,
-          root_path: cfg.root, config_path: cfg.config,
-          ignore_files_regex: getFileRegex(), ignore_sheets_regex: getSheetRegex(),
-          force_process_attachments: !forceFalse, display: ":2433.0"
-        }, null, 2);
-        status.className = "status-bar info show";
-        status.textContent = `✅ Get Extraction ready — using ${messageId?"Message ID":threadId?"Thread ID":"no ID found"}`;
-        document.getElementById("logsBtn2").style.display = "";
+      pills.innerHTML=pillsHTML.join("");
+      if (matchedKey&&shipmentId) {
+        const cfg=configMap[matchedKey];
+        const jsonStr=JSON.stringify({thread_id:resolvedId||"string",shipment_id:shipmentId,root_path:cfg.root,config_path:cfg.config,ignore_files_regex:getFileRegex(),ignore_sheets_regex:getSheetRegex(),force_process_attachments:!forceFalse,display:":2433.0"},null,2);
+        box.value=jsonStr;
+        status.className="status-bar info show";
+        status.textContent=`✅ Get Extraction ready — using ${messageId?"Message ID":threadId?"Thread ID":"no ID found"}`;
+        document.getElementById("logsBtn2").style.display="";
+        autoCopyToClipboard(jsonStr);
       } else {
-        box.value = ""; status.className = "status-bar warn show";
-        status.textContent = !matchedKey ? "⚠️ Client not recognised" : "⚠️ No Shipment ID found";
+        box.value=""; status.className="status-bar warn show";
+        status.textContent=!matchedKey?"⚠️ Client not recognised":"⚠️ No Shipment ID found";
       }
     }
     function openExtractionLogs() {
-      const text = document.getElementById("smartPaste2").value;
-      const threadId = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
-      if (!threadId) { showToast("⚠️ No Thread ID found in pasted text"); return; }
-      try {
-        const json = JSON.parse(document.getElementById("smartJsonBox2").value);
-        window.open(`http://34.30.43.174:8080/commands/logs/${threadId}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank");
-      } catch(e) { showToast("⚠️ Could not read root path — copy JSON first"); }
+      const text=document.getElementById("smartPaste2").value;
+      const threadId=text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
+      if (!threadId){showToast("⚠️ No Thread ID found in pasted text");return;}
+      try { const json=JSON.parse(document.getElementById("smartJsonBox2").value); window.open(`http://34.30.43.174:8080/commands/logs/${threadId}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank"); }
+      catch(e){showToast("⚠️ Could not read root path — copy JSON first");}
     }
-    function copySmartJSON2(btn) { const box=document.getElementById("smartJsonBox2"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
-    function resetSmartPaste2() {
-      document.getElementById("smartPaste2").value=""; document.getElementById("smartJsonBox2").value="";
-      document.getElementById("smartPills2").innerHTML=""; const s=document.getElementById("smartStatus2"); s.className="status-bar"; s.textContent="";
+    function copySmartJSON2(btn){const box=document.getElementById("smartJsonBox2");if(!box.value){showToast("Nothing to copy yet");return;}box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!");}
+    function resetSmartPaste2(){
+      document.getElementById("smartPaste2").value="";document.getElementById("smartJsonBox2").value="";
+      document.getElementById("smartPills2").innerHTML="";const s=document.getElementById("smartStatus2");s.className="status-bar";s.textContent="";
       document.getElementById("logsBtn2").style.display="none";
-      // reset skip pills to None
-      activePredefinedPills.clear(); activeCustomPills.clear(); noneActive = true;
-      forceFalse = false;
+      activePredefinedPills.clear();activeCustomPills.clear();noneActive=true;forceFalse=false;
       document.getElementById("forceFalsePill").classList.remove("active");
-      document.querySelectorAll(".skip-pill.custom-pill").forEach(p => p.remove());
-      document.querySelectorAll(".skip-pill:not(.none-pill):not([data-add-custom])").forEach(p => p.classList.remove("active"));
+      document.querySelectorAll(".skip-pill.custom-pill").forEach(p=>p.remove());
+      document.querySelectorAll(".skip-pill:not(.none-pill):not([data-add-custom])").forEach(p=>p.classList.remove("active"));
       document.querySelector(".none-pill").classList.add("active");
-      document.getElementById("customInputRow").style.display = "none";
-      document.getElementById("skipSheetCheck").checked = false;
-      document.getElementById("sheetActiveLabel").style.display = "none";
-      updateRegexPreview();
+      document.getElementById("customInputRow").style.display="none";
+      document.getElementById("skipSheetCheck").checked=false;
+      document.getElementById("sheetActiveLabel").style.display="none";
     }
 
     // ── CARD 6: Smart Message ──
     function detectError(text) {
       const t = text.toLowerCase();
-      if (t.includes("mid not found") || (t.includes("manufacturer") && t.includes("not found"))) {
+      const hasMID      = t.includes("mid not found") || (t.includes("manufacturer") && t.includes("not found"));
+      const hasImporter = t.includes("importer id not found") || t.includes("trade partner") || (t.includes("consignee") && t.includes("not found"));
+
+      // Combined — both present
+      if (hasMID && hasImporter) {
+        const midName = text.match(/MID not found for manufacturer:\s*(.+?)(?:\n|$)/i)?.[1]?.trim()
+          || text.match(/manufacturer[:\s]+([A-Z][^\n]+?)(?:\n|$)/im)?.[1]?.trim() || null;
+        const iorName = text.match(/Importer ID not found for\s+(.+?)(?:\n|$)/i)?.[1]?.trim()
+          || text.match(/(?:trade partner|consignee)[:\s"]+([A-Z][^\n"]+?)(?:"|\n|$)/im)?.[1]?.trim() || null;
+        return { type: "midior", midName, iorName, extractedName: null, label: "MID + IOR Error" };
+      }
+      // MID only
+      if (hasMID) {
         const name = text.match(/MID not found for manufacturer:\s*(.+?)(?:\n|$)/i)?.[1]?.trim()
           || text.match(/manufacturer[:\s]+([A-Z][^\n]+?)(?:\n|$)/im)?.[1]?.trim();
         return { type: "mid", extractedName: name||null, label: "MID Error" };
       }
-      if (t.includes("importer id not found") || t.includes("trade partner") || (t.includes("consignee") && t.includes("not found"))) {
+      // Importer only
+      if (hasImporter) {
         const name = text.match(/Importer ID not found for\s+(.+?)(?:\n|$)/i)?.[1]?.trim()
           || text.match(/(?:trade partner|consignee)[:\s"]+([A-Z][^\n"]+?)(?:"|\n|$)/im)?.[1]?.trim();
         return { type: "importer", extractedName: name||null, label: "Importer ID Error" };
       }
-      if (t.includes("autocomplete") || t.includes("could not find matching")) {
-        return { type: "autocomplete", extractedName: null, label: "Could Not Find" };
+      if (t.includes("autocomplete")||t.includes("could not find matching")) return {type:"autocomplete",extractedName:null,label:"Could Not Find"};
+      if (t.includes("master bol")||t.includes("master awb")||t.includes("bol is required")||t.includes("awb is required")) return {type:"masterbol",extractedName:null,label:"Master BOL Error"};
+      if (t.includes("hts")||(t.includes("tariff")&&t.includes("not found"))||t.includes("invalid tariff")) return {type:"hts",extractedName:null,label:"HTS Not Found"};
+      if (t.includes("invoice")||t.includes("packing list")||(t.includes("convert")&&t.includes("float"))) return {type:"invoice",extractedName:null,label:"Invoice Not Found"};
+      if (t.includes("file reference")||t.includes("already exists in the database")) {
+        const ref=text.match(/File Reference Number[,\s]+([A-Z0-9-]+)[,\s]/i)?.[1]?.trim();
+        return {type:"fileref",extractedName:ref||null,label:"File Reference Error"};
       }
-      if (t.includes("master bol") || t.includes("master awb") || t.includes("bol is required") || t.includes("awb is required")) {
-        return { type: "masterbol", extractedName: null, label: "Master BOL Error" };
-      }
-      if (t.includes("hts") || (t.includes("tariff") && t.includes("not found")) || t.includes("invalid tariff")) {
-        return { type: "hts", extractedName: null, label: "HTS Not Found" };
-      }
-      if (t.includes("no documents") || t.includes("no attachment") || t.includes("documents attached")) {
-        return { type: "nodocs", extractedName: null, label: "No Documents" };
-      }
-      if (t.includes("invoice") || t.includes("packing list") || (t.includes("convert") && t.includes("float"))) {
-        return { type: "invoice", extractedName: null, label: "Invoice Not Found" };
-      }
-      if (t.includes("file reference") || t.includes("already exists in the database")) {
-        const ref = text.match(/File Reference Number[,\s]+([A-Z0-9-]+)[,\s]/i)?.[1]?.trim();
-        return { type: "fileref", extractedName: ref||null, label: "File Reference Error" };
-      }
-      if (t.includes("profile not found") || (t.includes("profile") && t.includes("not found"))) {
-        return { type: "profile", extractedName: null, label: "Profile Not Found" };
-      }
-      return { type: null, extractedName: null, label: null };
+      if (t.includes("profile not found")||(t.includes("profile")&&t.includes("not found"))) return {type:"profile",extractedName:null,label:"Profile Not Found"};
+      return {type:null,extractedName:null,label:null};
     }
 
     function handleSmartMessage() {
-      const text   = document.getElementById("smartMsg").value;
-      const pills  = document.getElementById("msgPills");
-      const status = document.getElementById("msgStatus");
-      const box    = document.getElementById("msgJsonBox");
-      if (!text.trim()) { pills.innerHTML=""; box.value=""; status.className="status-bar"; return; }
-      const threadId = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
-      const { matchedKey, clientRaw } = extractClient(text);
-      const { type, extractedName, label } = detectError(text);
-      const pillsHTML = [];
+      const text=document.getElementById("smartMsg").value, pills=document.getElementById("msgPills"),
+            status=document.getElementById("msgStatus"), box=document.getElementById("msgJsonBox"),
+            warning=document.getElementById("msgStringWarning");
+      if (!text.trim()){pills.innerHTML="";box.value="";status.className="status-bar";warning.classList.remove("show");return;}
+      const threadId=text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
+      const {matchedKey,clientRaw}=extractClient(text);
+      const detected=detectError(text);
+      const {type,label}=detected;
+      const pillsHTML=[];
       if (matchedKey)     pillsHTML.push(`<span class="pill">🏢 ${matchedKey}</span>`);
       else if (clientRaw) pillsHTML.push(`<span class="pill warn">⚠️ "${clientRaw}" not recognised</span>`);
       if (threadId)       pillsHTML.push(`<span class="pill">🧵 ${threadId.slice(0,8)}…</span>`);
       if (label)          pillsHTML.push(`<span class="pill">⚠️ ${label}</span>`);
-      if (extractedName)  pillsHTML.push(`<span class="pill">📝 ${extractedName}</span>`);
-      pills.innerHTML = pillsHTML.join("");
-      if (!matchedKey) { status.className="status-bar warn show"; status.textContent="⚠️ Client not recognised"; box.value=""; return; }
-      if (!threadId)   { status.className="status-bar warn show"; status.textContent="⚠️ Thread ID not found"; box.value=""; return; }
-      if (!type)       { status.className="status-bar warn show"; status.textContent="⚠️ Could not detect error type — check paste"; box.value=""; return; }
-      const cfg = configMap[matchedKey];
-      let msg = messageTemplates[type];
-      if (extractedName) msg = msg.replace("STRING", extractedName);
-      box.value = JSON.stringify({ thread_id: threadId, root_path: cfg.root, config_path: cfg.config, message: msg }, null, 2);
-      status.className = "status-bar info show";
-      status.textContent = `✅ ${label} detected — message ready`;
+      if (type==="midior") {
+        if (detected.midName) pillsHTML.push(`<span class="pill">🏭 ${detected.midName}</span>`);
+        if (detected.iorName) pillsHTML.push(`<span class="pill">📝 ${detected.iorName}</span>`);
+      } else if (detected.extractedName) {
+        pillsHTML.push(`<span class="pill">📝 ${detected.extractedName}</span>`);
+      }
+      pills.innerHTML=pillsHTML.join("");
+      if (!matchedKey){status.className="status-bar warn show";status.textContent="⚠️ Client not recognised";box.value="";warning.classList.remove("show");return;}
+      if (!threadId)  {status.className="status-bar warn show";status.textContent="⚠️ Thread ID not found";box.value="";warning.classList.remove("show");return;}
+      if (!type)      {status.className="status-bar warn show";status.textContent="⚠️ Could not detect error type — check paste";box.value="";warning.classList.remove("show");return;}
+      const cfg=configMap[matchedKey];
+      let msg;
+      if (type==="midior") {
+        msg=messageTemplates.midior;
+        if (detected.midName) msg=msg.replace("STRING_MID",detected.midName);
+        if (detected.iorName) msg=msg.replace("STRING_IOR",detected.iorName);
+      } else {
+        msg=messageTemplates[type];
+        if (detected.extractedName) msg=msg.replace("STRING",detected.extractedName);
+      }
+      const jsonStr=JSON.stringify({thread_id:threadId,root_path:cfg.root,config_path:cfg.config,message:msg},null,2);
+      box.value=jsonStr;
+      const hasUnfilled=jsonStr.includes("STRING_MID")||jsonStr.includes("STRING_IOR")||(jsonStr.includes('"STRING"'));
+      warning.classList.toggle("show",hasUnfilled);
+      status.className="status-bar info show";
+      status.textContent=`✅ ${label} detected — message ready`;
+      autoCopyToClipboard(jsonStr);
     }
-    function copyMsgJSON(btn) { const box=document.getElementById("msgJsonBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
-    function resetSmartMsg() {
-      document.getElementById("smartMsg").value=""; document.getElementById("msgJsonBox").value="";
-      document.getElementById("msgPills").innerHTML=""; const s=document.getElementById("msgStatus"); s.className="status-bar"; s.textContent="";
+    function copyMsgJSON(btn){const box=document.getElementById("msgJsonBox");if(!box.value){showToast("Nothing to copy yet");return;}box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!");}
+    function resetSmartMsg(){
+      document.getElementById("smartMsg").value="";document.getElementById("msgJsonBox").value="";
+      document.getElementById("msgPills").innerHTML="";
+      const s=document.getElementById("msgStatus");s.className="status-bar";s.textContent="";
+      document.getElementById("msgStringWarning").classList.remove("show");
     }
 
     // ── SHARED ──
-    function copyPill(text, el) {
-      navigator.clipboard.writeText(text).then(() => {
-        const orig=el.textContent; el.textContent="✅ Copied!";
-        setTimeout(()=>el.textContent=orig, 1500);
-      });
-    }
+    function copyPill(text,el){navigator.clipboard.writeText(text).then(()=>{const orig=el.textContent;el.textContent="✅ Copied!";setTimeout(()=>el.textContent=orig,1500);});}
 
     // ── DOM READY ──
-    document.addEventListener("DOMContentLoaded", () => {
-      document.getElementById("skipMode").addEventListener("change", generateSkipRegex);
-      document.getElementById("skipInput").addEventListener("input", generateSkipRegex);
-
-      document.getElementById("customFileInput").addEventListener("keydown", e => {
-        if (e.key === "Enter") addCustomFile();
-        if (e.key === "Escape") document.getElementById("customInputRow").style.display = "none";
+    document.addEventListener("DOMContentLoaded",()=>{
+      document.getElementById("skipMode").addEventListener("change",generateSkipRegex);
+      document.getElementById("skipInput").addEventListener("input",generateSkipRegex);
+      document.getElementById("customFileInput").addEventListener("keydown",e=>{
+        if(e.key==="Enter")addCustomFile();
+        if(e.key==="Escape")document.getElementById("customInputRow").style.display="none";
       });
-
-      document.addEventListener("click", e => {
-        if (!e.target.closest(".custom-dropdown")) {
-          document.querySelectorAll(".dropdown-panel").forEach(p => p.style.display="none");
-        }
+      document.addEventListener("click",e=>{
+        if(!e.target.closest(".shipment-wrapper"))document.getElementById("historyDropdown").classList.remove("show");
+        if(!e.target.closest(".custom-dropdown"))document.querySelectorAll(".dropdown-panel").forEach(p=>p.style.display="none");
+        if(!e.target.closest(".settings-toggle"))document.querySelector(".settings-panel").classList.remove("active");
       });
-
-      document.querySelectorAll("[data-client]").forEach(item => {
-        item.addEventListener("click", function() {
-          const el = document.getElementById("clientSelect");
-          el.value = this.textContent.trim();
-          el.setAttribute("data-value", this.getAttribute("data-client"));
-          document.getElementById("clientDropdown").style.display="none";
-          autofillJSON();
+      document.querySelectorAll("[data-client]").forEach(item=>{
+        item.addEventListener("click",function(){
+          const el=document.getElementById("clientSelect");
+          el.value=this.textContent.trim();el.setAttribute("data-value",this.getAttribute("data-client"));
+          document.getElementById("clientDropdown").style.display="none";autofillJSON();
         });
       });
-
-      document.getElementById("shipmentInput").addEventListener("click", function(e) {
-        if (e.ctrlKey || e.metaKey) {
-          const id = getShipmentId(); if (!id) return;
-          window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/web-platform-main/docparser/customs_assistant`,"_blank");
-        }
+      document.getElementById("shipmentInput").addEventListener("click",function(e){
+        if(e.ctrlKey||e.metaKey){const id=getShipmentId();if(!id)return;window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/web-platform-main/docparser/customs_assistant`,"_blank");}
       });
-
-      document.querySelectorAll("[data-msg-client]").forEach(item => {
-        item.addEventListener("click", function() {
-          const el = document.getElementById("clientMsgSelect");
-          el.value = this.textContent.trim();
-          el.setAttribute("data-value", this.getAttribute("data-msg-client"));
-          document.getElementById("clientMsgDropdown").style.display="none";
-          autofillTemplateJSON();
+      document.querySelectorAll("[data-msg-client]").forEach(item=>{
+        item.addEventListener("click",function(){
+          const el=document.getElementById("clientMsgSelect");
+          el.value=this.textContent.trim();el.setAttribute("data-value",this.getAttribute("data-msg-client"));
+          document.getElementById("clientMsgDropdown").style.display="none";autofillTemplateJSON();
         });
       });
-
-      document.querySelectorAll("[data-template]").forEach(item => {
-        item.addEventListener("click", function() {
-          const el = document.getElementById("templateSelect");
-          el.value = this.textContent.trim();
-          el.setAttribute("data-value", this.getAttribute("data-template"));
-          document.getElementById("templateDropdown").style.display="none";
-          autofillTemplateJSON();
+      document.querySelectorAll("[data-template]").forEach(item=>{
+        item.addEventListener("click",function(){
+          const el=document.getElementById("templateSelect");
+          el.value=this.textContent.trim();el.setAttribute("data-value",this.getAttribute("data-template"));
+          document.getElementById("templateDropdown").style.display="none";autofillTemplateJSON();
         });
       });
-
       typeTitle();
       createShips();
-      restoreCardStates();
     });
 
-    function flashBtn(btn, msg) { const orig=btn.innerHTML; btn.innerHTML=msg; btn.classList.add("btn-success"); setTimeout(()=>{ btn.innerHTML=orig; btn.classList.remove("btn-success"); },1500); }
-
-    // ── MINIMIZE / EXPAND CARDS ──
-    function toggleCard(header) {
-      const card = header.closest(".autofill-box");
-      card.classList.toggle("minimized");
-      saveCardStates();
-    }
-
-    function saveCardStates() {
-      const states = [];
-      document.querySelectorAll(".autofill-box").forEach((card, i) => {
-        states[i] = card.classList.contains("minimized");
-      });
-      localStorage.setItem("devease_card_states", JSON.stringify(states));
-    }
-
-    function restoreCardStates() {
-      try {
-        const states = JSON.parse(localStorage.getItem("devease_card_states") || "[]");
-        document.querySelectorAll(".autofill-box").forEach((card, i) => {
-          if (states[i]) card.classList.add("minimized");
-        });
-      } catch(e) {}
-    }
+    function flashBtn(btn,msg){const orig=btn.innerHTML;btn.innerHTML=msg;btn.classList.add("btn-success");setTimeout(()=>{btn.innerHTML=orig;btn.classList.remove("btn-success");},1500);}
   </script>
 </body>
 </html>
