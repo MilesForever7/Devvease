@@ -61,7 +61,7 @@
     .settings-panel .toggle-switch input:checked + label { background: var(--primary); }
     .settings-panel .toggle-switch input:checked + label .ball { transform: translateX(1.1rem); }
     .settings-panel .toggle-label { font-size: 0.82rem; color: var(--text-color); font-weight: 500; }
-    .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.25rem; max-width: 1280px; margin: 3.5rem auto 0; position: relative; z-index: 2; }
+    .container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; max-width: 1536px; margin: 3.5rem auto 0; position: relative; z-index: 2; }
     .autofill-box { background: var(--card-bg); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow-sm); transition: box-shadow var(--transition), border-color var(--transition); position: relative; overflow: visible; }
     .autofill-box:hover { box-shadow: var(--shadow); border-color: var(--secondary); }
     .card-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); }
@@ -109,7 +109,7 @@
     .detected-pills { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem; }
     .pill { font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 999px; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
     .pill.warn { background: #fffbeb; color: #92400e; border-color: #fde68a; }
-    .smart-row { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.25rem; }
+    .smart-row { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
     /* SKIP PILL SYSTEM */
     .skip-section { background: var(--box-bg); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 0.7rem 0.85rem; margin-bottom: 0.85rem; display: flex; flex-direction: column; gap: 0.5rem; }
     .skip-row { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
@@ -126,7 +126,7 @@
     .custom-input-row input:focus { border-color: var(--border-focus); }
     .custom-input-row button { padding: 0.32rem 0.6rem; background: var(--primary); color: white; border: none; border-radius: var(--radius-sm); font-size: 0.75rem; font-weight: 600; cursor: pointer; font-family: inherit; }
     .custom-input-row button:hover { background: var(--primary-light); }
-    /* SHIPMENT HISTORY */
+    /* SHIPMENT HISTORY — Card 1 dropdown */
     .shipment-wrapper { position: relative; }
     .history-dropdown { display: none; position: absolute; top: calc(100% + 3px); left: 0; right: 0; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius-sm); box-shadow: var(--shadow); z-index: 500; overflow: hidden; }
     .history-dropdown.show { display: block; }
@@ -136,6 +136,26 @@
     .history-item .hist-remove { font-size: 0.68rem; color: var(--text-muted); padding: 0.1rem 0.3rem; border-radius: 3px; flex-shrink: 0; }
     .history-item .hist-remove:hover { color: var(--error); background: #fee2e2; }
     .history-empty { padding: 0.5rem 0.75rem; font-size: 0.78rem; color: var(--text-muted); font-style: italic; }
+    /* CARD 4 HISTORY PANEL — inline at bottom of card */
+    .c4-history { margin-top: 0.85rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); overflow: hidden; }
+    .c4-history-header { display: flex; align-items: center; justify-content: space-between; padding: 0.45rem 0.75rem; background: var(--box-bg); border-bottom: 1px solid var(--border-color); }
+    .c4-history-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
+    .c4-history-empty { padding: 0.5rem 0.75rem; font-size: 0.78rem; color: var(--text-muted); font-style: italic; }
+    .c4-hist-item { border-bottom: 1px solid var(--border-color); }
+    .c4-hist-item:last-child { border-bottom: none; }
+    .c4-hist-row { display: flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0.75rem; cursor: pointer; transition: background var(--transition); }
+    .c4-hist-row:hover { background: var(--box-bg); }
+    .c4-hist-id { flex: 1; font-family: 'Fira Code', monospace; font-size: 0.78rem; color: var(--primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .c4-hist-client { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); background: var(--box-bg); border: 1px solid var(--border-color); padding: 0.1rem 0.4rem; border-radius: 999px; flex-shrink: 0; }
+    .c4-hist-arrow { font-size: 0.65rem; color: var(--text-muted); flex-shrink: 0; transition: transform 0.2s; }
+    .c4-hist-item.open .c4-hist-arrow { transform: rotate(90deg); }
+    .c4-hist-remove { font-size: 0.68rem; color: var(--text-muted); padding: 0.1rem 0.3rem; border-radius: 3px; flex-shrink: 0; }
+    .c4-hist-remove:hover { color: var(--error); background: #fee2e2; }
+    .c4-hist-preview { display: none; padding: 0.6rem 0.75rem; background: var(--box-bg); border-top: 1px solid var(--border-color); }
+    .c4-hist-item.open .c4-hist-preview { display: block; }
+    .c4-hist-json { font-family: 'Fira Code', monospace; font-size: 0.75rem; color: var(--text-color); white-space: pre; overflow-x: auto; margin-bottom: 0.5rem; line-height: 1.5; }
+    .c4-hist-copy { padding: 0.28rem 0.65rem; background: var(--primary); color: white; border: none; border-radius: var(--radius-sm); font-size: 0.72rem; font-weight: 600; cursor: pointer; font-family: inherit; }
+    .c4-hist-copy:hover { background: var(--primary-light); }
     #toast { display: none; position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.65rem 1.25rem; border-radius: var(--radius); font-size: 0.875rem; font-weight: 500; z-index: 2000; box-shadow: var(--shadow-lg); animation: fadeInOut 2.5s ease; }
     @keyframes fadeInOut { 0%,100% { opacity: 0; transform: translate(-50%,8px); } 10%,90% { opacity: 1; transform: translate(-50%,0); } }
     @media (max-width: 640px) {
@@ -218,6 +238,7 @@
               <div data-client="yifangchb">Yifang CHB</div><div data-client="pieschb">Pies CHB</div>
               <div data-client="bhchb">BH CHB</div><div data-client="abj">ABJ</div>
               <div data-client="newave">Newave</div><div data-client="GHY">GHY</div>
+              <div data-client="grandchb">Grand CHB</div>
             </div>
           </div>
         </div>
@@ -274,6 +295,7 @@
                 <div data-msg-client="yifangchb">Yifang CHB</div><div data-msg-client="pieschb">Pies CHB</div>
                 <div data-msg-client="bhchb">BH CHB</div><div data-msg-client="abj">ABJ</div>
                 <div data-msg-client="newave">Newave</div><div data-msg-client="GHY">GHY</div>
+                <div data-msg-client="grandchb">Grand CHB</div>
               </div>
             </div>
           </div>
@@ -369,6 +391,13 @@
           <button class="btn btn-secondary" id="logsBtn1" onclick="openFillEntryLogs()" style="display:none">🔗 Open Logs</button>
           <button class="btn btn-danger" onclick="resetSmartPaste()">🔄 Reset</button>
         </div>
+        <!-- CARD 4 HISTORY PANEL -->
+        <div class="c4-history" id="c4History">
+          <div class="c4-history-header">
+            <span class="c4-history-title">🕓 Recent Fill Entry IDs</span>
+          </div>
+          <div id="c4HistoryList"></div>
+        </div>
       </div>
 
       <!-- CARD 5: Smart Paste — Get Extraction -->
@@ -423,6 +452,10 @@
         <div class="field-group">
           <label class="field-label">Paste Slack Alert</label>
           <textarea id="smartMsg" class="smart-paste-area" style="min-height:90px" placeholder="Paste the full Slack error — client, thread ID and error type will be detected automatically…" oninput="handleSmartMessage()"></textarea>
+        </div>
+        <div style="margin-top:0.4rem;display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;">
+          <span style="font-size:0.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Override:</span>
+          <span class="skip-pill" id="profileOverridePill" onclick="toggleProfileOverride(this)">📋 Profile Not Found</span>
         </div>
         <div id="msgPills" class="detected-pills"></div>
         <div id="msgStatus" class="status-bar" style="margin-top:0.5rem"></div>
@@ -559,6 +592,7 @@
       abj:           { config: "data/config/dev/abj.yaml",                   root: "/home/dev/parse_api/web-platform/docparser/customs_assistant" },
       newave:        { config: "data/config/dev/newave.yaml",                root: "/home/dev/parse_api/web-platform/docparser/customs_assistant" },
       Tkk:           { config: "data/config/dev/tkk.yaml",                   root: "/home/dev/parse_api/web-platform-main/docparser/customs_assistant" },
+      grandchb:      { config: "data/config/dev/grand-chb.yaml",             root: "/home/dev/parse_api/web-platform/docparser/customs_assistant" },
     };
 
     const messageTemplates = {
@@ -653,7 +687,7 @@
       GHY:           ["ghy"],
       onpointhub:    ["on-point-hub", "onpointhub", "on point hub", "label:on-point-hub"],
       perennial1:    ["perennial", "perennial-1"],
-      slchbnhp:      ["slchb-nhp", "nhp"],
+      slchbnhp:      ["slchb-nhp", "slchbnhp"],
       slchb:         ["slchb"],
       yifangchb:     ["yifangchb", "yifang", "lz management"],
       pieschb:       ["pieschb", "pies"],
@@ -661,23 +695,109 @@
       abj:           ["abj"],
       newave:        ["newave"],
       Tkk:           ["tkk"],
+      grandchb:      ["grand-chb", "grandchb", "grand chb"],
     };
 
     function extractClient(text) {
       const textLower = text.toLowerCase();
       const clientRaw = text.match(/Customer(?:\s+Name)?:\s*`([^`]+)`/i)?.[1]?.trim().toLowerCase()
         || text.match(/Email Label:\s*`?label:([^`\s]+)`?/i)?.[1]?.trim().toLowerCase();
+
+      // Sort longest alias first — slchb-nhp checked before slchb, leesa-chb-bruce before leesa etc.
+      const sortedEntries = Object.entries(clientAliases).sort((a,b) =>
+        Math.max(...b[1].map(x=>x.length)) - Math.max(...a[1].map(x=>x.length))
+      );
+
+      // Word-boundary check: char before/after match must not be alphanumeric
+      const wordBoundaryMatch = (haystack, needle) => {
+        const idx = haystack.indexOf(needle);
+        if (idx === -1) return false;
+        const before = haystack[idx - 1];
+        const after  = haystack[idx + needle.length];
+        const w = /[a-z0-9]/;
+        return !(before && w.test(before)) && !(after && w.test(after));
+      };
+
       if (clientRaw) {
-        for (const [key, aliases] of Object.entries(clientAliases)) {
-          if (aliases.some(a => clientRaw.includes(a.toLowerCase()) || a.toLowerCase().includes(clientRaw)))
-            return { matchedKey: key, clientRaw };
+        for (const [key, aliases] of sortedEntries) {
+          // Exact match first, then word-boundary match
+          if (aliases.some(a => {
+            const al = a.toLowerCase();
+            return clientRaw === al || wordBoundaryMatch(clientRaw, al);
+          })) return { matchedKey: key, clientRaw };
         }
       }
-      const entries = Object.entries(clientAliases).sort((a,b) => Math.max(...b[1].map(x=>x.length)) - Math.max(...a[1].map(x=>x.length)));
-      for (const [key, aliases] of entries) {
-        if (aliases.some(a => textLower.includes(a.toLowerCase()))) return { matchedKey: key, clientRaw };
+
+      // Fallback: full-text search with word-boundary check
+      for (const [key, aliases] of sortedEntries) {
+        if (aliases.some(a => wordBoundaryMatch(textLower, a.toLowerCase())))
+          return { matchedKey: key, clientRaw };
       }
       return { matchedKey: null, clientRaw };
+    }
+
+    // ── CARD 4 HISTORY ──
+    const C4_HISTORY_KEY = "devease_c4_history";
+    const C4_HISTORY_MAX = 5;
+
+    function getC4History() { try { return JSON.parse(localStorage.getItem(C4_HISTORY_KEY) || "[]"); } catch(e) { return []; } }
+
+    function saveToC4History(shipmentId, client, jsonStr) {
+      if (!shipmentId || !client) return;
+      let h = getC4History().filter(x => x.id !== shipmentId);
+      h.unshift({ id: shipmentId, client, json: jsonStr, ts: Date.now() });
+      if (h.length > C4_HISTORY_MAX) h = h.slice(0, C4_HISTORY_MAX);
+      localStorage.setItem(C4_HISTORY_KEY, JSON.stringify(h));
+      renderC4History();
+    }
+
+    function removeFromC4History(id) {
+      localStorage.setItem(C4_HISTORY_KEY, JSON.stringify(getC4History().filter(x => x.id !== id)));
+      renderC4History();
+    }
+
+    function toggleC4Item(id) {
+      const item = document.querySelector(`.c4-hist-item[data-id="${id}"]`);
+      if (!item) return;
+      const isOpen = item.classList.contains("open");
+      document.querySelectorAll(".c4-hist-item.open").forEach(el => el.classList.remove("open"));
+      if (!isOpen) item.classList.add("open");
+    }
+
+    function copyC4JSON(id, btn) {
+      const h = getC4History().find(x => x.id === id);
+      if (!h) return;
+      navigator.clipboard.writeText(h.json).then(() => {
+        const orig = btn.textContent; btn.textContent = "✅ Copied!";
+        setTimeout(() => btn.textContent = orig, 1500);
+      }).catch(() => {
+        const ta = document.createElement("textarea"); ta.value = h.json;
+        document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
+        const orig = btn.textContent; btn.textContent = "✅ Copied!";
+        setTimeout(() => btn.textContent = orig, 1500);
+      });
+    }
+
+    function renderC4History() {
+      const list = document.getElementById("c4HistoryList");
+      const h = getC4History();
+      if (!h.length) {
+        list.innerHTML = '<div class="c4-history-empty">No recent entries yet — paste an alert above to save one</div>';
+        return;
+      }
+      list.innerHTML = h.map(entry => `
+        <div class="c4-hist-item" data-id="${entry.id}">
+          <div class="c4-hist-row" onclick="toggleC4Item('${entry.id}')">
+            <span class="c4-hist-id">${entry.id}</span>
+            <span class="c4-hist-client">${entry.client}</span>
+            <span class="c4-hist-arrow">▶</span>
+            <span class="c4-hist-remove" onclick="event.stopPropagation();removeFromC4History('${entry.id}')" title="Remove">✕</span>
+          </div>
+          <div class="c4-hist-preview">
+            <div class="c4-hist-json">${entry.json.replace(/</g,"&lt;")}</div>
+            <button class="c4-hist-copy" onclick="copyC4JSON('${entry.id}', this)">📋 Copy JSON</button>
+          </div>
+        </div>`).join("");
     }
 
     // ── CARD 4 ──
@@ -699,6 +819,7 @@
         status.className="status-bar info show"; status.textContent="✅ Fill Entry JSON ready";
         document.getElementById("logsBtn1").style.display="";
         autoCopyToClipboard(jsonStr);
+        saveToC4History(shipmentId, matchedKey, jsonStr);
       } else {
         box.value=""; status.className="status-bar warn show";
         status.textContent = !matchedKey ? "⚠️ Client not recognised" : "⚠️ No Shipment ID found";
@@ -714,7 +835,8 @@
       try {
         const json=JSON.parse(document.getElementById("smartJsonBox").value);
         if (!json.shipment_id||json.shipment_id==="string"){showToast("⚠️ No Shipment ID found");return;}
-        window.open(`http://34.30.43.174:8080/commands/logs/shipment/${json.shipment_id}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank");
+        const w=window.open(`http://34.30.43.174:8080/commands/logs/shipment/${json.shipment_id}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank");
+        if(w){w.blur();window.focus();}
       } catch(e){showToast("⚠️ Could not read JSON");}
     }
 
@@ -771,7 +893,11 @@
       const text=document.getElementById("smartPaste2").value, pills=document.getElementById("smartPills2"),
             status=document.getElementById("smartStatus2"), box=document.getElementById("smartJsonBox2");
       if (!text.trim()){pills.innerHTML="";box.value="";status.className="status-bar";return;}
-      const shipmentId=text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i)?.[0];
+      const shipmentIdRaw=text.match(/Shipment ID:\s*`([^`]+)`/i)?.[1]?.trim();
+      const shipmentNotCreated = !shipmentIdRaw || /not created|not found|n\/a/i.test(shipmentIdRaw);
+      const shipmentId = (!shipmentNotCreated && shipmentIdRaw && /[0-9a-f]{8}-[0-9a-f]{4}/i.test(shipmentIdRaw))
+        ? shipmentIdRaw
+        : text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i)?.[0] || null;
       const threadId=text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
       const messageId=text.match(/Message ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
       const resolvedId=messageId||threadId||null;
@@ -780,28 +906,37 @@
       if (matchedKey)     pillsHTML.push(`<span class="pill">🏢 ${matchedKey}</span>`);
       else if (clientRaw) pillsHTML.push(`<span class="pill warn">⚠️ "${clientRaw}" not in config</span>`);
       if (shipmentId)     pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${shipmentId}',this)" title="Click to copy">🆔 ${shipmentId.slice(0,8)}…</span>`);
+      else if (shipmentNotCreated) pillsHTML.push(`<span class="pill warn">⚠️ Shipment not created yet</span>`);
       if (messageId)      pillsHTML.push(`<span class="pill">✉️ msg: ${messageId.slice(0,8)}…</span>`);
       else if (threadId)  pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${threadId}',this)" title="Click to copy">🧵 ${threadId.slice(0,8)}…</span>`);
       pills.innerHTML=pillsHTML.join("");
-      if (matchedKey&&shipmentId) {
+      // Generate JSON if we have a client — shipment_id can be empty if not created yet
+      if (matchedKey && (shipmentId || shipmentNotCreated)) {
         const cfg=configMap[matchedKey];
-        const jsonStr=JSON.stringify({thread_id:resolvedId||"string",shipment_id:shipmentId,root_path:cfg.root,config_path:cfg.config,ignore_files_regex:getFileRegex(),ignore_sheets_regex:getSheetRegex(),force_process_attachments:!forceFalse,display:":2433.0"},null,2);
+        const jsonStr=JSON.stringify({thread_id:resolvedId||"string",shipment_id:shipmentId||"",root_path:cfg.root,config_path:cfg.config,ignore_files_regex:getFileRegex(),ignore_sheets_regex:getSheetRegex(),force_process_attachments:!forceFalse,display:":2433.0"},null,2);
         box.value=jsonStr;
         status.className="status-bar info show";
-        status.textContent=`✅ Get Extraction ready — using ${messageId?"Message ID":threadId?"Thread ID":"no ID found"}`;
-        document.getElementById("logsBtn2").style.display="";
+        const idNote = shipmentNotCreated ? "no shipment ID yet" : `using ${messageId?"Message ID":threadId?"Thread ID":"no ID found"}`;
+        status.textContent=`✅ Get Extraction ready — ${idNote}`;
+        document.getElementById("logsBtn2").style.display= threadId ? "" : "none";
         autoCopyToClipboard(jsonStr);
+      } else if (!matchedKey) {
+        box.value=""; status.className="status-bar warn show";
+        status.textContent="⚠️ Client not recognised";
       } else {
         box.value=""; status.className="status-bar warn show";
-        status.textContent=!matchedKey?"⚠️ Client not recognised":"⚠️ No Shipment ID found";
+        status.textContent="⚠️ No Shipment ID found";
       }
     }
     function openExtractionLogs() {
       const text=document.getElementById("smartPaste2").value;
       const threadId=text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
       if (!threadId){showToast("⚠️ No Thread ID found in pasted text");return;}
-      try { const json=JSON.parse(document.getElementById("smartJsonBox2").value); window.open(`http://34.30.43.174:8080/commands/logs/${threadId}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank"); }
-      catch(e){showToast("⚠️ Could not read root path — copy JSON first");}
+      try {
+        const json=JSON.parse(document.getElementById("smartJsonBox2").value);
+        const w=window.open(`http://34.30.43.174:8080/commands/logs/${threadId}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank");
+        if(w){w.blur();window.focus();}
+      } catch(e){showToast("⚠️ Could not read root path — copy JSON first");}
     }
     function copySmartJSON2(btn){const box=document.getElementById("smartJsonBox2");if(!box.value){showToast("Nothing to copy yet");return;}box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!");}
     function resetSmartPaste2(){
@@ -819,6 +954,12 @@
     }
 
     // ── CARD 6: Smart Message ──
+    let profileOverride = false;
+    function toggleProfileOverride(el) {
+      profileOverride = !profileOverride;
+      el.classList.toggle("active", profileOverride);
+      handleSmartMessage();
+    }
     function detectError(text) {
       const t = text.toLowerCase();
       const hasMID      = t.includes("mid not found") || (t.includes("manufacturer") && t.includes("not found"));
@@ -826,9 +967,9 @@
 
       // Combined — both present
       if (hasMID && hasImporter) {
-        const midName = text.match(/MID not found for manufacturer:\s*(.+?)(?=\s*\d+\.\s|\n|$)/i)?.[1]?.trim()
+        const midName = text.match(/MID not found for manufacturer:\s*(.+?)(?:\n|$)/i)?.[1]?.trim()
           || text.match(/manufacturer[:\s]+([A-Z][^\n]+?)(?:\n|$)/im)?.[1]?.trim() || null;
-        const iorName = text.match(/Importer ID not found for\s+(.+?)(?=\s*\d+\.\s|\n|$)/i)?.[1]?.trim()
+        const iorName = text.match(/Importer ID not found for\s+(.+?)(?:\n|$)/i)?.[1]?.trim()
           || text.match(/(?:trade partner|consignee)[:\s"]+([A-Z][^\n"]+?)(?:"|\n|$)/im)?.[1]?.trim() || null;
         return { type: "midior", midName, iorName, extractedName: null, label: "MID + IOR Error" };
       }
@@ -863,7 +1004,10 @@
       if (!text.trim()){pills.innerHTML="";box.value="";status.className="status-bar";warning.classList.remove("show");return;}
       const threadId=text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
       const {matchedKey,clientRaw}=extractClient(text);
-      const detected=detectError(text);
+      // Apply profile override or auto-detect
+      const detected = profileOverride
+        ? { type: "profile", extractedName: null, midName: null, iorName: null, label: "Profile Not Found (override)" }
+        : detectError(text);
       const {type,label}=detected;
       const pillsHTML=[];
       if (matchedKey)     pillsHTML.push(`<span class="pill">🏢 ${matchedKey}</span>`);
@@ -895,7 +1039,7 @@
       const hasUnfilled=jsonStr.includes("STRING_MID")||jsonStr.includes("STRING_IOR")||(jsonStr.includes('"STRING"'));
       warning.classList.toggle("show",hasUnfilled);
       status.className="status-bar info show";
-      status.textContent=`✅ ${label} detected — message ready`;
+      status.textContent=`✅ ${label} — message ready`;
       autoCopyToClipboard(jsonStr);
     }
     function copyMsgJSON(btn){const box=document.getElementById("msgJsonBox");if(!box.value){showToast("Nothing to copy yet");return;}box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!");}
@@ -904,6 +1048,8 @@
       document.getElementById("msgPills").innerHTML="";
       const s=document.getElementById("msgStatus");s.className="status-bar";s.textContent="";
       document.getElementById("msgStringWarning").classList.remove("show");
+      profileOverride=false;
+      document.getElementById("profileOverridePill").classList.remove("active");
     }
 
     // ── SHARED ──
@@ -948,6 +1094,7 @@
       });
       typeTitle();
       createShips();
+      renderC4History();
     });
 
     function flashBtn(btn,msg){const orig=btn.innerHTML;btn.innerHTML=msg;btn.classList.add("btn-success");setTimeout(()=>{btn.innerHTML=orig;btn.classList.remove("btn-success");},1500);}
