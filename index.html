@@ -913,7 +913,10 @@
       // Generate JSON if we have a client — shipment_id can be empty if not created yet
       if (matchedKey && (shipmentId || shipmentNotCreated)) {
         const cfg=configMap[matchedKey];
-        const jsonStr=JSON.stringify({thread_id:resolvedId||"string",shipment_id:shipmentId||"",root_path:cfg.root,config_path:cfg.config,ignore_files_regex:getFileRegex(),ignore_sheets_regex:getSheetRegex(),force_process_attachments:!forceFalse,display:":2433.0"},null,2);
+        const isGHY = matchedKey === "GHY";
+const jsonStr = isGHY
+  ? JSON.stringify({thread_id:resolvedId||"string",shipment_id:shipmentId||"",root_path:cfg.root,config_path:cfg.config,ignore_files_regex:getFileRegex(),ignore_sheets_regex:getSheetRegex(),file_reference_number:"",force_process_attachments:false,re_extract_only:true,display:":2433.0"},null,2)
+  : JSON.stringify({thread_id:resolvedId||"string",shipment_id:shipmentId||"",root_path:cfg.root,config_path:cfg.config,ignore_files_regex:getFileRegex(),ignore_sheets_regex:getSheetRegex(),force_process_attachments:!forceFalse,display:":2433.0"},null,2);
         box.value=jsonStr;
         status.className="status-bar info show";
         const idNote = shipmentNotCreated ? "no shipment ID yet" : `using ${messageId?"Message ID":threadId?"Thread ID":"no ID found"}`;
