@@ -156,6 +156,9 @@
     .c4-hist-json { font-family: 'Fira Code', monospace; font-size: 0.75rem; color: var(--text-color); white-space: pre; overflow-x: auto; margin-bottom: 0.5rem; line-height: 1.5; }
     .c4-hist-copy { padding: 0.28rem 0.65rem; background: var(--primary); color: white; border: none; border-radius: var(--radius-sm); font-size: 0.72rem; font-weight: 600; cursor: pointer; font-family: inherit; }
     .c4-hist-copy:hover { background: var(--primary-light); }
+    /* CARD 6 ERROR OVERRIDE */
+    .error-override-section { background: var(--box-bg); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 0.6rem 0.8rem; margin-bottom: 0.75rem; }
+    .error-override-pills { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 0.4rem; }
     #toast { display: none; position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.65rem 1.25rem; border-radius: var(--radius); font-size: 0.875rem; font-weight: 500; z-index: 2000; box-shadow: var(--shadow-lg); animation: fadeInOut 2.5s ease; }
     @keyframes fadeInOut { 0%,100% { opacity: 0; transform: translate(-50%,8px); } 10%,90% { opacity: 1; transform: translate(-50%,0); } }
     @media (max-width: 640px) {
@@ -338,32 +341,24 @@
       </div>
     </div>
 
-    <!-- CARD 3: Skip Regex -->
+    <!-- CARD 3: YAML to JSON -->
     <div class="autofill-box">
       <div class="card-header">
-        <div class="card-icon">⊘</div>
-        <span class="card-title">Skip Regex</span>
+        <div class="card-icon">{}</div>
+        <span class="card-title">YAML to JSON</span>
       </div>
       <div class="field-group">
-        <label class="field-label">Type</label>
-        <select id="skipMode">
-          <option value="">— Select Type —</option>
-          <option value="sheet">Skip Sheet</option>
-          <option value="files">Skip Files</option>
-        </select>
+        <label class="field-label">YAML Input</label>
+        <textarea id="yamlInput" class="textarea-md" placeholder="Paste YAML here…" oninput="convertYAML()"></textarea>
       </div>
-      <div class="field-group">
-        <label class="field-label">Filenames <span style="font-weight:400;text-transform:none">(one per line, must include extension)</span></label>
-        <textarea id="skipInput" class="textarea-sm" placeholder="invoice.pdf&#10;packinglist.pdf"></textarea>
-      </div>
-      <div id="skipStatus" class="status-bar"></div>
+      <div id="yamlStatus" class="status-bar"></div>
       <div class="field-group" style="margin-top:0.75rem">
-        <label class="field-label">Generated Regex</label>
-        <textarea id="skipOutput" class="textarea-sm" readonly placeholder="Regex will appear here…"></textarea>
+        <label class="field-label">JSON Output</label>
+        <textarea id="yamlOutput" class="textarea-md" readonly placeholder="JSON will appear here…"></textarea>
       </div>
       <div class="btn-row">
-        <button class="btn btn-primary" onclick="copySkipRegex(this)">📋 Copy Regex</button>
-        <button class="btn btn-danger" onclick="resetSkip()">🔄 Reset</button>
+        <button class="btn btn-primary" onclick="copyYAML(this)">📋 Copy JSON</button>
+        <button class="btn btn-danger" onclick="resetYAML()">🔄 Reset</button>
       </div>
     </div>
 
@@ -428,7 +423,7 @@
         </div>
         <div class="field-group">
           <label class="field-label">Paste Alert Text</label>
-          <textarea id="smartPaste2" class="smart-paste-area" placeholder="Paste alert text — uses Message ID if present, else Thread ID…" oninput="handleSmartPaste2()"></textarea>
+          <textarea id="smartPaste2" class="smart-paste-area" placeholder="Paste alert text — uses Message ID / Email ID if present, else Thread ID…" oninput="handleSmartPaste2()"></textarea>
         </div>
         <div id="smartPills2" class="detected-pills"></div>
         <div id="smartStatus2" class="status-bar" style="margin-top:0.5rem"></div>
@@ -453,9 +448,21 @@
           <label class="field-label">Paste Slack Alert</label>
           <textarea id="smartMsg" class="smart-paste-area" style="min-height:90px" placeholder="Paste the full Slack error — client, thread ID and error type will be detected automatically…" oninput="handleSmartMessage()"></textarea>
         </div>
-        <div style="margin-top:0.4rem;display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;">
-          <span style="font-size:0.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Override:</span>
-          <span class="skip-pill" id="profileOverridePill" onclick="toggleProfileOverride(this)">📋 Profile Not Found</span>
+        <!-- CARD 6: Error override strip -->
+        <div class="error-override-section">
+          <span class="field-label" style="display:block">Override detected error</span>
+          <div class="error-override-pills" id="errorOverridePills">
+            <span class="skip-pill none-pill active" id="autoDetectPill" onclick="setErrorOverride(null,this)">Auto-detect</span>
+            <span class="skip-pill" data-override="importer"    onclick="setErrorOverride('importer',this)">Importer ID</span>
+            <span class="skip-pill" data-override="autocomplete" onclick="setErrorOverride('autocomplete',this)">Could not find</span>
+            <span class="skip-pill" data-override="mid"         onclick="setErrorOverride('mid',this)">MID</span>
+            <span class="skip-pill" data-override="midior"      onclick="setErrorOverride('midior',this)">MID + IOR</span>
+            <span class="skip-pill" data-override="profile"     onclick="setErrorOverride('profile',this)">Profile not found</span>
+            <span class="skip-pill" data-override="masterbol"   onclick="setErrorOverride('masterbol',this)">Master BOL</span>
+            <span class="skip-pill" data-override="hts"         onclick="setErrorOverride('hts',this)">HTS not found</span>
+            <span class="skip-pill" data-override="invoice"     onclick="setErrorOverride('invoice',this)">Invoice not found</span>
+            <span class="skip-pill" data-override="fileref"     onclick="setErrorOverride('fileref',this)">File reference</span>
+          </div>
         </div>
         <div id="msgPills" class="detected-pills"></div>
         <div id="msgStatus" class="status-bar" style="margin-top:0.5rem"></div>
@@ -651,22 +658,109 @@
     }
     function copyTemplateJSON(btn) { const box=document.getElementById("templateBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
 
-    // ── CARD 3 ──
-    function resetSkip() { document.getElementById("skipInput").value=""; document.getElementById("skipOutput").value=""; const s=document.getElementById("skipStatus"); s.className="status-bar"; s.textContent=""; }
-    function generateSkipRegex() {
-      const mode=document.getElementById("skipMode").value, input=document.getElementById("skipInput").value.trim();
-      const output=document.getElementById("skipOutput"), status=document.getElementById("skipStatus");
-      if (mode==="sheet") { output.value="^(?!YOUR_TEXT_HERE$).*"; status.className="status-bar warn show"; status.textContent="⚠️ Remember to replace YOUR_TEXT_HERE"; return; }
-      if (mode==="files") {
-        if (!input) { output.value=""; status.className="status-bar"; status.textContent=""; return; }
-        const files = input.split("\n").map(f=>f.trim()).filter(f=>f.length>0&&f.includes("."));
-        if (!files.length) { output.value=""; status.className="status-bar warn show"; status.textContent="⚠️ No valid filenames — must include extension"; return; }
-        output.value = "^(" + files.map(f=>f.replace(/\./g,"\\." )).join("|") + ")$";
-        status.className="status-bar info show"; status.textContent=`📄 ${files.length} file${files.length!==1?"s":""} will be skipped`; return;
+    // ── CARD 3: YAML to JSON ──
+    function convertYAML() {
+      const input = document.getElementById("yamlInput").value.trim();
+      const output = document.getElementById("yamlOutput");
+      const status = document.getElementById("yamlStatus");
+      if (!input) { output.value = ""; status.className = "status-bar"; return; }
+      try {
+        const parsed = parseYAMLSmart(input);
+        output.value = JSON.stringify(parsed, null, 2);
+        status.className = "status-bar info show";
+        status.textContent = "✅ Converted successfully";
+      } catch(e) {
+        output.value = "";
+        status.className = "status-bar warn show";
+        status.textContent = "⚠️ " + e.message;
       }
-      output.value=""; status.className="status-bar"; status.textContent="";
     }
-    function copySkipRegex(btn) { const box=document.getElementById("skipOutput"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
+
+    function parseYAMLSmart(text) {
+      const assignMatch = text.match(/^[\w\s]*=\s*("[\s\S]*"|'[\s\S]*')$/);
+      if (assignMatch) { const raw = assignMatch[1]; return parseQuotedScalar(raw); }
+      const bareQuoteMatch = text.match(/^("[\s\S]*"|'[\s\S]*')$/);
+      if (bareQuoteMatch) { return parseQuotedScalar(bareQuoteMatch[1]); }
+      const hasMapLine = text.split("\n").some(l => /^\s*\w[\w\s\-]*:\s/.test(l) || /^\s*\w[\w\s\-]*:\s*$/.test(l));
+      if (hasMapLine) return parseYAMLMap(text);
+      return text;
+    }
+
+    function parseQuotedScalar(raw) {
+      const quote = raw[0];
+      const inner = raw.slice(1, -1);
+      if (quote === '"') {
+        return inner.replace(/\\n/g, "\n").replace(/\\t/g, "\t").replace(/\\r/g, "\r").replace(/\\"/g, '"').replace(/\\\\/g, "\\");
+      }
+      return inner.replace(/''/g, "'");
+    }
+
+    function parseYAMLMap(text) {
+      const lines = text.replace(/\r\n/g, "\n").split("\n");
+      const root = {};
+      const stack = [{ obj: root, indent: -1 }];
+      let i = 0;
+      function getValue(raw) {
+        const v = raw.trim();
+        if (v === "true")  return true;
+        if (v === "false") return false;
+        if (v === "null" || v === "~") return null;
+        if (v === "") return null;
+        if (/^-?\d+$/.test(v)) return parseInt(v, 10);
+        if (/^-?\d+\.\d+$/.test(v)) return parseFloat(v);
+        if ((v[0] === '"' && v[v.length-1] === '"') || (v[0] === "'" && v[v.length-1] === "'")) return parseQuotedScalar(v);
+        return v;
+      }
+      while (i < lines.length) {
+        const line = lines[i];
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith("#")) { i++; continue; }
+        const indent = line.search(/\S/);
+        while (stack.length > 1 && stack[stack.length-1].indent >= indent) stack.pop();
+        const parent = stack[stack.length-1].obj;
+        if (trimmed.startsWith("- ")) {
+          const val = trimmed.slice(2).trim();
+          if (!Array.isArray(parent._arr)) {
+            const lastKey = parent._lastKey;
+            if (lastKey !== undefined) { parent[lastKey] = []; stack.push({ obj: parent[lastKey], indent, isArray: true }); }
+          }
+          const arr = stack[stack.length-1].obj;
+          if (Array.isArray(arr)) {
+            if (val.includes(": ")) { const child = {}; arr.push(child); stack.push({ obj: child, indent: indent+2 }); const [k, ...rest] = val.split(": "); child[k.trim()] = getValue(rest.join(": ")); child._lastKey = k.trim(); }
+            else { arr.push(getValue(val)); }
+          }
+          i++; continue;
+        }
+        if (trimmed === "-") { i++; continue; }
+        const colonIdx = trimmed.indexOf(": ");
+        const isKeyOnly = trimmed.endsWith(":");
+        if (colonIdx !== -1 || isKeyOnly) {
+          const key = isKeyOnly ? trimmed.slice(0,-1).trim() : trimmed.slice(0, colonIdx).trim();
+          const rawVal = isKeyOnly ? "" : trimmed.slice(colonIdx+2);
+          if (Array.isArray(parent)) { i++; continue; }
+          if (rawVal === "" || rawVal.trim() === "") {
+            const nextLine = lines[i+1];
+            if (nextLine !== undefined) {
+              const nextTrimmed = nextLine.trim();
+              const nextIndent = nextLine.search(/\S/);
+              if (nextTrimmed.startsWith("- ")) { const arr = []; parent[key] = arr; parent._lastKey = key; stack.push({ obj: arr, indent: nextIndent, isArray: true }); }
+              else { const child = {}; parent[key] = child; parent._lastKey = key; stack.push({ obj: child, indent: nextIndent }); }
+            } else { parent[key] = null; }
+          } else { parent[key] = getValue(rawVal); parent._lastKey = key; }
+          i++; continue;
+        }
+        i++;
+      }
+      function clean(o) {
+        if (Array.isArray(o)) return o.map(clean);
+        if (o && typeof o === "object") { const out = {}; for (const [k, v] of Object.entries(o)) if (k !== "_lastKey" && k !== "_arr") out[k] = clean(v); return out; }
+        return o;
+      }
+      return clean(root);
+    }
+
+    function copyYAML(btn) { const box = document.getElementById("yamlOutput"); if (!box.value) { showToast("Nothing to copy yet"); return; } box.select(); document.execCommand("copy"); flashBtn(btn, "✅ Copied!"); }
+    function resetYAML() { document.getElementById("yamlInput").value = ""; document.getElementById("yamlOutput").value = ""; const s = document.getElementById("yamlStatus"); s.className = "status-bar"; s.textContent = ""; }
 
     // ── CLIENT ALIAS MAP ──
     const clientAliases = {
@@ -679,7 +773,7 @@
       meekoo:        ["meekoo"],
       leesa:         ["label:leesa-chb", "customer:leesa"],
       transworld:    ["transworld", "transworld-chb"],
-      leesachbbruce: ["leesa-chb-bruce", "leesachbbruce", "label:leesa-chb-bruce"],
+      leesachbbruce: ["leesa-chb-bruce", "leesachbbruce", "leesa-bruce", "label:leesa-chb-bruce"],
       ldglobal:      ["ld-global", "ldglobal", "ld global"],
       Jaak:          ["jaak", "jti", "jaak-transport"],
       jdusa:         ["jdusa", "jd-usa", "jd usa"],
@@ -703,12 +797,10 @@
       const clientRaw = text.match(/Customer(?:\s+Name)?:\s*`([^`]+)`/i)?.[1]?.trim().toLowerCase()
         || text.match(/Email Label:\s*`?label:([^`\s]+)`?/i)?.[1]?.trim().toLowerCase();
 
-      // Sort longest alias first — slchb-nhp checked before slchb, leesa-chb-bruce before leesa etc.
       const sortedEntries = Object.entries(clientAliases).sort((a,b) =>
         Math.max(...b[1].map(x=>x.length)) - Math.max(...a[1].map(x=>x.length))
       );
 
-      // Word-boundary check: char before/after match must not be alphanumeric
       const wordBoundaryMatch = (haystack, needle) => {
         const idx = haystack.indexOf(needle);
         if (idx === -1) return false;
@@ -720,7 +812,6 @@
 
       if (clientRaw) {
         for (const [key, aliases] of sortedEntries) {
-          // Exact match first, then word-boundary match
           if (aliases.some(a => {
             const al = a.toLowerCase();
             return clientRaw === al || wordBoundaryMatch(clientRaw, al);
@@ -728,7 +819,6 @@
         }
       }
 
-      // Fallback: full-text search with word-boundary check
       for (const [key, aliases] of sortedEntries) {
         if (aliases.some(a => wordBoundaryMatch(textLower, a.toLowerCase())))
           return { matchedKey: key, clientRaw };
@@ -739,9 +829,7 @@
     // ── CARD 4 HISTORY ──
     const C4_HISTORY_KEY = "devease_c4_history";
     const C4_HISTORY_MAX = 5;
-
     function getC4History() { try { return JSON.parse(localStorage.getItem(C4_HISTORY_KEY) || "[]"); } catch(e) { return []; } }
-
     function saveToC4History(shipmentId, client, jsonStr) {
       if (!shipmentId || !client) return;
       let h = getC4History().filter(x => x.id !== shipmentId);
@@ -750,12 +838,10 @@
       localStorage.setItem(C4_HISTORY_KEY, JSON.stringify(h));
       renderC4History();
     }
-
     function removeFromC4History(id) {
       localStorage.setItem(C4_HISTORY_KEY, JSON.stringify(getC4History().filter(x => x.id !== id)));
       renderC4History();
     }
-
     function toggleC4Item(id) {
       const item = document.querySelector(`.c4-hist-item[data-id="${id}"]`);
       if (!item) return;
@@ -763,7 +849,6 @@
       document.querySelectorAll(".c4-hist-item.open").forEach(el => el.classList.remove("open"));
       if (!isOpen) item.classList.add("open");
     }
-
     function copyC4JSON(id, btn) {
       const h = getC4History().find(x => x.id === id);
       if (!h) return;
@@ -777,14 +862,10 @@
         setTimeout(() => btn.textContent = orig, 1500);
       });
     }
-
     function renderC4History() {
       const list = document.getElementById("c4HistoryList");
       const h = getC4History();
-      if (!h.length) {
-        list.innerHTML = '<div class="c4-history-empty">No recent entries yet — paste an alert above to save one</div>';
-        return;
-      }
+      if (!h.length) { list.innerHTML = '<div class="c4-history-empty">No recent entries yet — paste an alert above to save one</div>'; return; }
       list.innerHTML = h.map(entry => `
         <div class="c4-hist-item" data-id="${entry.id}">
           <div class="c4-hist-row" onclick="toggleC4Item('${entry.id}')">
@@ -843,7 +924,6 @@
     // ── CARD 5: Skip Pill System ──
     let forceFalse=false, activePredefinedPills=new Set(), activeCustomPills=new Set(), noneActive=true;
     function toggleForceFalse(el) { forceFalse=!forceFalse; el.classList.toggle("active",forceFalse); handleSmartPaste2(); }
-    function updateRegexPreview() {}
     function toggleNone(el) {
       activePredefinedPills.clear(); activeCustomPills.clear(); noneActive=true;
       document.querySelectorAll(".skip-pill:not(.none-pill)").forEach(p=>p.classList.remove("active"));
@@ -893,14 +973,20 @@
       const text=document.getElementById("smartPaste2").value, pills=document.getElementById("smartPills2"),
             status=document.getElementById("smartStatus2"), box=document.getElementById("smartJsonBox2");
       if (!text.trim()){pills.innerHTML="";box.value="";status.className="status-bar";return;}
+
       const shipmentIdRaw=text.match(/Shipment ID:\s*`([^`]+)`/i)?.[1]?.trim();
       const shipmentNotCreated = !shipmentIdRaw || /not created|not found|n\/a/i.test(shipmentIdRaw);
       const shipmentId = (!shipmentNotCreated && shipmentIdRaw && /[0-9a-f]{8}-[0-9a-f]{4}/i.test(shipmentIdRaw))
         ? shipmentIdRaw
         : text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i)?.[0] || null;
-      const threadId=text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
-      const messageId=text.match(/Message ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
-      const resolvedId=messageId||threadId||null;
+
+      const threadId  = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
+      const messageId = text.match(/Message ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
+      const emailId   = text.match(/Email ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
+
+      const resolvedId = messageId || emailId || threadId || null;
+      const resolvedIdType = messageId ? "Message ID" : emailId ? "Email ID" : threadId ? "Thread ID" : null;
+
       const {matchedKey,clientRaw}=extractClient(text);
       const pillsHTML=[];
       if (matchedKey)     pillsHTML.push(`<span class="pill">🏢 ${matchedKey}</span>`);
@@ -908,20 +994,23 @@
       if (shipmentId)     pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${shipmentId}',this)" title="Click to copy">🆔 ${shipmentId.slice(0,8)}…</span>`);
       else if (shipmentNotCreated) pillsHTML.push(`<span class="pill warn">⚠️ Shipment not created yet</span>`);
       if (messageId)      pillsHTML.push(`<span class="pill">✉️ msg: ${messageId.slice(0,8)}…</span>`);
+      else if (emailId)   pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${emailId}',this)" title="Click to copy">📧 email: ${emailId.slice(0,8)}…</span>`);
       else if (threadId)  pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${threadId}',this)" title="Click to copy">🧵 ${threadId.slice(0,8)}…</span>`);
       pills.innerHTML=pillsHTML.join("");
-      // Generate JSON if we have a client — shipment_id can be empty if not created yet
+
       if (matchedKey && (shipmentId || shipmentNotCreated)) {
         const cfg=configMap[matchedKey];
         const isGHY = matchedKey === "GHY";
-const jsonStr = isGHY
-  ? JSON.stringify({thread_id:resolvedId||"string",shipment_id:shipmentId||"",root_path:cfg.root,config_path:cfg.config,ignore_files_regex:getFileRegex(),ignore_sheets_regex:getSheetRegex(),file_reference_number:"",force_process_attachments:false,re_extract_only:true,display:":2433.0"},null,2)
-  : JSON.stringify({thread_id:resolvedId||"string",shipment_id:shipmentId||"",root_path:cfg.root,config_path:cfg.config,ignore_files_regex:getFileRegex(),ignore_sheets_regex:getSheetRegex(),force_process_attachments:!forceFalse,display:":2433.0"},null,2);
+        const jsonStr = isGHY
+          ? JSON.stringify({thread_id:resolvedId||"string",shipment_id:shipmentId||"",root_path:cfg.root,config_path:cfg.config,ignore_files_regex:getFileRegex(),ignore_sheets_regex:getSheetRegex(),file_reference_number:"",force_process_attachments:false,re_extract_only:true,display:":2433.0"},null,2)
+          : JSON.stringify({thread_id:resolvedId||"string",shipment_id:shipmentId||"",root_path:cfg.root,config_path:cfg.config,ignore_files_regex:getFileRegex(),ignore_sheets_regex:getSheetRegex(),force_process_attachments:!forceFalse,display:":2433.0"},null,2);
         box.value=jsonStr;
         status.className="status-bar info show";
-        const idNote = shipmentNotCreated ? "no shipment ID yet" : `using ${messageId?"Message ID":threadId?"Thread ID":"no ID found"}`;
+        const idNote = shipmentNotCreated
+          ? "no shipment ID yet"
+          : resolvedIdType ? `using ${resolvedIdType}` : "no ID found";
         status.textContent=`✅ Get Extraction ready — ${idNote}`;
-        document.getElementById("logsBtn2").style.display= threadId ? "" : "none";
+        document.getElementById("logsBtn2").style.display = (threadId || emailId) ? "" : "none";
         autoCopyToClipboard(jsonStr);
       } else if (!matchedKey) {
         box.value=""; status.className="status-bar warn show";
@@ -931,16 +1020,20 @@ const jsonStr = isGHY
         status.textContent="⚠️ No Shipment ID found";
       }
     }
+
     function openExtractionLogs() {
       const text=document.getElementById("smartPaste2").value;
       const threadId=text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
-      if (!threadId){showToast("⚠️ No Thread ID found in pasted text");return;}
+      const emailId =text.match(/Email ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
+      const logId = threadId || emailId;
+      if (!logId){showToast("⚠️ No Thread ID or Email ID found in pasted text");return;}
       try {
         const json=JSON.parse(document.getElementById("smartJsonBox2").value);
-        const w=window.open(`http://34.30.43.174:8080/commands/logs/${threadId}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank");
+        const w=window.open(`http://34.30.43.174:8080/commands/logs/${logId}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank");
         if(w){w.blur();window.focus();}
       } catch(e){showToast("⚠️ Could not read root path — copy JSON first");}
     }
+
     function copySmartJSON2(btn){const box=document.getElementById("smartJsonBox2");if(!box.value){showToast("Nothing to copy yet");return;}box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!");}
     function resetSmartPaste2(){
       document.getElementById("smartPaste2").value="";document.getElementById("smartJsonBox2").value="";
@@ -956,36 +1049,48 @@ const jsonStr = isGHY
       document.getElementById("sheetActiveLabel").style.display="none";
     }
 
-    // ── CARD 6: Smart Message ──
-    let profileOverride = false;
-    function toggleProfileOverride(el) {
-      profileOverride = !profileOverride;
-      el.classList.toggle("active", profileOverride);
+    // ── CARD 6: Error override ──
+    let errorOverride = null;
+
+    function setErrorOverride(type, el) {
+      errorOverride = type;
+      document.querySelectorAll("#errorOverridePills .skip-pill").forEach(p => p.classList.remove("active"));
+      el.classList.add("active");
       handleSmartMessage();
     }
+
+    // ── CARD 6: detectError — supports multiple MID alert formats ──
     function detectError(text) {
       const t = text.toLowerCase();
-      const hasMID      = t.includes("mid not found") || (t.includes("manufacturer") && t.includes("not found"));
+      // Detect MID errors — including "Please confirm AI picked correct MID value for manufacturer name: XYZ"
+      const hasMID      = t.includes("mid not found")
+                       || (t.includes("manufacturer") && t.includes("not found"))
+                       || t.includes("confirm ai picked correct mid")
+                       || t.includes("mid value for manufacturer");
       const hasImporter = t.includes("importer id not found") || t.includes("trade partner") || (t.includes("consignee") && t.includes("not found"));
 
-      // Combined — both present
+      // Helper: extract manufacturer name from multiple alert formats
+      function extractMIDName(s) {
+        return s.match(/MID not found for manufacturer:\s*(.+?)(?:\n|$)/i)?.[1]?.trim()
+          || s.match(/confirm AI picked correct MID value for manufacturer(?:\s+name)?:\s*(.+?)(?:\n|$)/i)?.[1]?.trim()
+          || s.match(/MID value for manufacturer(?:\s+name)?:\s*(.+?)(?:\n|$)/i)?.[1]?.trim()
+          || s.match(/manufacturer[:\s]+([A-Z][^\n]+?)(?:\n|$)/im)?.[1]?.trim()
+          || null;
+      }
+
       if (hasMID && hasImporter) {
-        const midName = text.match(/MID not found for manufacturer:\s*(.+?)(?:\n|$)/i)?.[1]?.trim()
-          || text.match(/manufacturer[:\s]+([A-Z][^\n]+?)(?:\n|$)/im)?.[1]?.trim() || null;
+        const midName = extractMIDName(text);
         const iorName = text.match(/Importer ID not found for\s+(.+?)(?:\n|$)/i)?.[1]?.trim()
-          || text.match(/(?:trade partner|consignee)[:\s"]+([A-Z][^\n"]+?)(?:"|\n|$)/im)?.[1]?.trim() || null;
+          || text.match(/(?:trade partner|consignee)[:\s"]+([A-Z][^\n"]+?)(?:"\n|$)/im)?.[1]?.trim() || null;
         return { type: "midior", midName, iorName, extractedName: null, label: "MID + IOR Error" };
       }
-      // MID only
       if (hasMID) {
-        const name = text.match(/MID not found for manufacturer:\s*(.+?)(?:\n|$)/i)?.[1]?.trim()
-          || text.match(/manufacturer[:\s]+([A-Z][^\n]+?)(?:\n|$)/im)?.[1]?.trim();
+        const name = extractMIDName(text);
         return { type: "mid", extractedName: name||null, label: "MID Error" };
       }
-      // Importer only
       if (hasImporter) {
         const name = text.match(/Importer ID not found for\s+(.+?)(?:\n|$)/i)?.[1]?.trim()
-          || text.match(/(?:trade partner|consignee)[:\s"]+([A-Z][^\n"]+?)(?:"|\n|$)/im)?.[1]?.trim();
+          || text.match(/(?:trade partner|consignee)[:\s"]+([A-Z][^\n"]+?)(?:"\n|$)/im)?.[1]?.trim();
         return { type: "importer", extractedName: name||null, label: "Importer ID Error" };
       }
       if (t.includes("autocomplete")||t.includes("could not find matching")) return {type:"autocomplete",extractedName:null,label:"Could Not Find"};
@@ -1007,9 +1112,9 @@ const jsonStr = isGHY
       if (!text.trim()){pills.innerHTML="";box.value="";status.className="status-bar";warning.classList.remove("show");return;}
       const threadId=text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
       const {matchedKey,clientRaw}=extractClient(text);
-      // Apply profile override or auto-detect
-      const detected = profileOverride
-        ? { type: "profile", extractedName: null, midName: null, iorName: null, label: "Profile Not Found (override)" }
+      const detected = errorOverride
+        ? { type: errorOverride, extractedName: null, midName: null, iorName: null,
+            label: document.querySelector(`#errorOverridePills [data-override="${errorOverride}"]`)?.textContent || errorOverride }
         : detectError(text);
       const {type,label}=detected;
       const pillsHTML=[];
@@ -1045,14 +1150,26 @@ const jsonStr = isGHY
       status.textContent=`✅ ${label} — message ready`;
       autoCopyToClipboard(jsonStr);
     }
-    function copyMsgJSON(btn){const box=document.getElementById("msgJsonBox");if(!box.value){showToast("Nothing to copy yet");return;}box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!");}
+
+    // ── CARD 6: Copy JSON — resets override to Auto-detect after copy ──
+    function copyMsgJSON(btn) {
+      const box=document.getElementById("msgJsonBox");
+      if(!box.value){showToast("Nothing to copy yet");return;}
+      box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!");
+      // Reset override pill to Auto-detect
+      errorOverride=null;
+      document.querySelectorAll("#errorOverridePills .skip-pill").forEach(p=>p.classList.remove("active"));
+      document.getElementById("autoDetectPill").classList.add("active");
+    }
+
     function resetSmartMsg(){
       document.getElementById("smartMsg").value="";document.getElementById("msgJsonBox").value="";
       document.getElementById("msgPills").innerHTML="";
       const s=document.getElementById("msgStatus");s.className="status-bar";s.textContent="";
       document.getElementById("msgStringWarning").classList.remove("show");
-      profileOverride=false;
-      document.getElementById("profileOverridePill").classList.remove("active");
+      errorOverride=null;
+      document.querySelectorAll("#errorOverridePills .skip-pill").forEach(p=>p.classList.remove("active"));
+      document.getElementById("autoDetectPill").classList.add("active");
     }
 
     // ── SHARED ──
@@ -1060,8 +1177,6 @@ const jsonStr = isGHY
 
     // ── DOM READY ──
     document.addEventListener("DOMContentLoaded",()=>{
-      document.getElementById("skipMode").addEventListener("change",generateSkipRegex);
-      document.getElementById("skipInput").addEventListener("input",generateSkipRegex);
       document.getElementById("customFileInput").addEventListener("keydown",e=>{
         if(e.key==="Enter")addCustomFile();
         if(e.key==="Escape")document.getElementById("customInputRow").style.display="none";
