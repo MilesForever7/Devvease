@@ -7,6 +7,65 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&family=Cinzel:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
+    /* ── AUTH OVERLAY ── */
+    #authOverlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #0f172a;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Inter', sans-serif;
+    }
+    #authOverlay.hidden { display: none; }
+    .auth-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 14px;
+      padding: 2.5rem 2.25rem 2rem;
+      width: 340px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+      text-align: center;
+    }
+    .auth-logo {
+      font-size: 1.6rem; font-weight: 700; color: #93b4d8;
+      letter-spacing: -0.5px; margin-bottom: 0.25rem;
+    }
+    .auth-sub {
+      font-size: 0.78rem; color: #64748b; margin-bottom: 2rem;
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .auth-label {
+      display: block; text-align: left; font-size: 0.72rem;
+      font-weight: 600; color: #94a3b8; text-transform: uppercase;
+      letter-spacing: 0.06em; margin-bottom: 0.4rem;
+    }
+    .auth-input {
+      width: 100%; padding: 0.65rem 0.9rem;
+      background: #0f172a; border: 1px solid #334155;
+      border-radius: 8px; color: #f1f5f9; font-size: 0.95rem;
+      font-family: 'Inter', sans-serif; outline: none;
+      transition: border-color 0.18s;
+      margin-bottom: 1.25rem; box-sizing: border-box;
+    }
+    .auth-input:focus { border-color: #93b4d8; box-shadow: 0 0 0 3px rgba(147,180,216,0.15); }
+    .auth-btn {
+      width: 100%; padding: 0.7rem;
+      background: #2a4365; color: white;
+      border: none; border-radius: 8px;
+      font-size: 0.9rem; font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer; transition: background 0.18s, transform 0.1s;
+    }
+    .auth-btn:hover { background: #3a5a8a; }
+    .auth-btn:active { transform: scale(0.98); }
+    .auth-error {
+      font-size: 0.78rem; color: #f87171;
+      margin-top: 0.75rem; min-height: 1.2em;
+    }
+    .auth-attempts {
+      font-size: 0.7rem; color: #475569; margin-top: 0.5rem;
+    }
+    .auth-shake { animation: authShake 0.35s ease; }
+    @keyframes authShake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
+
     :root {
       --bg: #f0f2f5; --primary: #2a4365; --primary-light: #3a5a8a; --secondary: #8ba3c7;
       --accent: #ffffff; --card-bg: #ffffff; --text-color: #1f2937; --text-muted: #6b7280;
@@ -110,7 +169,6 @@
     .pill { font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 999px; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
     .pill.warn { background: #fffbeb; color: #92400e; border-color: #fde68a; }
     .smart-row { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-    /* SKIP PILL SYSTEM */
     .skip-section { background: var(--box-bg); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 0.7rem 0.85rem; margin-bottom: 0.85rem; display: flex; flex-direction: column; gap: 0.5rem; }
     .skip-row { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
     .skip-row .field-label { margin-bottom: 0; flex-shrink: 0; }
@@ -126,7 +184,6 @@
     .custom-input-row input:focus { border-color: var(--border-focus); }
     .custom-input-row button { padding: 0.32rem 0.6rem; background: var(--primary); color: white; border: none; border-radius: var(--radius-sm); font-size: 0.75rem; font-weight: 600; cursor: pointer; font-family: inherit; }
     .custom-input-row button:hover { background: var(--primary-light); }
-    /* SHIPMENT HISTORY — Card 1 dropdown */
     .shipment-wrapper { position: relative; }
     .history-dropdown { display: none; position: absolute; top: calc(100% + 3px); left: 0; right: 0; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius-sm); box-shadow: var(--shadow); z-index: 500; overflow: hidden; }
     .history-dropdown.show { display: block; }
@@ -136,7 +193,6 @@
     .history-item .hist-remove { font-size: 0.68rem; color: var(--text-muted); padding: 0.1rem 0.3rem; border-radius: 3px; flex-shrink: 0; }
     .history-item .hist-remove:hover { color: var(--error); background: #fee2e2; }
     .history-empty { padding: 0.5rem 0.75rem; font-size: 0.78rem; color: var(--text-muted); font-style: italic; }
-    /* CARD 4 HISTORY PANEL — inline at bottom of card */
     .c4-history { margin-top: 0.85rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); overflow: hidden; }
     .c4-history-header { display: flex; align-items: center; justify-content: space-between; padding: 0.45rem 0.75rem; background: var(--box-bg); border-bottom: 1px solid var(--border-color); }
     .c4-history-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
@@ -156,7 +212,6 @@
     .c4-hist-json { font-family: 'Fira Code', monospace; font-size: 0.75rem; color: var(--text-color); white-space: pre; overflow-x: auto; margin-bottom: 0.5rem; line-height: 1.5; }
     .c4-hist-copy { padding: 0.28rem 0.65rem; background: var(--primary); color: white; border: none; border-radius: var(--radius-sm); font-size: 0.72rem; font-weight: 600; cursor: pointer; font-family: inherit; }
     .c4-hist-copy:hover { background: var(--primary-light); }
-    /* CARD 6 ERROR OVERRIDE */
     .error-override-section { background: var(--box-bg); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 0.6rem 0.8rem; margin-bottom: 0.75rem; }
     .error-override-pills { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 0.4rem; }
     #toast { display: none; position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.65rem 1.25rem; border-radius: var(--radius); font-size: 0.875rem; font-weight: 500; z-index: 2000; box-shadow: var(--shadow-lg); animation: fadeInOut 2.5s ease; }
@@ -175,6 +230,26 @@
   </style>
 </head>
 <body>
+
+  <!-- ══════════════════════════════════════════
+       AUTH OVERLAY
+       Change FIRM_PASS in the <script> below to
+       set your firm's password.
+       ══════════════════════════════════════════ -->
+  <div id="authOverlay">
+    <div class="auth-card">
+      <div class="auth-logo">DevEase.io</div>
+      <div class="auth-sub">Internal Access Only</div>
+      <label class="auth-label" for="authPass">Password</label>
+      <input class="auth-input" type="password" id="authPass"
+             placeholder="Enter firm password"
+             onkeydown="if(event.key==='Enter')checkAuth()">
+      <button class="auth-btn" onclick="checkAuth()">Unlock →</button>
+      <div class="auth-error" id="authError"></div>
+      <div class="auth-attempts" id="authAttempts"></div>
+    </div>
+  </div>
+
   <div class="mode-toggle">
     <input type="checkbox" id="themeSwitch" onchange="toggleTheme()" checked />
     <label for="themeSwitch"><span class="sun">☀️</span><span class="moon">🌙</span><div class="ball"></div></label>
@@ -386,7 +461,6 @@
           <button class="btn btn-secondary" id="logsBtn1" onclick="openFillEntryLogs()" style="display:none">🔗 Open Logs</button>
           <button class="btn btn-danger" onclick="resetSmartPaste()">🔄 Reset</button>
         </div>
-        <!-- CARD 4 HISTORY PANEL -->
         <div class="c4-history" id="c4History">
           <div class="c4-history-header">
             <span class="c4-history-title">🕓 Recent Fill Entry IDs</span>
@@ -448,7 +522,6 @@
           <label class="field-label">Paste Slack Alert</label>
           <textarea id="smartMsg" class="smart-paste-area" style="min-height:90px" placeholder="Paste the full Slack error — client, thread ID and error type will be detected automatically…" oninput="handleSmartMessage()"></textarea>
         </div>
-        <!-- CARD 6: Error override strip -->
         <div class="error-override-section">
           <span class="field-label" style="display:block">Override detected error</span>
           <div class="error-override-pills" id="errorOverridePills">
@@ -482,6 +555,54 @@
   <div id="toast"></div>
 
   <script>
+    // ══════════════════════════════════════════════════════
+    //  AUTH  —  change FIRM_PASS to your firm's password
+    // ══════════════════════════════════════════════════════
+    (function() {
+      const FIRM_PASS   = "devease2025";   // ← CHANGE THIS
+      const SESSION_KEY = "devease_auth";
+      const MAX_ATTEMPTS = 5;
+      let attempts = parseInt(sessionStorage.getItem("devease_attempts") || "0");
+
+      function isAuthed() { return sessionStorage.getItem(SESSION_KEY) === "ok"; }
+
+      window.checkAuth = function() {
+        if (attempts >= MAX_ATTEMPTS) {
+          document.getElementById("authError").textContent = "Too many attempts. Close and reopen the tab.";
+          return;
+        }
+        const val = document.getElementById("authPass").value;
+        if (val === FIRM_PASS) {
+          sessionStorage.setItem(SESSION_KEY, "ok");
+          sessionStorage.removeItem("devease_attempts");
+          document.getElementById("authOverlay").classList.add("hidden");
+        } else {
+          attempts++;
+          sessionStorage.setItem("devease_attempts", String(attempts));
+          const card = document.querySelector(".auth-card");
+          card.classList.remove("auth-shake");
+          void card.offsetWidth; // reflow to restart animation
+          card.classList.add("auth-shake");
+          document.getElementById("authError").textContent = "Incorrect password.";
+          const left = MAX_ATTEMPTS - attempts;
+          document.getElementById("authAttempts").textContent =
+            left > 0 ? `${left} attempt${left === 1 ? "" : "s"} remaining` : "";
+          document.getElementById("authPass").value = "";
+          document.getElementById("authPass").focus();
+        }
+      };
+
+      if (isAuthed()) {
+        document.getElementById("authOverlay").classList.add("hidden");
+      } else {
+        window.addEventListener("load", () => {
+          const el = document.getElementById("authPass");
+          if (el) el.focus();
+        });
+      }
+    })();
+    // ══════════════════════════════════════════════════════
+
     // ── AUTO-COPY ──
     let autoCopyEnabled = false;
     document.getElementById("autoCopySwitch").addEventListener("change", function() {
@@ -1059,17 +1180,14 @@
       handleSmartMessage();
     }
 
-    // ── CARD 6: detectError — supports multiple MID alert formats ──
     function detectError(text) {
       const t = text.toLowerCase();
-      // Detect MID errors — including "Please confirm AI picked correct MID value for manufacturer name: XYZ"
       const hasMID      = t.includes("mid not found")
                        || (t.includes("manufacturer") && t.includes("not found"))
                        || t.includes("confirm ai picked correct mid")
                        || t.includes("mid value for manufacturer");
       const hasImporter = t.includes("importer id not found") || t.includes("trade partner") || (t.includes("consignee") && t.includes("not found"));
 
-      // Helper: extract manufacturer name from multiple alert formats
       function extractMIDName(s) {
         return s.match(/MID not found for manufacturer:\s*(.+?)(?:\n|$)/i)?.[1]?.trim()
           || s.match(/confirm AI picked correct MID value for manufacturer(?:\s+name)?:\s*(.+?)(?:\n|$)/i)?.[1]?.trim()
@@ -1151,12 +1269,10 @@
       autoCopyToClipboard(jsonStr);
     }
 
-    // ── CARD 6: Copy JSON — resets override to Auto-detect after copy ──
     function copyMsgJSON(btn) {
       const box=document.getElementById("msgJsonBox");
       if(!box.value){showToast("Nothing to copy yet");return;}
       box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!");
-      // Reset override pill to Auto-detect
       errorOverride=null;
       document.querySelectorAll("#errorOverridePills .skip-pill").forEach(p=>p.classList.remove("active"));
       document.getElementById("autoDetectPill").classList.add("active");
@@ -1219,3 +1335,4 @@
   </script>
 </body>
 </html>
+
