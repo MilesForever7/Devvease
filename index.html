@@ -193,6 +193,8 @@
     .history-item .hist-remove { font-size: 0.68rem; color: var(--text-muted); padding: 0.1rem 0.3rem; border-radius: 3px; flex-shrink: 0; }
     .history-item .hist-remove:hover { color: var(--error); background: #fee2e2; }
     .history-empty { padding: 0.5rem 0.75rem; font-size: 0.78rem; color: var(--text-muted); font-style: italic; }
+
+    /* ── SHARED HISTORY PANEL (Card 4 + Card 5) ── */
     .c4-history { margin-top: 0.85rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); overflow: hidden; }
     .c4-history-header { display: flex; align-items: center; justify-content: space-between; padding: 0.45rem 0.75rem; background: var(--box-bg); border-bottom: 1px solid var(--border-color); }
     .c4-history-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
@@ -212,6 +214,7 @@
     .c4-hist-json { font-family: 'Fira Code', monospace; font-size: 0.75rem; color: var(--text-color); white-space: pre; overflow-x: auto; margin-bottom: 0.5rem; line-height: 1.5; }
     .c4-hist-copy { padding: 0.28rem 0.65rem; background: var(--primary); color: white; border: none; border-radius: var(--radius-sm); font-size: 0.72rem; font-weight: 600; cursor: pointer; font-family: inherit; }
     .c4-hist-copy:hover { background: var(--primary-light); }
+
     .error-override-section { background: var(--box-bg); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 0.6rem 0.8rem; margin-bottom: 0.75rem; }
     .error-override-pills { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 0.4rem; }
     #toast { display: none; position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.65rem 1.25rem; border-radius: var(--radius); font-size: 0.875rem; font-weight: 500; z-index: 2000; box-shadow: var(--shadow-lg); animation: fadeInOut 2.5s ease; }
@@ -231,11 +234,6 @@
 </head>
 <body>
 
-  <!-- ══════════════════════════════════════════
-       AUTH OVERLAY
-       Change FIRM_PASS in the <script> below to
-       set your firm's password.
-       ══════════════════════════════════════════ -->
   <div id="authOverlay">
     <div class="auth-card">
       <div class="auth-logo">DevEase.io</div>
@@ -510,6 +508,13 @@
           <button class="btn btn-secondary" id="logsBtn2" onclick="openExtractionLogs()" style="display:none">🔗 Open Logs</button>
           <button class="btn btn-danger" onclick="resetSmartPaste2()">🔄 Reset</button>
         </div>
+        <!-- CARD 5 HISTORY (mirrors Card 4) -->
+        <div class="c4-history" id="c5History">
+          <div class="c4-history-header">
+            <span class="c4-history-title">🕓 Recent Extraction IDs</span>
+          </div>
+          <div id="c5HistoryList"></div>
+        </div>
       </div>
 
       <!-- CARD 6: Smart Message -->
@@ -556,10 +561,10 @@
 
   <script>
     // ══════════════════════════════════════════════════════
-    //  AUTH  —  change FIRM_PASS to your firm's password
+    //  AUTH
     // ══════════════════════════════════════════════════════
     (function() {
-      const FIRM_PASS   = "devease2025";   // ← CHANGE THIS
+      const FIRM_PASS   = "devease2025";
       const SESSION_KEY = "devease_auth";
       const MAX_ATTEMPTS = 5;
       let attempts = parseInt(sessionStorage.getItem("devease_attempts") || "0");
@@ -581,7 +586,7 @@
           sessionStorage.setItem("devease_attempts", String(attempts));
           const card = document.querySelector(".auth-card");
           card.classList.remove("auth-shake");
-          void card.offsetWidth; // reflow to restart animation
+          void card.offsetWidth;
           card.classList.add("auth-shake");
           document.getElementById("authError").textContent = "Incorrect password.";
           const left = MAX_ATTEMPTS - attempts;
@@ -601,7 +606,6 @@
         });
       }
     })();
-    // ══════════════════════════════════════════════════════
 
     // ── AUTO-COPY ──
     let autoCopyEnabled = false;
@@ -620,7 +624,7 @@
       }
     }
 
-    // ── SHIPMENT HISTORY ──
+    // ── SHIPMENT HISTORY (Card 1) ──
     const HISTORY_KEY = "devease_shipment_history";
     const HISTORY_MAX = 5;
     function getHistory() { try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]"); } catch(e) { return []; } }
@@ -947,7 +951,9 @@
       return { matchedKey: null, clientRaw };
     }
 
-    // ── CARD 4 HISTORY ──
+    // ══════════════════════════════════════════════════════
+    //  CARD 4 HISTORY
+    // ══════════════════════════════════════════════════════
     const C4_HISTORY_KEY = "devease_c4_history";
     const C4_HISTORY_MAX = 5;
     function getC4History() { try { return JSON.parse(localStorage.getItem(C4_HISTORY_KEY) || "[]"); } catch(e) { return []; } }
@@ -964,10 +970,10 @@
       renderC4History();
     }
     function toggleC4Item(id) {
-      const item = document.querySelector(`.c4-hist-item[data-id="${id}"]`);
+      const item = document.querySelector(`#c4HistoryList .c4-hist-item[data-id="${id}"]`);
       if (!item) return;
       const isOpen = item.classList.contains("open");
-      document.querySelectorAll(".c4-hist-item.open").forEach(el => el.classList.remove("open"));
+      document.querySelectorAll("#c4HistoryList .c4-hist-item.open").forEach(el => el.classList.remove("open"));
       if (!isOpen) item.classList.add("open");
     }
     function copyC4JSON(id, btn) {
@@ -1000,6 +1006,80 @@
             <button class="c4-hist-copy" onclick="copyC4JSON('${entry.id}', this)">📋 Copy JSON</button>
           </div>
         </div>`).join("");
+    }
+
+    // ══════════════════════════════════════════════════════
+    //  CARD 5 HISTORY
+    // ══════════════════════════════════════════════════════
+    const C5_HISTORY_KEY = "devease_c5_history";
+    const C5_HISTORY_MAX = 5;
+    function getC5History() { try { return JSON.parse(localStorage.getItem(C5_HISTORY_KEY) || "[]"); } catch(e) { return []; } }
+
+    /**
+     * Save to Card 5 history.
+     * displayId  = shipment UUID if available, else the email/thread/message ID fallback
+     * idType     = label for display: "shipment" | "email" | "thread" | "message"
+     */
+    function saveToC5History(displayId, idType, client, jsonStr) {
+      if (!displayId || !client) return;
+      let h = getC5History().filter(x => x.id !== displayId);
+      h.unshift({ id: displayId, idType, client, json: jsonStr, ts: Date.now() });
+      if (h.length > C5_HISTORY_MAX) h = h.slice(0, C5_HISTORY_MAX);
+      localStorage.setItem(C5_HISTORY_KEY, JSON.stringify(h));
+      renderC5History();
+    }
+    function removeFromC5History(id) {
+      localStorage.setItem(C5_HISTORY_KEY, JSON.stringify(getC5History().filter(x => x.id !== id)));
+      renderC5History();
+    }
+    function toggleC5Item(id) {
+      // escape the id for querySelector (UUIDs and hex IDs are safe, but tmp_ prefix etc. is fine)
+      const item = document.querySelector(`#c5HistoryList .c4-hist-item[data-id="${CSS.escape(id)}"]`);
+      if (!item) return;
+      const isOpen = item.classList.contains("open");
+      document.querySelectorAll("#c5HistoryList .c4-hist-item.open").forEach(el => el.classList.remove("open"));
+      if (!isOpen) item.classList.add("open");
+    }
+    function copyC5JSON(id, btn) {
+      const h = getC5History().find(x => x.id === id);
+      if (!h) return;
+      navigator.clipboard.writeText(h.json).then(() => {
+        const orig = btn.textContent; btn.textContent = "✅ Copied!";
+        setTimeout(() => btn.textContent = orig, 1500);
+      }).catch(() => {
+        const ta = document.createElement("textarea"); ta.value = h.json;
+        document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
+        const orig = btn.textContent; btn.textContent = "✅ Copied!";
+        setTimeout(() => btn.textContent = orig, 1500);
+      });
+    }
+    function renderC5History() {
+      const list = document.getElementById("c5HistoryList");
+      const h = getC5History();
+      if (!h.length) {
+        list.innerHTML = '<div class="c4-history-empty">No recent extractions yet — paste an alert above to save one</div>';
+        return;
+      }
+      // idType badge icon
+      const typeIcon = { shipment: "🆔", email: "📧", thread: "🧵", message: "✉️" };
+      list.innerHTML = h.map(entry => {
+        const safeId = entry.id.replace(/'/g, "\\'");
+        const icon = typeIcon[entry.idType] || "🆔";
+        const shortId = entry.id.length > 20 ? entry.id.slice(0, 20) + "…" : entry.id;
+        return `
+        <div class="c4-hist-item" data-id="${entry.id}">
+          <div class="c4-hist-row" onclick="toggleC5Item('${safeId}')">
+            <span class="c4-hist-id">${icon} ${shortId}</span>
+            <span class="c4-hist-client">${entry.client}</span>
+            <span class="c4-hist-arrow">▶</span>
+            <span class="c4-hist-remove" onclick="event.stopPropagation();removeFromC5History('${safeId}')" title="Remove">✕</span>
+          </div>
+          <div class="c4-hist-preview">
+            <div class="c4-hist-json">${entry.json.replace(/</g,"&lt;")}</div>
+            <button class="c4-hist-copy" onclick="copyC5JSON('${safeId}', this)">📋 Copy JSON</button>
+          </div>
+        </div>`;
+      }).join("");
     }
 
     // ── CARD 4 ──
@@ -1095,44 +1175,123 @@
             status=document.getElementById("smartStatus2"), box=document.getElementById("smartJsonBox2");
       if (!text.trim()){pills.innerHTML="";box.value="";status.className="status-bar";return;}
 
+      // ── Shipment ID detection ──
       const shipmentIdRaw=text.match(/Shipment ID:\s*`([^`]+)`/i)?.[1]?.trim();
       const shipmentNotCreated = !shipmentIdRaw || /not created|not found|n\/a/i.test(shipmentIdRaw);
       const shipmentId = (!shipmentNotCreated && shipmentIdRaw && /[0-9a-f]{8}-[0-9a-f]{4}/i.test(shipmentIdRaw))
         ? shipmentIdRaw
         : text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i)?.[0] || null;
 
+      // ── Thread / Message / Email ID detection ──
       const threadId  = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
       const messageId = text.match(/Message ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
-      const emailId   = text.match(/Email ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
 
-      const resolvedId = messageId || emailId || threadId || null;
+      // Email ID: support both plain hex16 AND tmp_UUID formats
+      const emailIdHex = text.match(/Email ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
+      const emailIdTmp = text.match(/Email ID:\s*`?(tmp_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})`?/i)?.[1];
+      const emailId   = emailIdTmp || emailIdHex || null;
+
+      // ── GHY tmp_ logic ──
+      // If Email ID is tmp_UUID → strip "tmp_" → use as shipment_id; thread_id stays ""
+      const isTmpEmail = !!emailIdTmp;
+      const tmpUUID    = isTmpEmail ? emailIdTmp.replace(/^tmp_/, "") : null;
+
+      const resolvedId     = messageId || emailId || threadId || null;
       const resolvedIdType = messageId ? "Message ID" : emailId ? "Email ID" : threadId ? "Thread ID" : null;
 
       const {matchedKey,clientRaw}=extractClient(text);
+      const isGHY = matchedKey === "GHY";
+
+      // ── Pill display ──
       const pillsHTML=[];
       if (matchedKey)     pillsHTML.push(`<span class="pill">🏢 ${matchedKey}</span>`);
       else if (clientRaw) pillsHTML.push(`<span class="pill warn">⚠️ "${clientRaw}" not in config</span>`);
-      if (shipmentId)     pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${shipmentId}',this)" title="Click to copy">🆔 ${shipmentId.slice(0,8)}…</span>`);
-      else if (shipmentNotCreated) pillsHTML.push(`<span class="pill warn">⚠️ Shipment not created yet</span>`);
-      if (messageId)      pillsHTML.push(`<span class="pill">✉️ msg: ${messageId.slice(0,8)}…</span>`);
-      else if (emailId)   pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${emailId}',this)" title="Click to copy">📧 email: ${emailId.slice(0,8)}…</span>`);
-      else if (threadId)  pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${threadId}',this)" title="Click to copy">🧵 ${threadId.slice(0,8)}…</span>`);
+
+      if (isTmpEmail) {
+        // Show both tmp Email ID and the derived shipment UUID
+        pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${emailIdTmp}',this)" title="Click to copy">📧 ${emailIdTmp.slice(0,16)}…</span>`);
+        pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${tmpUUID}',this)" title="Click to copy UUID">🆔 ${tmpUUID.slice(0,8)}…</span>`);
+      } else {
+        if (shipmentId)          pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${shipmentId}',this)" title="Click to copy">🆔 ${shipmentId.slice(0,8)}…</span>`);
+        else if (shipmentNotCreated) pillsHTML.push(`<span class="pill warn">⚠️ Shipment not created yet</span>`);
+        if (messageId)           pillsHTML.push(`<span class="pill">✉️ msg: ${messageId.slice(0,8)}…</span>`);
+        else if (emailIdHex)     pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${emailIdHex}',this)" title="Click to copy">📧 email: ${emailIdHex.slice(0,8)}…</span>`);
+        else if (threadId)       pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${threadId}',this)" title="Click to copy">🧵 ${threadId.slice(0,8)}…</span>`);
+      }
       pills.innerHTML=pillsHTML.join("");
 
-      if (matchedKey && (shipmentId || shipmentNotCreated)) {
-        const cfg=configMap[matchedKey];
-        const isGHY = matchedKey === "GHY";
-        const jsonStr = isGHY
-          ? JSON.stringify({thread_id:resolvedId||"string",shipment_id:shipmentId||"",root_path:cfg.root,config_path:cfg.config,ignore_files_regex:getFileRegex(),ignore_sheets_regex:getSheetRegex(),file_reference_number:"",force_process_attachments:false,re_extract_only:true,display:":2433.0"},null,2)
-          : JSON.stringify({thread_id:resolvedId||"string",shipment_id:shipmentId||"",root_path:cfg.root,config_path:cfg.config,ignore_files_regex:getFileRegex(),ignore_sheets_regex:getSheetRegex(),force_process_attachments:!forceFalse,display:":2433.0"},null,2);
-        box.value=jsonStr;
-        status.className="status-bar info show";
-        const idNote = shipmentNotCreated
-          ? "no shipment ID yet"
-          : resolvedIdType ? `using ${resolvedIdType}` : "no ID found";
-        status.textContent=`✅ Get Extraction ready — ${idNote}`;
-        document.getElementById("logsBtn2").style.display = (threadId || emailId) ? "" : "none";
+      // ── JSON generation ──
+      if (matchedKey && (shipmentId || shipmentNotCreated || isTmpEmail)) {
+        const cfg = configMap[matchedKey];
+        let jsonStr, displayId, displayIdType;
+
+        if (isGHY && isTmpEmail) {
+          // GHY tmp_ flow: use stripped UUID as shipment_id, thread_id = ""
+          jsonStr = JSON.stringify({
+            thread_id: "",
+            shipment_id: tmpUUID,
+            root_path: cfg.root,
+            config_path: cfg.config,
+            ignore_files_regex: getFileRegex(),
+            ignore_sheets_regex: getSheetRegex(),
+            file_reference_number: "",
+            force_process_attachments: true,
+            re_extract_only: false,
+            display: ":2433.0"
+          }, null, 2);
+          displayId     = tmpUUID;
+          displayIdType = "shipment";
+        } else if (isGHY) {
+          // GHY normal flow (has real shipment ID)
+          jsonStr = JSON.stringify({
+            thread_id: resolvedId || "string",
+            shipment_id: shipmentId || "",
+            root_path: cfg.root,
+            config_path: cfg.config,
+            ignore_files_regex: getFileRegex(),
+            ignore_sheets_regex: getSheetRegex(),
+            file_reference_number: "",
+            force_process_attachments: false,
+            re_extract_only: true,
+            display: ":2433.0"
+          }, null, 2);
+          displayId     = shipmentId || resolvedId;
+          displayIdType = shipmentId ? "shipment" : resolvedIdType === "Email ID" ? "email" : resolvedIdType === "Thread ID" ? "thread" : "message";
+        } else {
+          // Standard non-GHY flow
+          jsonStr = JSON.stringify({
+            thread_id: resolvedId || "string",
+            shipment_id: shipmentId || "",
+            root_path: cfg.root,
+            config_path: cfg.config,
+            ignore_files_regex: getFileRegex(),
+            ignore_sheets_regex: getSheetRegex(),
+            force_process_attachments: !forceFalse,
+            display: ":2433.0"
+          }, null, 2);
+          displayId     = shipmentId || resolvedId;
+          displayIdType = shipmentId ? "shipment" : resolvedIdType === "Email ID" ? "email" : resolvedIdType === "Thread ID" ? "thread" : "message";
+        }
+
+        box.value = jsonStr;
+        status.className = "status-bar info show";
+
+        let statusNote;
+        if (isTmpEmail) statusNote = `GHY tmp_ email — shipment_id derived`;
+        else if (shipmentNotCreated) statusNote = "no shipment ID yet";
+        else if (resolvedIdType) statusNote = `using ${resolvedIdType}`;
+        else statusNote = "no ID found";
+        status.textContent = `✅ Get Extraction ready — ${statusNote}`;
+
+        // Logs button: show when we have a thread/email ID to log against
+        // For GHY tmp_, use the full tmp_xxx value in the log URL
+        const showLogsBtn = isTmpEmail || !!threadId || !!emailIdHex;
+        document.getElementById("logsBtn2").style.display = showLogsBtn ? "" : "none";
+
         autoCopyToClipboard(jsonStr);
+
+        if (displayId) saveToC5History(displayId, displayIdType, matchedKey, jsonStr);
+
       } else if (!matchedKey) {
         box.value=""; status.className="status-bar warn show";
         status.textContent="⚠️ Client not recognised";
@@ -1144,14 +1303,23 @@
 
     function openExtractionLogs() {
       const text=document.getElementById("smartPaste2").value;
-      const threadId=text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
-      const emailId =text.match(/Email ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
-      const logId = threadId || emailId;
-      if (!logId){showToast("⚠️ No Thread ID or Email ID found in pasted text");return;}
+      const threadId  = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
+      const emailIdHex= text.match(/Email ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
+      const emailIdTmp= text.match(/Email ID:\s*`?(tmp_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})`?/i)?.[1];
+
       try {
         const json=JSON.parse(document.getElementById("smartJsonBox2").value);
-        const w=window.open(`http://34.30.43.174:8080/commands/logs/${logId}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank");
-        if(w){w.blur();window.focus();}
+
+        if (emailIdTmp) {
+          // GHY tmp_ log URL: use full tmp_xxx as the log identifier
+          const w=window.open(`http://34.30.43.174:8080/commands/logs/${emailIdTmp}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank");
+          if(w){w.blur();window.focus();}
+        } else {
+          const logId = emailIdHex || threadId;
+          if (!logId){showToast("⚠️ No Thread ID or Email ID found");return;}
+          const w=window.open(`http://34.30.43.174:8080/commands/logs/${logId}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank");
+          if(w){w.blur();window.focus();}
+        }
       } catch(e){showToast("⚠️ Could not read root path — copy JSON first");}
     }
 
@@ -1170,7 +1338,9 @@
       document.getElementById("sheetActiveLabel").style.display="none";
     }
 
-    // ── CARD 6: Error override ──
+    // ══════════════════════════════════════════════════════
+    //  CARD 6: Smart Message
+    // ══════════════════════════════════════════════════════
     let errorOverride = null;
 
     function setErrorOverride(type, el) {
@@ -1196,31 +1366,34 @@
           || null;
       }
 
+      function extractIORName(s) {
+        return s.match(/Importer ID not found for\s+(.+?)(?:\n|$)/i)?.[1]?.trim()
+          || s.match(/(?:trade partner|consignee)[:\s"]+([A-Z][^\n"]+?)(?:"\n|$)/im)?.[1]?.trim()
+          || null;
+      }
+
+      const midName = extractMIDName(text);
+      const iorName = extractIORName(text);
+
       if (hasMID && hasImporter) {
-        const midName = extractMIDName(text);
-        const iorName = text.match(/Importer ID not found for\s+(.+?)(?:\n|$)/i)?.[1]?.trim()
-          || text.match(/(?:trade partner|consignee)[:\s"]+([A-Z][^\n"]+?)(?:"\n|$)/im)?.[1]?.trim() || null;
         return { type: "midior", midName, iorName, extractedName: null, label: "MID + IOR Error" };
       }
       if (hasMID) {
-        const name = extractMIDName(text);
-        return { type: "mid", extractedName: name||null, label: "MID Error" };
+        return { type: "mid", extractedName: midName, midName, iorName, label: "MID Error" };
       }
       if (hasImporter) {
-        const name = text.match(/Importer ID not found for\s+(.+?)(?:\n|$)/i)?.[1]?.trim()
-          || text.match(/(?:trade partner|consignee)[:\s"]+([A-Z][^\n"]+?)(?:"\n|$)/im)?.[1]?.trim();
-        return { type: "importer", extractedName: name||null, label: "Importer ID Error" };
+        return { type: "importer", extractedName: iorName, midName, iorName, label: "Importer ID Error" };
       }
-      if (t.includes("autocomplete")||t.includes("could not find matching")) return {type:"autocomplete",extractedName:null,label:"Could Not Find"};
-      if (t.includes("master bol")||t.includes("master awb")||t.includes("bol is required")||t.includes("awb is required")) return {type:"masterbol",extractedName:null,label:"Master BOL Error"};
-      if (t.includes("hts")||(t.includes("tariff")&&t.includes("not found"))||t.includes("invalid tariff")) return {type:"hts",extractedName:null,label:"HTS Not Found"};
-      if (t.includes("invoice")||t.includes("packing list")||(t.includes("convert")&&t.includes("float"))) return {type:"invoice",extractedName:null,label:"Invoice Not Found"};
+      if (t.includes("autocomplete")||t.includes("could not find matching")) return {type:"autocomplete",extractedName:null,midName,iorName,label:"Could Not Find"};
+      if (t.includes("master bol")||t.includes("master awb")||t.includes("bol is required")||t.includes("awb is required")) return {type:"masterbol",extractedName:null,midName,iorName,label:"Master BOL Error"};
+      if (t.includes("hts")||(t.includes("tariff")&&t.includes("not found"))||t.includes("invalid tariff")) return {type:"hts",extractedName:null,midName,iorName,label:"HTS Not Found"};
+      if (t.includes("invoice")||t.includes("packing list")||(t.includes("convert")&&t.includes("float"))) return {type:"invoice",extractedName:null,midName,iorName,label:"Invoice Not Found"};
       if (t.includes("file reference")||t.includes("already exists in the database")) {
         const ref=text.match(/File Reference Number[,\s]+([A-Z0-9-]+)[,\s]/i)?.[1]?.trim();
-        return {type:"fileref",extractedName:ref||null,label:"File Reference Error"};
+        return {type:"fileref",extractedName:ref||null,midName,iorName,label:"File Reference Error"};
       }
-      if (t.includes("profile not found")||(t.includes("profile")&&t.includes("not found"))) return {type:"profile",extractedName:null,label:"Profile Not Found"};
-      return {type:null,extractedName:null,label:null};
+      if (t.includes("profile not found")||(t.includes("profile")&&t.includes("not found"))) return {type:"profile",extractedName:null,midName,iorName,label:"Profile Not Found"};
+      return {type:null,extractedName:null,midName,iorName,label:null};
     }
 
     function handleSmartMessage() {
@@ -1228,44 +1401,76 @@
             status=document.getElementById("msgStatus"), box=document.getElementById("msgJsonBox"),
             warning=document.getElementById("msgStringWarning");
       if (!text.trim()){pills.innerHTML="";box.value="";status.className="status-bar";warning.classList.remove("show");return;}
+
       const threadId=text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
       const {matchedKey,clientRaw}=extractClient(text);
-      const detected = errorOverride
-        ? { type: errorOverride, extractedName: null, midName: null, iorName: null,
-            label: document.querySelector(`#errorOverridePills [data-override="${errorOverride}"]`)?.textContent || errorOverride }
-        : detectError(text);
-      const {type,label}=detected;
+
+      const fullyDetected = detectError(text);
+
+      let finalType, finalLabel;
+      if (errorOverride) {
+        finalType  = errorOverride;
+        finalLabel = document.querySelector(`#errorOverridePills [data-override="${errorOverride}"]`)?.textContent || errorOverride;
+      } else {
+        finalType  = fullyDetected.type;
+        finalLabel = fullyDetected.label;
+      }
+
+      const { midName, iorName, extractedName } = fullyDetected;
+
       const pillsHTML=[];
       if (matchedKey)     pillsHTML.push(`<span class="pill">🏢 ${matchedKey}</span>`);
       else if (clientRaw) pillsHTML.push(`<span class="pill warn">⚠️ "${clientRaw}" not recognised</span>`);
       if (threadId)       pillsHTML.push(`<span class="pill">🧵 ${threadId.slice(0,8)}…</span>`);
-      if (label)          pillsHTML.push(`<span class="pill">⚠️ ${label}</span>`);
-      if (type==="midior") {
-        if (detected.midName) pillsHTML.push(`<span class="pill">🏭 ${detected.midName}</span>`);
-        if (detected.iorName) pillsHTML.push(`<span class="pill">📝 ${detected.iorName}</span>`);
-      } else if (detected.extractedName) {
-        pillsHTML.push(`<span class="pill">📝 ${detected.extractedName}</span>`);
+      if (finalLabel)     pillsHTML.push(`<span class="pill">⚠️ ${finalLabel}</span>`);
+
+      if (finalType === "midior" || finalType === "mid") {
+        if (midName) pillsHTML.push(`<span class="pill">🏭 ${midName}</span>`);
       }
+      if (finalType === "midior" || finalType === "importer") {
+        if (iorName) pillsHTML.push(`<span class="pill">📝 ${iorName}</span>`);
+      }
+      if (finalType === "mid" && !midName && extractedName) {
+        pillsHTML.push(`<span class="pill">📝 ${extractedName}</span>`);
+      }
+      if (finalType === "importer" && !iorName && extractedName) {
+        pillsHTML.push(`<span class="pill">📝 ${extractedName}</span>`);
+      }
+
       pills.innerHTML=pillsHTML.join("");
+
       if (!matchedKey){status.className="status-bar warn show";status.textContent="⚠️ Client not recognised";box.value="";warning.classList.remove("show");return;}
       if (!threadId)  {status.className="status-bar warn show";status.textContent="⚠️ Thread ID not found";box.value="";warning.classList.remove("show");return;}
-      if (!type)      {status.className="status-bar warn show";status.textContent="⚠️ Could not detect error type — check paste";box.value="";warning.classList.remove("show");return;}
+      if (!finalType) {status.className="status-bar warn show";status.textContent="⚠️ Could not detect error type — check paste";box.value="";warning.classList.remove("show");return;}
+
       const cfg=configMap[matchedKey];
       let msg;
-      if (type==="midior") {
-        msg=messageTemplates.midior;
-        if (detected.midName) msg=msg.replace("STRING_MID",detected.midName);
-        if (detected.iorName) msg=msg.replace("STRING_IOR",detected.iorName);
+
+      if (finalType === "midior") {
+        msg = messageTemplates.midior;
+        if (midName) msg = msg.replace("STRING_MID", midName);
+        if (iorName) msg = msg.replace("STRING_IOR", iorName);
+      } else if (finalType === "mid") {
+        msg = messageTemplates.mid;
+        if (midName) msg = msg.replace("STRING", midName);
+        else if (extractedName) msg = msg.replace("STRING", extractedName);
+      } else if (finalType === "importer") {
+        msg = messageTemplates.importer;
+        if (iorName) msg = msg.replace("STRING", iorName);
+        else if (extractedName) msg = msg.replace("STRING", extractedName);
+      } else if (finalType === "fileref") {
+        msg = messageTemplates.fileref;
+        if (extractedName) msg = msg.replace("STRING", extractedName);
       } else {
-        msg=messageTemplates[type];
-        if (detected.extractedName) msg=msg.replace("STRING",detected.extractedName);
+        msg = messageTemplates[finalType];
       }
+
       const jsonStr=JSON.stringify({thread_id:threadId,root_path:cfg.root,config_path:cfg.config,message:msg},null,2);
       box.value=jsonStr;
       const hasUnfilled=jsonStr.includes("STRING_MID")||jsonStr.includes("STRING_IOR")||(jsonStr.includes('"STRING"'));
       warning.classList.toggle("show",hasUnfilled);
       status.className="status-bar info show";
-      status.textContent=`✅ ${label} — message ready`;
+      status.textContent=`✅ ${finalLabel} — message ready`;
       autoCopyToClipboard(jsonStr);
     }
 
@@ -1329,10 +1534,10 @@
       typeTitle();
       createShips();
       renderC4History();
+      renderC5History();
     });
 
     function flashBtn(btn,msg){const orig=btn.innerHTML;btn.innerHTML=msg;btn.classList.add("btn-success");setTimeout(()=>{btn.innerHTML=orig;btn.classList.remove("btn-success");},1500);}
   </script>
 </body>
 </html>
-
