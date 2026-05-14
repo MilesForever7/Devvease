@@ -88,9 +88,95 @@
     .ocean-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; }
     .ship { position: absolute; font-size: 1rem; color: var(--ship-color); opacity: 0.25; transition: transform 0.3s ease; pointer-events: auto; }
     .header { text-align: center; margin-bottom: 2rem; position: relative; z-index: 2; }
-    .header h1 { font-size: 2.2rem; color: var(--primary); font-weight: 700; display: inline-block; text-shadow: 0 0 20px var(--title-glow); letter-spacing: -0.5px; }
+
+    /* ── STATS TOOLTIP ── */
+    .header-title-wrap {
+      display: inline-block;
+      position: relative;
+    }
+    .header h1 {
+      font-size: 2.2rem; color: var(--primary); font-weight: 700;
+      display: inline-block; text-shadow: 0 0 20px var(--title-glow);
+      letter-spacing: -0.5px; cursor: default; user-select: none;
+    }
     .header h1:hover { animation: shake 0.2s ease-in-out; }
     @keyframes shake { 0%,100% { transform: translate(0,0) rotate(0deg); } 50% { transform: translate(2px,-2px) rotate(2deg); } }
+
+    .stats-tooltip {
+      display: none;
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+      padding: 1rem 1.25rem;
+      min-width: 340px;
+      z-index: 99999;
+      pointer-events: none;
+    }
+    .stats-tooltip.visible {
+      display: block;
+      pointer-events: all;
+      animation: tooltipFadeIn 0.15s ease;
+    }
+    @keyframes tooltipFadeIn { from { opacity:0; transform:translateX(-50%) translateY(-4px); } to { opacity:1; transform:translateX(-50%) translateY(0); } }
+    /* Arrow pointing up */
+    .stats-tooltip::before {
+      content: '';
+      position: absolute;
+      top: -7px; left: 50%; transform: translateX(-50%);
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-bottom: 7px solid var(--border-color);
+    }
+    .stats-tooltip::after {
+      content: '';
+      position: absolute;
+      top: -6px; left: 50%; transform: translateX(-50%);
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-bottom: 7px solid var(--card-bg);
+    }
+    .stats-header-row {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 0.75rem; padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .stats-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+    .stats-window { font-size: 0.65rem; color: var(--text-muted); font-style: italic; }
+    .stats-table { width: 100%; border-collapse: collapse; }
+    .stats-table th {
+      font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--text-muted);
+      padding: 0.25rem 0.5rem; text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .stats-table th:not(:first-child) { text-align: center; }
+    .stats-table td {
+      padding: 0.4rem 0.5rem; font-size: 0.82rem;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-color);
+    }
+    .stats-table tr:last-child td { border-bottom: none; }
+    .stats-table td:not(:first-child) { text-align: center; font-family: 'Fira Code', monospace; }
+    .stat-num { font-weight: 700; color: var(--primary); font-size: 0.9rem; }
+    .stat-label { font-size: 0.8rem; font-weight: 500; }
+    .stats-reset-btn {
+      margin-top: 0.75rem; width: 100%; padding: 0.35rem;
+      background: transparent; border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm); font-size: 0.7rem;
+      color: var(--text-muted); cursor: pointer;
+      font-family: inherit; transition: all 0.15s;
+      pointer-events: all;
+    }
+    .stats-reset-btn:hover { border-color: var(--error); color: var(--error); }
+    .stats-expires {
+      font-size: 0.65rem; color: var(--text-muted);
+      text-align: center; margin-top: 0.5rem;
+    }
+
     .mode-toggle { position: fixed; top: 1.5rem; right: 1.5rem; z-index: 1000; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
     .mode-toggle input { display: none; }
     .mode-toggle label { background-color: var(--secondary); width: 4rem; height: 2rem; border-radius: 2rem; display: flex; align-items: center; justify-content: space-between; padding: 0.4rem 0.6rem; cursor: pointer; position: relative; transition: background-color 0.3s, box-shadow 0.3s; }
@@ -219,6 +305,13 @@
     .error-override-pills { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 0.4rem; }
     #toast { display: none; position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.65rem 1.25rem; border-radius: var(--radius); font-size: 0.875rem; font-weight: 500; z-index: 2000; box-shadow: var(--shadow-lg); animation: fadeInOut 2.5s ease; }
     @keyframes fadeInOut { 0%,100% { opacity: 0; transform: translate(-50%,8px); } 10%,90% { opacity: 1; transform: translate(-50%,0); } }
+
+    /* ── TOOLTIP hint text ── */
+    .stats-hint {
+      font-size: 0.65rem; color: var(--text-muted); text-align: center;
+      margin-top: 0.25rem; letter-spacing: 0.02em;
+    }
+
     @media (max-width: 640px) {
       body { padding: 1rem; }
       .header h1 { font-size: 1.7rem; }
@@ -254,7 +347,49 @@
     <span class="vibe">Dark</span>
   </div>
   <div class="ocean-background" id="oceanBackground"></div>
-  <div class="header"><h1 id="title"></h1></div>
+
+  <div class="header">
+    <div class="header-title-wrap">
+      <h1 id="title"></h1>
+      <!-- ── STATS TOOLTIP ── -->
+      <div class="stats-tooltip" id="statsTooltip">
+        <div class="stats-header-row">
+          <span class="stats-title">📊 Session Stats</span>
+          <span class="stats-window" id="statsWindowLabel">Rolling 24h</span>
+        </div>
+        <table class="stats-table">
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Unique IDs</th>
+              <th>Copies</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="stat-label">▶ Fill Entry</td>
+              <td><span class="stat-num" id="statFillIds">0</span></td>
+              <td><span class="stat-num" id="statFillCopies">0</span></td>
+            </tr>
+            <tr>
+              <td class="stat-label">🔍 Extraction</td>
+              <td><span class="stat-num" id="statExtractIds">0</span></td>
+              <td><span class="stat-num" id="statExtractCopies">0</span></td>
+            </tr>
+            <tr>
+              <td class="stat-label">💬 Messages</td>
+              <td><span class="stat-num" id="statMsgIds">0</span></td>
+              <td><span class="stat-num" id="statMsgCopies">0</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="stats-expires" id="statsExpiresLabel"></div>
+        <button class="stats-reset-btn" onclick="resetStats(event)">🗑 Reset stats</button>
+        <div class="stats-hint">Stats persist for 24h from login · hover to refresh</div>
+      </div>
+    </div>
+  </div>
+
   <div class="settings-toggle">
     <button onclick="toggleSettings()">⚙️</button>
     <div class="settings-panel">
@@ -456,7 +591,8 @@
         </div>
         <div class="btn-row">
           <button class="btn btn-primary" onclick="copySmartJSON(this)">📋 Copy JSON</button>
-          <button class="btn btn-secondary" id="logsBtn1" onclick="openFillEntryLogs()" style="display:none">🔗 Open Logs</button>
+          <!-- logsBtn1: normal click = logs, Ctrl/Cmd+Shift+Click = Anchor/Amari -->
+          <button class="btn btn-secondary" id="logsBtn1" onclick="handleLogsBtn1(event)" style="display:none" title="Click: Open Logs · Ctrl/Cmd+Shift+Click: Open Anchor/Amari Review">🔗 Open Logs</button>
           <button class="btn btn-danger" onclick="resetSmartPaste()">🔄 Reset</button>
         </div>
         <div class="c4-history" id="c4History">
@@ -505,10 +641,11 @@
         </div>
         <div class="btn-row">
           <button class="btn btn-primary" onclick="copySmartJSON2(this)">📋 Copy JSON</button>
-          <button class="btn btn-secondary" id="logsBtn2" onclick="openExtractionLogs()" style="display:none">🔗 Open Logs</button>
+          <!-- logsBtn2: normal click = logs, Ctrl/Cmd+Shift+Click = Anchor/Amari -->
+          <button class="btn btn-secondary" id="logsBtn2" onclick="handleLogsBtn2(event)" style="display:none" title="Click: Open Logs · Ctrl/Cmd+Shift+Click: Open Anchor/Amari Review">🔗 Open Logs</button>
           <button class="btn btn-danger" onclick="resetSmartPaste2()">🔄 Reset</button>
         </div>
-        <!-- CARD 5 HISTORY (mirrors Card 4) -->
+        <!-- CARD 5 HISTORY -->
         <div class="c4-history" id="c5History">
           <div class="c4-history-header">
             <span class="c4-history-title">🕓 Recent Extraction IDs</span>
@@ -564,8 +701,9 @@
     //  AUTH
     // ══════════════════════════════════════════════════════
     (function() {
-      const FIRM_PASS   = "devease2025";
-      const SESSION_KEY = "devease_auth";
+      const FIRM_PASS    = "devease2025";
+      const SESSION_KEY  = "devease_auth";
+      const LOGIN_TS_KEY = "devease_login_ts";
       const MAX_ATTEMPTS = 5;
       let attempts = parseInt(sessionStorage.getItem("devease_attempts") || "0");
 
@@ -580,6 +718,13 @@
         if (val === FIRM_PASS) {
           sessionStorage.setItem(SESSION_KEY, "ok");
           sessionStorage.removeItem("devease_attempts");
+          // Record login timestamp for 24hr stats window (only if not already set / expired)
+          const existing = localStorage.getItem(LOGIN_TS_KEY);
+          if (!existing || (Date.now() - parseInt(existing)) > 24*60*60*1000) {
+            localStorage.setItem(LOGIN_TS_KEY, String(Date.now()));
+            // Fresh 24hr window → reset stats
+            resetStatsData();
+          }
           document.getElementById("authOverlay").classList.add("hidden");
         } else {
           attempts++;
@@ -599,6 +744,12 @@
 
       if (isAuthed()) {
         document.getElementById("authOverlay").classList.add("hidden");
+        // Check if 24hr window is still valid; if expired, reset
+        const loginTs = localStorage.getItem(LOGIN_TS_KEY);
+        if (!loginTs || (Date.now() - parseInt(loginTs)) > 24*60*60*1000) {
+          localStorage.setItem(LOGIN_TS_KEY, String(Date.now()));
+          resetStatsData();
+        }
       } else {
         window.addEventListener("load", () => {
           const el = document.getElementById("authPass");
@@ -606,6 +757,115 @@
         });
       }
     })();
+
+    // ══════════════════════════════════════════════════════
+    //  DAILY STATS  (rolling 24h from login)
+    // ══════════════════════════════════════════════════════
+    const STATS_KEY    = "devease_stats";
+    const LOGIN_TS_KEY = "devease_login_ts";
+
+    function defaultStats() {
+      return {
+        fill:    { ids: [], copies: 0 },
+        extract: { ids: [], copies: 0 },
+        msg:     { ids: [], copies: 0 }
+      };
+    }
+
+    function getStats() {
+      try { return JSON.parse(localStorage.getItem(STATS_KEY)) || defaultStats(); }
+      catch(e) { return defaultStats(); }
+    }
+
+    function saveStats(s) { localStorage.setItem(STATS_KEY, JSON.stringify(s)); }
+
+    function resetStatsData() { saveStats(defaultStats()); }
+
+    // Track a unique ID for a category (called when JSON is generated)
+    function trackStatId(category, id) {
+      if (!id || id === "string") return;
+      const s = getStats();
+      if (!s[category].ids.includes(id)) {
+        s[category].ids.push(id);
+        saveStats(s);
+      }
+    }
+
+    // Track a copy event (called when copy button pressed)
+    function trackStatCopy(category) {
+      const s = getStats();
+      s[category].copies = (s[category].copies || 0) + 1;
+      saveStats(s);
+    }
+
+    function updateStatsDisplay() {
+      const s = getStats();
+      document.getElementById("statFillIds").textContent    = s.fill.ids.length;
+      document.getElementById("statFillCopies").textContent = s.fill.copies;
+      document.getElementById("statExtractIds").textContent    = s.extract.ids.length;
+      document.getElementById("statExtractCopies").textContent = s.extract.copies;
+      document.getElementById("statMsgIds").textContent    = s.msg.ids.length;
+      document.getElementById("statMsgCopies").textContent = s.msg.copies;
+
+      // Expiry label
+      const loginTs = localStorage.getItem(LOGIN_TS_KEY);
+      if (loginTs) {
+        const expiresAt = parseInt(loginTs) + 24*60*60*1000;
+        const diffMs = expiresAt - Date.now();
+        if (diffMs > 0) {
+          const h = Math.floor(diffMs / 3600000);
+          const m = Math.floor((diffMs % 3600000) / 60000);
+          document.getElementById("statsExpiresLabel").textContent = `Resets in ${h}h ${m}m`;
+        } else {
+          document.getElementById("statsExpiresLabel").textContent = "Window expired — will reset on next login";
+        }
+      }
+    }
+
+    window.resetStats = function(e) {
+      e.stopPropagation();
+      if (!confirm("Reset all stats? This can't be undone.")) return;
+      resetStatsData();
+      localStorage.setItem(LOGIN_TS_KEY, String(Date.now()));
+      updateStatsDisplay();
+      showToast("Stats reset ✅");
+    };
+
+    // Update on hover
+    document.addEventListener("DOMContentLoaded", () => {
+      // Move tooltip to <body> so it escapes all stacking contexts
+      const wrap = document.querySelector(".header-title-wrap");
+      const tooltip = document.getElementById("statsTooltip");
+      if (wrap && tooltip) {
+        document.body.appendChild(tooltip);
+        let hideTimer = null;
+
+        wrap.addEventListener("mouseenter", () => {
+          clearTimeout(hideTimer);
+          updateStatsDisplay();
+          const rect = wrap.getBoundingClientRect();
+          tooltip.style.top = (rect.bottom + 10) + "px";
+          tooltip.classList.add("visible");
+          // Update window label
+          const loginTs = localStorage.getItem(LOGIN_TS_KEY);
+          if (loginTs) {
+            const d = new Date(parseInt(loginTs));
+            document.getElementById("statsWindowLabel").textContent =
+              "From " + d.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
+          }
+        });
+
+        wrap.addEventListener("mouseleave", (e) => {
+          // Small delay so mouse can move onto the tooltip itself
+          hideTimer = setTimeout(() => {
+            if (!tooltip.matches(":hover")) tooltip.classList.remove("visible");
+          }, 120);
+        });
+
+        tooltip.addEventListener("mouseenter", () => clearTimeout(hideTimer));
+        tooltip.addEventListener("mouseleave", () => tooltip.classList.remove("visible"));
+      }
+    });
 
     // ── AUTO-COPY ──
     let autoCopyEnabled = false;
@@ -738,6 +998,56 @@
       invoice:      `Hi,\n\nAI cannot find Invoice And Packing list. Please clarify\n\nBest Regards`,
       fileref:      `Hi,\n\nThe File Reference Number, STRING, already exists in the database.\n\nPlease review\n\nBest regards`,
     };
+
+    // ══════════════════════════════════════════════════════
+    //  ANCHOR / AMARI — Ctrl+Shift+Click helpers
+    // ══════════════════════════════════════════════════════
+    // GHY → amari.ai, everyone else → useanchor.ai
+    const ANCHOR_BASE = "https://app.useanchor.ai/review/73977815-4a49-4f9c-b882-d0ac383d1183";
+    const AMARI_BASE  = "https://app.amari.ai/review/";
+    const AMARI_REVIEW_UUID = "5a55469c-ca83-4dd2-b5b6-71f79c385f23"; // replaced by shipment_id
+
+    function openReviewLinks(shipmentId, isGHY) {
+      if (isGHY) {
+        // Amari: replace the UUID after /review/ with the shipment_id
+        const url = `https://app.amari.ai/review/${shipmentId}`;
+        window.open(url, "_blank");
+      } else {
+        // Anchor: the path is fixed, just open it
+        window.open(ANCHOR_BASE, "_blank");
+      }
+    }
+
+    // ── Card 4: Logs button handler ──
+    // _lastCard4State stores the last detected {shipmentId, isGHY, rootPath} for the logs button
+    let _lastCard4State = null;
+
+    function handleLogsBtn1(e) {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey) {
+        // Ctrl/Cmd+Shift+Click → open Anchor/Amari review
+        e.preventDefault();
+        if (!_lastCard4State) { showToast("⚠️ No shipment detected yet"); return; }
+        openReviewLinks(_lastCard4State.shipmentId, _lastCard4State.isGHY);
+        showToast(_lastCard4State.isGHY ? "🤖 Opened Amari review" : "⚓ Opened Anchor review");
+      } else {
+        // Normal click → logs
+        openFillEntryLogs();
+      }
+    }
+
+    // ── Card 5: Logs button handler ──
+    let _lastCard5State = null;
+
+    function handleLogsBtn2(e) {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey) {
+        e.preventDefault();
+        if (!_lastCard5State) { showToast("⚠️ No shipment detected yet"); return; }
+        openReviewLinks(_lastCard5State.shipmentId, _lastCard5State.isGHY);
+        showToast(_lastCard5State.isGHY ? "🤖 Opened Amari review" : "⚓ Opened Anchor review");
+      } else {
+        openExtractionLogs();
+      }
+    }
 
     // ── CARD 1 ──
     function autofillJSON() {
@@ -1015,11 +1325,6 @@
     const C5_HISTORY_MAX = 5;
     function getC5History() { try { return JSON.parse(localStorage.getItem(C5_HISTORY_KEY) || "[]"); } catch(e) { return []; } }
 
-    /**
-     * Save to Card 5 history.
-     * displayId  = shipment UUID if available, else the email/thread/message ID fallback
-     * idType     = label for display: "shipment" | "email" | "thread" | "message"
-     */
     function saveToC5History(displayId, idType, client, jsonStr) {
       if (!displayId || !client) return;
       let h = getC5History().filter(x => x.id !== displayId);
@@ -1033,7 +1338,6 @@
       renderC5History();
     }
     function toggleC5Item(id) {
-      // escape the id for querySelector (UUIDs and hex IDs are safe, but tmp_ prefix etc. is fine)
       const item = document.querySelector(`#c5HistoryList .c4-hist-item[data-id="${CSS.escape(id)}"]`);
       if (!item) return;
       const isOpen = item.classList.contains("open");
@@ -1060,7 +1364,6 @@
         list.innerHTML = '<div class="c4-history-empty">No recent extractions yet — paste an alert above to save one</div>';
         return;
       }
-      // idType badge icon
       const typeIcon = { shipment: "🆔", email: "📧", thread: "🧵", message: "✉️" };
       list.innerHTML = h.map(entry => {
         const safeId = entry.id.replace(/'/g, "\\'");
@@ -1096,22 +1399,34 @@
       pills.innerHTML = pillsHTML.join("");
       if (matchedKey && shipmentId) {
         const cfg = configMap[matchedKey];
+        const isGHY = matchedKey === "GHY";
         const jsonStr = JSON.stringify({ shipment_id: shipmentId, root_path: cfg.root, config_path: cfg.config, entry_number: "", display: ":2433.0" }, null, 2);
         box.value = jsonStr;
         status.className="status-bar info show"; status.textContent="✅ Fill Entry JSON ready";
         document.getElementById("logsBtn1").style.display="";
+        // Store state for Anchor/Amari button
+        _lastCard4State = { shipmentId, isGHY, rootPath: cfg.root };
         autoCopyToClipboard(jsonStr);
         saveToC4History(shipmentId, matchedKey, jsonStr);
+        // Track unique ID for stats
+        trackStatId("fill", shipmentId);
       } else {
         box.value=""; status.className="status-bar warn show";
         status.textContent = !matchedKey ? "⚠️ Client not recognised" : "⚠️ No Shipment ID found";
+        _lastCard4State = null;
       }
     }
-    function copySmartJSON(btn) { const box=document.getElementById("smartJsonBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
+    function copySmartJSON(btn) {
+      const box=document.getElementById("smartJsonBox"); if(!box.value){showToast("Nothing to copy yet");return;}
+      box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!");
+      // Track copy for stats
+      if (_lastCard4State) trackStatCopy("fill");
+    }
     function resetSmartPaste() {
       document.getElementById("smartPaste").value=""; document.getElementById("smartJsonBox").value="";
       document.getElementById("smartPills").innerHTML=""; const s=document.getElementById("smartStatus"); s.className="status-bar"; s.textContent="";
       document.getElementById("logsBtn1").style.display="none";
+      _lastCard4State = null;
     }
     function openFillEntryLogs() {
       try {
@@ -1173,26 +1488,20 @@
     function handleSmartPaste2() {
       const text=document.getElementById("smartPaste2").value, pills=document.getElementById("smartPills2"),
             status=document.getElementById("smartStatus2"), box=document.getElementById("smartJsonBox2");
-      if (!text.trim()){pills.innerHTML="";box.value="";status.className="status-bar";return;}
+      if (!text.trim()){pills.innerHTML="";box.value="";status.className="status-bar";_lastCard5State=null;return;}
 
-      // ── Shipment ID detection ──
       const shipmentIdRaw=text.match(/Shipment ID:\s*`([^`]+)`/i)?.[1]?.trim();
       const shipmentNotCreated = !shipmentIdRaw || /not created|not found|n\/a/i.test(shipmentIdRaw);
       const shipmentId = (!shipmentNotCreated && shipmentIdRaw && /[0-9a-f]{8}-[0-9a-f]{4}/i.test(shipmentIdRaw))
         ? shipmentIdRaw
         : text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i)?.[0] || null;
 
-      // ── Thread / Message / Email ID detection ──
       const threadId  = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
       const messageId = text.match(/Message ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
-
-      // Email ID: support both plain hex16 AND tmp_UUID formats
       const emailIdHex = text.match(/Email ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
       const emailIdTmp = text.match(/Email ID:\s*`?(tmp_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})`?/i)?.[1];
       const emailId   = emailIdTmp || emailIdHex || null;
 
-      // ── GHY tmp_ logic ──
-      // If Email ID is tmp_UUID → strip "tmp_" → use as shipment_id; thread_id stays ""
       const isTmpEmail = !!emailIdTmp;
       const tmpUUID    = isTmpEmail ? emailIdTmp.replace(/^tmp_/, "") : null;
 
@@ -1202,13 +1511,11 @@
       const {matchedKey,clientRaw}=extractClient(text);
       const isGHY = matchedKey === "GHY";
 
-      // ── Pill display ──
       const pillsHTML=[];
       if (matchedKey)     pillsHTML.push(`<span class="pill">🏢 ${matchedKey}</span>`);
       else if (clientRaw) pillsHTML.push(`<span class="pill warn">⚠️ "${clientRaw}" not in config</span>`);
 
       if (isTmpEmail) {
-        // Show both tmp Email ID and the derived shipment UUID
         pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${emailIdTmp}',this)" title="Click to copy">📧 ${emailIdTmp.slice(0,16)}…</span>`);
         pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${tmpUUID}',this)" title="Click to copy UUID">🆔 ${tmpUUID.slice(0,8)}…</span>`);
       } else {
@@ -1220,13 +1527,11 @@
       }
       pills.innerHTML=pillsHTML.join("");
 
-      // ── JSON generation ──
       if (matchedKey && (shipmentId || shipmentNotCreated || isTmpEmail)) {
         const cfg = configMap[matchedKey];
         let jsonStr, displayId, displayIdType;
 
         if (isGHY && isTmpEmail) {
-          // GHY tmp_ flow: use stripped UUID as shipment_id, thread_id = ""
           jsonStr = JSON.stringify({
             thread_id: "",
             shipment_id: tmpUUID,
@@ -1242,7 +1547,6 @@
           displayId     = tmpUUID;
           displayIdType = "shipment";
         } else if (isGHY) {
-          // GHY normal flow (has real shipment ID)
           jsonStr = JSON.stringify({
             thread_id: resolvedId || "string",
             shipment_id: shipmentId || "",
@@ -1258,7 +1562,6 @@
           displayId     = shipmentId || resolvedId;
           displayIdType = shipmentId ? "shipment" : resolvedIdType === "Email ID" ? "email" : resolvedIdType === "Thread ID" ? "thread" : "message";
         } else {
-          // Standard non-GHY flow
           jsonStr = JSON.stringify({
             thread_id: resolvedId || "string",
             shipment_id: shipmentId || "",
@@ -1283,21 +1586,28 @@
         else statusNote = "no ID found";
         status.textContent = `✅ Get Extraction ready — ${statusNote}`;
 
-        // Logs button: show when we have a thread/email ID to log against
-        // For GHY tmp_, use the full tmp_xxx value in the log URL
         const showLogsBtn = isTmpEmail || !!threadId || !!emailIdHex;
         document.getElementById("logsBtn2").style.display = showLogsBtn ? "" : "none";
 
-        autoCopyToClipboard(jsonStr);
+        // Store state for Anchor/Amari button
+        const reviewId = shipmentId || tmpUUID || resolvedId;
+        _lastCard5State = { shipmentId: reviewId, isGHY, rootPath: cfg.root };
 
-        if (displayId) saveToC5History(displayId, displayIdType, matchedKey, jsonStr);
+        autoCopyToClipboard(jsonStr);
+        if (displayId) {
+          saveToC5History(displayId, displayIdType, matchedKey, jsonStr);
+          // Track unique ID for stats
+          trackStatId("extract", displayId);
+        }
 
       } else if (!matchedKey) {
         box.value=""; status.className="status-bar warn show";
         status.textContent="⚠️ Client not recognised";
+        _lastCard5State = null;
       } else {
         box.value=""; status.className="status-bar warn show";
         status.textContent="⚠️ No Shipment ID found";
+        _lastCard5State = null;
       }
     }
 
@@ -1306,12 +1616,9 @@
       const threadId  = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
       const emailIdHex= text.match(/Email ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
       const emailIdTmp= text.match(/Email ID:\s*`?(tmp_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})`?/i)?.[1];
-
       try {
         const json=JSON.parse(document.getElementById("smartJsonBox2").value);
-
         if (emailIdTmp) {
-          // GHY tmp_ log URL: use full tmp_xxx as the log identifier
           const w=window.open(`http://34.30.43.174:8080/commands/logs/${emailIdTmp}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank");
           if(w){w.blur();window.focus();}
         } else {
@@ -1323,7 +1630,12 @@
       } catch(e){showToast("⚠️ Could not read root path — copy JSON first");}
     }
 
-    function copySmartJSON2(btn){const box=document.getElementById("smartJsonBox2");if(!box.value){showToast("Nothing to copy yet");return;}box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!");}
+    function copySmartJSON2(btn) {
+      const box=document.getElementById("smartJsonBox2"); if(!box.value){showToast("Nothing to copy yet");return;}
+      box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!");
+      // Track copy for stats
+      if (_lastCard5State) trackStatCopy("extract");
+    }
     function resetSmartPaste2(){
       document.getElementById("smartPaste2").value="";document.getElementById("smartJsonBox2").value="";
       document.getElementById("smartPills2").innerHTML="";const s=document.getElementById("smartStatus2");s.className="status-bar";s.textContent="";
@@ -1336,6 +1648,7 @@
       document.getElementById("customInputRow").style.display="none";
       document.getElementById("skipSheetCheck").checked=false;
       document.getElementById("sheetActiveLabel").style.display="none";
+      _lastCard5State = null;
     }
 
     // ══════════════════════════════════════════════════════
@@ -1351,7 +1664,9 @@
     }
 
     function detectError(text) {
-      const t = text.toLowerCase();
+      // Strip Slack-style timestamps like [12:44 AM], [1:23 PM], etc. before any extraction
+      const cleanText = text.replace(/\[\d{1,2}:\d{2}\s*(?:AM|PM)\]/gi, "").replace(/\d{1,2}:\d{2}\s*(?:AM|PM)/g, "");
+      const t = cleanText.toLowerCase();
       const hasMID      = t.includes("mid not found")
                        || (t.includes("manufacturer") && t.includes("not found"))
                        || t.includes("confirm ai picked correct mid")
@@ -1359,50 +1674,51 @@
       const hasImporter = t.includes("importer id not found") || t.includes("trade partner") || (t.includes("consignee") && t.includes("not found"));
 
       function extractMIDName(s) {
-        return s.match(/MID not found for manufacturer:\s*(.+?)(?:\n|$)/i)?.[1]?.trim()
+        const raw = s.match(/MID not found for manufacturer:\s*(.+?)(?:\n|$)/i)?.[1]?.trim()
           || s.match(/confirm AI picked correct MID value for manufacturer(?:\s+name)?:\s*(.+?)(?:\n|$)/i)?.[1]?.trim()
           || s.match(/MID value for manufacturer(?:\s+name)?:\s*(.+?)(?:\n|$)/i)?.[1]?.trim()
           || s.match(/manufacturer[:\s]+([A-Z][^\n]+?)(?:\n|$)/im)?.[1]?.trim()
           || null;
+        // Strip any residual time-like tokens (e.g. "12:44 AM" left after bracket removal)
+        return raw ? raw.replace(/\s*\d{1,2}:\d{2}\s*(?:AM|PM)?/gi, "").trim() || null : null;
       }
 
       function extractIORName(s) {
-        return s.match(/Importer ID not found for\s+(.+?)(?:\n|$)/i)?.[1]?.trim()
+        const raw = s.match(/Importer ID not found for\s+(.+?)(?:\n|$)/i)?.[1]?.trim()
           || s.match(/(?:trade partner|consignee)[:\s"]+([A-Z][^\n"]+?)(?:"\n|$)/im)?.[1]?.trim()
           || null;
+        return raw ? raw.replace(/\s*\d{1,2}:\d{2}\s*(?:AM|PM)?/gi, "").trim() || null : null;
       }
 
-      const midName = extractMIDName(text);
-      const iorName = extractIORName(text);
+      const midName = extractMIDName(cleanText);
+      const iorName = extractIORName(cleanText);
 
-      if (hasMID && hasImporter) {
-        return { type: "midior", midName, iorName, extractedName: null, label: "MID + IOR Error" };
-      }
-      if (hasMID) {
-        return { type: "mid", extractedName: midName, midName, iorName, label: "MID Error" };
-      }
-      if (hasImporter) {
-        return { type: "importer", extractedName: iorName, midName, iorName, label: "Importer ID Error" };
-      }
+      if (hasMID && hasImporter) return { type: "midior", midName, iorName, extractedName: null, label: "MID + IOR Error" };
+      if (hasMID)      return { type: "mid",      extractedName: midName,  midName, iorName, label: "MID Error" };
+      if (hasImporter) return { type: "importer", extractedName: iorName,  midName, iorName, label: "Importer ID Error" };
       if (t.includes("autocomplete")||t.includes("could not find matching")) return {type:"autocomplete",extractedName:null,midName,iorName,label:"Could Not Find"};
       if (t.includes("master bol")||t.includes("master awb")||t.includes("bol is required")||t.includes("awb is required")) return {type:"masterbol",extractedName:null,midName,iorName,label:"Master BOL Error"};
       if (t.includes("hts")||(t.includes("tariff")&&t.includes("not found"))||t.includes("invalid tariff")) return {type:"hts",extractedName:null,midName,iorName,label:"HTS Not Found"};
       if (t.includes("invoice")||t.includes("packing list")||(t.includes("convert")&&t.includes("float"))) return {type:"invoice",extractedName:null,midName,iorName,label:"Invoice Not Found"};
       if (t.includes("file reference")||t.includes("already exists in the database")) {
-        const ref=text.match(/File Reference Number[,\s]+([A-Z0-9-]+)[,\s]/i)?.[1]?.trim();
+        const ref=cleanText.match(/File Reference Number[,\s]+([A-Z0-9-]+)[,\s]/i)?.[1]?.trim();
         return {type:"fileref",extractedName:ref||null,midName,iorName,label:"File Reference Error"};
       }
       if (t.includes("profile not found")||(t.includes("profile")&&t.includes("not found"))) return {type:"profile",extractedName:null,midName,iorName,label:"Profile Not Found"};
       return {type:null,extractedName:null,midName,iorName,label:null};
     }
 
+    // Track what thread is in the current smart message (for stats)
+    let _lastMsgThreadId = null;
+
     function handleSmartMessage() {
       const text=document.getElementById("smartMsg").value, pills=document.getElementById("msgPills"),
             status=document.getElementById("msgStatus"), box=document.getElementById("msgJsonBox"),
             warning=document.getElementById("msgStringWarning");
-      if (!text.trim()){pills.innerHTML="";box.value="";status.className="status-bar";warning.classList.remove("show");return;}
+      if (!text.trim()){pills.innerHTML="";box.value="";status.className="status-bar";warning.classList.remove("show");_lastMsgThreadId=null;return;}
 
       const threadId=text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
+      _lastMsgThreadId = threadId || null;
       const {matchedKey,clientRaw}=extractClient(text);
 
       const fullyDetected = detectError(text);
@@ -1424,18 +1740,10 @@
       if (threadId)       pillsHTML.push(`<span class="pill">🧵 ${threadId.slice(0,8)}…</span>`);
       if (finalLabel)     pillsHTML.push(`<span class="pill">⚠️ ${finalLabel}</span>`);
 
-      if (finalType === "midior" || finalType === "mid") {
-        if (midName) pillsHTML.push(`<span class="pill">🏭 ${midName}</span>`);
-      }
-      if (finalType === "midior" || finalType === "importer") {
-        if (iorName) pillsHTML.push(`<span class="pill">📝 ${iorName}</span>`);
-      }
-      if (finalType === "mid" && !midName && extractedName) {
-        pillsHTML.push(`<span class="pill">📝 ${extractedName}</span>`);
-      }
-      if (finalType === "importer" && !iorName && extractedName) {
-        pillsHTML.push(`<span class="pill">📝 ${extractedName}</span>`);
-      }
+      if (finalType === "midior" || finalType === "mid") { if (midName) pillsHTML.push(`<span class="pill">🏭 ${midName}</span>`); }
+      if (finalType === "midior" || finalType === "importer") { if (iorName) pillsHTML.push(`<span class="pill">📝 ${iorName}</span>`); }
+      if (finalType === "mid" && !midName && extractedName) { pillsHTML.push(`<span class="pill">📝 ${extractedName}</span>`); }
+      if (finalType === "importer" && !iorName && extractedName) { pillsHTML.push(`<span class="pill">📝 ${extractedName}</span>`); }
 
       pills.innerHTML=pillsHTML.join("");
 
@@ -1471,6 +1779,8 @@
       warning.classList.toggle("show",hasUnfilled);
       status.className="status-bar info show";
       status.textContent=`✅ ${finalLabel} — message ready`;
+      // Track unique thread ID for stats
+      trackStatId("msg", threadId);
       autoCopyToClipboard(jsonStr);
     }
 
@@ -1478,6 +1788,8 @@
       const box=document.getElementById("msgJsonBox");
       if(!box.value){showToast("Nothing to copy yet");return;}
       box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!");
+      // Track copy for stats
+      if (_lastMsgThreadId) trackStatCopy("msg");
       errorOverride=null;
       document.querySelectorAll("#errorOverridePills .skip-pill").forEach(p=>p.classList.remove("active"));
       document.getElementById("autoDetectPill").classList.add("active");
@@ -1488,7 +1800,7 @@
       document.getElementById("msgPills").innerHTML="";
       const s=document.getElementById("msgStatus");s.className="status-bar";s.textContent="";
       document.getElementById("msgStringWarning").classList.remove("show");
-      errorOverride=null;
+      errorOverride=null; _lastMsgThreadId=null;
       document.querySelectorAll("#errorOverridePills .skip-pill").forEach(p=>p.classList.remove("active"));
       document.getElementById("autoDetectPill").classList.add("active");
     }
@@ -1535,6 +1847,8 @@
       createShips();
       renderC4History();
       renderC5History();
+      updateStatsDisplay();
+
     });
 
     function flashBtn(btn,msg){const orig=btn.innerHTML;btn.innerHTML=msg;btn.classList.add("btn-success");setTimeout(()=>{btn.innerHTML=orig;btn.classList.remove("btn-success");},1500);}
