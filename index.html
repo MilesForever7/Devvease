@@ -1003,20 +1003,15 @@
     //  ANCHOR / AMARI — Ctrl+Shift+Click helpers
     // ══════════════════════════════════════════════════════
     // GHY → amari.ai, everyone else → useanchor.ai
-    const ANCHOR_BASE = "https://app.useanchor.ai/review/73977815-4a49-4f9c-b882-d0ac383d1183";
     const AMARI_BASE  = "https://app.amari.ai/review/";
-    const AMARI_REVIEW_UUID = "5a55469c-ca83-4dd2-b5b6-71f79c385f23"; // replaced by shipment_id
 
     function openReviewLinks(shipmentId, isGHY) {
-      if (isGHY) {
-        // Amari: replace the UUID after /review/ with the shipment_id
-        const url = `https://app.amari.ai/review/${shipmentId}`;
-        window.open(url, "_blank");
-      } else {
-        // Anchor: the path is fixed, just open it
-        window.open(ANCHOR_BASE, "_blank");
-      }
-    }
+  if (isGHY) {
+    window.open(`https://app.amari.ai/review/${shipmentId}`, "_blank");
+  } else {
+    window.open(`https://app.useanchor.ai/review/${shipmentId}`, "_blank");
+  }
+}
 
     // ── Card 4: Logs button handler ──
     // _lastCard4State stores the last detected {shipmentId, isGHY, rootPath} for the logs button
