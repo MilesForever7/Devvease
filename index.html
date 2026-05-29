@@ -351,7 +351,6 @@
   <div class="header">
     <div class="header-title-wrap">
       <h1 id="title"></h1>
-      <!-- ── STATS TOOLTIP ── -->
       <div class="stats-tooltip" id="statsTooltip">
         <div class="stats-header-row">
           <span class="stats-title">📊 Session Stats</span>
@@ -411,7 +410,6 @@
 
   <div class="container">
 
-    <!-- CARD 1: Run Entry -->
     <div class="autofill-box">
       <div class="card-header">
         <div class="card-icon">▶</div>
@@ -430,28 +428,7 @@
           <div class="dropdown-trigger">
             <input type="text" id="clientSelect" placeholder="— Choose Client —" readonly onclick="toggleDropdown('clientDropdown')">
           </div>
-          <div id="clientDropdown" class="dropdown-panel">
-            <div class="dropdown-column">
-              <div class="dropdown-title">Web Platform Main</div>
-              <div data-client="guardian">Guardian</div><div data-client="ilogix">Ilogix</div>
-              <div data-client="ever">Ever</div><div data-client="whitzard">Whitzard</div>
-              <div data-client="jl">JL</div><div data-client="jtz">JTZ</div>
-              <div data-client="meekoo">Meekoo</div><div data-client="leesa">Leesa</div>
-              <div data-client="transworld">Transworld</div><div data-client="leesachbbruce">Leesa-chb-bruce</div>
-              <div data-client="ldglobal">Ld-global</div><div data-client="Jaak">Jaak</div>
-              <div data-client="jdusa">JD USA</div><div data-client="pinnacle">Pinnacle</div>
-              <div data-client="Tkk">Tkk</div>
-            </div>
-            <div class="dropdown-column">
-              <div class="dropdown-title">Web Platform</div>
-              <div data-client="onpointhub">On Point Hub</div><div data-client="perennial1">Perennial</div>
-              <div data-client="slchbnhp">SLCHB NHP</div><div data-client="slchb">SLCHB</div>
-              <div data-client="yifangchb">Yifang CHB</div><div data-client="pieschb">Pies CHB</div>
-              <div data-client="bhchb">BH CHB</div><div data-client="abj">ABJ</div>
-              <div data-client="newave">Newave</div><div data-client="GHY">GHY</div>
-              <div data-client="grandchb">Grand CHB</div>
-            </div>
-          </div>
+          <div id="clientDropdown" class="dropdown-panel"></div>
         </div>
       </div>
       <div class="field-group">
@@ -474,7 +451,6 @@
       </div>
     </div>
 
-    <!-- CARD 2: Message Template -->
     <div class="autofill-box">
       <div class="card-header">
         <div class="card-icon">✉</div>
@@ -487,28 +463,7 @@
             <div class="dropdown-trigger">
               <input type="text" id="clientMsgSelect" placeholder="— Client —" readonly onclick="toggleDropdown('clientMsgDropdown')">
             </div>
-            <div id="clientMsgDropdown" class="dropdown-panel">
-              <div class="dropdown-column">
-                <div class="dropdown-title">Web Platform Main</div>
-                <div data-msg-client="guardian">Guardian</div><div data-msg-client="ilogix">Ilogix</div>
-                <div data-msg-client="ever">Ever</div><div data-msg-client="whitzard">Whitzard</div>
-                <div data-msg-client="jl">JL</div><div data-msg-client="jtz">JTZ</div>
-                <div data-msg-client="meekoo">Meekoo</div><div data-msg-client="leesa">Leesa</div>
-                <div data-msg-client="transworld">Transworld</div><div data-msg-client="leesachbbruce">Leesa-chb-bruce</div>
-                <div data-msg-client="ldglobal">Ld-global</div><div data-msg-client="Jaak">Jaak</div>
-                <div data-msg-client="jdusa">JD USA</div><div data-msg-client="pinnacle">Pinnacle</div>
-                <div data-msg-client="Tkk">Tkk</div>
-              </div>
-              <div class="dropdown-column">
-                <div class="dropdown-title">Web Platform</div>
-                <div data-msg-client="onpointhub">On Point Hub</div><div data-msg-client="perennial1">Perennial</div>
-                <div data-msg-client="slchbnhp">SLCHB NHP</div><div data-msg-client="slchb">SLCHB</div>
-                <div data-msg-client="yifangchb">Yifang CHB</div><div data-msg-client="pieschb">Pies CHB</div>
-                <div data-msg-client="bhchb">BH CHB</div><div data-msg-client="abj">ABJ</div>
-                <div data-msg-client="newave">Newave</div><div data-msg-client="GHY">GHY</div>
-                <div data-msg-client="grandchb">Grand CHB</div>
-              </div>
-            </div>
+            <div id="clientMsgDropdown" class="dropdown-panel"></div>
           </div>
           <div class="custom-dropdown">
             <div class="dropdown-trigger">
@@ -549,7 +504,6 @@
       </div>
     </div>
 
-    <!-- CARD 3: YAML to JSON -->
     <div class="autofill-box">
       <div class="card-header">
         <div class="card-icon">{}</div>
@@ -570,10 +524,8 @@
       </div>
     </div>
 
-    <!-- CARDS 4 + 5 + 6: Smart row -->
     <div class="smart-row">
 
-      <!-- CARD 4: Smart Paste — Fill Entry -->
       <div class="autofill-box">
         <div class="card-header">
           <div class="card-icon">⚡</div>
@@ -591,7 +543,6 @@
         </div>
         <div class="btn-row">
           <button class="btn btn-primary" onclick="copySmartJSON(this)">📋 Copy JSON</button>
-          <!-- logsBtn1: normal click = logs, Ctrl/Cmd+Shift+Click = Anchor/Amari -->
           <button class="btn btn-secondary" id="logsBtn1" onclick="handleLogsBtn1(event)" style="display:none" title="Click: Open Logs · Ctrl/Cmd+Shift+Click: Open Anchor/Amari Review">🔗 Open Logs</button>
           <button class="btn btn-danger" onclick="resetSmartPaste()">🔄 Reset</button>
         </div>
@@ -603,7 +554,6 @@
         </div>
       </div>
 
-      <!-- CARD 5: Smart Paste — Get Extraction -->
       <div class="autofill-box">
         <div class="card-header">
           <div class="card-icon">🔍</div>
@@ -641,11 +591,9 @@
         </div>
         <div class="btn-row">
           <button class="btn btn-primary" onclick="copySmartJSON2(this)">📋 Copy JSON</button>
-          <!-- logsBtn2: normal click = logs, Ctrl/Cmd+Shift+Click = Anchor/Amari -->
           <button class="btn btn-secondary" id="logsBtn2" onclick="handleLogsBtn2(event)" style="display:none" title="Click: Open Logs · Ctrl/Cmd+Shift+Click: Open Anchor/Amari Review">🔗 Open Logs</button>
           <button class="btn btn-danger" onclick="resetSmartPaste2()">🔄 Reset</button>
         </div>
-        <!-- CARD 5 HISTORY -->
         <div class="c4-history" id="c5History">
           <div class="c4-history-header">
             <span class="c4-history-title">🕓 Recent Extraction IDs</span>
@@ -654,7 +602,6 @@
         </div>
       </div>
 
-      <!-- CARD 6: Smart Message -->
       <div class="autofill-box">
         <div class="card-header">
           <div class="card-icon">💬</div>
@@ -677,6 +624,8 @@
             <span class="skip-pill" data-override="hts"         onclick="setErrorOverride('hts',this)">HTS not found</span>
             <span class="skip-pill" data-override="invoice"     onclick="setErrorOverride('invoice',this)">Invoice not found</span>
             <span class="skip-pill" data-override="fileref"     onclick="setErrorOverride('fileref',this)">File reference</span>
+            <span class="skip-pill" data-override="corrupted"   onclick="setErrorOverride('corrupted',this)">Corrupted</span>
+            <span class="skip-pill" data-override="consignee"   onclick="setErrorOverride('consignee',this)">Consignee not IOR</span>
           </div>
         </div>
         <div id="msgPills" class="detected-pills"></div>
@@ -692,11 +641,99 @@
         </div>
       </div>
 
-    </div><!-- end smart-row -->
-  </div><!-- end container -->
-  <div id="toast"></div>
+    </div></div><div id="toast"></div>
 
   <script>
+    // ══════════════════════════════════════════════════════
+    //  CENTRALIZED DATA DICTIONARY
+    // ══════════════════════════════════════════════════════
+    const DEFAULT_ROOT = "/home/dev/parse_api/amari/apps/customs_assistant_main_migration";
+    const GHY_ROOT = "/home/dev/parse_api/amari/apps/customs_assistant";
+    
+    // Add any future clients right here in this array!
+    const CLIENT_DATA = [
+      // --- Web Platform Main ---
+      { id: "guardian",      name: "Guardian",        category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/guardian-customs.yaml",           aliases: ["guardian", "guardian-customs"] },
+      { id: "ilogix",        name: "Ilogix",          category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/ilogix.yaml",                     aliases: ["ilogix"] },
+      { id: "ever",          name: "Ever",            category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/ever-customs.yaml",               aliases: ["ever", "ever-customs"] },
+      { id: "whitzard",      name: "Whitzard",        category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/whitzard-customs.yaml",           aliases: ["whitzard", "whitzard-customs"] },
+      { id: "jl",            name: "JL",              category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jl-customs-service-2-1.yaml",     aliases: ["jl", "jl-customs", "jl-customs-service"] },
+      { id: "jtz",           name: "JTZ",             category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jtz.yaml",                        aliases: ["jtz"] },
+      { id: "meekoo",        name: "Meekoo",          category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/meekoo.yaml",                     aliases: ["meekoo"] },
+      { id: "leesa",         name: "Leesa",           category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/leesa.yaml",                      aliases: ["label:leesa-chb", "customer:leesa"] },
+      { id: "transworld",    name: "Transworld",      category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/transworld-chb.yaml",             aliases: ["transworld", "transworld-chb"] },
+      { id: "leesachbbruce", name: "Leesa-chb-bruce", category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/leesa-chb-bruce.yaml",            aliases: ["leesa-chb-bruce", "leesachbbruce", "leesa-bruce", "label:leesa-chb-bruce"] },
+      { id: "ldglobal",      name: "Ld-global",       category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/ld-global.yaml",                  aliases: ["ld-global", "ldglobal", "ld global"] },
+      { id: "jdusa",         name: "JD USA",          category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jd-usa.yaml",                     aliases: ["jdusa", "jd-usa", "jd usa"] },
+      { id: "pinnacle",      name: "Pinnacle",        category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/pinnacle-clearing-solution.yaml", aliases: ["pinnacle", "pinnacle-clearing-solution", "pinnacle clearing"] },
+      { id: "Jaak",          name: "Jaak",            category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jti.yaml",                        aliases: ["jaak", "jti", "jaak-transport"] },
+      { id: "Tkk",           name: "Tkk",             category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/tkk.yaml",                        aliases: ["tkk"] },
+      
+      // --- Web Platform ---
+      { id: "onpointhub",    name: "On Point Hub",    category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/on-point-hub.yaml",               aliases: ["on-point-hub", "onpointhub", "on point hub", "label:on-point-hub"] },
+      { id: "perennial1",    name: "Perennial",       category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/perennial-1.yaml",                aliases: ["perennial", "perennial-1"] },
+      { id: "slchbnhp",      name: "SLCHB NHP",       category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/slchb-nhp.yaml",                  aliases: ["slchb-nhp", "slchbnhp"] },
+      { id: "slchb",         name: "SLCHB",           category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/slchb.yaml",                      aliases: ["slchb"] },
+      { id: "yifangchb",     name: "Yifang CHB",      category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/yifangchb.yaml",                  aliases: ["yifangchb", "yifang", "lz management"] },
+      { id: "pieschb",       name: "Pies CHB",        category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/pieschb.yaml",                    aliases: ["pieschb", "pies"] },
+      { id: "bhchb",         name: "BH CHB",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/bhchb.yaml",                      aliases: ["bhchb", "bh chb"] },
+      { id: "abj",           name: "ABJ",             category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/abj.yaml",                        aliases: ["abj"] },
+      { id: "newave",        name: "Newave",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/newave.yaml",                     aliases: ["newave"] },
+      { id: "GHY",           name: "GHY",             category: "Web Platform",      root: GHY_ROOT,     config: "data/config/dev/ghy.yaml",                        aliases: ["ghy"] },
+      { id: "grandchb",      name: "Grand CHB",       category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/grand-chb.yaml",                  aliases: ["grand-chb", "grandchb", "grand chb"] },
+      { id: "casas",         name: "Casas",           category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/casas.yaml",                      aliases: ["casas"] }
+    ];
+
+    // Auto-generate configMap and aliases from the centralized data
+    const configMap = {};
+    const clientAliases = {};
+    CLIENT_DATA.forEach(c => {
+      configMap[c.id] = { config: c.config, root: c.root };
+      clientAliases[c.id] = c.aliases;
+    });
+
+    // Function to dynamically build the UI Dropdowns
+    function buildClientDropdowns() {
+      const grouped = {};
+      CLIENT_DATA.forEach(c => {
+        if (!grouped[c.category]) grouped[c.category] = [];
+        grouped[c.category].push(c);
+      });
+
+      function generateHTML(targetType) {
+        let html = '';
+        for (const [category, clients] of Object.entries(grouped)) {
+          html += `<div class="dropdown-column"><div class="dropdown-title">${category}</div>`;
+          clients.forEach(c => {
+            const attr = targetType === 'run' ? `data-client="${c.id}"` : `data-msg-client="${c.id}"`;
+            html += `<div ${attr}>${c.name}</div>`;
+          });
+          html += `</div>`;
+        }
+        return html;
+      }
+
+      document.getElementById("clientDropdown").innerHTML = generateHTML('run');
+      document.getElementById("clientMsgDropdown").innerHTML = generateHTML('msg');
+
+      // Attach Event Listeners to the newly created elements
+      document.querySelectorAll("[data-client]").forEach(item => {
+        item.addEventListener("click", function() {
+          const el = document.getElementById("clientSelect");
+          el.value = this.textContent.trim(); el.setAttribute("data-value", this.getAttribute("data-client"));
+          document.getElementById("clientDropdown").style.display = "none"; autofillJSON();
+        });
+      });
+
+      document.querySelectorAll("[data-msg-client]").forEach(item => {
+        item.addEventListener("click", function() {
+          const el = document.getElementById("clientMsgSelect");
+          el.value = this.textContent.trim(); el.setAttribute("data-value", this.getAttribute("data-msg-client"));
+          document.getElementById("clientMsgDropdown").style.display = "none"; autofillTemplateJSON();
+        });
+      });
+    }
+
     // ══════════════════════════════════════════════════════
     //  AUTH
     // ══════════════════════════════════════════════════════
@@ -833,6 +870,9 @@
 
     // Update on hover
     document.addEventListener("DOMContentLoaded", () => {
+      // Build our client dropdowns immediately
+      buildClientDropdowns();
+
       // Move tooltip to <body> so it escapes all stacking contexts
       const wrap = document.querySelector(".header-title-wrap");
       const tooltip = document.getElementById("statsTooltip");
@@ -958,35 +998,6 @@
       dd.style.display = dd.style.display === "grid" ? "none" : "grid";
     }
 
-    const configMap = {
-      guardian:      { config: "data/config/dev/guardian-customs.yaml",     root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      ilogix:        { config: "data/config/dev/ilogix.yaml",               root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      ever:          { config: "data/config/dev/ever-customs.yaml",          root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      whitzard:      { config: "data/config/dev/whitzard-customs.yaml",      root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      jl:            { config: "data/config/dev/jl-customs-service-2-1.yaml",  root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      jtz:           { config: "data/config/dev/jtz.yaml",                   root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      meekoo:        { config: "data/config/dev/meekoo.yaml",                root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      leesa:         { config: "data/config/dev/leesa.yaml",                 root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      transworld:    { config: "data/config/dev/transworld-chb.yaml",        root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      leesachbbruce: { config: "data/config/dev/leesa-chb-bruce.yaml",       root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      ldglobal:      { config: "data/config/dev/ld-global.yaml",             root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      jdusa:         { config: "data/config/dev/jd-usa.yaml",                root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      pinnacle:      { config: "data/config/dev/pinnacle-clearing-solution.yaml", root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      Jaak:          { config: "data/config/dev/jti.yaml",                   root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      GHY:           { config: "data/config/dev/ghy.yaml",                   root: "/home/dev/parse_api/amari/apps/customs_assistant" },
-      onpointhub:    { config: "data/config/dev/on-point-hub.yaml",          root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      perennial1:    { config: "data/config/dev/perennial-1.yaml",           root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      slchbnhp:      { config: "data/config/dev/slchb-nhp.yaml",             root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      slchb:         { config: "data/config/dev/slchb.yaml",                 root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      yifangchb:     { config: "data/config/dev/yifangchb.yaml",             root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      pieschb:       { config: "data/config/dev/pieschb.yaml",               root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      bhchb:         { config: "data/config/dev/bhchb.yaml",                 root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      abj:           { config: "data/config/dev/abj.yaml",                   root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      newave:        { config: "data/config/dev/newave.yaml",                root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      Tkk:           { config: "data/config/dev/tkk.yaml",                   root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-      grandchb:      { config: "data/config/dev/grand-chb.yaml",             root: "/home/dev/parse_api/amari/apps/customs_assistant_main_migration" },
-    };
-
     const messageTemplates = {
       importer:     `Hi,\n\nAI cannot find the trade partner "STRING" on NetCHB.\n\nCan you please clarify the IOR for the entry?\n\nBest Regards`,
       autocomplete: `Hi,\n\n"Consignee_name" cannot be used as IOR, and AI cannot find "shipper_name"\n\nCan you please clarify the IOR for the entry\n\nBest Regards,`,
@@ -997,6 +1008,8 @@
       hts:          `Hi,\n\nAI cannot find HTS Codes. Please clarify\n\nBest Regards`,
       invoice:      `Hi,\n\nAI cannot find Invoice And Packing list. Please clarify\n\nBest Regards`,
       fileref:      `Hi,\n\nThe File Reference Number, STRING, already exists in the database.\n\nPlease review\n\nBest regards`,
+      corrupted:    `Hi,\n\nThe documents appear to be corrupted.\n\nCould you please resend them?\n\nBest Regards`,
+      consignee:    `Hi,\n\nThe consignee cannot be used as the Importer of Record.\n\nPlease suggest an alternative IOR.\n\nBest Regards`
     };
 
     // ══════════════════════════════════════════════════════
@@ -1006,15 +1019,14 @@
     const AMARI_BASE  = "https://app.amari.ai/review/";
 
     function openReviewLinks(shipmentId, isGHY) {
-  if (isGHY) {
-    window.open(`https://app.amari.ai/review/${shipmentId}`, "_blank");
-  } else {
-    window.open(`https://app.useanchor.ai/review/${shipmentId}`, "_blank");
-  }
-}
+      if (isGHY) {
+        window.open(`https://app.amari.ai/review/${shipmentId}`, "_blank");
+      } else {
+        window.open(`https://app.useanchor.ai/review/${shipmentId}`, "_blank");
+      }
+    }
 
     // ── Card 4: Logs button handler ──
-    // _lastCard4State stores the last detected {shipmentId, isGHY, rootPath} for the logs button
     let _lastCard4State = null;
 
     function handleLogsBtn1(e) {
@@ -1191,36 +1203,6 @@
 
     function copyYAML(btn) { const box = document.getElementById("yamlOutput"); if (!box.value) { showToast("Nothing to copy yet"); return; } box.select(); document.execCommand("copy"); flashBtn(btn, "✅ Copied!"); }
     function resetYAML() { document.getElementById("yamlInput").value = ""; document.getElementById("yamlOutput").value = ""; const s = document.getElementById("yamlStatus"); s.className = "status-bar"; s.textContent = ""; }
-
-    // ── CLIENT ALIAS MAP ──
-    const clientAliases = {
-      guardian:      ["guardian", "guardian-customs"],
-      ilogix:        ["ilogix"],
-      ever:          ["ever", "ever-customs"],
-      whitzard:      ["whitzard", "whitzard-customs"],
-      jl:            ["jl", "jl-customs", "jl-customs-service"],
-      jtz:           ["jtz"],
-      meekoo:        ["meekoo"],
-      leesa:         ["label:leesa-chb", "customer:leesa"],
-      transworld:    ["transworld", "transworld-chb"],
-      leesachbbruce: ["leesa-chb-bruce", "leesachbbruce", "leesa-bruce", "label:leesa-chb-bruce"],
-      ldglobal:      ["ld-global", "ldglobal", "ld global"],
-      Jaak:          ["jaak", "jti", "jaak-transport"],
-      jdusa:         ["jdusa", "jd-usa", "jd usa"],
-      pinnacle:      ["pinnacle", "pinnacle-clearing-solution", "pinnacle clearing"],
-      GHY:           ["ghy"],
-      onpointhub:    ["on-point-hub", "onpointhub", "on point hub", "label:on-point-hub"],
-      perennial1:    ["perennial", "perennial-1"],
-      slchbnhp:      ["slchb-nhp", "slchbnhp"],
-      slchb:         ["slchb"],
-      yifangchb:     ["yifangchb", "yifang", "lz management"],
-      pieschb:       ["pieschb", "pies"],
-      bhchb:         ["bhchb", "bh chb"],
-      abj:           ["abj"],
-      newave:        ["newave"],
-      Tkk:           ["tkk"],
-      grandchb:      ["grand-chb", "grandchb", "grand chb"],
-    };
 
     function extractClient(text) {
       const textLower = text.toLowerCase();
@@ -1814,23 +1796,11 @@
         if(!e.target.closest(".custom-dropdown"))document.querySelectorAll(".dropdown-panel").forEach(p=>p.style.display="none");
         if(!e.target.closest(".settings-toggle"))document.querySelector(".settings-panel").classList.remove("active");
       });
-      document.querySelectorAll("[data-client]").forEach(item=>{
-        item.addEventListener("click",function(){
-          const el=document.getElementById("clientSelect");
-          el.value=this.textContent.trim();el.setAttribute("data-value",this.getAttribute("data-client"));
-          document.getElementById("clientDropdown").style.display="none";autofillJSON();
-        });
-      });
+      
       document.getElementById("shipmentInput").addEventListener("click",function(e){
         if(e.ctrlKey||e.metaKey){const id=getShipmentId();if(!id)return;window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/amari/apps/customs_assistant_main_migration`,"_blank");}
       });
-      document.querySelectorAll("[data-msg-client]").forEach(item=>{
-        item.addEventListener("click",function(){
-          const el=document.getElementById("clientMsgSelect");
-          el.value=this.textContent.trim();el.setAttribute("data-value",this.getAttribute("data-msg-client"));
-          document.getElementById("clientMsgDropdown").style.display="none";autofillTemplateJSON();
-        });
-      });
+      
       document.querySelectorAll("[data-template]").forEach(item=>{
         item.addEventListener("click",function(){
           const el=document.getElementById("templateSelect");
@@ -1850,3 +1820,5 @@
   </script>
 </body>
 </html>
+
+```
