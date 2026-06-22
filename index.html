@@ -626,6 +626,7 @@
             <span class="skip-pill" data-override="fileref"     onclick="setErrorOverride('fileref',this)">File reference</span>
             <span class="skip-pill" data-override="corrupted"   onclick="setErrorOverride('corrupted',this)">Corrupted</span>
             <span class="skip-pill" data-override="consignee"   onclick="setErrorOverride('consignee',this)">Consignee not IOR</span>
+            <span class="skip-pill" data-override="yaml" onclick="setErrorOverride('yaml',this)">YAML</span>
           </div>
         </div>
         <div id="msgPills" class="detected-pills"></div>
@@ -1748,6 +1749,9 @@
       } else if (finalType === "fileref") {
         msg = messageTemplates.fileref;
         if (extractedName) msg = msg.replace("STRING", extractedName);
+      } else if (finalType === "yaml") {
+        // Grabs the raw text directly from Card 3's input box
+        msg = document.getElementById("yamlInput").value.trim();
       } else {
         msg = messageTemplates[finalType];
       }
