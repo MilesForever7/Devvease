@@ -4,324 +4,395 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DevEase</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&family=Cinzel:wght@400&display=swap" rel="stylesheet">
+  
+  <!-- Fresh Typography: Lora (Serif for Character), Outfit (Sans for UI), Fira Code (Monospace for Data) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Lora:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  
   <style>
+    /* ── DESIGN SYSTEM & THEMING ── */
+    :root {
+      /* Warm Beige Light Theme */
+      --bg-color: #F4F1EA;
+      --bg-gradient: radial-gradient(circle at top right, #FCFAF6, #F4F1EA, #EBE6DC);
+      
+      --surface: #FFFFFF;
+      --surface-alt: #FAFAFA;
+      --surface-hover: #F2EFE9;
+      
+      --border: #E0D9CE;
+      --border-focus: #5A5146;
+      
+      --text-main: #2C2926;
+      --text-muted: #80786D;
+      
+      --btn-primary-bg: #2C2926;
+      --btn-primary-text: #F4F1EA;
+      --btn-primary-hover: #45403C;
+      
+      --btn-secondary-bg: #EFECE5;
+      --btn-secondary-text: #2C2926;
+      --btn-secondary-hover: #E3DEC6;
+      
+      --btn-danger-bg: #FBEAEA;
+      --btn-danger-text: #A83B3B;
+      
+      --success-bg: #EAF4EE;
+      --success-text: #37704F;
+      
+      --info-bg: #EAEFF6;
+      --info-text: #3B5A85;
+      
+      --warn-bg: #FAF3E5;
+      --warn-text: #8C6A2E;
+      
+      --shadow-soft: 0 12px 32px rgba(115, 105, 90, 0.08);
+      --shadow-hover: 0 16px 40px rgba(115, 105, 90, 0.12);
+      
+      --radius-lg: 24px;
+      --radius-md: 14px;
+      --radius-sm: 8px;
+      --transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    body.dark-mode {
+      /* Deep Charcoal / Sepia Dark Theme */
+      --bg-color: #1A1918;
+      --bg-gradient: radial-gradient(circle at top right, #242220, #1A1918, #141312);
+      
+      --surface: #252321;
+      --surface-alt: #2D2A28;
+      --surface-hover: #35322F;
+      
+      --border: #3A3734;
+      --border-focus: #B8AFA2;
+      
+      --text-main: #EAE6DF;
+      --text-muted: #9E968B;
+      
+      --btn-primary-bg: #D1C7BA;
+      --btn-primary-text: #1A1918;
+      --btn-primary-hover: #F4F1EA;
+      
+      --btn-secondary-bg: #322F2C;
+      --btn-secondary-text: #D1C7BA;
+      --btn-secondary-hover: #403C38;
+      
+      --btn-danger-bg: #3D2222;
+      --btn-danger-text: #E58C8C;
+      
+      --success-bg: #203B2C;
+      --success-text: #8EC8A6;
+      
+      --info-bg: #1F2E40;
+      --info-text: #8FAEDB;
+      
+      --warn-bg: #3D321F;
+      --warn-text: #D6AD63;
+      
+      --shadow-soft: 0 12px 32px rgba(0, 0, 0, 0.4);
+      --shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    /* ── GLOBAL RESETS & BASE ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body { 
+      background: var(--bg-gradient); 
+      background-attachment: fixed;
+      font-family: 'Outfit', sans-serif; 
+      color: var(--text-main); 
+      min-height: 100vh; 
+      padding: 3rem 2rem; 
+      transition: var(--transition); 
+      overflow-x: hidden; 
+    }
+
+    /* Background Animation (Elegant) */
+    .ocean-background { position: fixed; inset: 0; z-index: -2; pointer-events: none; }
+    .ship { 
+      position: absolute; font-size: 1.2rem; 
+      color: var(--text-muted); opacity: 0.15; 
+      filter: grayscale(100%);
+      transition: transform 0.4s ease-out; pointer-events: auto; 
+    }
+
     /* ── AUTH OVERLAY ── */
     #authOverlay {
       position: fixed; inset: 0; z-index: 9999;
-      background: #0f172a;
+      background: rgba(26, 25, 24, 0.85);
+      backdrop-filter: blur(12px);
       display: flex; align-items: center; justify-content: center;
-      font-family: 'Inter', sans-serif;
     }
-    #authOverlay.hidden { display: none; }
+    #authOverlay.hidden { opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
     .auth-card {
-      background: #1e293b;
-      border: 1px solid #334155;
-      border-radius: 14px;
-      padding: 2.5rem 2.25rem 2rem;
-      width: 340px;
-      box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 3.5rem 3rem;
+      width: 400px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.3);
       text-align: center;
     }
     .auth-logo {
-      font-size: 1.6rem; font-weight: 700; color: #93b4d8;
-      letter-spacing: -0.5px; margin-bottom: 0.25rem;
+      font-family: 'Lora', serif;
+      font-size: 2.2rem; font-weight: 600; color: var(--text-main);
+      margin-bottom: 0.5rem; letter-spacing: -0.5px;
     }
-    .auth-sub {
-      font-size: 0.78rem; color: #64748b; margin-bottom: 2rem;
-      text-transform: uppercase; letter-spacing: 0.08em;
-    }
-    .auth-label {
-      display: block; text-align: left; font-size: 0.72rem;
-      font-weight: 600; color: #94a3b8; text-transform: uppercase;
-      letter-spacing: 0.06em; margin-bottom: 0.4rem;
-    }
+    .auth-sub { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2.5rem; }
+    .auth-label { display: block; text-align: left; font-size: 0.8rem; font-weight: 500; color: var(--text-muted); margin-bottom: 0.5rem; }
     .auth-input {
-      width: 100%; padding: 0.65rem 0.9rem;
-      background: #0f172a; border: 1px solid #334155;
-      border-radius: 8px; color: #f1f5f9; font-size: 0.95rem;
-      font-family: 'Inter', sans-serif; outline: none;
-      transition: border-color 0.18s;
-      margin-bottom: 1.25rem; box-sizing: border-box;
+      width: 100%; padding: 1rem 1.2rem;
+      background: var(--bg-color); border: 1.5px solid var(--border);
+      border-radius: var(--radius-md); color: var(--text-main); font-size: 1rem;
+      font-family: inherit; outline: none; transition: var(--transition); margin-bottom: 1.5rem;
     }
-    .auth-input:focus { border-color: #93b4d8; box-shadow: 0 0 0 3px rgba(147,180,216,0.15); }
+    .auth-input:focus { border-color: var(--border-focus); box-shadow: 0 0 0 4px var(--surface-alt); }
     .auth-btn {
-      width: 100%; padding: 0.7rem;
-      background: #2a4365; color: white;
-      border: none; border-radius: 8px;
-      font-size: 0.9rem; font-weight: 600;
-      font-family: 'Inter', sans-serif;
-      cursor: pointer; transition: background 0.18s, transform 0.1s;
+      width: 100%; padding: 1rem;
+      background: var(--btn-primary-bg); color: var(--btn-primary-text);
+      border: none; border-radius: var(--radius-md);
+      font-size: 1rem; font-weight: 500; font-family: inherit;
+      cursor: pointer; transition: var(--transition);
     }
-    .auth-btn:hover { background: #3a5a8a; }
+    .auth-btn:hover { background: var(--btn-primary-hover); transform: translateY(-2px); }
     .auth-btn:active { transform: scale(0.98); }
-    .auth-error {
-      font-size: 0.78rem; color: #f87171;
-      margin-top: 0.75rem; min-height: 1.2em;
-    }
-    .auth-attempts {
-      font-size: 0.7rem; color: #475569; margin-top: 0.5rem;
-    }
-    .auth-shake { animation: authShake 0.35s ease; }
-    @keyframes authShake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
+    .auth-error { font-size: 0.85rem; color: var(--btn-danger-text); margin-top: 1rem; min-height: 1.2em; font-weight: 500; }
+    .auth-attempts { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem; }
+    .auth-shake { animation: authShake 0.4s ease; }
+    @keyframes authShake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
 
-    :root {
-      --bg: #f0f2f5; --primary: #2a4365; --primary-light: #3a5a8a; --secondary: #8ba3c7;
-      --accent: #ffffff; --card-bg: #ffffff; --text-color: #1f2937; --text-muted: #6b7280;
-      --box-bg: #f9fafb; --border-color: #e5e7eb; --border-focus: #2a4365;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08); --shadow: 0 4px 12px rgba(0,0,0,0.08);
-      --shadow-lg: 0 8px 24px rgba(0,0,0,0.12); --error: #dc2626; --success: #16a34a;
-      --success-bg: #f0fdf4; --ship-color: #8ba3c7; --title-glow: rgba(139,163,199,0.3);
-      --radius: 10px; --radius-sm: 6px; --transition: 0.18s ease;
-    }
-    body.dark-mode {
-      --bg: #0f172a; --primary: #93b4d8; --primary-light: #b8d0ed; --secondary: #3b82f6;
-      --accent: #1e293b; --card-bg: #1e293b; --text-color: #f1f5f9; --text-muted: #94a3b8;
-      --box-bg: #0f172a; --border-color: #334155; --border-focus: #93b4d8;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.3); --shadow: 0 4px 12px rgba(0,0,0,0.4);
-      --shadow-lg: 0 8px 24px rgba(0,0,0,0.5); --error: #f87171; --success: #4ade80;
-      --success-bg: #052e16; --ship-color: #334155; --title-glow: rgba(147,180,216,0.2);
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--bg); font-family: 'Inter', sans-serif; min-height: 100vh; padding: 2rem; transition: background 0.3s, color 0.3s; color: var(--text-color); overflow-x: hidden; }
-    .ocean-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; }
-    .ship { position: absolute; font-size: 1rem; color: var(--ship-color); opacity: 0.25; transition: transform 0.3s ease; pointer-events: auto; }
-    .header { text-align: center; margin-bottom: 2rem; position: relative; z-index: 2; }
-
-    /* ── STATS TOOLTIP ── */
-    .header-title-wrap {
-      display: inline-block;
-      position: relative;
-    }
+    /* ── HEADER & TOOLTIP ── */
+    .header { text-align: center; margin-bottom: 3.5rem; position: relative; z-index: 2; }
+    .header-title-wrap { display: inline-block; position: relative; }
     .header h1 {
-      font-size: 2.2rem; color: var(--primary); font-weight: 700;
-      display: inline-block; text-shadow: 0 0 20px var(--title-glow);
-      letter-spacing: -0.5px; cursor: default; user-select: none;
+      font-family: 'Lora', serif;
+      font-size: 2.8rem; color: var(--text-main); font-weight: 600;
+      letter-spacing: -1px; cursor: default; user-select: none;
     }
-    .header h1:hover { animation: shake 0.2s ease-in-out; }
-    @keyframes shake { 0%,100% { transform: translate(0,0) rotate(0deg); } 50% { transform: translate(2px,-2px) rotate(2deg); } }
+    .header h1:hover { animation: nod 0.3s ease-in-out; }
+    @keyframes nod { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 
     .stats-tooltip {
-      display: none;
-      position: fixed;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-      padding: 1rem 1.25rem;
-      min-width: 340px;
-      z-index: 99999;
-      pointer-events: none;
+      display: none; position: fixed; left: 50%; transform: translateX(-50%);
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-hover);
+      padding: 1.5rem; min-width: 360px; z-index: 99999; pointer-events: none;
     }
-    .stats-tooltip.visible {
-      display: block;
-      pointer-events: all;
-      animation: tooltipFadeIn 0.15s ease;
-    }
-    @keyframes tooltipFadeIn { from { opacity:0; transform:translateX(-50%) translateY(-4px); } to { opacity:1; transform:translateX(-50%) translateY(0); } }
-    /* Arrow pointing up */
+    .stats-tooltip.visible { display: block; pointer-events: all; animation: tooltipFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+    @keyframes tooltipFadeIn { from { opacity:0; transform:translateX(-50%) translateY(-10px) scale(0.95); } to { opacity:1; transform:translateX(-50%) translateY(0) scale(1); } }
     .stats-tooltip::before {
-      content: '';
-      position: absolute;
-      top: -7px; left: 50%; transform: translateX(-50%);
-      border-left: 7px solid transparent;
-      border-right: 7px solid transparent;
-      border-bottom: 7px solid var(--border-color);
+      content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%) rotate(45deg);
+      width: 16px; height: 16px; background: var(--surface); border-left: 1px solid var(--border); border-top: 1px solid var(--border);
     }
-    .stats-tooltip::after {
-      content: '';
-      position: absolute;
-      top: -6px; left: 50%; transform: translateX(-50%);
-      border-left: 7px solid transparent;
-      border-right: 7px solid transparent;
-      border-bottom: 7px solid var(--card-bg);
-    }
-    .stats-header-row {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 0.75rem; padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--border-color);
-    }
-    .stats-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
-    .stats-window { font-size: 0.65rem; color: var(--text-muted); font-style: italic; }
+    
+    .stats-header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+    .stats-title { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
+    .stats-window { font-size: 0.75rem; color: var(--text-muted); }
+    
     .stats-table { width: 100%; border-collapse: collapse; }
-    .stats-table th {
-      font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.06em; color: var(--text-muted);
-      padding: 0.25rem 0.5rem; text-align: left;
-      border-bottom: 1px solid var(--border-color);
-    }
+    .stats-table th { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); padding: 0.5rem; text-align: left; border-bottom: 1px dashed var(--border); }
     .stats-table th:not(:first-child) { text-align: center; }
-    .stats-table td {
-      padding: 0.4rem 0.5rem; font-size: 0.82rem;
-      border-bottom: 1px solid var(--border-color);
-      color: var(--text-color);
-    }
+    .stats-table td { padding: 0.6rem 0.5rem; font-size: 0.9rem; border-bottom: 1px dashed var(--border); color: var(--text-main); }
     .stats-table tr:last-child td { border-bottom: none; }
     .stats-table td:not(:first-child) { text-align: center; font-family: 'Fira Code', monospace; }
-    .stat-num { font-weight: 700; color: var(--primary); font-size: 0.9rem; }
-    .stat-label { font-size: 0.8rem; font-weight: 500; }
-    .stats-reset-btn {
-      margin-top: 0.75rem; width: 100%; padding: 0.35rem;
-      background: transparent; border: 1px solid var(--border-color);
-      border-radius: var(--radius-sm); font-size: 0.7rem;
-      color: var(--text-muted); cursor: pointer;
-      font-family: inherit; transition: all 0.15s;
-      pointer-events: all;
-    }
-    .stats-reset-btn:hover { border-color: var(--error); color: var(--error); }
-    .stats-expires {
-      font-size: 0.65rem; color: var(--text-muted);
-      text-align: center; margin-top: 0.5rem;
-    }
+    .stat-num { font-weight: 600; color: var(--btn-primary-bg); font-size: 1rem; }
+    
+    .stats-reset-btn { margin-top: 1rem; width: 100%; padding: 0.5rem; background: transparent; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: var(--transition); pointer-events: all; }
+    .stats-reset-btn:hover { border-color: var(--btn-danger-text); color: var(--btn-danger-text); background: var(--btn-danger-bg); }
+    .stats-expires { font-size: 0.7rem; color: var(--text-muted); text-align: center; margin-top: 0.75rem; }
+    .stats-hint { font-size: 0.7rem; color: var(--text-muted); text-align: center; margin-top: 0.25rem; font-style: italic; }
 
-    .mode-toggle { position: fixed; top: 1.5rem; right: 1.5rem; z-index: 1000; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+    /* ── TOGGLES (Theme & Settings) ── */
+    .mode-toggle, .settings-toggle { position: fixed; right: 2rem; z-index: 1000; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+    .mode-toggle { top: 2rem; }
+    .settings-toggle { top: 6rem; }
+    
     .mode-toggle input { display: none; }
-    .mode-toggle label { background-color: var(--secondary); width: 4rem; height: 2rem; border-radius: 2rem; display: flex; align-items: center; justify-content: space-between; padding: 0.4rem 0.6rem; cursor: pointer; position: relative; transition: background-color 0.3s, box-shadow 0.3s; }
-    .mode-toggle label:hover { box-shadow: 0 0 12px var(--title-glow); }
-    .mode-toggle .sun, .mode-toggle .moon { font-size: 1.1rem; color: var(--accent); transition: transform 0.4s; }
-    .mode-toggle input:checked + label .sun { transform: scale(0.8); }
-    .mode-toggle input:not(:checked) + label .moon { transform: scale(0.8); }
-    .mode-toggle input:checked + label .moon, .mode-toggle input:not(:checked) + label .sun { transform: scale(1.2); }
-    .mode-toggle .ball { width: 1.5rem; height: 1.5rem; background: var(--accent); position: absolute; top: 0.25rem; left: 0.25rem; border-radius: 50%; transition: transform 0.4s, box-shadow 0.4s; }
-    .mode-toggle input:checked + label .ball { transform: translateX(2rem); box-shadow: 0 0 8px var(--title-glow); }
-    .mode-toggle .vibe { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; text-transform: capitalize; }
-    .settings-toggle { position: fixed; top: 4.5rem; right: 1.5rem; z-index: 1000; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
-    .settings-toggle button { width: 4rem; height: 2rem; background: #6b7280; border: none; border-radius: var(--radius-sm); font-size: 1.1rem; color: white; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; }
-    .settings-toggle button:hover { box-shadow: 0 0 10px var(--title-glow); }
-    .settings-toggle button.spin { animation: tireSpin 0.5s linear; }
-    @keyframes tireSpin { to { transform: rotate(360deg); } }
-    .smoke { position: absolute; width: 10px; height: 10px; background: rgba(107,114,128,0.5); border-radius: 50%; animation: smokeEffect 1s ease forwards; }
-    @keyframes smokeEffect { 0% { transform: translateY(0) scale(1); opacity: 0.5; } 100% { transform: translateY(-30px) scale(1.5); opacity: 0; } }
-    .settings-panel { display: none; position: fixed; top: 6.5rem; right: 1.5rem; background: var(--card-bg); padding: 1.25rem; border-radius: var(--radius); box-shadow: var(--shadow-lg); width: 230px; z-index: 1000; color: var(--text-color); border: 1px solid var(--border-color); }
-    .settings-panel.active { display: block; }
-    .settings-panel .section-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 0.5rem; }
-    .settings-panel select { width: 100%; padding: 0.45rem 0.6rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); background: var(--box-bg); color: var(--text-color); font-size: 0.85rem; margin-bottom: 0.9rem; outline: none; }
-    .settings-panel .toggle-row { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem; }
+    .mode-toggle label { background-color: var(--surface); border: 1.5px solid var(--border); width: 4.5rem; height: 2.2rem; border-radius: 2rem; display: flex; align-items: center; justify-content: space-between; padding: 0.3rem 0.6rem; cursor: pointer; position: relative; transition: var(--transition); box-shadow: var(--shadow-soft); }
+    .mode-toggle label:hover { border-color: var(--border-focus); }
+    .mode-toggle .sun, .mode-toggle .moon { font-size: 1rem; transition: transform 0.4s; }
+    .mode-toggle input:checked + label .sun { transform: scale(0.6); opacity: 0.4; }
+    .mode-toggle input:not(:checked) + label .moon { transform: scale(0.6); opacity: 0.4; }
+    .mode-toggle .ball { width: 1.6rem; height: 1.6rem; background: var(--text-main); position: absolute; top: 0.2rem; left: 0.3rem; border-radius: 50%; transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
+    .mode-toggle input:checked + label .ball { transform: translateX(2.1rem); background: var(--btn-primary-bg); }
+    .vibe { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; }
+
+    .settings-toggle button { width: 3rem; height: 3rem; background: var(--surface); border: 1.5px solid var(--border); border-radius: 50%; font-size: 1.2rem; color: var(--text-main); cursor: pointer; transition: var(--transition); box-shadow: var(--shadow-soft); display: flex; align-items: center; justify-content: center; }
+    .settings-toggle button:hover { border-color: var(--border-focus); transform: rotate(45deg); }
+    
+    .settings-panel { display: none; position: fixed; top: 9.5rem; right: 2rem; background: var(--surface); padding: 1.5rem; border-radius: var(--radius-md); box-shadow: var(--shadow-hover); width: 260px; z-index: 1000; border: 1px solid var(--border); }
+    .settings-panel.active { display: block; animation: panelFade 0.2s ease; }
+    @keyframes panelFade { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .settings-panel .section-title { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 0.75rem; }
+    .settings-panel select { width: 100%; padding: 0.6rem 0.8rem; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-color); color: var(--text-main); font-size: 0.9rem; margin-bottom: 1.5rem; font-family: inherit; outline: none; }
+    .settings-panel .toggle-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
     .settings-panel .toggle-switch input { display: none; }
-    .settings-panel .toggle-switch label { width: 2.5rem; height: 1.4rem; background: var(--secondary); border-radius: 1.4rem; display: flex; align-items: center; padding: 0.2rem; cursor: pointer; position: relative; flex-shrink: 0; }
-    .settings-panel .toggle-switch .ball { width: 1rem; height: 1rem; background: white; border-radius: 50%; transition: transform 0.3s; }
-    .settings-panel .toggle-switch input:checked + label { background: var(--primary); }
-    .settings-panel .toggle-switch input:checked + label .ball { transform: translateX(1.1rem); }
-    .settings-panel .toggle-label { font-size: 0.82rem; color: var(--text-color); font-weight: 500; }
-    .container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; max-width: 1536px; margin: 3.5rem auto 0; position: relative; z-index: 2; }
-    .autofill-box { background: var(--card-bg); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow-sm); transition: box-shadow var(--transition), border-color var(--transition); position: relative; overflow: visible; }
-    .autofill-box:hover { box-shadow: var(--shadow); border-color: var(--secondary); }
-    .card-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); }
-    .card-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--secondary), var(--primary)); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: white; flex-shrink: 0; }
-    .card-title { font-weight: 700; font-size: 0.95rem; color: var(--text-color); letter-spacing: -0.2px; }
-    .field-group { margin-bottom: 0.75rem; }
-    .field-label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; }
-    .autofill-box select, .autofill-box textarea, .autofill-box input[type="text"] { width: 100%; border-radius: var(--radius-sm); font-family: inherit; background: var(--box-bg); color: var(--text-color); border: 1px solid var(--border-color); transition: border-color var(--transition), box-shadow var(--transition); outline: none; font-size: 0.9rem; }
-    .autofill-box select { padding: 0.55rem 0.75rem; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.75rem center; padding-right: 2rem; }
-    .autofill-box input[type="text"] { padding: 0.55rem 0.75rem; }
-    .autofill-box textarea { padding: 0.65rem 0.75rem; font-family: 'Fira Code', monospace; font-size: 0.82rem; resize: none; line-height: 1.6; }
-    .autofill-box select:focus, .autofill-box input[type="text"]:focus, .autofill-box textarea:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(42,67,101,0.12); }
-    .textarea-sm { height: 90px; } .textarea-md { height: 130px; } .textarea-lg { height: 160px; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.6rem 1rem; border: none; border-radius: var(--radius-sm); font-family: inherit; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all var(--transition); white-space: nowrap; }
-    .btn-primary { background: var(--primary); color: white; }
-    .btn-primary:hover { background: var(--primary-light); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
-    .btn-secondary { background: var(--box-bg); color: var(--text-color); border: 1px solid var(--border-color); }
-    .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
-    .btn-danger { background: #fee2e2; color: var(--error); border: 1px solid #fecaca; }
-    .btn-danger:hover { background: #fecaca; }
-    .btn-success { background: var(--success-bg) !important; color: var(--success) !important; border: 1px solid var(--success) !important; }
+    .settings-panel .toggle-switch label { width: 2.8rem; height: 1.5rem; background: var(--border); border-radius: 1.5rem; display: flex; align-items: center; padding: 0.2rem; cursor: pointer; position: relative; transition: var(--transition); }
+    .settings-panel .toggle-switch .ball { width: 1.1rem; height: 1.1rem; background: var(--surface); border-radius: 50%; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .settings-panel .toggle-switch input:checked + label { background: var(--btn-primary-bg); }
+    .settings-panel .toggle-switch input:checked + label .ball { transform: translateX(1.3rem); }
+    .settings-panel .toggle-label { font-size: 0.9rem; color: var(--text-main); font-weight: 500; }
+
+    /* ── BENTO GRID LAYOUT ── */
+    .container { 
+      display: grid; 
+      grid-template-columns: repeat(3, 1fr); 
+      gap: 1.5rem; 
+      max-width: 1560px; 
+      margin: 0 auto; 
+      position: relative; z-index: 2; 
+    }
+    
+    .autofill-box { 
+      background: var(--surface); 
+      border: 1px solid var(--border); 
+      padding: 2rem; 
+      border-radius: var(--radius-lg); 
+      box-shadow: var(--shadow-soft); 
+      transition: var(--transition); 
+      position: relative; 
+      display: flex; flex-direction: column;
+    }
+    .autofill-box:hover { box-shadow: var(--shadow-hover); border-color: var(--border-focus); }
+    
+    .card-header { display: flex; align-items: center; gap: 0.85rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px dotted var(--border); }
+    .card-icon { width: 42px; height: 42px; background: var(--surface-alt); border: 1px solid var(--border); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: var(--text-main); flex-shrink: 0; }
+    .card-title { font-family: 'Lora', serif; font-weight: 500; font-size: 1.3rem; color: var(--text-main); letter-spacing: -0.01em; }
+    
+    .field-group { margin-bottom: 1.25rem; }
+    .field-label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+    
+    /* Inputs */
+    .autofill-box select, .autofill-box textarea, .autofill-box input[type="text"] { 
+      width: 100%; border-radius: var(--radius-md); font-family: inherit; background: var(--bg-color); color: var(--text-main); 
+      border: 1.5px solid var(--border); transition: var(--transition); outline: none; font-size: 0.95rem; 
+    }
+    .autofill-box select { padding: 0.75rem 1rem; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 12 12'%3E%3Cpath fill='%2380786D' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+    .autofill-box input[type="text"] { padding: 0.75rem 1rem; }
+    .autofill-box textarea { padding: 1rem; font-family: 'Fira Code', monospace; font-size: 0.85rem; resize: none; line-height: 1.6; }
+    .autofill-box select:focus, .autofill-box input[type="text"]:focus, .autofill-box textarea:focus { border-color: var(--border-focus); background: var(--surface); box-shadow: 0 0 0 4px var(--surface-hover); }
+    
+    .textarea-sm { height: 90px; } .textarea-md { height: 140px; } .textarea-lg { height: 180px; }
+    
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.85rem 1.2rem; border: none; border-radius: var(--radius-md); font-family: inherit; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: var(--transition); white-space: nowrap; }
+    .btn-primary { background: var(--btn-primary-bg); color: var(--btn-primary-text); }
+    .btn-primary:hover { background: var(--btn-primary-hover); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
+    .btn-secondary { background: var(--btn-secondary-bg); color: var(--btn-secondary-text); }
+    .btn-secondary:hover { background: var(--btn-secondary-hover); }
+    .btn-danger { background: var(--btn-danger-bg); color: var(--btn-danger-text); }
+    .btn-danger:hover { filter: brightness(0.95); }
+    .btn-success { background: var(--success-bg) !important; color: var(--success-text) !important; }
     .btn-full { width: 100%; }
-    .btn-row { display: flex; gap: 0.5rem; margin-top: 0.6rem; flex-wrap: wrap; }
-    .btn-row .btn { flex: 1; min-width: 100px; }
+    .btn-row { display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap; }
+    .btn-row .btn { flex: 1; min-width: 120px; }
+    
+    /* Dropdowns */
     .custom-dropdown { position: relative; width: 100%; z-index: 100; }
     .dropdown-trigger { position: relative; width: 100%; }
-    .dropdown-trigger input { width: 100%; cursor: pointer; padding-right: 2rem !important; }
-    .dropdown-trigger::after { content: ''; position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); width: 12px; height: 12px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-size: contain; pointer-events: none; }
-    .dropdown-panel { display: none; position: absolute; top: calc(100% + 4px); left: 0; width: 440px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 0.75rem; box-shadow: var(--shadow-lg); grid-template-columns: 1fr 1fr; gap: 1rem; max-height: 280px; overflow-y: auto; z-index: 9999; }
-    .dropdown-panel.single-col { grid-template-columns: 1fr; width: 220px; }
-    .dropdown-panel.show { display: grid; }
-    .dropdown-column div { padding: 0.45rem 0.6rem; cursor: pointer; border-radius: var(--radius-sm); font-size: 0.875rem; transition: background var(--transition), color var(--transition); color: var(--text-color); }
-    .dropdown-column div:hover { background: var(--box-bg); color: var(--primary); }
-    .dropdown-title { font-weight: 700; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 0.4rem; padding: 0.3rem 0.6rem; border-bottom: 1px solid var(--border-color); }
-    .dropdown-row { display: flex; gap: 0.5rem; }
+    .dropdown-trigger input { width: 100%; cursor: pointer; padding-right: 2.5rem !important; }
+    .dropdown-trigger::after { content: ''; position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 12 12'%3E%3Cpath fill='%2380786D' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-size: contain; pointer-events: none; }
+    
+    .dropdown-panel { display: none; position: absolute; top: calc(100% + 8px); left: 0; width: 460px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1rem; box-shadow: var(--shadow-hover); grid-template-columns: 1fr 1fr; gap: 1.5rem; max-height: 320px; overflow-y: auto; z-index: 9999; }
+    .dropdown-panel.single-col { grid-template-columns: 1fr; width: 100%; }
+    .dropdown-panel.show { display: grid; animation: dropFade 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+    @keyframes dropFade { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }
+    
+    .dropdown-column div { padding: 0.6rem 0.8rem; cursor: pointer; border-radius: var(--radius-sm); font-size: 0.9rem; transition: var(--transition); color: var(--text-main); font-weight: 400; }
+    .dropdown-column div:hover { background: var(--surface-hover); color: var(--btn-primary-bg); font-weight: 500; padding-left: 1rem; }
+    .dropdown-title { font-family: 'Lora', serif; font-weight: 600; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; padding: 0.2rem 0.8rem; border-bottom: 1px solid var(--border); }
+    .dropdown-row { display: flex; gap: 0.75rem; }
     .dropdown-row .custom-dropdown { flex: 1; min-width: 0; }
-    .status-bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.6rem; border-radius: var(--radius-sm); font-size: 0.78rem; font-weight: 500; margin-top: 0.5rem; opacity: 0; transition: opacity 0.2s; }
+    
+    /* Status & Smart Areas */
+    .status-bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 500; margin-top: 0.75rem; opacity: 0; transition: var(--transition); border: 1px solid transparent; }
     .status-bar.show { opacity: 1; }
-    .status-bar.info { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
-    .status-bar.warn { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
-    body.dark-mode .status-bar.info { background: #1e3a5f; color: #93c5fd; border-color: #1e40af; }
-    body.dark-mode .status-bar.warn { background: #2d1b00; color: #fbbf24; border-color: #92400e; }
-    .smart-paste-area { width: 100%; min-height: 70px; padding: 0.65rem 0.75rem; border: 1px dashed var(--border-color); border-radius: var(--radius-sm); font-family: 'Fira Code', monospace; font-size: 0.82rem; background: var(--box-bg); color: var(--text-muted); resize: none; line-height: 1.6; transition: border-color var(--transition); }
-    .smart-paste-area:focus { border-color: var(--border-focus); outline: none; box-shadow: 0 0 0 3px rgba(42,67,101,0.12); color: var(--text-color); }
-    .detected-pills { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem; }
-    .pill { font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 999px; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
-    .pill.warn { background: #fffbeb; color: #92400e; border-color: #fde68a; }
-    .smart-row { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-    .skip-section { background: var(--box-bg); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 0.7rem 0.85rem; margin-bottom: 0.85rem; display: flex; flex-direction: column; gap: 0.5rem; }
-    .skip-row { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
-    .skip-row .field-label { margin-bottom: 0; flex-shrink: 0; }
-    .skip-pill { padding: 0.2rem 0.55rem; border-radius: 999px; font-size: 0.7rem; font-weight: 600; cursor: pointer; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-muted); transition: all 0.15s; user-select: none; white-space: nowrap; }
-    .skip-pill:hover { border-color: var(--primary); color: var(--primary); }
-    .skip-pill.active { background: var(--primary); color: white; border-color: var(--primary); }
-    .skip-pill.none-pill.active { background: var(--text-muted); border-color: var(--text-muted); color: white; }
-    .sheet-check-row { display: flex; align-items: center; gap: 0.45rem; }
-    .sheet-check-row input[type="checkbox"] { cursor: pointer; width: 13px; height: 13px; flex-shrink: 0; }
-    .sheet-check-row .field-label { margin-bottom: 0; cursor: pointer; }
-    .custom-input-row { display: flex; gap: 0.35rem; }
-    .custom-input-row input { flex: 1; padding: 0.32rem 0.55rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 0.78rem; font-family: 'Fira Code', monospace; outline: none; background: var(--card-bg); color: var(--text-color); min-width: 0; }
+    .status-bar.info { background: var(--info-bg); color: var(--info-text); border-color: currentColor; }
+    .status-bar.warn { background: var(--warn-bg); color: var(--warn-text); border-color: currentColor; }
+    
+    .smart-paste-area { width: 100%; min-height: 80px; padding: 1rem; border: 1.5px dashed var(--border); border-radius: var(--radius-md); font-family: 'Fira Code', monospace; font-size: 0.85rem; background: var(--bg-color); color: var(--text-muted); resize: none; line-height: 1.6; transition: var(--transition); }
+    .smart-paste-area:focus { border-color: var(--border-focus); border-style: solid; outline: none; background: var(--surface); color: var(--text-main); box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+    
+    .detected-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.75rem; }
+    .pill { font-size: 0.75rem; font-weight: 500; padding: 0.3rem 0.75rem; border-radius: 999px; background: var(--info-bg); color: var(--info-text); border: 1px solid currentColor; }
+    .pill.warn { background: var(--warn-bg); color: var(--warn-text); }
+    
+    .smart-row { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    
+    /* Skips & Overrides */
+    .skip-section, .error-override-section { background: var(--surface-alt); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1rem 1.25rem; margin-bottom: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .skip-row { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .skip-row .field-label { margin-bottom: 0; flex-shrink: 0; margin-right: 0.5rem; }
+    
+    .skip-pill { padding: 0.35rem 0.8rem; border-radius: 999px; font-size: 0.8rem; font-weight: 500; cursor: pointer; border: 1.5px solid var(--border); background: var(--surface); color: var(--text-muted); transition: var(--transition); user-select: none; white-space: nowrap; }
+    .skip-pill:hover { border-color: var(--border-focus); color: var(--text-main); }
+    .skip-pill.active { background: var(--btn-primary-bg); color: var(--btn-primary-text); border-color: var(--btn-primary-bg); }
+    .skip-pill.none-pill.active { background: var(--text-muted); border-color: var(--text-muted); color: var(--surface); }
+    
+    .sheet-check-row { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.25rem; }
+    .sheet-check-row input[type="checkbox"] { cursor: pointer; width: 16px; height: 16px; flex-shrink: 0; accent-color: var(--btn-primary-bg); }
+    .sheet-check-row .field-label { margin-bottom: 0; cursor: pointer; text-transform: none; font-size: 0.85rem; letter-spacing: normal; font-weight: 500; }
+    
+    .custom-input-row { display: flex; gap: 0.5rem; }
+    .custom-input-row input { flex: 1; padding: 0.5rem 0.75rem; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-size: 0.85rem; font-family: 'Fira Code', monospace; outline: none; background: var(--surface); color: var(--text-main); min-width: 0; }
     .custom-input-row input:focus { border-color: var(--border-focus); }
-    .custom-input-row button { padding: 0.32rem 0.6rem; background: var(--primary); color: white; border: none; border-radius: var(--radius-sm); font-size: 0.75rem; font-weight: 600; cursor: pointer; font-family: inherit; }
-    .custom-input-row button:hover { background: var(--primary-light); }
+    .custom-input-row button { padding: 0.5rem 1rem; background: var(--btn-primary-bg); color: var(--btn-primary-text); border: none; border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: var(--transition); }
+    .custom-input-row button:hover { background: var(--btn-primary-hover); }
+
+    /* Shipments & Histories */
     .shipment-wrapper { position: relative; }
-    .history-dropdown { display: none; position: absolute; top: calc(100% + 3px); left: 0; right: 0; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius-sm); box-shadow: var(--shadow); z-index: 500; overflow: hidden; }
-    .history-dropdown.show { display: block; }
-    .history-item { padding: 0.45rem 0.75rem; font-size: 0.8rem; font-family: 'Fira Code', monospace; cursor: pointer; color: var(--text-color); display: flex; align-items: center; gap: 0.5rem; transition: background var(--transition); }
-    .history-item:hover { background: var(--box-bg); color: var(--primary); }
-    .history-item .hist-id { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.78rem; }
-    .history-item .hist-remove { font-size: 0.68rem; color: var(--text-muted); padding: 0.1rem 0.3rem; border-radius: 3px; flex-shrink: 0; }
-    .history-item .hist-remove:hover { color: var(--error); background: #fee2e2; }
-    .history-empty { padding: 0.5rem 0.75rem; font-size: 0.78rem; color: var(--text-muted); font-style: italic; }
+    .history-dropdown { display: none; position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-hover); z-index: 500; overflow: hidden; }
+    .history-dropdown.show { display: block; animation: dropFade 0.15s ease; }
+    .history-item { padding: 0.75rem 1rem; font-size: 0.85rem; font-family: 'Fira Code', monospace; cursor: pointer; color: var(--text-main); display: flex; align-items: center; gap: 0.75rem; transition: var(--transition); border-bottom: 1px solid var(--bg-color); }
+    .history-item:last-child { border-bottom: none; }
+    .history-item:hover { background: var(--surface-hover); padding-left: 1.25rem; }
+    .history-item .hist-id { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .history-item .hist-remove { font-size: 0.75rem; color: var(--text-muted); padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0; transition: var(--transition); }
+    .history-item .hist-remove:hover { color: var(--btn-danger-text); background: var(--btn-danger-bg); }
+    .history-empty { padding: 1rem; font-size: 0.85rem; color: var(--text-muted); font-style: italic; text-align: center; }
 
-    /* ── SHARED HISTORY PANEL (Card 4 + Card 5) ── */
-    .c4-history { margin-top: 0.85rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); overflow: hidden; }
-    .c4-history-header { display: flex; align-items: center; justify-content: space-between; padding: 0.45rem 0.75rem; background: var(--box-bg); border-bottom: 1px solid var(--border-color); }
-    .c4-history-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
-    .c4-history-empty { padding: 0.5rem 0.75rem; font-size: 0.78rem; color: var(--text-muted); font-style: italic; }
-    .c4-hist-item { border-bottom: 1px solid var(--border-color); }
+    /* Shared History Panel (Cards 4 & 5) */
+    .c4-history { margin-top: 1.5rem; border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; background: var(--surface-alt); }
+    .c4-history-header { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); }
+    .c4-history-title { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+    .c4-history-empty { padding: 1rem; font-size: 0.85rem; color: var(--text-muted); font-style: italic; text-align: center; }
+    .c4-hist-item { border-bottom: 1px solid var(--border); }
     .c4-hist-item:last-child { border-bottom: none; }
-    .c4-hist-row { display: flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0.75rem; cursor: pointer; transition: background var(--transition); }
-    .c4-hist-row:hover { background: var(--box-bg); }
-    .c4-hist-id { flex: 1; font-family: 'Fira Code', monospace; font-size: 0.78rem; color: var(--primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .c4-hist-client { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); background: var(--box-bg); border: 1px solid var(--border-color); padding: 0.1rem 0.4rem; border-radius: 999px; flex-shrink: 0; }
-    .c4-hist-arrow { font-size: 0.65rem; color: var(--text-muted); flex-shrink: 0; transition: transform 0.2s; }
+    .c4-hist-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; cursor: pointer; transition: var(--transition); }
+    .c4-hist-row:hover { background: var(--surface-hover); }
+    .c4-hist-id { flex: 1; font-family: 'Fira Code', monospace; font-size: 0.85rem; color: var(--text-main); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .c4-hist-client { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); background: var(--surface); border: 1px solid var(--border); padding: 0.2rem 0.6rem; border-radius: 999px; flex-shrink: 0; }
+    .c4-hist-arrow { font-size: 0.7rem; color: var(--text-muted); flex-shrink: 0; transition: transform 0.3s; }
     .c4-hist-item.open .c4-hist-arrow { transform: rotate(90deg); }
-    .c4-hist-remove { font-size: 0.68rem; color: var(--text-muted); padding: 0.1rem 0.3rem; border-radius: 3px; flex-shrink: 0; }
-    .c4-hist-remove:hover { color: var(--error); background: #fee2e2; }
-    .c4-hist-preview { display: none; padding: 0.6rem 0.75rem; background: var(--box-bg); border-top: 1px solid var(--border-color); }
-    .c4-hist-item.open .c4-hist-preview { display: block; }
-    .c4-hist-json { font-family: 'Fira Code', monospace; font-size: 0.75rem; color: var(--text-color); white-space: pre; overflow-x: auto; margin-bottom: 0.5rem; line-height: 1.5; }
-    .c4-hist-copy { padding: 0.28rem 0.65rem; background: var(--primary); color: white; border: none; border-radius: var(--radius-sm); font-size: 0.72rem; font-weight: 600; cursor: pointer; font-family: inherit; }
-    .c4-hist-copy:hover { background: var(--primary-light); }
+    .c4-hist-remove { font-size: 0.75rem; color: var(--text-muted); padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0; }
+    .c4-hist-remove:hover { color: var(--btn-danger-text); background: var(--btn-danger-bg); }
+    .c4-hist-preview { display: none; padding: 1rem; background: var(--surface); border-top: 1px solid var(--border); }
+    .c4-hist-item.open .c4-hist-preview { display: block; animation: dropFade 0.2s ease; }
+    .c4-hist-json { font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--text-muted); white-space: pre; overflow-x: auto; margin-bottom: 0.75rem; line-height: 1.6; }
+    .c4-hist-copy { padding: 0.4rem 0.8rem; background: var(--btn-secondary-bg); color: var(--btn-secondary-text); border: none; border-radius: var(--radius-sm); font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: var(--transition); }
+    .c4-hist-copy:hover { background: var(--btn-secondary-hover); }
 
-    .error-override-section { background: var(--box-bg); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 0.6rem 0.8rem; margin-bottom: 0.75rem; }
-    .error-override-pills { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 0.4rem; }
-    #toast { display: none; position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.65rem 1.25rem; border-radius: var(--radius); font-size: 0.875rem; font-weight: 500; z-index: 2000; box-shadow: var(--shadow-lg); animation: fadeInOut 2.5s ease; }
-    @keyframes fadeInOut { 0%,100% { opacity: 0; transform: translate(-50%,8px); } 10%,90% { opacity: 1; transform: translate(-50%,0); } }
+    /* Toast */
+    #toast { display: none; position: fixed; bottom: 2.5rem; left: 50%; transform: translateX(-50%); background: var(--btn-primary-bg); color: var(--btn-primary-text); padding: 0.85rem 1.5rem; border-radius: 999px; font-size: 0.95rem; font-weight: 500; z-index: 2000; box-shadow: var(--shadow-hover); animation: fadeInOut 2.5s cubic-bezier(0.16, 1, 0.3, 1); }
+    @keyframes fadeInOut { 0%,100% { opacity: 0; transform: translate(-50%,20px) scale(0.9); } 10%,90% { opacity: 1; transform: translate(-50%,0) scale(1); } }
 
-    /* ── TOOLTIP hint text ── */
-    .stats-hint {
-      font-size: 0.65rem; color: var(--text-muted); text-align: center;
-      margin-top: 0.25rem; letter-spacing: 0.02em;
+    /* Responsive */
+    @media (max-width: 1100px) {
+      .container { grid-template-columns: repeat(2, 1fr); }
+      .smart-row { grid-template-columns: repeat(2, 1fr); }
     }
-
-    @media (max-width: 640px) {
-      body { padding: 1rem; }
-      .header h1 { font-size: 1.7rem; }
-      .mode-toggle { top: 1rem; right: 1rem; }
-      .settings-toggle { top: 3.8rem; right: 1rem; }
-      .container { grid-template-columns: 1fr; margin-top: 5rem; }
-      .dropdown-panel, .dropdown-panel.single-col { width: 100%; }
-      .btn-row, .dropdown-row { flex-direction: column; }
-      .btn-row .btn { width: 100%; }
-      .smart-row { grid-template-columns: 1fr; }
+    @media (max-width: 768px) {
+      body { padding: 1.5rem 1rem; }
+      .header h1 { font-size: 2.2rem; }
+      .mode-toggle, .settings-toggle { top: 1.5rem; right: 1.5rem; transform: scale(0.85); transform-origin: top right; }
+      .settings-toggle { top: 5rem; }
+      .container, .smart-row { grid-template-columns: 1fr; margin-top: 4rem; gap: 1rem; }
+      .dropdown-panel, .dropdown-panel.single-col { width: 100%; grid-template-columns: 1fr; }
+      .btn-row { flex-direction: column; }
     }
   </style>
 </head>
@@ -331,11 +402,9 @@
     <div class="auth-card">
       <div class="auth-logo">DevEase.io</div>
       <div class="auth-sub">Internal Access Only</div>
-      <label class="auth-label" for="authPass">Password</label>
-      <input class="auth-input" type="password" id="authPass"
-             placeholder="Enter firm password"
-             onkeydown="if(event.key==='Enter')checkAuth()">
-      <button class="auth-btn" onclick="checkAuth()">Unlock →</button>
+      <label class="auth-label" for="authPass">Passphrase</label>
+      <input class="auth-input" type="password" id="authPass" placeholder="Enter firm password" onkeydown="if(event.key==='Enter')checkAuth()">
+      <button class="auth-btn" onclick="checkAuth()">Authenticate →</button>
       <div class="auth-error" id="authError"></div>
       <div class="auth-attempts" id="authAttempts"></div>
     </div>
@@ -344,7 +413,7 @@
   <div class="mode-toggle">
     <input type="checkbox" id="themeSwitch" onchange="toggleTheme()" checked />
     <label for="themeSwitch"><span class="sun">☀️</span><span class="moon">🌙</span><div class="ball"></div></label>
-    <span class="vibe">Dark</span>
+    <span class="vibe">Theme</span>
   </div>
   <div class="ocean-background" id="oceanBackground"></div>
 
@@ -353,7 +422,7 @@
       <h1 id="title"></h1>
       <div class="stats-tooltip" id="statsTooltip">
         <div class="stats-header-row">
-          <span class="stats-title">📊 Session Stats</span>
+          <span class="stats-title">Session Stats</span>
           <span class="stats-window" id="statsWindowLabel">Rolling 24h</span>
         </div>
         <table class="stats-table">
@@ -383,7 +452,7 @@
           </tbody>
         </table>
         <div class="stats-expires" id="statsExpiresLabel"></div>
-        <button class="stats-reset-btn" onclick="resetStats(event)">🗑 Reset stats</button>
+        <button class="stats-reset-btn" onclick="resetStats(event)">Reset Session Stats</button>
         <div class="stats-hint">Stats persist for 24h from login · hover to refresh</div>
       </div>
     </div>
@@ -392,18 +461,14 @@
   <div class="settings-toggle">
     <button onclick="toggleSettings()">⚙️</button>
     <div class="settings-panel">
-      <div class="section-title">Theme</div>
-      <select id="themeSelect" onchange="toggleTheme()">
-        <option value="light" selected>Light</option>
-        <option value="dark">Dark</option>
-      </select>
-      <div class="section-title">Auto-Copy on Detection</div>
+      <div class="section-title">Preferences</div>
+      <div class="section-title" style="margin-top: 1rem; border-top: 1px solid var(--border); padding-top:1rem;">Auto-Copy on Detection</div>
       <div class="toggle-row">
         <div class="toggle-switch">
           <input type="checkbox" id="autoCopySwitch" />
           <label for="autoCopySwitch"><div class="ball"></div></label>
         </div>
-        <span class="toggle-label" id="autoCopyLabel">Off</span>
+        <span class="toggle-label" id="autoCopyLabel">Disabled</span>
       </div>
     </div>
   </div>
@@ -434,7 +499,7 @@
       <div class="field-group">
         <label class="field-label">Shipment ID</label>
         <div class="shipment-wrapper">
-          <input type="text" id="shipmentInput" placeholder="Enter Shipment ID — Ctrl/Cmd+Click to open logs" oninput="autofillJSON()" onfocus="showHistory()" autocomplete="off">
+          <input type="text" id="shipmentInput" placeholder="Enter ID — Ctrl/Cmd+Click for logs" oninput="autofillJSON()" onfocus="showHistory()" autocomplete="off">
           <div class="history-dropdown" id="historyDropdown"></div>
         </div>
       </div>
@@ -443,11 +508,11 @@
         <textarea id="jsonBox" class="textarea-md" readonly placeholder="Select a client to generate JSON…"></textarea>
       </div>
       <div class="btn-row">
-        <button class="btn btn-primary btn-full" onclick="copyAutoFilled(this)">📋 Copy JSON</button>
+        <button class="btn btn-primary btn-full" onclick="copyAutoFilled(this)">Copy JSON</button>
       </div>
       <div class="btn-row">
-        <button class="btn btn-secondary" onclick="openTransworldLogs()">🚢 Transworld Logs</button>
-        <button class="btn btn-secondary" onclick="openPlatformLogs()">🖥 Platform Logs</button>
+        <button class="btn btn-secondary" onclick="openTransworldLogs()">Transworld Logs</button>
+        <button class="btn btn-secondary" onclick="openPlatformLogs()">Platform Logs</button>
       </div>
     </div>
 
@@ -491,16 +556,16 @@
       </div>
       <div class="field-group">
         <label class="field-label">Replace STRING <span style="font-weight:400;text-transform:none">(optional)</span></label>
-        <input type="text" id="stringInput" placeholder="Replacement text for STRING" oninput="autofillTemplateJSON()">
+        <input type="text" id="stringInput" placeholder="Replacement text" oninput="autofillTemplateJSON()">
       </div>
       <div class="field-group">
         <label class="field-label">Output JSON</label>
         <textarea id="templateBox" class="textarea-lg" readonly placeholder="Select client + error type to generate…"></textarea>
       </div>
-      <div id="stringWarning" class="status-bar warn">⚠️ Template still contains unreplaced STRING</div>
+      <div id="stringWarning" class="status-bar warn">⚠️ Contains unreplaced STRING</div>
       <div class="btn-row">
-        <button class="btn btn-primary" onclick="copyTemplateJSON(this)">📋 Copy JSON</button>
-        <button class="btn btn-danger" onclick="resetTemplateFields()">🔄 Reset</button>
+        <button class="btn btn-primary" onclick="copyTemplateJSON(this)">Copy JSON</button>
+        <button class="btn btn-danger" onclick="resetTemplateFields()">Reset</button>
       </div>
     </div>
 
@@ -514,13 +579,13 @@
         <textarea id="yamlInput" class="textarea-md" placeholder="Paste YAML here…" oninput="convertYAML()"></textarea>
       </div>
       <div id="yamlStatus" class="status-bar"></div>
-      <div class="field-group" style="margin-top:0.75rem">
+      <div class="field-group" style="margin-top:1rem">
         <label class="field-label">JSON Output</label>
         <textarea id="yamlOutput" class="textarea-md" readonly placeholder="JSON will appear here…"></textarea>
       </div>
       <div class="btn-row">
-        <button class="btn btn-primary" onclick="copyYAML(this)">📋 Copy JSON</button>
-        <button class="btn btn-danger" onclick="resetYAML()">🔄 Reset</button>
+        <button class="btn btn-primary" onclick="copyYAML(this)">Copy JSON</button>
+        <button class="btn btn-danger" onclick="resetYAML()">Reset</button>
       </div>
     </div>
 
@@ -533,18 +598,18 @@
         </div>
         <div class="field-group">
           <label class="field-label">Paste Alert Text</label>
-          <textarea id="smartPaste" class="smart-paste-area" placeholder="Paste alert text — client + shipment ID detected automatically…" oninput="handleSmartPaste()"></textarea>
+          <textarea id="smartPaste" class="smart-paste-area" placeholder="Paste alert text — client + ID detected automatically…" oninput="handleSmartPaste()"></textarea>
         </div>
         <div id="smartPills" class="detected-pills"></div>
-        <div id="smartStatus" class="status-bar" style="margin-top:0.5rem"></div>
-        <div class="field-group" style="margin-top:0.75rem">
+        <div id="smartStatus" class="status-bar" style="margin-top:0.75rem"></div>
+        <div class="field-group" style="margin-top:1rem">
           <label class="field-label">Output JSON</label>
           <textarea id="smartJsonBox" class="textarea-md" readonly placeholder="JSON will appear here…"></textarea>
         </div>
         <div class="btn-row">
-          <button class="btn btn-primary" onclick="copySmartJSON(this)">📋 Copy JSON</button>
-          <button class="btn btn-secondary" id="logsBtn1" onclick="handleLogsBtn1(event)" style="display:none" title="Click: Open Logs · Ctrl/Cmd+Shift+Click: Open Anchor/Amari Review">🔗 Open Logs</button>
-          <button class="btn btn-danger" onclick="resetSmartPaste()">🔄 Reset</button>
+          <button class="btn btn-primary" onclick="copySmartJSON(this)">Copy JSON</button>
+          <button class="btn btn-secondary" id="logsBtn1" onclick="handleLogsBtn1(event)" style="display:none" title="Click: Logs · Cmd+Shift+Click: Review">Open Logs</button>
+          <button class="btn btn-danger" onclick="resetSmartPaste()">Reset</button>
         </div>
         <div class="c4-history" id="c4History">
           <div class="c4-history-header">
@@ -563,9 +628,9 @@
           <div class="skip-row">
             <span class="field-label">Skip Files</span>
             <span class="skip-pill none-pill active" onclick="toggleNone(this)">None</span>
-            <span class="skip-pill predefined-pill" data-regex=".*.pdf$" onclick="togglePredefinedPill(this)">All PDFs</span>
-            <span class="skip-pill predefined-pill" data-regex=".*.(xls|xlsx)$" onclick="togglePredefinedPill(this)">All Excel</span>
-            <span class="skip-pill predefined-pill" data-regex=".*.(jpg|jpeg|png|gif)$" onclick="togglePredefinedPill(this)">All Images</span>
+            <span class="skip-pill predefined-pill" data-regex=".*\.pdf$" onclick="togglePredefinedPill(this)">All PDFs</span>
+            <span class="skip-pill predefined-pill" data-regex=".*\.(xls|xlsx)$" onclick="togglePredefinedPill(this)">All Excel</span>
+            <span class="skip-pill predefined-pill" data-regex=".*\.(jpg|jpeg|png|gif)$" onclick="togglePredefinedPill(this)">All Images</span>
             <span class="skip-pill" id="forceFalsePill" onclick="toggleForceFalse(this)">force: false</span>
             <span class="skip-pill" data-add-custom onclick="showCustomInput()">+ Custom</span>
           </div>
@@ -576,23 +641,23 @@
           <div class="sheet-check-row">
             <input type="checkbox" id="skipSheetCheck" onchange="onSheetToggle()">
             <label for="skipSheetCheck" class="field-label">Skip Sheet</label>
-            <span id="sheetActiveLabel" style="font-size:.7rem;color:#16a34a;font-weight:600;display:none;margin-left:.25rem">✅ active — replace YOUR_TEXT_HERE before use</span>
+            <span id="sheetActiveLabel" style="font-size:0.75rem;color:var(--success-text);font-weight:600;display:none;margin-left:0.5rem">✅ active — replace YOUR_TEXT_HERE</span>
           </div>
         </div>
         <div class="field-group">
           <label class="field-label">Paste Alert Text</label>
-          <textarea id="smartPaste2" class="smart-paste-area" placeholder="Paste alert text — uses Message ID / Email ID if present, else Thread ID…" oninput="handleSmartPaste2()"></textarea>
+          <textarea id="smartPaste2" class="smart-paste-area" placeholder="Paste alert text — uses Message ID / Email ID if present…" oninput="handleSmartPaste2()"></textarea>
         </div>
         <div id="smartPills2" class="detected-pills"></div>
-        <div id="smartStatus2" class="status-bar" style="margin-top:0.5rem"></div>
-        <div class="field-group" style="margin-top:0.75rem">
+        <div id="smartStatus2" class="status-bar" style="margin-top:0.75rem"></div>
+        <div class="field-group" style="margin-top:1rem">
           <label class="field-label">Output JSON</label>
           <textarea id="smartJsonBox2" class="textarea-md" readonly placeholder="JSON will appear here…"></textarea>
         </div>
         <div class="btn-row">
-          <button class="btn btn-primary" onclick="copySmartJSON2(this)">📋 Copy JSON</button>
-          <button class="btn btn-secondary" id="logsBtn2" onclick="handleLogsBtn2(event)" style="display:none" title="Click: Open Logs · Ctrl/Cmd+Shift+Click: Open Anchor/Amari Review">🔗 Open Logs</button>
-          <button class="btn btn-danger" onclick="resetSmartPaste2()">🔄 Reset</button>
+          <button class="btn btn-primary" onclick="copySmartJSON2(this)">Copy JSON</button>
+          <button class="btn btn-secondary" id="logsBtn2" onclick="handleLogsBtn2(event)" style="display:none" title="Click: Logs · Cmd+Shift+Click: Review">Open Logs</button>
+          <button class="btn btn-danger" onclick="resetSmartPaste2()">Reset</button>
         </div>
         <div class="c4-history" id="c5History">
           <div class="c4-history-header">
@@ -609,40 +674,42 @@
         </div>
         <div class="field-group">
           <label class="field-label">Paste Slack Alert</label>
-          <textarea id="smartMsg" class="smart-paste-area" style="min-height:90px" placeholder="Paste the full Slack error — client, thread ID and error type will be detected automatically…" oninput="handleSmartMessage()"></textarea>
+          <textarea id="smartMsg" class="smart-paste-area" style="min-height:90px" placeholder="Paste full error — client, thread ID & type detected automatically…" oninput="handleSmartMessage()"></textarea>
         </div>
         <div class="error-override-section">
-          <span class="field-label" style="display:block">Override detected error</span>
-          <div class="error-override-pills" id="errorOverridePills">
+          <span class="field-label">Override detected error</span>
+          <div class="error-override-pills" id="errorOverridePills" style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.25rem;">
             <span class="skip-pill none-pill active" id="autoDetectPill" onclick="setErrorOverride(null,this)">Auto-detect</span>
-            <span class="skip-pill" data-override="importer"    onclick="setErrorOverride('importer',this)">Importer ID</span>
+            <span class="skip-pill" data-override="importer" onclick="setErrorOverride('importer',this)">Importer ID</span>
             <span class="skip-pill" data-override="autocomplete" onclick="setErrorOverride('autocomplete',this)">Could not find</span>
-            <span class="skip-pill" data-override="mid"         onclick="setErrorOverride('mid',this)">MID</span>
-            <span class="skip-pill" data-override="midior"      onclick="setErrorOverride('midior',this)">MID + IOR</span>
-            <span class="skip-pill" data-override="profile"     onclick="setErrorOverride('profile',this)">Profile not found</span>
-            <span class="skip-pill" data-override="masterbol"   onclick="setErrorOverride('masterbol',this)">Master BOL</span>
-            <span class="skip-pill" data-override="hts"         onclick="setErrorOverride('hts',this)">HTS not found</span>
-            <span class="skip-pill" data-override="invoice"     onclick="setErrorOverride('invoice',this)">Invoice not found</span>
-            <span class="skip-pill" data-override="fileref"     onclick="setErrorOverride('fileref',this)">File reference</span>
-            <span class="skip-pill" data-override="corrupted"   onclick="setErrorOverride('corrupted',this)">Corrupted</span>
-            <span class="skip-pill" data-override="consignee"   onclick="setErrorOverride('consignee',this)">Consignee not IOR</span>
+            <span class="skip-pill" data-override="mid" onclick="setErrorOverride('mid',this)">MID</span>
+            <span class="skip-pill" data-override="midior" onclick="setErrorOverride('midior',this)">MID + IOR</span>
+            <span class="skip-pill" data-override="profile" onclick="setErrorOverride('profile',this)">Profile not found</span>
+            <span class="skip-pill" data-override="masterbol" onclick="setErrorOverride('masterbol',this)">Master BOL</span>
+            <span class="skip-pill" data-override="hts" onclick="setErrorOverride('hts',this)">HTS not found</span>
+            <span class="skip-pill" data-override="invoice" onclick="setErrorOverride('invoice',this)">Invoice not found</span>
+            <span class="skip-pill" data-override="fileref" onclick="setErrorOverride('fileref',this)">File reference</span>
+            <span class="skip-pill" data-override="corrupted" onclick="setErrorOverride('corrupted',this)">Corrupted</span>
+            <span class="skip-pill" data-override="consignee" onclick="setErrorOverride('consignee',this)">Consignee not IOR</span>
             <span class="skip-pill" data-override="yaml" onclick="setErrorOverride('yaml',this)">YAML</span>
           </div>
         </div>
         <div id="msgPills" class="detected-pills"></div>
-        <div id="msgStatus" class="status-bar" style="margin-top:0.5rem"></div>
-        <div class="field-group" style="margin-top:0.75rem">
+        <div id="msgStatus" class="status-bar" style="margin-top:0.75rem"></div>
+        <div class="field-group" style="margin-top:1rem">
           <label class="field-label">Output JSON</label>
           <textarea id="msgJsonBox" class="textarea-lg" readonly placeholder="JSON will appear here…"></textarea>
         </div>
-        <div id="msgStringWarning" class="status-bar warn">⚠️ Template still contains unreplaced STRING</div>
+        <div id="msgStringWarning" class="status-bar warn">⚠️ Contains unreplaced STRING</div>
         <div class="btn-row">
-          <button class="btn btn-primary" onclick="copyMsgJSON(this)">📋 Copy JSON</button>
-          <button class="btn btn-danger" onclick="resetSmartMsg()">🔄 Reset</button>
+          <button class="btn btn-primary" onclick="copyMsgJSON(this)">Copy JSON</button>
+          <button class="btn btn-danger" onclick="resetSmartMsg()">Reset</button>
         </div>
       </div>
 
-    </div></div><div id="toast"></div>
+    </div>
+  </div>
+  <div id="toast"></div>
 
   <script>
     // ══════════════════════════════════════════════════════
@@ -651,43 +718,39 @@
     const DEFAULT_ROOT = "/home/dev/parse_api/amari/apps/customs_assistant_main_migration";
     const GHY_ROOT = "/home/dev/parse_api/amari/apps/customs_assistant";
     
-    // Add any future clients right here in this array!
     const CLIENT_DATA = [
-      // --- Web Platform Main ---
-      { id: "guardian",      name: "Guardian",        category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/guardian-customs.yaml",           aliases: ["guardian", "guardian-customs"] },
-      { id: "ilogix",        name: "Ilogix",          category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/ilogix.yaml",                     aliases: ["ilogix"] },
-      { id: "ever",          name: "Ever",            category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/ever-customs.yaml",               aliases: ["ever", "ever-customs"] },
-      { id: "whitzard",      name: "Whitzard",        category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/whitzard-customs.yaml",           aliases: ["whitzard", "whitzard-customs"] },
-      { id: "jl",            name: "JL",              category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jl-customs-service-2-1.yaml",     aliases: ["jl", "jl-customs", "jl-customs-service"] },
-      { id: "jtz",           name: "JTZ",             category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jtz.yaml",                        aliases: ["jtz"] },
-      { id: "meekoo",        name: "Meekoo",          category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/meekoo.yaml",                     aliases: ["meekoo"] },
-      { id: "leesa",         name: "Leesa",           category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/leesa.yaml",                      aliases: ["label:leesa-chb", "customer:leesa"] },
-      { id: "transworld",    name: "Transworld",      category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/transworld-chb.yaml",             aliases: ["transworld", "transworld-chb"] },
-      { id: "leesachbbruce", name: "Leesa-chb-bruce", category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/leesa-chb-bruce.yaml",            aliases: ["leesa-chb-bruce", "leesachbbruce", "leesa-bruce", "label:leesa-chb-bruce"] },
-      { id: "ldglobal",      name: "Ld-global",       category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/ld-global.yaml",                  aliases: ["ld-global", "ldglobal", "ld global"] },
-      { id: "jdusa",         name: "JD USA",          category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jd-usa.yaml",                     aliases: ["jdusa", "jd-usa", "jd usa"] },
-      { id: "pinnacle",      name: "Pinnacle",        category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/pinnacle-clearing-solution.yaml", aliases: ["pinnacle", "pinnacle-clearing-solution", "pinnacle clearing"] },
-      { id: "Jaak",          name: "Jaak",            category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jti.yaml",                        aliases: ["jaak", "jti", "jaak-transport"] },
-      { id: "Tkk",           name: "Tkk",             category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/tkk.yaml",                        aliases: ["tkk"] },
+      { id: "guardian",      name: "Guardian",        category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/guardian-customs.yaml",            aliases: ["guardian", "guardian-customs"] },
+      { id: "ilogix",        name: "Ilogix",          category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/ilogix.yaml",                      aliases: ["ilogix"] },
+      { id: "ever",          name: "Ever",            category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/ever-customs.yaml",                aliases: ["ever", "ever-customs"] },
+      { id: "whitzard",      name: "Whitzard",        category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/whitzard-customs.yaml",            aliases: ["whitzard", "whitzard-customs"] },
+      { id: "jl",            name: "JL",              category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jl-customs-service-2-1.yaml",      aliases: ["jl", "jl-customs", "jl-customs-service"] },
+      { id: "jtz",           name: "JTZ",             category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jtz.yaml",                         aliases: ["jtz"] },
+      { id: "meekoo",        name: "Meekoo",          category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/meekoo.yaml",                      aliases: ["meekoo"] },
+      { id: "leesa",         name: "Leesa",           category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/leesa.yaml",                       aliases: ["label:leesa-chb", "customer:leesa"] },
+      { id: "transworld",    name: "Transworld",      category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/transworld-chb.yaml",              aliases: ["transworld", "transworld-chb"] },
+      { id: "leesachbbruce", name: "Leesa-chb-bruce", category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/leesa-chb-bruce.yaml",             aliases: ["leesa-chb-bruce", "leesachbbruce", "leesa-bruce", "label:leesa-chb-bruce"] },
+      { id: "ldglobal",      name: "Ld-global",       category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/ld-global.yaml",                   aliases: ["ld-global", "ldglobal", "ld global"] },
+      { id: "jdusa",         name: "JD USA",          category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jd-usa.yaml",                      aliases: ["jdusa", "jd-usa", "jd usa"] },
+      { id: "pinnacle",      name: "Pinnacle",        category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/pinnacle-clearing-solution.yaml",  aliases: ["pinnacle", "pinnacle-clearing-solution", "pinnacle clearing"] },
+      { id: "Jaak",          name: "Jaak",            category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jti.yaml",                         aliases: ["jaak", "jti", "jaak-transport"] },
+      { id: "Tkk",           name: "Tkk",             category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/tkk.yaml",                         aliases: ["tkk"] },
       
-      // --- Web Platform ---
-      { id: "onpointhub",    name: "On Point Hub",    category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/on-point-hub.yaml",               aliases: ["on-point-hub", "onpointhub", "on point hub", "label:on-point-hub"] },
-      { id: "perennial1",    name: "Perennial",       category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/perennial-1.yaml",                aliases: ["perennial", "perennial-1"] },
-      { id: "slchbnhp",      name: "SLCHB NHP",       category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/slchb-nhp.yaml",                  aliases: ["slchb-nhp", "slchbnhp"] },
-      { id: "slchb",         name: "SLCHB",           category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/slchb.yaml",                      aliases: ["slchb"] },
-      { id: "yifangchb",     name: "Yifang CHB",      category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/yifangchb.yaml",                  aliases: ["yifangchb", "yifang", "lz management"] },
-      { id: "pieschb",       name: "Pies CHB",        category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/pieschb.yaml",                    aliases: ["pieschb", "pies"] },
-      { id: "bhchb",         name: "BH CHB",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/bhchb.yaml",                      aliases: ["bhchb", "bh chb"] },
-      { id: "abj",           name: "ABJ",             category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/abj.yaml",                        aliases: ["abj"] },
-      { id: "newave",        name: "Newave",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/newave.yaml",                     aliases: ["newave"] },
-      { id: "GHY",           name: "GHY",             category: "Web Platform",      root: GHY_ROOT,     config: "data/config/dev/ghy.yaml",                        aliases: ["ghy"] },
-      { id: "grandchb",      name: "Grand CHB",       category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/grand-chb.yaml",                  aliases: ["grand-chb", "grandchb", "grand chb"] },
-      { id: "casas",         name: "Casas",           category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/casas.yaml",                      aliases: ["casas"] },
-      { id: "crane",         name: "Crane",           category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/crane.yaml",                      aliases: ["crane"] },
-      { id: "yeschb",         name: "YesCHB",           category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/yeschb.yaml",                      aliases: ["yeschb"] }
+      { id: "onpointhub",    name: "On Point Hub",    category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/on-point-hub.yaml",                aliases: ["on-point-hub", "onpointhub", "on point hub", "label:on-point-hub"] },
+      { id: "perennial1",    name: "Perennial",       category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/perennial-1.yaml",                 aliases: ["perennial", "perennial-1"] },
+      { id: "slchbnhp",      name: "SLCHB NHP",       category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/slchb-nhp.yaml",                   aliases: ["slchb-nhp", "slchbnhp"] },
+      { id: "slchb",         name: "SLCHB",           category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/slchb.yaml",                       aliases: ["slchb"] },
+      { id: "yifangchb",     name: "Yifang CHB",      category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/yifangchb.yaml",                   aliases: ["yifangchb", "yifang", "lz management"] },
+      { id: "pieschb",       name: "Pies CHB",        category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/pieschb.yaml",                     aliases: ["pieschb", "pies"] },
+      { id: "bhchb",         name: "BH CHB",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/bhchb.yaml",                       aliases: ["bhchb", "bh chb"] },
+      { id: "abj",           name: "ABJ",             category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/abj.yaml",                         aliases: ["abj"] },
+      { id: "newave",        name: "Newave",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/newave.yaml",                      aliases: ["newave"] },
+      { id: "GHY",           name: "GHY",             category: "Web Platform",      root: GHY_ROOT,     config: "data/config/dev/ghy.yaml",                         aliases: ["ghy"] },
+      { id: "grandchb",      name: "Grand CHB",       category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/grand-chb.yaml",                   aliases: ["grand-chb", "grandchb", "grand chb"] },
+      { id: "casas",         name: "Casas",           category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/casas.yaml",                       aliases: ["casas"] },
+      { id: "crane",         name: "Crane",           category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/crane.yaml",                       aliases: ["crane"] },
+      { id: "yeschb",        name: "YesCHB",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/yeschb.yaml",                      aliases: ["yeschb"] }
     ];
 
-    // Auto-generate configMap and aliases from the centralized data
     const configMap = {};
     const clientAliases = {};
     CLIENT_DATA.forEach(c => {
@@ -695,7 +758,6 @@
       clientAliases[c.id] = c.aliases;
     });
 
-    // Function to dynamically build the UI Dropdowns
     function buildClientDropdowns() {
       const grouped = {};
       CLIENT_DATA.forEach(c => {
@@ -719,7 +781,6 @@
       document.getElementById("clientDropdown").innerHTML = generateHTML('run');
       document.getElementById("clientMsgDropdown").innerHTML = generateHTML('msg');
 
-      // Attach Event Listeners to the newly created elements
       document.querySelectorAll("[data-client]").forEach(item => {
         item.addEventListener("click", function() {
           const el = document.getElementById("clientSelect");
@@ -751,18 +812,16 @@
 
       window.checkAuth = function() {
         if (attempts >= MAX_ATTEMPTS) {
-          document.getElementById("authError").textContent = "Too many attempts. Close and reopen the tab.";
+          document.getElementById("authError").textContent = "Too many attempts. Close and reopen.";
           return;
         }
         const val = document.getElementById("authPass").value;
         if (val === FIRM_PASS) {
           sessionStorage.setItem(SESSION_KEY, "ok");
           sessionStorage.removeItem("devease_attempts");
-          // Record login timestamp for 24hr stats window (only if not already set / expired)
           const existing = localStorage.getItem(LOGIN_TS_KEY);
           if (!existing || (Date.now() - parseInt(existing)) > 24*60*60*1000) {
             localStorage.setItem(LOGIN_TS_KEY, String(Date.now()));
-            // Fresh 24hr window → reset stats
             resetStatsData();
           }
           document.getElementById("authOverlay").classList.add("hidden");
@@ -773,7 +832,7 @@
           card.classList.remove("auth-shake");
           void card.offsetWidth;
           card.classList.add("auth-shake");
-          document.getElementById("authError").textContent = "Incorrect password.";
+          document.getElementById("authError").textContent = "Incorrect passphrase.";
           const left = MAX_ATTEMPTS - attempts;
           document.getElementById("authAttempts").textContent =
             left > 0 ? `${left} attempt${left === 1 ? "" : "s"} remaining` : "";
@@ -784,7 +843,6 @@
 
       if (isAuthed()) {
         document.getElementById("authOverlay").classList.add("hidden");
-        // Check if 24hr window is still valid; if expired, reset
         const loginTs = localStorage.getItem(LOGIN_TS_KEY);
         if (!loginTs || (Date.now() - parseInt(loginTs)) > 24*60*60*1000) {
           localStorage.setItem(LOGIN_TS_KEY, String(Date.now()));
@@ -799,39 +857,21 @@
     })();
 
     // ══════════════════════════════════════════════════════
-    //  DAILY STATS  (rolling 24h from login)
+    //  DAILY STATS
     // ══════════════════════════════════════════════════════
     const STATS_KEY    = "devease_stats";
     const LOGIN_TS_KEY = "devease_login_ts";
 
-    function defaultStats() {
-      return {
-        fill:    { ids: [], copies: 0 },
-        extract: { ids: [], copies: 0 },
-        msg:     { ids: [], copies: 0 }
-      };
-    }
-
-    function getStats() {
-      try { return JSON.parse(localStorage.getItem(STATS_KEY)) || defaultStats(); }
-      catch(e) { return defaultStats(); }
-    }
-
+    function defaultStats() { return { fill: { ids: [], copies: 0 }, extract: { ids: [], copies: 0 }, msg: { ids: [], copies: 0 } }; }
+    function getStats() { try { return JSON.parse(localStorage.getItem(STATS_KEY)) || defaultStats(); } catch(e) { return defaultStats(); } }
     function saveStats(s) { localStorage.setItem(STATS_KEY, JSON.stringify(s)); }
-
     function resetStatsData() { saveStats(defaultStats()); }
 
-    // Track a unique ID for a category (called when JSON is generated)
     function trackStatId(category, id) {
       if (!id || id === "string") return;
       const s = getStats();
-      if (!s[category].ids.includes(id)) {
-        s[category].ids.push(id);
-        saveStats(s);
-      }
+      if (!s[category].ids.includes(id)) { s[category].ids.push(id); saveStats(s); }
     }
-
-    // Track a copy event (called when copy button pressed)
     function trackStatCopy(category) {
       const s = getStats();
       s[category].copies = (s[category].copies || 0) + 1;
@@ -847,7 +887,6 @@
       document.getElementById("statMsgIds").textContent    = s.msg.ids.length;
       document.getElementById("statMsgCopies").textContent = s.msg.copies;
 
-      // Expiry label
       const loginTs = localStorage.getItem(LOGIN_TS_KEY);
       if (loginTs) {
         const expiresAt = parseInt(loginTs) + 24*60*60*1000;
@@ -871,12 +910,8 @@
       showToast("Stats reset ✅");
     };
 
-    // Update on hover
     document.addEventListener("DOMContentLoaded", () => {
-      // Build our client dropdowns immediately
       buildClientDropdowns();
-
-      // Move tooltip to <body> so it escapes all stacking contexts
       const wrap = document.querySelector(".header-title-wrap");
       const tooltip = document.getElementById("statsTooltip");
       if (wrap && tooltip) {
@@ -887,19 +922,16 @@
           clearTimeout(hideTimer);
           updateStatsDisplay();
           const rect = wrap.getBoundingClientRect();
-          tooltip.style.top = (rect.bottom + 10) + "px";
+          tooltip.style.top = (rect.bottom + 15) + "px";
           tooltip.classList.add("visible");
-          // Update window label
           const loginTs = localStorage.getItem(LOGIN_TS_KEY);
           if (loginTs) {
             const d = new Date(parseInt(loginTs));
-            document.getElementById("statsWindowLabel").textContent =
-              "From " + d.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
+            document.getElementById("statsWindowLabel").textContent = "From " + d.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
           }
         });
 
         wrap.addEventListener("mouseleave", (e) => {
-          // Small delay so mouse can move onto the tooltip itself
           hideTimer = setTimeout(() => {
             if (!tooltip.matches(":hover")) tooltip.classList.remove("visible");
           }, 120);
@@ -910,24 +942,22 @@
       }
     });
 
-    // ── AUTO-COPY ──
     let autoCopyEnabled = false;
     document.getElementById("autoCopySwitch").addEventListener("change", function() {
       autoCopyEnabled = this.checked;
-      document.getElementById("autoCopyLabel").textContent = autoCopyEnabled ? "On" : "Off";
+      document.getElementById("autoCopyLabel").textContent = autoCopyEnabled ? "Enabled" : "Disabled";
     });
     function autoCopyToClipboard(text) {
       if (!autoCopyEnabled) return;
-      try {
-        navigator.clipboard.writeText(text).then(() => showToast("⚡ Auto-copied!"));
-      } catch(e) {
+      try { navigator.clipboard.writeText(text).then(() => showToast("⚡ Auto-copied!")); } 
+      catch(e) {
         const ta = document.createElement("textarea"); ta.value = text;
         document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
         showToast("⚡ Auto-copied!");
       }
     }
 
-    // ── SHIPMENT HISTORY (Card 1) ──
+    // ── SHIPMENT HISTORY ──
     const HISTORY_KEY = "devease_shipment_history";
     const HISTORY_MAX = 5;
     function getHistory() { try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]"); } catch(e) { return []; } }
@@ -949,13 +979,9 @@
       dd.innerHTML = h.map(id => `<div class="history-item" onclick="selectHistory('${id}')"><span class="hist-id">${id}</span><span class="hist-remove" onclick="event.stopPropagation();removeFromHistory('${id}')" title="Remove">✕</span></div>`).join("");
     }
     function showHistory() { renderHistory(); document.getElementById("historyDropdown").classList.add("show"); }
-    function selectHistory(id) {
-      document.getElementById("shipmentInput").value = id;
-      document.getElementById("historyDropdown").classList.remove("show");
-      autofillJSON();
-    }
+    function selectHistory(id) { document.getElementById("shipmentInput").value = id; document.getElementById("historyDropdown").classList.remove("show"); autofillJSON(); }
 
-    // ── TITLE + SHIPS ──
+    // ── TITLE & ANIMATIONS ──
     function typeTitle() {
       const el = document.getElementById("title"), text = "DevEase.io"; let i = 0;
       function type() { if (i < text.length) { el.textContent += text[i++]; setTimeout(type, 100); } else { setTimeout(() => { el.textContent = ""; i = 0; type(); }, 2500); } }
@@ -963,23 +989,17 @@
     }
     function createShips() {
       const ocean = document.getElementById("oceanBackground");
-      const n = window.innerWidth < 640 ? 4 : 8;
+      const n = window.innerWidth < 640 ? 4 : 7;
       for (let i = 0; i < n; i++) {
         const ship = document.createElement("div");
-        ship.className = "ship"; ship.textContent = "🚢";
+        ship.className = "ship"; ship.textContent = "✦"; // Changed from ship emoji to elegant sparkle/diamond
         ship.style.left = `${Math.random()*100}vw`; ship.style.top = `${Math.random()*100}vh`;
-        ship.style.animation = `sail ${12+Math.random()*10}s linear ${Math.random()*5}s infinite`;
+        ship.style.animation = `sail ${15+Math.random()*15}s linear ${Math.random()*5}s infinite`;
         ocean.appendChild(ship);
       }
       const style = document.createElement("style");
-      style.textContent = `@keyframes sail { 0% { transform:translateX(0) translateY(0) rotate(0deg); } 25% { transform:translateX(${Math.random()*40-20}vw) translateY(${Math.random()*8-4}vh) rotate(${Math.random()*8-4}deg); } 50% { transform:translateX(${Math.random()*40-20}vw) translateY(${Math.random()*8-4}vh) rotate(${Math.random()*8-4}deg); } 75% { transform:translateX(${Math.random()*40-20}vw) translateY(${Math.random()*8-4}vh) rotate(${Math.random()*8-4}deg); } 100% { transform:translateX(0) translateY(0) rotate(0deg); } }`;
+      style.textContent = `@keyframes sail { 0% { transform:translateX(0) translateY(0) scale(1) opacity:0.1; } 50% { transform:translateX(${Math.random()*40-20}vw) translateY(${Math.random()*10-5}vh) scale(1.5) opacity:0.3; } 100% { transform:translateX(0) translateY(0) scale(1) opacity:0.1; } }`;
       document.head.appendChild(style);
-      document.addEventListener("mousemove", e => {
-        document.querySelectorAll(".ship").forEach(s => {
-          const r = s.getBoundingClientRect(), dx = e.clientX-(r.left+r.width/2), dy = e.clientY-(r.top+r.height/2);
-          if (Math.hypot(dx,dy) < 100) { const a = Math.atan2(dy,dx); s.style.transform = `translate(${-Math.cos(a)*50}px,${-Math.sin(a)*50}px)`; setTimeout(()=>s.style.transform="",300); }
-        });
-      });
     }
 
     function toggleTheme() {
@@ -989,10 +1009,8 @@
       document.getElementById("themeSwitch").checked = isDark;
     }
     function toggleSettings() {
-      const panel = document.querySelector(".settings-panel"), btn = document.querySelector(".settings-toggle button");
-      btn.classList.add("spin");
-      for (let i=0;i<4;i++) { const s=document.createElement("div"); s.className="smoke"; s.style.left=`${Math.random()*30}px`; s.style.top=`${Math.random()*15}px`; btn.appendChild(s); setTimeout(()=>s.remove(),1000); }
-      setTimeout(()=>{ btn.classList.remove("spin"); panel.classList.toggle("active"); },500);
+      const panel = document.querySelector(".settings-panel");
+      panel.classList.toggle("active");
     }
     function showToast(msg) { const t=document.getElementById("toast"); t.textContent=msg; t.style.display="block"; setTimeout(()=>t.style.display="none",2500); }
     function toggleDropdown(id) {
@@ -1015,48 +1033,29 @@
       consignee:    `Hi,\n\nThe consignee cannot be used as the Importer of Record.\n\nPlease suggest an alternative IOR.\n\nBest Regards`
     };
 
-    // ══════════════════════════════════════════════════════
-    //  ANCHOR / AMARI — Ctrl+Shift+Click helpers
-    // ══════════════════════════════════════════════════════
-    // GHY → amari.ai, everyone else → useanchor.ai
-    const AMARI_BASE  = "https://app.amari.ai/review/";
-
     function openReviewLinks(shipmentId, isGHY) {
-      if (isGHY) {
-        window.open(`https://app.amari.ai/review/${shipmentId}`, "_blank");
-      } else {
-        window.open(`https://app.useanchor.ai/review/${shipmentId}`, "_blank");
-      }
+      if (isGHY) window.open(`https://app.amari.ai/review/${shipmentId}`, "_blank");
+      else window.open(`https://app.useanchor.ai/review/${shipmentId}`, "_blank");
     }
 
-    // ── Card 4: Logs button handler ──
     let _lastCard4State = null;
-
     function handleLogsBtn1(e) {
       if ((e.ctrlKey || e.metaKey) && e.shiftKey) {
-        // Ctrl/Cmd+Shift+Click → open Anchor/Amari review
         e.preventDefault();
         if (!_lastCard4State) { showToast("⚠️ No shipment detected yet"); return; }
         openReviewLinks(_lastCard4State.shipmentId, _lastCard4State.isGHY);
         showToast(_lastCard4State.isGHY ? "🤖 Opened Amari review" : "⚓ Opened Anchor review");
-      } else {
-        // Normal click → logs
-        openFillEntryLogs();
-      }
+      } else openFillEntryLogs();
     }
 
-    // ── Card 5: Logs button handler ──
     let _lastCard5State = null;
-
     function handleLogsBtn2(e) {
       if ((e.ctrlKey || e.metaKey) && e.shiftKey) {
         e.preventDefault();
         if (!_lastCard5State) { showToast("⚠️ No shipment detected yet"); return; }
         openReviewLinks(_lastCard5State.shipmentId, _lastCard5State.isGHY);
         showToast(_lastCard5State.isGHY ? "🤖 Opened Amari review" : "⚓ Opened Anchor review");
-      } else {
-        openExtractionLogs();
-      }
+      } else openExtractionLogs();
     }
 
     // ── CARD 1 ──
@@ -1067,18 +1066,15 @@
       const id     = document.getElementById("shipmentInput").value.trim();
       if (!configMap[client]) { box.value = ""; return; }
       let json;
-      if (mode === "fill") {
-        json = { shipment_id: id||"string", root_path: configMap[client].root, config_path: configMap[client].config, entry_number: "", display: ":2433.0" };
-      } else {
-        json = { thread_id: "string", shipment_id: id||"string", root_path: configMap[client].root, config_path: configMap[client].config, ignore_files_regex: "", ignore_sheets_regex: "", force_process_attachments: true, display: ":2433.0" };
-      }
+      if (mode === "fill") json = { shipment_id: id||"string", root_path: configMap[client].root, config_path: configMap[client].config, entry_number: "", display: ":2433.0" };
+      else json = { thread_id: "string", shipment_id: id||"string", root_path: configMap[client].root, config_path: configMap[client].config, ignore_files_regex: "", ignore_sheets_regex: "", force_process_attachments: true, display: ":2433.0" };
       box.value = JSON.stringify(json, null, 2);
       if (id && id.length > 10) saveToHistory(id);
     }
     function getShipmentId() { const id=document.getElementById("shipmentInput").value.trim(); if(!id){showToast("⚠️ Please enter a Shipment ID first");return null;} return id; }
     function openTransworldLogs() { const id=getShipmentId(); if(!id)return; window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/web-platform-2/docparser/customs_assistant`,"_blank"); }
     function openPlatformLogs()   { const id=getShipmentId(); if(!id)return; window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/amari/apps/customs_assistant_main_migration`,"_blank"); }
-    function copyAutoFilled(btn)  { const box=document.getElementById("jsonBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
+    function copyAutoFilled(btn)  { const box=document.getElementById("jsonBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"Copied!"); }
 
     // ── CARD 2 ──
     function autofillTemplateJSON() {
@@ -1101,9 +1097,9 @@
       document.getElementById("threadInput").value=""; document.getElementById("stringInput").value="";
       document.getElementById("templateBox").value=""; document.getElementById("stringWarning").classList.remove("show");
     }
-    function copyTemplateJSON(btn) { const box=document.getElementById("templateBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!"); }
+    function copyTemplateJSON(btn) { const box=document.getElementById("templateBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"Copied!"); }
 
-    // ── CARD 3: YAML to JSON ──
+    // ── CARD 3 ──
     function convertYAML() {
       const input = document.getElementById("yamlInput").value.trim();
       const output = document.getElementById("yamlOutput");
@@ -1112,12 +1108,9 @@
       try {
         const parsed = parseYAMLSmart(input);
         output.value = JSON.stringify(parsed, null, 2);
-        status.className = "status-bar info show";
-        status.textContent = "✅ Converted successfully";
+        status.className = "status-bar info show"; status.textContent = "✅ Converted successfully";
       } catch(e) {
-        output.value = "";
-        status.className = "status-bar warn show";
-        status.textContent = "⚠️ " + e.message;
+        output.value = ""; status.className = "status-bar warn show"; status.textContent = "⚠️ " + e.message;
       }
     }
 
@@ -1125,40 +1118,30 @@
       const assignMatch = text.match(/^[\w\s]*=\s*("[\s\S]*"|'[\s\S]*')$/);
       if (assignMatch) { const raw = assignMatch[1]; return parseQuotedScalar(raw); }
       const bareQuoteMatch = text.match(/^("[\s\S]*"|'[\s\S]*')$/);
-      if (bareQuoteMatch) { return parseQuotedScalar(bareQuoteMatch[1]); }
+      if (bareQuoteMatch) return parseQuotedScalar(bareQuoteMatch[1]);
       const hasMapLine = text.split("\n").some(l => /^\s*\w[\w\s\-]*:\s/.test(l) || /^\s*\w[\w\s\-]*:\s*$/.test(l));
       if (hasMapLine) return parseYAMLMap(text);
       return text;
     }
 
     function parseQuotedScalar(raw) {
-      const quote = raw[0];
-      const inner = raw.slice(1, -1);
-      if (quote === '"') {
-        return inner.replace(/\\n/g, "\n").replace(/\\t/g, "\t").replace(/\\r/g, "\r").replace(/\\"/g, '"').replace(/\\\\/g, "\\");
-      }
+      const quote = raw[0], inner = raw.slice(1, -1);
+      if (quote === '"') return inner.replace(/\\n/g, "\n").replace(/\\t/g, "\t").replace(/\\r/g, "\r").replace(/\\"/g, '"').replace(/\\\\/g, "\\");
       return inner.replace(/''/g, "'");
     }
 
     function parseYAMLMap(text) {
       const lines = text.replace(/\r\n/g, "\n").split("\n");
-      const root = {};
-      const stack = [{ obj: root, indent: -1 }];
-      let i = 0;
+      const root = {}; const stack = [{ obj: root, indent: -1 }]; let i = 0;
       function getValue(raw) {
         const v = raw.trim();
-        if (v === "true")  return true;
-        if (v === "false") return false;
-        if (v === "null" || v === "~") return null;
-        if (v === "") return null;
-        if (/^-?\d+$/.test(v)) return parseInt(v, 10);
-        if (/^-?\d+\.\d+$/.test(v)) return parseFloat(v);
+        if (v === "true") return true; if (v === "false") return false; if (v === "null" || v === "~" || v === "") return null;
+        if (/^-?\d+$/.test(v)) return parseInt(v, 10); if (/^-?\d+\.\d+$/.test(v)) return parseFloat(v);
         if ((v[0] === '"' && v[v.length-1] === '"') || (v[0] === "'" && v[v.length-1] === "'")) return parseQuotedScalar(v);
         return v;
       }
       while (i < lines.length) {
-        const line = lines[i];
-        const trimmed = line.trim();
+        const line = lines[i]; const trimmed = line.trim();
         if (!trimmed || trimmed.startsWith("#")) { i++; continue; }
         const indent = line.search(/\S/);
         while (stack.length > 1 && stack[stack.length-1].indent >= indent) stack.pop();
@@ -1172,13 +1155,12 @@
           const arr = stack[stack.length-1].obj;
           if (Array.isArray(arr)) {
             if (val.includes(": ")) { const child = {}; arr.push(child); stack.push({ obj: child, indent: indent+2 }); const [k, ...rest] = val.split(": "); child[k.trim()] = getValue(rest.join(": ")); child._lastKey = k.trim(); }
-            else { arr.push(getValue(val)); }
+            else arr.push(getValue(val));
           }
           i++; continue;
         }
         if (trimmed === "-") { i++; continue; }
-        const colonIdx = trimmed.indexOf(": ");
-        const isKeyOnly = trimmed.endsWith(":");
+        const colonIdx = trimmed.indexOf(": "); const isKeyOnly = trimmed.endsWith(":");
         if (colonIdx !== -1 || isKeyOnly) {
           const key = isKeyOnly ? trimmed.slice(0,-1).trim() : trimmed.slice(0, colonIdx).trim();
           const rawVal = isKeyOnly ? "" : trimmed.slice(colonIdx+2);
@@ -1186,11 +1168,10 @@
           if (rawVal === "" || rawVal.trim() === "") {
             const nextLine = lines[i+1];
             if (nextLine !== undefined) {
-              const nextTrimmed = nextLine.trim();
-              const nextIndent = nextLine.search(/\S/);
+              const nextTrimmed = nextLine.trim(); const nextIndent = nextLine.search(/\S/);
               if (nextTrimmed.startsWith("- ")) { const arr = []; parent[key] = arr; parent._lastKey = key; stack.push({ obj: arr, indent: nextIndent, isArray: true }); }
               else { const child = {}; parent[key] = child; parent._lastKey = key; stack.push({ obj: child, indent: nextIndent }); }
-            } else { parent[key] = null; }
+            } else parent[key] = null;
           } else { parent[key] = getValue(rawVal); parent._lastKey = key; }
           i++; continue;
         }
@@ -1203,47 +1184,32 @@
       }
       return clean(root);
     }
-
-    function copyYAML(btn) { const box = document.getElementById("yamlOutput"); if (!box.value) { showToast("Nothing to copy yet"); return; } box.select(); document.execCommand("copy"); flashBtn(btn, "✅ Copied!"); }
+    function copyYAML(btn) { const box = document.getElementById("yamlOutput"); if (!box.value) { showToast("Nothing to copy yet"); return; } box.select(); document.execCommand("copy"); flashBtn(btn, "Copied!"); }
     function resetYAML() { document.getElementById("yamlInput").value = ""; document.getElementById("yamlOutput").value = ""; const s = document.getElementById("yamlStatus"); s.className = "status-bar"; s.textContent = ""; }
 
     function extractClient(text) {
       const textLower = text.toLowerCase();
-      const clientRaw = text.match(/Customer(?:\s+Name)?:\s*`([^`]+)`/i)?.[1]?.trim().toLowerCase()
-        || text.match(/Email Label:\s*`?label:([^`\s]+)`?/i)?.[1]?.trim().toLowerCase();
-
-      const sortedEntries = Object.entries(clientAliases).sort((a,b) =>
-        Math.max(...b[1].map(x=>x.length)) - Math.max(...a[1].map(x=>x.length))
-      );
-
+      const clientRaw = text.match(/Customer(?:\s+Name)?:\s*`([^`]+)`/i)?.[1]?.trim().toLowerCase() || text.match(/Email Label:\s*`?label:([^`\s]+)`?/i)?.[1]?.trim().toLowerCase();
+      const sortedEntries = Object.entries(clientAliases).sort((a,b) => Math.max(...b[1].map(x=>x.length)) - Math.max(...a[1].map(x=>x.length)));
       const wordBoundaryMatch = (haystack, needle) => {
         const idx = haystack.indexOf(needle);
         if (idx === -1) return false;
-        const before = haystack[idx - 1];
-        const after  = haystack[idx + needle.length];
+        const before = haystack[idx - 1], after = haystack[idx + needle.length];
         const w = /[a-z0-9]/;
         return !(before && w.test(before)) && !(after && w.test(after));
       };
-
       if (clientRaw) {
         for (const [key, aliases] of sortedEntries) {
-          if (aliases.some(a => {
-            const al = a.toLowerCase();
-            return clientRaw === al || wordBoundaryMatch(clientRaw, al);
-          })) return { matchedKey: key, clientRaw };
+          if (aliases.some(a => { const al = a.toLowerCase(); return clientRaw === al || wordBoundaryMatch(clientRaw, al); })) return { matchedKey: key, clientRaw };
         }
       }
-
       for (const [key, aliases] of sortedEntries) {
-        if (aliases.some(a => wordBoundaryMatch(textLower, a.toLowerCase())))
-          return { matchedKey: key, clientRaw };
+        if (aliases.some(a => wordBoundaryMatch(textLower, a.toLowerCase()))) return { matchedKey: key, clientRaw };
       }
       return { matchedKey: null, clientRaw };
     }
 
-    // ══════════════════════════════════════════════════════
-    //  CARD 4 HISTORY
-    // ══════════════════════════════════════════════════════
+    // ── CARD 4 HISTORY ──
     const C4_HISTORY_KEY = "devease_c4_history";
     const C4_HISTORY_MAX = 5;
     function getC4History() { try { return JSON.parse(localStorage.getItem(C4_HISTORY_KEY) || "[]"); } catch(e) { return []; } }
@@ -1255,34 +1221,22 @@
       localStorage.setItem(C4_HISTORY_KEY, JSON.stringify(h));
       renderC4History();
     }
-    function removeFromC4History(id) {
-      localStorage.setItem(C4_HISTORY_KEY, JSON.stringify(getC4History().filter(x => x.id !== id)));
-      renderC4History();
-    }
+    function removeFromC4History(id) { localStorage.setItem(C4_HISTORY_KEY, JSON.stringify(getC4History().filter(x => x.id !== id))); renderC4History(); }
     function toggleC4Item(id) {
-      const item = document.querySelector(`#c4HistoryList .c4-hist-item[data-id="${id}"]`);
-      if (!item) return;
+      const item = document.querySelector(`#c4HistoryList .c4-hist-item[data-id="${id}"]`); if (!item) return;
       const isOpen = item.classList.contains("open");
       document.querySelectorAll("#c4HistoryList .c4-hist-item.open").forEach(el => el.classList.remove("open"));
       if (!isOpen) item.classList.add("open");
     }
     function copyC4JSON(id, btn) {
-      const h = getC4History().find(x => x.id === id);
-      if (!h) return;
-      navigator.clipboard.writeText(h.json).then(() => {
-        const orig = btn.textContent; btn.textContent = "✅ Copied!";
-        setTimeout(() => btn.textContent = orig, 1500);
-      }).catch(() => {
-        const ta = document.createElement("textarea"); ta.value = h.json;
-        document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
-        const orig = btn.textContent; btn.textContent = "✅ Copied!";
-        setTimeout(() => btn.textContent = orig, 1500);
+      const h = getC4History().find(x => x.id === id); if (!h) return;
+      navigator.clipboard.writeText(h.json).then(() => { flashBtn(btn, "Copied!"); }).catch(() => {
+        const ta = document.createElement("textarea"); ta.value = h.json; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta); flashBtn(btn, "Copied!");
       });
     }
     function renderC4History() {
-      const list = document.getElementById("c4HistoryList");
-      const h = getC4History();
-      if (!h.length) { list.innerHTML = '<div class="c4-history-empty">No recent entries yet — paste an alert above to save one</div>'; return; }
+      const list = document.getElementById("c4HistoryList"), h = getC4History();
+      if (!h.length) { list.innerHTML = '<div class="c4-history-empty">No recent entries yet — paste an alert above</div>'; return; }
       list.innerHTML = h.map(entry => `
         <div class="c4-hist-item" data-id="${entry.id}">
           <div class="c4-hist-row" onclick="toggleC4Item('${entry.id}')">
@@ -1293,18 +1247,15 @@
           </div>
           <div class="c4-hist-preview">
             <div class="c4-hist-json">${entry.json.replace(/</g,"&lt;")}</div>
-            <button class="c4-hist-copy" onclick="copyC4JSON('${entry.id}', this)">📋 Copy JSON</button>
+            <button class="c4-hist-copy" onclick="copyC4JSON('${entry.id}', this)">Copy JSON</button>
           </div>
         </div>`).join("");
     }
 
-    // ══════════════════════════════════════════════════════
-    //  CARD 5 HISTORY
-    // ══════════════════════════════════════════════════════
+    // ── CARD 5 HISTORY ──
     const C5_HISTORY_KEY = "devease_c5_history";
     const C5_HISTORY_MAX = 5;
     function getC5History() { try { return JSON.parse(localStorage.getItem(C5_HISTORY_KEY) || "[]"); } catch(e) { return []; } }
-
     function saveToC5History(displayId, idType, client, jsonStr) {
       if (!displayId || !client) return;
       let h = getC5History().filter(x => x.id !== displayId);
@@ -1313,41 +1264,25 @@
       localStorage.setItem(C5_HISTORY_KEY, JSON.stringify(h));
       renderC5History();
     }
-    function removeFromC5History(id) {
-      localStorage.setItem(C5_HISTORY_KEY, JSON.stringify(getC5History().filter(x => x.id !== id)));
-      renderC5History();
-    }
+    function removeFromC5History(id) { localStorage.setItem(C5_HISTORY_KEY, JSON.stringify(getC5History().filter(x => x.id !== id))); renderC5History(); }
     function toggleC5Item(id) {
-      const item = document.querySelector(`#c5HistoryList .c4-hist-item[data-id="${CSS.escape(id)}"]`);
-      if (!item) return;
+      const item = document.querySelector(`#c5HistoryList .c4-hist-item[data-id="${CSS.escape(id)}"]`); if (!item) return;
       const isOpen = item.classList.contains("open");
       document.querySelectorAll("#c5HistoryList .c4-hist-item.open").forEach(el => el.classList.remove("open"));
       if (!isOpen) item.classList.add("open");
     }
     function copyC5JSON(id, btn) {
-      const h = getC5History().find(x => x.id === id);
-      if (!h) return;
-      navigator.clipboard.writeText(h.json).then(() => {
-        const orig = btn.textContent; btn.textContent = "✅ Copied!";
-        setTimeout(() => btn.textContent = orig, 1500);
-      }).catch(() => {
-        const ta = document.createElement("textarea"); ta.value = h.json;
-        document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
-        const orig = btn.textContent; btn.textContent = "✅ Copied!";
-        setTimeout(() => btn.textContent = orig, 1500);
+      const h = getC5History().find(x => x.id === id); if (!h) return;
+      navigator.clipboard.writeText(h.json).then(() => { flashBtn(btn, "Copied!"); }).catch(() => {
+        const ta = document.createElement("textarea"); ta.value = h.json; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta); flashBtn(btn, "Copied!");
       });
     }
     function renderC5History() {
-      const list = document.getElementById("c5HistoryList");
-      const h = getC5History();
-      if (!h.length) {
-        list.innerHTML = '<div class="c4-history-empty">No recent extractions yet — paste an alert above to save one</div>';
-        return;
-      }
+      const list = document.getElementById("c5HistoryList"), h = getC5History();
+      if (!h.length) { list.innerHTML = '<div class="c4-history-empty">No recent extractions yet — paste an alert above</div>'; return; }
       const typeIcon = { shipment: "🆔", email: "📧", thread: "🧵", message: "✉️" };
       list.innerHTML = h.map(entry => {
-        const safeId = entry.id.replace(/'/g, "\\'");
-        const icon = typeIcon[entry.idType] || "🆔";
+        const safeId = entry.id.replace(/'/g, "\\'"), icon = typeIcon[entry.idType] || "🆔";
         const shortId = entry.id.length > 20 ? entry.id.slice(0, 20) + "…" : entry.id;
         return `
         <div class="c4-hist-item" data-id="${entry.id}">
@@ -1359,7 +1294,7 @@
           </div>
           <div class="c4-hist-preview">
             <div class="c4-hist-json">${entry.json.replace(/</g,"&lt;")}</div>
-            <button class="c4-hist-copy" onclick="copyC5JSON('${safeId}', this)">📋 Copy JSON</button>
+            <button class="c4-hist-copy" onclick="copyC5JSON('${safeId}', this)">Copy JSON</button>
           </div>
         </div>`;
       }).join("");
@@ -1375,57 +1310,26 @@
       const pillsHTML = [];
       if (matchedKey)     pillsHTML.push(`<span class="pill">🏢 ${matchedKey}</span>`);
       else if (clientRaw) pillsHTML.push(`<span class="pill warn">⚠️ "${clientRaw}" not in config</span>`);
-      if (shipmentId)     pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${shipmentId}',this)" title="Click to copy">🆔 ${shipmentId.slice(0,8)}…</span>`);
+      if (shipmentId)     pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${shipmentId}',this)">🆔 ${shipmentId.slice(0,8)}…</span>`);
       pills.innerHTML = pillsHTML.join("");
       if (matchedKey && shipmentId) {
-        const cfg = configMap[matchedKey];
-        const isGHY = matchedKey === "GHY";
+        const cfg = configMap[matchedKey], isGHY = matchedKey === "GHY";
         const jsonStr = JSON.stringify({ shipment_id: shipmentId, root_path: cfg.root, config_path: cfg.config, entry_number: "", display: ":2433.0" }, null, 2);
-        box.value = jsonStr;
-        status.className="status-bar info show"; status.textContent="✅ Fill Entry JSON ready";
-        document.getElementById("logsBtn1").style.display="";
-        // Store state for Anchor/Amari button
-        _lastCard4State = { shipmentId, isGHY, rootPath: cfg.root };
-        autoCopyToClipboard(jsonStr);
-        saveToC4History(shipmentId, matchedKey, jsonStr);
-        // Track unique ID for stats
-        trackStatId("fill", shipmentId);
+        box.value = jsonStr; status.className="status-bar info show"; status.textContent="✅ Fill Entry ready";
+        document.getElementById("logsBtn1").style.display=""; _lastCard4State = { shipmentId, isGHY, rootPath: cfg.root };
+        autoCopyToClipboard(jsonStr); saveToC4History(shipmentId, matchedKey, jsonStr); trackStatId("fill", shipmentId);
       } else {
-        box.value=""; status.className="status-bar warn show";
-        status.textContent = !matchedKey ? "⚠️ Client not recognised" : "⚠️ No Shipment ID found";
-        _lastCard4State = null;
+        box.value=""; status.className="status-bar warn show"; status.textContent = !matchedKey ? "⚠️ Client not recognised" : "⚠️ No Shipment ID"; _lastCard4State = null;
       }
     }
-    function copySmartJSON(btn) {
-      const box=document.getElementById("smartJsonBox"); if(!box.value){showToast("Nothing to copy yet");return;}
-      box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!");
-      // Track copy for stats
-      if (_lastCard4State) trackStatCopy("fill");
-    }
-    function resetSmartPaste() {
-      document.getElementById("smartPaste").value=""; document.getElementById("smartJsonBox").value="";
-      document.getElementById("smartPills").innerHTML=""; const s=document.getElementById("smartStatus"); s.className="status-bar"; s.textContent="";
-      document.getElementById("logsBtn1").style.display="none";
-      _lastCard4State = null;
-    }
-    function openFillEntryLogs() {
-      try {
-        const json=JSON.parse(document.getElementById("smartJsonBox").value);
-        if (!json.shipment_id||json.shipment_id==="string"){showToast("⚠️ No Shipment ID found");return;}
-        const w=window.open(`http://34.30.43.174:8080/commands/logs/shipment/${json.shipment_id}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank");
-        if(w){w.blur();window.focus();}
-      } catch(e){showToast("⚠️ Could not read JSON");}
-    }
+    function copySmartJSON(btn) { const box=document.getElementById("smartJsonBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"Copied!"); if (_lastCard4State) trackStatCopy("fill"); }
+    function resetSmartPaste() { document.getElementById("smartPaste").value=""; document.getElementById("smartJsonBox").value=""; document.getElementById("smartPills").innerHTML=""; const s=document.getElementById("smartStatus"); s.className="status-bar"; s.textContent=""; document.getElementById("logsBtn1").style.display="none"; _lastCard4State = null; }
+    function openFillEntryLogs() { try { const json=JSON.parse(document.getElementById("smartJsonBox").value); if (!json.shipment_id||json.shipment_id==="string"){showToast("⚠️ No Shipment ID");return;} const w=window.open(`http://34.30.43.174:8080/commands/logs/shipment/${json.shipment_id}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank"); if(w){w.blur();window.focus();} } catch(e){showToast("⚠️ Could not read JSON");} }
 
     // ── CARD 5: Skip Pill System ──
     let forceFalse=false, activePredefinedPills=new Set(), activeCustomPills=new Set(), noneActive=true;
     function toggleForceFalse(el) { forceFalse=!forceFalse; el.classList.toggle("active",forceFalse); handleSmartPaste2(); }
-    function toggleNone(el) {
-      activePredefinedPills.clear(); activeCustomPills.clear(); noneActive=true;
-      document.querySelectorAll(".skip-pill:not(.none-pill)").forEach(p=>p.classList.remove("active"));
-      el.classList.add("active"); document.getElementById("customInputRow").style.display="none";
-      handleSmartPaste2();
-    }
+    function toggleNone(el) { activePredefinedPills.clear(); activeCustomPills.clear(); noneActive=true; document.querySelectorAll(".skip-pill:not(.none-pill)").forEach(p=>p.classList.remove("active")); el.classList.add("active"); document.getElementById("customInputRow").style.display="none"; handleSmartPaste2(); }
     function togglePredefinedPill(el) {
       const regex=el.getAttribute("data-regex");
       if (el.classList.contains("active")) { el.classList.remove("active"); activePredefinedPills.delete(regex); }
@@ -1434,28 +1338,18 @@
       if (activePredefinedPills.size===0&&activeCustomPills.size===0) { document.querySelector(".none-pill").classList.add("active"); noneActive=true; }
       handleSmartPaste2();
     }
-    function showCustomInput() {
-      const row=document.getElementById("customInputRow");
-      row.style.display=row.style.display==="none"?"flex":"none";
-      if (row.style.display==="flex") document.getElementById("customFileInput").focus();
-    }
+    function showCustomInput() { const row=document.getElementById("customInputRow"); row.style.display=row.style.display==="none"?"flex":"none"; if (row.style.display==="flex") document.getElementById("customFileInput").focus(); }
     function addCustomFile() {
       const input=document.getElementById("customFileInput"), val=input.value.trim(); if (!val) return;
-      const regex=`^(${val.replace(/\./g,"\\.")})$`;
-      const pill=document.createElement("span");
+      const regex=`^(${val.replace(/\./g,"\\.")})$`; const pill=document.createElement("span");
       pill.className="skip-pill custom-pill active"; pill.setAttribute("data-regex",regex); pill.textContent=val+" ✕";
       pill.onclick=function(){activeCustomPills.delete(regex);pill.remove();if(activePredefinedPills.size===0&&activeCustomPills.size===0){document.querySelector(".none-pill").classList.add("active");noneActive=true;}handleSmartPaste2();};
       document.querySelector("[data-add-custom]").parentNode.insertBefore(pill,document.querySelector("[data-add-custom]"));
-      activeCustomPills.add(regex); noneActive=false;
-      document.querySelector(".none-pill").classList.remove("active");
+      activeCustomPills.add(regex); noneActive=false; document.querySelector(".none-pill").classList.remove("active");
       document.querySelectorAll(".predefined-pill").forEach(p=>{p.classList.remove("active");activePredefinedPills.delete(p.getAttribute("data-regex"));});
-      input.value=""; document.getElementById("customInputRow").style.display="none";
-      handleSmartPaste2();
+      input.value=""; document.getElementById("customInputRow").style.display="none"; handleSmartPaste2();
     }
-    function onSheetToggle() {
-      document.getElementById("sheetActiveLabel").style.display=document.getElementById("skipSheetCheck").checked?"inline":"none";
-      handleSmartPaste2();
-    }
+    function onSheetToggle() { document.getElementById("sheetActiveLabel").style.display=document.getElementById("skipSheetCheck").checked?"inline":"none"; handleSmartPaste2(); }
     function getFileRegex() {
       if (noneActive) return "";
       if (activePredefinedPills.size>0){const p=[...activePredefinedPills];return p.length===1?p[0]:"("+p.join("|")+")";}
@@ -1464,75 +1358,31 @@
     }
     function getSheetRegex() { return document.getElementById("skipSheetCheck").checked?"^(?!YOUR_TEXT_HERE$).*":""; }
 
-    // ── CARD 5: Smart Paste — Get Extraction ──
-    let _lastSmartPasteText = ""; // Remembers the last paste so it doesn't fight your manual clicks
-
+    let _lastSmartPasteText = ""; 
     function handleSmartPaste2() {
-      const text=document.getElementById("smartPaste2").value, pills=document.getElementById("smartPills2"),
-            status=document.getElementById("smartStatus2"), box=document.getElementById("smartJsonBox2");
-            
-      if (!text.trim()){
-        pills.innerHTML="";box.value="";status.className="status-bar";_lastCard5State=null;
-        _lastSmartPasteText = ""; // Reset memory if box is cleared
-        return;
-      }
+      const text=document.getElementById("smartPaste2").value, pills=document.getElementById("smartPills2"), status=document.getElementById("smartStatus2"), box=document.getElementById("smartJsonBox2");
+      if (!text.trim()){ pills.innerHTML="";box.value="";status.className="status-bar";_lastCard5State=null; _lastSmartPasteText = ""; return; }
 
-      // ── START NEW: SMART SKIP AUTO-DETECTION ──
-      // Only run detection if the text changed (prevents overriding your manual clicks)
       if (text !== _lastSmartPasteText) {
-        _lastSmartPasteText = text;
-        const tLower = text.toLowerCase();
-        const hasImageError = tLower.includes("but the image appears to be a image/png") || 
-                              tLower.includes("but the image appears to be a image/jpeg");
+        _lastSmartPasteText = text; const tLower = text.toLowerCase();
+        const hasImageError = tLower.includes("but the image appears to be a image/png") || tLower.includes("but the image appears to be a image/jpeg");
         const hasPdfError = tLower.includes("the pdf specified was not valid");
+        let changedPills = false; const imgRegex = ".*\\.(jpg|jpeg|png|gif)$"; const pdfRegex = ".*\\.pdf$";
         
-        let changedPills = false;
-        const imgRegex = ".*\\.(jpg|jpeg|png|gif)$";
-        const pdfRegex = ".*\\.pdf$";
+        if (hasImageError && !activePredefinedPills.has(imgRegex)) { activePredefinedPills.add(imgRegex); const el = document.querySelector(`.predefined-pill[data-regex="${imgRegex}"]`); if (el) el.classList.add("active"); changedPills = true; } 
+        else if (!hasImageError && activePredefinedPills.has(imgRegex)) { activePredefinedPills.delete(imgRegex); const el = document.querySelector(`.predefined-pill[data-regex="${imgRegex}"]`); if (el) el.classList.remove("active"); changedPills = true; }
+        if (hasPdfError && !activePredefinedPills.has(pdfRegex)) { activePredefinedPills.add(pdfRegex); const el = document.querySelector(`.predefined-pill[data-regex="${pdfRegex}"]`); if (el) el.classList.add("active"); changedPills = true; } 
+        else if (!hasPdfError && activePredefinedPills.has(pdfRegex)) { activePredefinedPills.delete(pdfRegex); const el = document.querySelector(`.predefined-pill[data-regex="${pdfRegex}"]`); if (el) el.classList.remove("active"); changedPills = true; }
 
-        // Handle Image Pill: Turn on if error found, turn off if error is gone
-        if (hasImageError && !activePredefinedPills.has(imgRegex)) {
-          activePredefinedPills.add(imgRegex);
-          const el = document.querySelector(`.predefined-pill[data-regex="${imgRegex}"]`);
-          if (el) el.classList.add("active");
-          changedPills = true;
-        } else if (!hasImageError && activePredefinedPills.has(imgRegex)) {
-          activePredefinedPills.delete(imgRegex);
-          const el = document.querySelector(`.predefined-pill[data-regex="${imgRegex}"]`);
-          if (el) el.classList.remove("active");
-          changedPills = true;
-        }
-
-        // Handle PDF Pill: Turn on if error found, turn off if error is gone
-        if (hasPdfError && !activePredefinedPills.has(pdfRegex)) {
-          activePredefinedPills.add(pdfRegex);
-          const el = document.querySelector(`.predefined-pill[data-regex="${pdfRegex}"]`);
-          if (el) el.classList.add("active");
-          changedPills = true;
-        } else if (!hasPdfError && activePredefinedPills.has(pdfRegex)) {
-          activePredefinedPills.delete(pdfRegex);
-          const el = document.querySelector(`.predefined-pill[data-regex="${pdfRegex}"]`);
-          if (el) el.classList.remove("active");
-          changedPills = true;
-        }
-
-        // Automatically toggle the "None" pill on/off if we changed things
         if (changedPills) {
           noneActive = (activePredefinedPills.size === 0 && activeCustomPills.size === 0);
-          if (noneActive) {
-            document.querySelector(".none-pill").classList.add("active");
-          } else {
-            document.querySelector(".none-pill").classList.remove("active");
-          }
+          if (noneActive) document.querySelector(".none-pill").classList.add("active"); else document.querySelector(".none-pill").classList.remove("active");
         }
       }
-      // ── END NEW: SMART SKIP AUTO-DETECTION ──
 
       const shipmentIdRaw=text.match(/Shipment ID:\s*`([^`]+)`/i)?.[1]?.trim();
       const shipmentNotCreated = !shipmentIdRaw || /not created|not found|n\/a/i.test(shipmentIdRaw);
-      const shipmentId = (!shipmentNotCreated && shipmentIdRaw && /[0-9a-f]{8}-[0-9a-f]{4}/i.test(shipmentIdRaw))
-        ? shipmentIdRaw
-        : text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i)?.[0] || null;
+      const shipmentId = (!shipmentNotCreated && shipmentIdRaw && /[0-9a-f]{8}-[0-9a-f]{4}/i.test(shipmentIdRaw)) ? shipmentIdRaw : text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i)?.[0] || null;
 
       const threadId  = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
       const messageId = text.match(/Message ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
@@ -1540,197 +1390,76 @@
       const emailIdTmp = text.match(/Email ID:\s*`?(tmp_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})`?/i)?.[1];
       const emailId   = emailIdTmp || emailIdHex || null;
 
-      const isTmpEmail = !!emailIdTmp;
-      const tmpUUID    = isTmpEmail ? emailIdTmp.replace(/^tmp_/, "") : null;
-
-      const resolvedId     = messageId || emailId || threadId || null;
-      const resolvedIdType = messageId ? "Message ID" : emailId ? "Email ID" : threadId ? "Thread ID" : null;
-
-      const {matchedKey,clientRaw}=extractClient(text);
-      const isGHY = matchedKey === "GHY";
+      const isTmpEmail = !!emailIdTmp, tmpUUID = isTmpEmail ? emailIdTmp.replace(/^tmp_/, "") : null;
+      const resolvedId = messageId || emailId || threadId || null, resolvedIdType = messageId ? "Message ID" : emailId ? "Email ID" : threadId ? "Thread ID" : null;
+      const {matchedKey,clientRaw}=extractClient(text), isGHY = matchedKey === "GHY";
 
       const pillsHTML=[];
       if (matchedKey)     pillsHTML.push(`<span class="pill">🏢 ${matchedKey}</span>`);
       else if (clientRaw) pillsHTML.push(`<span class="pill warn">⚠️ "${clientRaw}" not in config</span>`);
 
       if (isTmpEmail) {
-        pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${emailIdTmp}',this)" title="Click to copy">📧 ${emailIdTmp.slice(0,16)}…</span>`);
-        pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${tmpUUID}',this)" title="Click to copy UUID">🆔 ${tmpUUID.slice(0,8)}…</span>`);
+        pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${emailIdTmp}',this)">📧 ${emailIdTmp.slice(0,16)}…</span>`);
+        pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${tmpUUID}',this)">🆔 ${tmpUUID.slice(0,8)}…</span>`);
       } else {
-        if (shipmentId)          pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${shipmentId}',this)" title="Click to copy">🆔 ${shipmentId.slice(0,8)}…</span>`);
+        if (shipmentId)          pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${shipmentId}',this)">🆔 ${shipmentId.slice(0,8)}…</span>`);
         else if (shipmentNotCreated) pillsHTML.push(`<span class="pill warn">⚠️ Shipment not created yet</span>`);
         if (messageId)           pillsHTML.push(`<span class="pill">✉️ msg: ${messageId.slice(0,8)}…</span>`);
-        else if (emailIdHex)     pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${emailIdHex}',this)" title="Click to copy">📧 email: ${emailIdHex.slice(0,8)}…</span>`);
-        else if (threadId)       pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${threadId}',this)" title="Click to copy">🧵 ${threadId.slice(0,8)}…</span>`);
+        else if (emailIdHex)     pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${emailIdHex}',this)">📧 email: ${emailIdHex.slice(0,8)}…</span>`);
+        else if (threadId)       pillsHTML.push(`<span class="pill" style="cursor:pointer" onclick="copyPill('${threadId}',this)">🧵 ${threadId.slice(0,8)}…</span>`);
       }
       pills.innerHTML=pillsHTML.join("");
 
       if (matchedKey && (shipmentId || shipmentNotCreated || isTmpEmail)) {
-        const cfg = configMap[matchedKey];
-        let jsonStr, displayId, displayIdType;
+        const cfg = configMap[matchedKey]; let jsonStr, displayId, displayIdType;
 
         if (isGHY && isTmpEmail) {
-          jsonStr = JSON.stringify({
-            thread_id: "",
-            shipment_id: tmpUUID,
-            root_path: cfg.root,
-            config_path: cfg.config,
-            ignore_files_regex: getFileRegex(),
-            ignore_sheets_regex: getSheetRegex(),
-            file_reference_number: "string",
-            force_process_attachments: false,
-            re_extract_only: false,
-            display: ":2433.0"
-          }, null, 2);
-          displayId     = tmpUUID;
-          displayIdType = "shipment";
+          jsonStr = JSON.stringify({ thread_id: "", shipment_id: tmpUUID, root_path: cfg.root, config_path: cfg.config, ignore_files_regex: getFileRegex(), ignore_sheets_regex: getSheetRegex(), file_reference_number: "string", force_process_attachments: false, re_extract_only: false, display: ":2433.0" }, null, 2);
+          displayId = tmpUUID; displayIdType = "shipment";
         } else if (isGHY) {
-          jsonStr = JSON.stringify({
-            thread_id: resolvedId || "string",
-            shipment_id: shipmentId || "",
-            root_path: cfg.root,
-            config_path: cfg.config,
-            ignore_files_regex: getFileRegex(),
-            ignore_sheets_regex: getSheetRegex(),
-            file_reference_number: "",
-            force_process_attachments: false,
-            re_extract_only: false,
-            display: ":2433.0"
-          }, null, 2);
-          displayId     = shipmentId || resolvedId;
-          displayIdType = shipmentId ? "shipment" : resolvedIdType === "Email ID" ? "email" : resolvedIdType === "Thread ID" ? "thread" : "message";
+          jsonStr = JSON.stringify({ thread_id: resolvedId || "string", shipment_id: shipmentId || "", root_path: cfg.root, config_path: cfg.config, ignore_files_regex: getFileRegex(), ignore_sheets_regex: getSheetRegex(), file_reference_number: "", force_process_attachments: false, re_extract_only: false, display: ":2433.0" }, null, 2);
+          displayId = shipmentId || resolvedId; displayIdType = shipmentId ? "shipment" : resolvedIdType === "Email ID" ? "email" : resolvedIdType === "Thread ID" ? "thread" : "message";
         } else {
-          jsonStr = JSON.stringify({
-            thread_id: resolvedId || "string",
-            shipment_id: shipmentId || "",
-            root_path: cfg.root,
-            config_path: cfg.config,
-            ignore_files_regex: getFileRegex(),
-            ignore_sheets_regex: getSheetRegex(),
-            force_process_attachments: !forceFalse,
-            display: ":2433.0"
-          }, null, 2);
-          displayId     = shipmentId || resolvedId;
-          displayIdType = shipmentId ? "shipment" : resolvedIdType === "Email ID" ? "email" : resolvedIdType === "Thread ID" ? "thread" : "message";
+          jsonStr = JSON.stringify({ thread_id: resolvedId || "string", shipment_id: shipmentId || "", root_path: cfg.root, config_path: cfg.config, ignore_files_regex: getFileRegex(), ignore_sheets_regex: getSheetRegex(), force_process_attachments: !forceFalse, display: ":2433.0" }, null, 2);
+          displayId = shipmentId || resolvedId; displayIdType = shipmentId ? "shipment" : resolvedIdType === "Email ID" ? "email" : resolvedIdType === "Thread ID" ? "thread" : "message";
         }
 
-        box.value = jsonStr;
-        status.className = "status-bar info show";
-
-        let statusNote;
-        if (isTmpEmail) statusNote = `GHY tmp_ email — shipment_id derived`;
-        else if (shipmentNotCreated) statusNote = "no shipment ID yet";
-        else if (resolvedIdType) statusNote = `using ${resolvedIdType}`;
-        else statusNote = "no ID found";
+        box.value = jsonStr; status.className = "status-bar info show";
+        let statusNote = isTmpEmail ? `GHY tmp_ email` : shipmentNotCreated ? "no shipment ID yet" : resolvedIdType ? `using ${resolvedIdType}` : "no ID found";
         status.textContent = `✅ Get Extraction ready — ${statusNote}`;
-
-        const showLogsBtn = isTmpEmail || !!threadId || !!emailIdHex;
-        document.getElementById("logsBtn2").style.display = showLogsBtn ? "" : "none";
-
-        // Store state for Anchor/Amari button
-        const reviewId = shipmentId || tmpUUID || resolvedId;
-        _lastCard5State = { shipmentId: reviewId, isGHY, rootPath: cfg.root };
-
-        autoCopyToClipboard(jsonStr);
-        if (displayId) {
-          saveToC5History(displayId, displayIdType, matchedKey, jsonStr);
-          // Track unique ID for stats
-          trackStatId("extract", displayId);
-        }
-
-      } else if (!matchedKey) {
-        box.value=""; status.className="status-bar warn show";
-        status.textContent="⚠️ Client not recognised";
-        _lastCard5State = null;
-      } else {
-        box.value=""; status.className="status-bar warn show";
-        status.textContent="⚠️ No Shipment ID found";
-        _lastCard5State = null;
-      }
+        document.getElementById("logsBtn2").style.display = (isTmpEmail || !!threadId || !!emailIdHex) ? "" : "none";
+        _lastCard5State = { shipmentId: shipmentId || tmpUUID || resolvedId, isGHY, rootPath: cfg.root };
+        autoCopyToClipboard(jsonStr); if (displayId) { saveToC5History(displayId, displayIdType, matchedKey, jsonStr); trackStatId("extract", displayId); }
+      } else if (!matchedKey) { box.value=""; status.className="status-bar warn show"; status.textContent="⚠️ Client not recognised"; _lastCard5State = null; } 
+      else { box.value=""; status.className="status-bar warn show"; status.textContent="⚠️ No Shipment ID found"; _lastCard5State = null; }
     }
 
     function openExtractionLogs() {
-      const text=document.getElementById("smartPaste2").value;
-      const threadId  = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
-      const emailIdHex= text.match(/Email ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
-      const emailIdTmp= text.match(/Email ID:\s*`?(tmp_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})`?/i)?.[1];
+      const text=document.getElementById("smartPaste2").value, threadId = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1], emailIdHex= text.match(/Email ID:\s*`?([a-f0-9]{16})`?/i)?.[1], emailIdTmp= text.match(/Email ID:\s*`?(tmp_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})`?/i)?.[1];
       try {
         const json=JSON.parse(document.getElementById("smartJsonBox2").value);
-        if (emailIdTmp) {
-          const w=window.open(`http://34.30.43.174:8080/commands/logs/${emailIdTmp}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank");
-          if(w){w.blur();window.focus();}
-        } else {
-          const logId = emailIdHex || threadId;
-          if (!logId){showToast("⚠️ No Thread ID or Email ID found");return;}
-          const w=window.open(`http://34.30.43.174:8080/commands/logs/${logId}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank");
-          if(w){w.blur();window.focus();}
-        }
+        if (emailIdTmp) { const w=window.open(`http://34.30.43.174:8080/commands/logs/${emailIdTmp}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank"); if(w){w.blur();window.focus();} } 
+        else { const logId = emailIdHex || threadId; if (!logId){showToast("⚠️ No Thread ID or Email ID found");return;} const w=window.open(`http://34.30.43.174:8080/commands/logs/${logId}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank"); if(w){w.blur();window.focus();} }
       } catch(e){showToast("⚠️ Could not read root path — copy JSON first");}
     }
-
-    function copySmartJSON2(btn) {
-      const box=document.getElementById("smartJsonBox2"); if(!box.value){showToast("Nothing to copy yet");return;}
-      box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!");
-      // Track copy for stats
-      if (_lastCard5State) trackStatCopy("extract");
-    }
+    function copySmartJSON2(btn) { const box=document.getElementById("smartJsonBox2"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"Copied!"); if (_lastCard5State) trackStatCopy("extract"); }
     function resetSmartPaste2(){
-      document.getElementById("smartPaste2").value="";document.getElementById("smartJsonBox2").value="";
-      document.getElementById("smartPills2").innerHTML="";const s=document.getElementById("smartStatus2");s.className="status-bar";s.textContent="";
-      document.getElementById("logsBtn2").style.display="none";
-      activePredefinedPills.clear();activeCustomPills.clear();noneActive=true;forceFalse=false;
-      document.getElementById("forceFalsePill").classList.remove("active");
-      document.querySelectorAll(".skip-pill.custom-pill").forEach(p=>p.remove());
-      document.querySelectorAll(".skip-pill:not(.none-pill):not([data-add-custom])").forEach(p=>p.classList.remove("active"));
-      document.querySelector(".none-pill").classList.add("active");
-      document.getElementById("customInputRow").style.display="none";
-      document.getElementById("skipSheetCheck").checked=false;
-      document.getElementById("sheetActiveLabel").style.display="none";
-      _lastCard5State = null;
+      document.getElementById("smartPaste2").value="";document.getElementById("smartJsonBox2").value=""; document.getElementById("smartPills2").innerHTML="";const s=document.getElementById("smartStatus2");s.className="status-bar";s.textContent=""; document.getElementById("logsBtn2").style.display="none";
+      activePredefinedPills.clear();activeCustomPills.clear();noneActive=true;forceFalse=false; document.getElementById("forceFalsePill").classList.remove("active"); document.querySelectorAll(".skip-pill.custom-pill").forEach(p=>p.remove()); document.querySelectorAll(".skip-pill:not(.none-pill):not([data-add-custom])").forEach(p=>p.classList.remove("active")); document.querySelector(".none-pill").classList.add("active");
+      document.getElementById("customInputRow").style.display="none"; document.getElementById("skipSheetCheck").checked=false; document.getElementById("sheetActiveLabel").style.display="none"; _lastCard5State = null;
     }
 
-    // ══════════════════════════════════════════════════════
-    //  CARD 6: Smart Message
-    // ══════════════════════════════════════════════════════
+    // ── CARD 6: Smart Message ──
     let errorOverride = null;
-
-    function setErrorOverride(type, el) {
-      errorOverride = type;
-      document.querySelectorAll("#errorOverridePills .skip-pill").forEach(p => p.classList.remove("active"));
-      el.classList.add("active");
-      handleSmartMessage();
-    }
-
+    function setErrorOverride(type, el) { errorOverride = type; document.querySelectorAll("#errorOverridePills .skip-pill").forEach(p => p.classList.remove("active")); el.classList.add("active"); handleSmartMessage(); }
+    
     function detectError(text) {
-      // Strip Slack-style timestamps like [12:44 AM], [1:23 PM], etc. before any extraction
-      const cleanText = text.replace(/\[\d{1,2}:\d{2}\s*(?:AM|PM)\]/gi, "").replace(/\d{1,2}:\d{2}\s*(?:AM|PM)/g, "");
-      const t = cleanText.toLowerCase();
-      const hasMID      = t.includes("mid not found")
-                       || (t.includes("manufacturer") && t.includes("not found"))
-                       || t.includes("confirm ai picked correct mid")
-                       || t.includes("mid value for manufacturer");
+      const cleanText = text.replace(/\[\d{1,2}:\d{2}\s*(?:AM|PM)\]/gi, "").replace(/\d{1,2}:\d{2}\s*(?:AM|PM)/g, ""); const t = cleanText.toLowerCase();
+      const hasMID = t.includes("mid not found") || (t.includes("manufacturer") && t.includes("not found")) || t.includes("confirm ai picked correct mid") || t.includes("mid value for manufacturer");
       const hasImporter = t.includes("importer id not found") || t.includes("trade partner") || (t.includes("consignee") && t.includes("not found"));
-
-      function extractMIDName(s) {
-        const raw = s.match(/MID not found for manufacturer:\s*(.+?)(?:\n|$)/i)?.[1]?.trim()
-          || s.match(/confirm AI picked correct MID value for manufacturer(?:\s+name)?:\s*(.+?)(?:\n|$)/i)?.[1]?.trim()
-          || s.match(/MID value for manufacturer(?:\s+name)?:\s*(.+?)(?:\n|$)/i)?.[1]?.trim()
-          || s.match(/manufacturer[:\s]+([A-Z][^\n]+?)(?:\n|$)/im)?.[1]?.trim()
-          || null;
-        // Strip any residual time-like tokens (e.g. "12:44 AM" left after bracket removal)
-        return raw ? raw.replace(/\s*\d{1,2}:\d{2}\s*(?:AM|PM)?/gi, "").trim() || null : null;
-      }
-
-      function extractIORName(s) {
-        const raw = s.match(/Importer ID not found for\s+(.+?)(?:\n|$)/i)?.[1]?.trim()
-          || s.match(/(?:trade partner|consignee)[:\s"]+([A-Z][^\n"]+?)(?:"\n|$)/im)?.[1]?.trim()
-          || null;
-        return raw ? raw.replace(/\s*\d{1,2}:\d{2}\s*(?:AM|PM)?/gi, "").trim() || null : null;
-      }
-
-      const midName = extractMIDName(cleanText);
-      const iorName = extractIORName(cleanText);
-
+      function extractMIDName(s) { const raw = s.match(/MID not found for manufacturer:\s*(.+?)(?:\n|$)/i)?.[1]?.trim() || s.match(/confirm AI picked correct MID value for manufacturer(?:\s+name)?:\s*(.+?)(?:\n|$)/i)?.[1]?.trim() || s.match(/MID value for manufacturer(?:\s+name)?:\s*(.+?)(?:\n|$)/i)?.[1]?.trim() || s.match(/manufacturer[:\s]+([A-Z][^\n]+?)(?:\n|$)/im)?.[1]?.trim() || null; return raw ? raw.replace(/\s*\d{1,2}:\d{2}\s*(?:AM|PM)?/gi, "").trim() || null : null; }
+      function extractIORName(s) { const raw = s.match(/Importer ID not found for\s+(.+?)(?:\n|$)/i)?.[1]?.trim() || s.match(/(?:trade partner|consignee)[:\s"]+([A-Z][^\n"]+?)(?:"\n|$)/im)?.[1]?.trim() || null; return raw ? raw.replace(/\s*\d{1,2}:\d{2}\s*(?:AM|PM)?/gi, "").trim() || null : null; }
+      const midName = extractMIDName(cleanText), iorName = extractIORName(cleanText);
       if (hasMID && hasImporter) return { type: "midior", midName, iorName, extractedName: null, label: "MID + IOR Error" };
       if (hasMID)      return { type: "mid",      extractedName: midName,  midName, iorName, label: "MID Error" };
       if (hasImporter) return { type: "importer", extractedName: iorName,  midName, iorName, label: "Importer ID Error" };
@@ -1738,38 +1467,20 @@
       if (t.includes("master bol")||t.includes("master awb")||t.includes("bol is required")||t.includes("awb is required")) return {type:"masterbol",extractedName:null,midName,iorName,label:"Master BOL Error"};
       if (t.includes("hts")||(t.includes("tariff")&&t.includes("not found"))||t.includes("invalid tariff")) return {type:"hts",extractedName:null,midName,iorName,label:"HTS Not Found"};
       if (t.includes("invoice")||t.includes("packing list")||(t.includes("convert")&&t.includes("float"))) return {type:"invoice",extractedName:null,midName,iorName,label:"Invoice Not Found"};
-      if (t.includes("file reference")||t.includes("already exists in the database")) {
-        const ref=cleanText.match(/File Reference Number[,\s]+([A-Z0-9-]+)[,\s]/i)?.[1]?.trim();
-        return {type:"fileref",extractedName:ref||null,midName,iorName,label:"File Reference Error"};
-      }
+      if (t.includes("file reference")||t.includes("already exists in the database")) { const ref=cleanText.match(/File Reference Number[,\s]+([A-Z0-9-]+)[,\s]/i)?.[1]?.trim(); return {type:"fileref",extractedName:ref||null,midName,iorName,label:"File Reference Error"}; }
       if (t.includes("profile not found")||(t.includes("profile")&&t.includes("not found"))) return {type:"profile",extractedName:null,midName,iorName,label:"Profile Not Found"};
       return {type:null,extractedName:null,midName,iorName,label:null};
     }
 
-    // Track what thread is in the current smart message (for stats)
     let _lastMsgThreadId = null;
-
     function handleSmartMessage() {
-      const text=document.getElementById("smartMsg").value, pills=document.getElementById("msgPills"),
-            status=document.getElementById("msgStatus"), box=document.getElementById("msgJsonBox"),
-            warning=document.getElementById("msgStringWarning");
+      const text=document.getElementById("smartMsg").value, pills=document.getElementById("msgPills"), status=document.getElementById("msgStatus"), box=document.getElementById("msgJsonBox"), warning=document.getElementById("msgStringWarning");
       if (!text.trim()){pills.innerHTML="";box.value="";status.className="status-bar";warning.classList.remove("show");_lastMsgThreadId=null;return;}
-
-      const threadId=text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
-      _lastMsgThreadId = threadId || null;
-      const {matchedKey,clientRaw}=extractClient(text);
-
-      const fullyDetected = detectError(text);
-
+      const threadId=text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1]; _lastMsgThreadId = threadId || null;
+      const {matchedKey,clientRaw}=extractClient(text), fullyDetected = detectError(text);
       let finalType, finalLabel;
-      if (errorOverride) {
-        finalType  = errorOverride;
-        finalLabel = document.querySelector(`#errorOverridePills [data-override="${errorOverride}"]`)?.textContent || errorOverride;
-      } else {
-        finalType  = fullyDetected.type;
-        finalLabel = fullyDetected.label;
-      }
-
+      if (errorOverride) { finalType = errorOverride; finalLabel = document.querySelector(`#errorOverridePills [data-override="${errorOverride}"]`)?.textContent || errorOverride; } 
+      else { finalType = fullyDetected.type; finalLabel = fullyDetected.label; }
       const { midName, iorName, extractedName } = fullyDetected;
 
       const pillsHTML=[];
@@ -1777,112 +1488,45 @@
       else if (clientRaw) pillsHTML.push(`<span class="pill warn">⚠️ "${clientRaw}" not recognised</span>`);
       if (threadId)       pillsHTML.push(`<span class="pill">🧵 ${threadId.slice(0,8)}…</span>`);
       if (finalLabel)     pillsHTML.push(`<span class="pill">⚠️ ${finalLabel}</span>`);
-
       if (finalType === "midior" || finalType === "mid") { if (midName) pillsHTML.push(`<span class="pill">🏭 ${midName}</span>`); }
       if (finalType === "midior" || finalType === "importer") { if (iorName) pillsHTML.push(`<span class="pill">📝 ${iorName}</span>`); }
       if (finalType === "mid" && !midName && extractedName) { pillsHTML.push(`<span class="pill">📝 ${extractedName}</span>`); }
       if (finalType === "importer" && !iorName && extractedName) { pillsHTML.push(`<span class="pill">📝 ${extractedName}</span>`); }
-
       pills.innerHTML=pillsHTML.join("");
 
       if (!matchedKey){status.className="status-bar warn show";status.textContent="⚠️ Client not recognised";box.value="";warning.classList.remove("show");return;}
       if (!threadId)  {status.className="status-bar warn show";status.textContent="⚠️ Thread ID not found";box.value="";warning.classList.remove("show");return;}
       if (!finalType) {status.className="status-bar warn show";status.textContent="⚠️ Could not detect error type — check paste";box.value="";warning.classList.remove("show");return;}
 
-      const cfg=configMap[matchedKey];
-      let msg;
-
-      if (finalType === "midior") {
-        msg = messageTemplates.midior;
-        if (midName) msg = msg.replace("STRING_MID", midName);
-        if (iorName) msg = msg.replace("STRING_IOR", iorName);
-      } else if (finalType === "mid") {
-        msg = messageTemplates.mid;
-        if (midName) msg = msg.replace("STRING", midName);
-        else if (extractedName) msg = msg.replace("STRING", extractedName);
-      } else if (finalType === "importer") {
-        msg = messageTemplates.importer;
-        if (iorName) msg = msg.replace("STRING", iorName);
-        else if (extractedName) msg = msg.replace("STRING", extractedName);
-      } else if (finalType === "fileref") {
-        msg = messageTemplates.fileref;
-        if (extractedName) msg = msg.replace("STRING", extractedName);
-      } else if (finalType === "yaml") {
-        // Grabs the raw text directly from Card 3's input box
-        msg = document.getElementById("yamlInput").value.trim();
-      } else {
-        msg = messageTemplates[finalType];
-      }
+      const cfg=configMap[matchedKey]; let msg;
+      if (finalType === "midior") { msg = messageTemplates.midior; if (midName) msg = msg.replace("STRING_MID", midName); if (iorName) msg = msg.replace("STRING_IOR", iorName); } 
+      else if (finalType === "mid") { msg = messageTemplates.mid; if (midName) msg = msg.replace("STRING", midName); else if (extractedName) msg = msg.replace("STRING", extractedName); } 
+      else if (finalType === "importer") { msg = messageTemplates.importer; if (iorName) msg = msg.replace("STRING", iorName); else if (extractedName) msg = msg.replace("STRING", extractedName); } 
+      else if (finalType === "fileref") { msg = messageTemplates.fileref; if (extractedName) msg = msg.replace("STRING", extractedName); } 
+      else if (finalType === "yaml") { msg = document.getElementById("yamlInput").value.trim(); } 
+      else { msg = messageTemplates[finalType]; }
 
       const jsonStr=JSON.stringify({thread_id:threadId,root_path:cfg.root,config_path:cfg.config,message:msg},null,2);
       box.value=jsonStr;
       const hasUnfilled=jsonStr.includes("STRING_MID")||jsonStr.includes("STRING_IOR")||(jsonStr.includes('"STRING"'));
-      warning.classList.toggle("show",hasUnfilled);
-      status.className="status-bar info show";
-      status.textContent=`✅ ${finalLabel} — message ready`;
-      // Track unique thread ID for stats
-      trackStatId("msg", threadId);
-      autoCopyToClipboard(jsonStr);
+      warning.classList.toggle("show",hasUnfilled); status.className="status-bar info show"; status.textContent=`✅ ${finalLabel} — message ready`; trackStatId("msg", threadId); autoCopyToClipboard(jsonStr);
     }
 
-    function copyMsgJSON(btn) {
-      const box=document.getElementById("msgJsonBox");
-      if(!box.value){showToast("Nothing to copy yet");return;}
-      box.select();document.execCommand("copy");flashBtn(btn,"✅ Copied!");
-      // Track copy for stats
-      if (_lastMsgThreadId) trackStatCopy("msg");
-      errorOverride=null;
-      document.querySelectorAll("#errorOverridePills .skip-pill").forEach(p=>p.classList.remove("active"));
-      document.getElementById("autoDetectPill").classList.add("active");
-    }
-
-    function resetSmartMsg(){
-      document.getElementById("smartMsg").value="";document.getElementById("msgJsonBox").value="";
-      document.getElementById("msgPills").innerHTML="";
-      const s=document.getElementById("msgStatus");s.className="status-bar";s.textContent="";
-      document.getElementById("msgStringWarning").classList.remove("show");
-      errorOverride=null; _lastMsgThreadId=null;
-      document.querySelectorAll("#errorOverridePills .skip-pill").forEach(p=>p.classList.remove("active"));
-      document.getElementById("autoDetectPill").classList.add("active");
-    }
+    function copyMsgJSON(btn) { const box=document.getElementById("msgJsonBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"Copied!"); if (_lastMsgThreadId) trackStatCopy("msg"); errorOverride=null; document.querySelectorAll("#errorOverridePills .skip-pill").forEach(p=>p.classList.remove("active")); document.getElementById("autoDetectPill").classList.add("active"); }
+    function resetSmartMsg(){ document.getElementById("smartMsg").value="";document.getElementById("msgJsonBox").value=""; document.getElementById("msgPills").innerHTML=""; const s=document.getElementById("msgStatus");s.className="status-bar";s.textContent=""; document.getElementById("msgStringWarning").classList.remove("show"); errorOverride=null; _lastMsgThreadId=null; document.querySelectorAll("#errorOverridePills .skip-pill").forEach(p=>p.classList.remove("active")); document.getElementById("autoDetectPill").classList.add("active"); }
 
     // ── SHARED ──
-    function copyPill(text,el){navigator.clipboard.writeText(text).then(()=>{const orig=el.textContent;el.textContent="✅ Copied!";setTimeout(()=>el.textContent=orig,1500);});}
+    function copyPill(text,el){navigator.clipboard.writeText(text).then(()=>{const orig=el.textContent;el.textContent="Copied!";setTimeout(()=>el.textContent=orig,1500);});}
+    function flashBtn(btn,msg){const orig=btn.innerHTML;btn.innerHTML=msg;btn.classList.add("btn-success");setTimeout(()=>{btn.innerHTML=orig;btn.classList.remove("btn-success");},1500);}
 
     // ── DOM READY ──
     document.addEventListener("DOMContentLoaded",()=>{
-      document.getElementById("customFileInput").addEventListener("keydown",e=>{
-        if(e.key==="Enter")addCustomFile();
-        if(e.key==="Escape")document.getElementById("customInputRow").style.display="none";
-      });
-      document.addEventListener("click",e=>{
-        if(!e.target.closest(".shipment-wrapper"))document.getElementById("historyDropdown").classList.remove("show");
-        if(!e.target.closest(".custom-dropdown"))document.querySelectorAll(".dropdown-panel").forEach(p=>p.style.display="none");
-        if(!e.target.closest(".settings-toggle"))document.querySelector(".settings-panel").classList.remove("active");
-      });
-      
-      document.getElementById("shipmentInput").addEventListener("click",function(e){
-        if(e.ctrlKey||e.metaKey){const id=getShipmentId();if(!id)return;window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/amari/apps/customs_assistant_main_migration`,"_blank");}
-      });
-      
-      document.querySelectorAll("[data-template]").forEach(item=>{
-        item.addEventListener("click",function(){
-          const el=document.getElementById("templateSelect");
-          el.value=this.textContent.trim();el.setAttribute("data-value",this.getAttribute("data-template"));
-          document.getElementById("templateDropdown").style.display="none";autofillTemplateJSON();
-        });
-      });
-      typeTitle();
-      createShips();
-      renderC4History();
-      renderC5History();
-      updateStatsDisplay();
-
+      document.getElementById("customFileInput").addEventListener("keydown",e=>{ if(e.key==="Enter")addCustomFile(); if(e.key==="Escape")document.getElementById("customInputRow").style.display="none"; });
+      document.addEventListener("click",e=>{ if(!e.target.closest(".shipment-wrapper"))document.getElementById("historyDropdown").classList.remove("show"); if(!e.target.closest(".custom-dropdown"))document.querySelectorAll(".dropdown-panel").forEach(p=>p.style.display="none"); if(!e.target.closest(".settings-toggle"))document.querySelector(".settings-panel").classList.remove("active"); });
+      document.getElementById("shipmentInput").addEventListener("click",function(e){ if(e.ctrlKey||e.metaKey){const id=getShipmentId();if(!id)return;window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/amari/apps/customs_assistant_main_migration`,"_blank");} });
+      document.querySelectorAll("[data-template]").forEach(item=>{ item.addEventListener("click",function(){ const el=document.getElementById("templateSelect"); el.value=this.textContent.trim();el.setAttribute("data-value",this.getAttribute("data-template")); document.getElementById("templateDropdown").style.display="none";autofillTemplateJSON(); }); });
+      typeTitle(); createShips(); renderC4History(); renderC5History(); updateStatsDisplay();
     });
-
-    function flashBtn(btn,msg){const orig=btn.innerHTML;btn.innerHTML=msg;btn.classList.add("btn-success");setTimeout(()=>{btn.innerHTML=orig;btn.classList.remove("btn-success");},1500);}
   </script>
 </body>
 </html>
-
-```
