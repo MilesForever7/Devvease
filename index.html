@@ -1465,10 +1465,68 @@
     function getSheetRegex() { return document.getElementById("skipSheetCheck").checked?"^(?!YOUR_TEXT_HERE$).*":""; }
 
     // ── CARD 5: Smart Paste — Get Extraction ──
+    let _lastSmartPasteText = ""; // Remembers the last paste so it doesn't fight your manual clicks
+
     function handleSmartPaste2() {
       const text=document.getElementById("smartPaste2").value, pills=document.getElementById("smartPills2"),
             status=document.getElementById("smartStatus2"), box=document.getElementById("smartJsonBox2");
-      if (!text.trim()){pills.innerHTML="";box.value="";status.className="status-bar";_lastCard5State=null;return;}
+            
+      if (!text.trim()){
+        pills.innerHTML="";box.value="";status.className="status-bar";_lastCard5State=null;
+        _lastSmartPasteText = ""; // Reset memory if box is cleared
+        return;
+      }
+
+      // ── START NEW: SMART SKIP AUTO-DETECTION ──
+      // Only run detection if the text changed (prevents overriding your manual clicks)
+      if (text !== _lastSmartPasteText) {
+        _lastSmartPasteText = text;
+        const tLower = text.toLowerCase();
+        const hasImageError = tLower.includes("but the image appears to be a image/png") || 
+                              tLower.includes("but the image appears to be a image/jpeg");
+        const hasPdfError = tLower.includes("the pdf specified was not valid");
+        
+        let changedPills = false;
+        const imgRegex = ".*\\.(jpg|jpeg|png|gif)$";
+        const pdfRegex = ".*\\.pdf$";
+
+        // Handle Image Pill: Turn on if error found, turn off if error is gone
+        if (hasImageError && !activePredefinedPills.has(imgRegex)) {
+          activePredefinedPills.add(imgRegex);
+          const el = document.querySelector(`.predefined-pill[data-regex="${imgRegex}"]`);
+          if (el) el.classList.add("active");
+          changedPills = true;
+        } else if (!hasImageError && activePredefinedPills.has(imgRegex)) {
+          activePredefinedPills.delete(imgRegex);
+          const el = document.querySelector(`.predefined-pill[data-regex="${imgRegex}"]`);
+          if (el) el.classList.remove("active");
+          changedPills = true;
+        }
+
+        // Handle PDF Pill: Turn on if error found, turn off if error is gone
+        if (hasPdfError && !activePredefinedPills.has(pdfRegex)) {
+          activePredefinedPills.add(pdfRegex);
+          const el = document.querySelector(`.predefined-pill[data-regex="${pdfRegex}"]`);
+          if (el) el.classList.add("active");
+          changedPills = true;
+        } else if (!hasPdfError && activePredefinedPills.has(pdfRegex)) {
+          activePredefinedPills.delete(pdfRegex);
+          const el = document.querySelector(`.predefined-pill[data-regex="${pdfRegex}"]`);
+          if (el) el.classList.remove("active");
+          changedPills = true;
+        }
+
+        // Automatically toggle the "None" pill on/off if we changed things
+        if (changedPills) {
+          noneActive = (activePredefinedPills.size === 0 && activeCustomPills.size === 0);
+          if (noneActive) {
+            document.querySelector(".none-pill").classList.add("active");
+          } else {
+            document.querySelector(".none-pill").classList.remove("active");
+          }
+        }
+      }
+      // ── END NEW: SMART SKIP AUTO-DETECTION ──
 
       const shipmentIdRaw=text.match(/Shipment ID:\s*`([^`]+)`/i)?.[1]?.trim();
       const shipmentNotCreated = !shipmentIdRaw || /not created|not found|n\/a/i.test(shipmentIdRaw);
