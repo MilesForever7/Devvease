@@ -1365,7 +1365,7 @@
 
       if (text !== _lastSmartPasteText) {
         _lastSmartPasteText = text; const tLower = text.toLowerCase();
-        const hasImageError = tLower.includes("but the image appears to be a image/png") || tLower.includes("but the image appears to be a image/jpeg");
+        const hasImageError = tLower.includes("but the image appears to be a image/png") || tLower.includes("but the image appears to be a image/jpeg" || tLower.includes("Image format image/png not supported");
         const hasPdfError = tLower.includes("the pdf specified was not valid");
         let changedPills = false; const imgRegex = ".*\\.(jpg|jpeg|png|gif)$"; const pdfRegex = ".*\\.pdf$";
         
