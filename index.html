@@ -609,7 +609,7 @@
         <div class="btn-row">
           <button class="btn btn-primary" onclick="copySmartJSON(this)">Copy JSON</button>
           <button class="btn btn-secondary" id="logsBtn1" onclick="handleLogsBtn1(event)" style="display:none" title="Click: Logs · Cmd+Shift+Click: Review">Open Logs</button>
-          <button class="btn btn-danger" onclick="resetSmartPaste()">Reset</button>
+          <button id="btnAction1" class="btn btn-secondary" onclick="toggleSmartAction(1)">Paste</button>
         </div>
         <div class="c4-history" id="c4History">
           <div class="c4-history-header">
@@ -657,7 +657,7 @@
         <div class="btn-row">
           <button class="btn btn-primary" onclick="copySmartJSON2(this)">Copy JSON</button>
           <button class="btn btn-secondary" id="logsBtn2" onclick="handleLogsBtn2(event)" style="display:none" title="Click: Logs · Cmd+Shift+Click: Review">Open Logs</button>
-          <button class="btn btn-danger" onclick="resetSmartPaste2()">Reset</button>
+          <button id="btnAction2" class="btn btn-secondary" onclick="toggleSmartAction(2)">Paste</button>
         </div>
         <div class="c4-history" id="c5History">
           <div class="c4-history-header">
@@ -703,7 +703,7 @@
         <div id="msgStringWarning" class="status-bar warn">⚠️ Contains unreplaced STRING</div>
         <div class="btn-row">
           <button class="btn btn-primary" onclick="copyMsgJSON(this)">Copy JSON</button>
-          <button class="btn btn-danger" onclick="resetSmartMsg()">Reset</button>
+          <button id="btnAction3" class="btn btn-secondary" onclick="toggleSmartAction(3)">Paste</button>
         </div>
       </div>
 
@@ -993,7 +993,7 @@
       const n = window.innerWidth < 640 ? 4 : 7;
       for (let i = 0; i < n; i++) {
         const ship = document.createElement("div");
-        ship.className = "ship"; ship.textContent = "✦"; // Changed from ship emoji to elegant sparkle/diamond
+        ship.className = "ship"; ship.textContent = "✦"; 
         ship.style.left = `${Math.random()*100}vw`; ship.style.top = `${Math.random()*100}vh`;
         ship.style.animation = `sail ${15+Math.random()*15}s linear ${Math.random()*5}s infinite`;
         ocean.appendChild(ship);
@@ -1301,8 +1301,55 @@
       }).join("");
     }
 
+    // ── SMART BUTTON TOGGLE (PASTE / RESET) ──
+    function toggleSmartAction(cardIdx) {
+      const config = {
+        1: { id: "smartPaste", reset: resetSmartPaste, handle: handleSmartPaste },
+        2: { id: "smartPaste2", reset: resetSmartPaste2, handle: handleSmartPaste2 },
+        3: { id: "smartMsg", reset: resetSmartMsg, handle: handleSmartMessage }
+      }[cardIdx];
+
+      const ta = document.getElementById(config.id);
+      if (!ta.value.trim()) {
+        if (navigator.clipboard && navigator.clipboard.readText) {
+          navigator.clipboard.readText().then(text => {
+            if (text) {
+              ta.value = text;
+              config.handle();
+            }
+          }).catch(err => {
+            showToast("⚠️ Clipboard access denied/failed");
+          });
+        } else {
+          showToast("⚠️ Clipboard API not supported");
+        }
+      } else {
+        config.reset();
+      }
+    }
+
+    function updateActionButton(cardIdx) {
+      const config = {
+        1: { id: "smartPaste", btn: "btnAction1" },
+        2: { id: "smartPaste2", btn: "btnAction2" },
+        3: { id: "smartMsg", btn: "btnAction3" }
+      }[cardIdx];
+      const ta = document.getElementById(config.id);
+      const btn = document.getElementById(config.btn);
+      if (!btn || !ta) return;
+      if (!ta.value.trim()) {
+        btn.textContent = "Paste";
+        btn.className = "btn btn-secondary";
+      } else {
+        btn.textContent = "Reset";
+        btn.className = "btn btn-danger";
+      }
+    }
+
+
     // ── CARD 4 ──
     function handleSmartPaste() {
+      updateActionButton(1);
       const text=document.getElementById("smartPaste").value, pills=document.getElementById("smartPills"),
             status=document.getElementById("smartStatus"), box=document.getElementById("smartJsonBox");
       if (!text.trim()) { pills.innerHTML=""; box.value=""; status.className="status-bar"; return; }
@@ -1324,7 +1371,15 @@
       }
     }
     function copySmartJSON(btn) { const box=document.getElementById("smartJsonBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"Copied!"); if (_lastCard4State) trackStatCopy("fill"); }
-    function resetSmartPaste() { document.getElementById("smartPaste").value=""; document.getElementById("smartJsonBox").value=""; document.getElementById("smartPills").innerHTML=""; const s=document.getElementById("smartStatus"); s.className="status-bar"; s.textContent=""; document.getElementById("logsBtn1").style.display="none"; _lastCard4State = null; }
+    function resetSmartPaste() { 
+      document.getElementById("smartPaste").value=""; 
+      document.getElementById("smartJsonBox").value=""; 
+      document.getElementById("smartPills").innerHTML=""; 
+      const s=document.getElementById("smartStatus"); s.className="status-bar"; s.textContent=""; 
+      document.getElementById("logsBtn1").style.display="none"; 
+      _lastCard4State = null; 
+      updateActionButton(1);
+    }
     function openFillEntryLogs() { try { const json=JSON.parse(document.getElementById("smartJsonBox").value); if (!json.shipment_id||json.shipment_id==="string"){showToast("⚠️ No Shipment ID");return;} const w=window.open(`http://34.30.43.174:8080/commands/logs/shipment/${json.shipment_id}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank"); if(w){w.blur();window.focus();} } catch(e){showToast("⚠️ Could not read JSON");} }
 
     // ── CARD 5: Skip Pill System ──
@@ -1361,14 +1416,13 @@
 
     let _lastSmartPasteText = ""; 
     function handleSmartPaste2() {
+      updateActionButton(2);
       const text=document.getElementById("smartPaste2").value, pills=document.getElementById("smartPills2"), status=document.getElementById("smartStatus2"), box=document.getElementById("smartJsonBox2");
       if (!text.trim()){ pills.innerHTML="";box.value="";status.className="status-bar";_lastCard5State=null; _lastSmartPasteText = ""; return; }
 
       if (text !== _lastSmartPasteText) {
         _lastSmartPasteText = text; const tLower = text.toLowerCase();
         const hasImageError = /image\/(?:png|jpe?g|gif)|appears to be a(?:n)? image|image format.*not supported|unsupported image/i.test(tLower);
-
-// Left exactly as is per your request
         const hasPdfError = tLower.includes("the pdf specified was not valid");
         let changedPills = false; const imgRegex = ".*\\.(jpg|jpeg|png|gif)$"; const pdfRegex = ".*\\.pdf$";
         
@@ -1450,6 +1504,7 @@
       document.getElementById("smartPaste2").value="";document.getElementById("smartJsonBox2").value=""; document.getElementById("smartPills2").innerHTML="";const s=document.getElementById("smartStatus2");s.className="status-bar";s.textContent=""; document.getElementById("logsBtn2").style.display="none";
       activePredefinedPills.clear();activeCustomPills.clear();noneActive=true;forceFalse=false; document.getElementById("forceFalsePill").classList.remove("active"); document.querySelectorAll(".skip-pill.custom-pill").forEach(p=>p.remove()); document.querySelectorAll(".skip-pill:not(.none-pill):not([data-add-custom])").forEach(p=>p.classList.remove("active")); document.querySelector(".none-pill").classList.add("active");
       document.getElementById("customInputRow").style.display="none"; document.getElementById("skipSheetCheck").checked=false; document.getElementById("sheetActiveLabel").style.display="none"; _lastCard5State = null;
+      updateActionButton(2);
     }
 
     // ── CARD 6: Smart Message ──
@@ -1477,6 +1532,7 @@
 
     let _lastMsgThreadId = null;
     function handleSmartMessage() {
+      updateActionButton(3);
       const text=document.getElementById("smartMsg").value, pills=document.getElementById("msgPills"), status=document.getElementById("msgStatus"), box=document.getElementById("msgJsonBox"), warning=document.getElementById("msgStringWarning");
       if (!text.trim()){pills.innerHTML="";box.value="";status.className="status-bar";warning.classList.remove("show");_lastMsgThreadId=null;return;}
       const threadId=text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1]; _lastMsgThreadId = threadId || null;
@@ -1516,7 +1572,7 @@
     }
 
     function copyMsgJSON(btn) { const box=document.getElementById("msgJsonBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"Copied!"); if (_lastMsgThreadId) trackStatCopy("msg"); errorOverride=null; document.querySelectorAll("#errorOverridePills .skip-pill").forEach(p=>p.classList.remove("active")); document.getElementById("autoDetectPill").classList.add("active"); }
-    function resetSmartMsg(){ document.getElementById("smartMsg").value="";document.getElementById("msgJsonBox").value=""; document.getElementById("msgPills").innerHTML=""; const s=document.getElementById("msgStatus");s.className="status-bar";s.textContent=""; document.getElementById("msgStringWarning").classList.remove("show"); errorOverride=null; _lastMsgThreadId=null; document.querySelectorAll("#errorOverridePills .skip-pill").forEach(p=>p.classList.remove("active")); document.getElementById("autoDetectPill").classList.add("active"); }
+    function resetSmartMsg(){ document.getElementById("smartMsg").value="";document.getElementById("msgJsonBox").value=""; document.getElementById("msgPills").innerHTML=""; const s=document.getElementById("msgStatus");s.className="status-bar";s.textContent=""; document.getElementById("msgStringWarning").classList.remove("show"); errorOverride=null; _lastMsgThreadId=null; document.querySelectorAll("#errorOverridePills .skip-pill").forEach(p=>p.classList.remove("active")); document.getElementById("autoDetectPill").classList.add("active"); updateActionButton(3); }
 
     // ── SHARED ──
     function copyPill(text,el){navigator.clipboard.writeText(text).then(()=>{const orig=el.textContent;el.textContent="Copied!";setTimeout(()=>el.textContent=orig,1500);});}
