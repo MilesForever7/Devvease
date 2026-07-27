@@ -5,52 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DevEase</title>
   
-  <!-- Fresh Typography: Lora (Serif for Character), Outfit (Sans for UI), Fira Code (Monospace for Data) -->
+  <!-- Fresh Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Lora:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   
   <style>
     /* ── DESIGN SYSTEM & THEMING ── */
     :root {
-      /* Warm Beige Light Theme */
       --bg-color: #F4F1EA;
       --bg-gradient: radial-gradient(circle at top right, #FCFAF6, #F4F1EA, #EBE6DC);
-      
       --surface: #FFFFFF;
       --surface-alt: #FAFAFA;
       --surface-hover: #F2EFE9;
-      
       --border: #E0D9CE;
       --border-focus: #5A5146;
-      
       --text-main: #2C2926;
       --text-muted: #80786D;
-      
       --btn-primary-bg: #2C2926;
       --btn-primary-text: #F4F1EA;
       --btn-primary-hover: #45403C;
-      
       --btn-secondary-bg: #EFECE5;
       --btn-secondary-text: #2C2926;
       --btn-secondary-hover: #E3DEC6;
-      
       --btn-danger-bg: #FBEAEA;
       --btn-danger-text: #A83B3B;
-      
       --success-bg: #EAF4EE;
       --success-text: #37704F;
-      
       --info-bg: #EAEFF6;
       --info-text: #3B5A85;
-      
       --warn-bg: #FAF3E5;
       --warn-text: #8C6A2E;
-      
       --shadow-soft: 0 12px 32px rgba(115, 105, 90, 0.08);
       --shadow-hover: 0 16px 40px rgba(115, 105, 90, 0.12);
-      
       --radius-lg: 24px;
       --radius-md: 14px;
       --radius-sm: 8px;
@@ -58,47 +45,35 @@
     }
 
     body.dark-mode {
-      /* Deep Charcoal / Sepia Dark Theme */
       --bg-color: #1A1918;
       --bg-gradient: radial-gradient(circle at top right, #242220, #1A1918, #141312);
-      
       --surface: #252321;
       --surface-alt: #2D2A28;
       --surface-hover: #35322F;
-      
       --border: #3A3734;
       --border-focus: #B8AFA2;
-      
       --text-main: #EAE6DF;
       --text-muted: #9E968B;
-      
       --btn-primary-bg: #D1C7BA;
       --btn-primary-text: #1A1918;
       --btn-primary-hover: #F4F1EA;
-      
       --btn-secondary-bg: #322F2C;
       --btn-secondary-text: #D1C7BA;
       --btn-secondary-hover: #403C38;
-      
       --btn-danger-bg: #3D2222;
       --btn-danger-text: #E58C8C;
-      
       --success-bg: #203B2C;
       --success-text: #8EC8A6;
-      
       --info-bg: #1F2E40;
       --info-text: #8FAEDB;
-      
       --warn-bg: #3D321F;
       --warn-text: #D6AD63;
-      
       --shadow-soft: 0 12px 32px rgba(0, 0, 0, 0.4);
       --shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.6);
     }
 
     /* ── GLOBAL RESETS & BASE ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    
     body { 
       background: var(--bg-gradient); 
       background-attachment: fixed;
@@ -110,7 +85,7 @@
       overflow-x: hidden; 
     }
 
-    /* Background Animation (Elegant) */
+    /* Background Animation */
     .ocean-background { position: fixed; inset: 0; z-index: -2; pointer-events: none; }
     .ship { 
       position: absolute; font-size: 1.2rem; 
@@ -122,88 +97,69 @@
     /* ── AUTH OVERLAY ── */
     #authOverlay {
       position: fixed; inset: 0; z-index: 9999;
-      background: rgba(26, 25, 24, 0.85);
-      backdrop-filter: blur(12px);
+      background: rgba(26, 25, 24, 0.85); backdrop-filter: blur(12px);
       display: flex; align-items: center; justify-content: center;
     }
     #authOverlay.hidden { opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
     .auth-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 3.5rem 3rem;
-      width: 400px;
-      box-shadow: 0 24px 64px rgba(0,0,0,0.3);
-      text-align: center;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 3.5rem 3rem; width: 400px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.3); text-align: center;
     }
-    .auth-logo {
-      font-family: 'Lora', serif;
-      font-size: 2.2rem; font-weight: 600; color: var(--text-main);
-      margin-bottom: 0.5rem; letter-spacing: -0.5px;
-    }
+    .auth-logo { font-family: 'Lora', serif; font-size: 2.2rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.5rem; letter-spacing: -0.5px; }
     .auth-sub { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2.5rem; }
     .auth-label { display: block; text-align: left; font-size: 0.8rem; font-weight: 500; color: var(--text-muted); margin-bottom: 0.5rem; }
-    .auth-input {
-      width: 100%; padding: 1rem 1.2rem;
-      background: var(--bg-color); border: 1.5px solid var(--border);
-      border-radius: var(--radius-md); color: var(--text-main); font-size: 1rem;
-      font-family: inherit; outline: none; transition: var(--transition); margin-bottom: 1.5rem;
-    }
+    .auth-input { width: 100%; padding: 1rem 1.2rem; background: var(--bg-color); border: 1.5px solid var(--border); border-radius: var(--radius-md); color: var(--text-main); font-size: 1rem; font-family: inherit; outline: none; transition: var(--transition); margin-bottom: 1.5rem; }
     .auth-input:focus { border-color: var(--border-focus); box-shadow: 0 0 0 4px var(--surface-alt); }
-    .auth-btn {
-      width: 100%; padding: 1rem;
-      background: var(--btn-primary-bg); color: var(--btn-primary-text);
-      border: none; border-radius: var(--radius-md);
-      font-size: 1rem; font-weight: 500; font-family: inherit;
-      cursor: pointer; transition: var(--transition);
-    }
+    .auth-btn { width: 100%; padding: 1rem; background: var(--btn-primary-bg); color: var(--btn-primary-text); border: none; border-radius: var(--radius-md); font-size: 1rem; font-weight: 500; font-family: inherit; cursor: pointer; transition: var(--transition); }
     .auth-btn:hover { background: var(--btn-primary-hover); transform: translateY(-2px); }
-    .auth-btn:active { transform: scale(0.98); }
     .auth-error { font-size: 0.85rem; color: var(--btn-danger-text); margin-top: 1rem; min-height: 1.2em; font-weight: 500; }
-    .auth-attempts { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem; }
     .auth-shake { animation: authShake 0.4s ease; }
     @keyframes authShake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
 
-    /* ── HEADER & TOOLTIP ── */
-    .header { text-align: center; margin-bottom: 3.5rem; position: relative; z-index: 2; }
-    .header-title-wrap { display: inline-block; position: relative; }
-    .header h1 {
-      font-family: 'Lora', serif;
-      font-size: 2.8rem; color: var(--text-main); font-weight: 600;
-      letter-spacing: -1px; cursor: default; user-select: none;
-    }
-    .header h1:hover { animation: nod 0.3s ease-in-out; }
-    @keyframes nod { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+    /* ── CINEMATIC HEADER ANIMATIONS ── */
+    .header { text-align: center; margin-bottom: 3.5rem; display: flex; justify-content: center; position: relative; z-index: 2; }
+    .brand-container { position: relative; width: 320px; height: 120px; display: flex; align-items: center; justify-content: center; cursor: pointer; overflow: hidden; border-radius: 12px; }
+    .text-layer { position: absolute; font-family: 'Lora', serif; font-size: 2.8rem; font-weight: 600; color: var(--text-main); letter-spacing: -1px; transition: all 0.5s cubic-bezier(0.55, 0.055, 0.675, 1.19); z-index: 5; user-select: none; }
+    
+    .vehicle { position: absolute; opacity: 0; z-index: 10; pointer-events: none; }
+    .vehicle svg { fill: var(--text-main); display: block; }
+    
+    .plane-layer { transform: translate(-250px, 150px) rotate(-25deg) scale(0.5); transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .plane-layer svg { width: 64px; height: 64px; transform: rotate(90deg); }
+    .wind-lines { position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s ease; z-index: 1; pointer-events: none; }
+    .line { position: absolute; height: 2px; background: var(--text-muted); border-radius: 2px; opacity: 0.4; }
+    .line:nth-child(1) { top: 20%; left: 10%; width: 40px; } .line:nth-child(2) { top: 80%; left: 30%; width: 60px; } .line:nth-child(3) { top: 50%; left: -20%; width: 80px; } .line:nth-child(4) { top: 35%; left: 40%; width: 30px; }
 
-    .stats-tooltip {
-      display: none; position: fixed; left: 50%; transform: translateX(-50%);
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius-md); box-shadow: var(--shadow-hover);
-      padding: 1.5rem; min-width: 360px; z-index: 99999; pointer-events: none;
-    }
-    .stats-tooltip.visible { display: block; pointer-events: all; animation: tooltipFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
-    @keyframes tooltipFadeIn { from { opacity:0; transform:translateX(-50%) translateY(-10px) scale(0.95); } to { opacity:1; transform:translateX(-50%) translateY(0) scale(1); } }
-    .stats-tooltip::before {
-      content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%) rotate(45deg);
-      width: 16px; height: 16px; background: var(--surface); border-left: 1px solid var(--border); border-top: 1px solid var(--border);
-    }
-    
-    .stats-header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
-    .stats-title { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
-    .stats-window { font-size: 0.75rem; color: var(--text-muted); }
-    
-    .stats-table { width: 100%; border-collapse: collapse; }
-    .stats-table th { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); padding: 0.5rem; text-align: left; border-bottom: 1px dashed var(--border); }
-    .stats-table th:not(:first-child) { text-align: center; }
-    .stats-table td { padding: 0.6rem 0.5rem; font-size: 0.9rem; border-bottom: 1px dashed var(--border); color: var(--text-main); }
-    .stats-table tr:last-child td { border-bottom: none; }
-    .stats-table td:not(:first-child) { text-align: center; font-family: 'Fira Code', monospace; }
-    .stat-num { font-weight: 600; color: var(--btn-primary-bg); font-size: 1rem; }
-    
-    .stats-reset-btn { margin-top: 1rem; width: 100%; padding: 0.5rem; background: transparent; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: var(--transition); pointer-events: all; }
-    .stats-reset-btn:hover { border-color: var(--btn-danger-text); color: var(--btn-danger-text); background: var(--btn-danger-bg); }
-    .stats-expires { font-size: 0.7rem; color: var(--text-muted); text-align: center; margin-top: 0.75rem; }
-    .stats-hint { font-size: 0.7rem; color: var(--text-muted); text-align: center; margin-top: 0.25rem; font-style: italic; }
+    .brand-container.hover-plane:hover .text-layer { transform: translate(250px, -150px) rotate(15deg) scale(0.8); opacity: 0; }
+    .brand-container.hover-plane:hover .wind-lines { opacity: 1; }
+    .brand-container.hover-plane:hover .line { animation: rush 0.6s linear infinite; }
+    .brand-container.hover-plane:hover .line:nth-child(1) { animation-duration: 0.5s; } .brand-container.hover-plane:hover .line:nth-child(2) { animation-duration: 0.8s; } .brand-container.hover-plane:hover .line:nth-child(3) { animation-duration: 0.4s; animation-delay: 0.2s; } .brand-container.hover-plane:hover .line:nth-child(4) { animation-duration: 0.7s; }
+    .brand-container.hover-plane:hover .plane-layer { transform: translate(0, 0) rotate(0deg) scale(1.1); opacity: 1; animation: planeHover 2s ease-in-out infinite alternate 0.6s; }
+
+    .ship-layer { transform: translate(-200px, 10px) scale(0.8); transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+    .ship-layer svg { width: 72px; height: 72px; }
+    .water-env { position: absolute; bottom: -30px; left: 0; right: 0; height: 30px; background: var(--info-text); opacity: 0; transition: all 0.5s ease; z-index: 2; }
+    .water-env::before { content: ''; position: absolute; top: -10px; left: 0; right: -200%; height: 10px; background: radial-gradient(circle at 10px 10px, transparent 10px, var(--info-text) 11px) repeat-x; background-size: 20px 20px; }
+
+    .brand-container.hover-ship:hover .text-layer { transform: translateY(80px) rotate(-4deg); opacity: 0; }
+    .brand-container.hover-ship:hover .water-env { bottom: 0; opacity: 0.8; animation: waveRoll 3s linear infinite; }
+    .brand-container.hover-ship:hover .ship-layer { transform: translate(0, 10px) scale(1); opacity: 1; animation: shipBob 3s ease-in-out infinite alternate 0.8s; }
+
+    .truck-layer { transform: translate(-250px, 15px) scale(0.8); transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .truck-layer svg { width: 72px; height: 72px; }
+    .road-env { position: absolute; bottom: -20px; left: 0; right: 0; height: 20px; background: var(--border-focus); opacity: 0; transition: all 0.4s ease; z-index: 2; border-top: 2px dashed var(--text-main); }
+
+    .brand-container.hover-truck:hover .text-layer { transform: translateX(250px) skewX(-15deg); opacity: 0; }
+    .brand-container.hover-truck:hover .road-env { bottom: 0; opacity: 1; animation: roadDash 0.3s linear infinite; }
+    .brand-container.hover-truck:hover .truck-layer { transform: translate(0, 15px) scale(1); opacity: 1; animation: truckIdle 0.15s linear infinite alternate 0.6s; }
+
+    @keyframes rush { 0% { transform: translateX(350px); opacity: 0; } 20% { opacity: 0.5; } 80% { opacity: 0.5; } 100% { transform: translateX(-150px); opacity: 0; } }
+    @keyframes planeHover { 0% { transform: translate(0, 0) rotate(0deg) scale(1.1); } 100% { transform: translate(0, -6px) rotate(3deg) scale(1.1); } }
+    @keyframes waveRoll { 0% { transform: translateX(0); } 100% { transform: translateX(-40px); } }
+    @keyframes shipBob { 0% { transform: translate(0, 10px) rotate(-2deg) scale(1); } 100% { transform: translate(0, 4px) rotate(2deg) scale(1); } }
+    @keyframes roadDash { 0% { background-position: 0 0; } 100% { background-position: -40px 0; } }
+    @keyframes truckIdle { 0% { transform: translate(0, 15px) scale(1); } 100% { transform: translate(0, 13px) scale(1); } }
 
     /* ── TOGGLES (Theme & Settings) ── */
     .mode-toggle, .settings-toggle { position: fixed; right: 2rem; z-index: 1000; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
@@ -228,7 +184,6 @@
     @keyframes panelFade { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
     
     .settings-panel .section-title { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 0.75rem; }
-    .settings-panel select { width: 100%; padding: 0.6rem 0.8rem; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-color); color: var(--text-main); font-size: 0.9rem; margin-bottom: 1.5rem; font-family: inherit; outline: none; }
     .settings-panel .toggle-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
     .settings-panel .toggle-switch input { display: none; }
     .settings-panel .toggle-switch label { width: 2.8rem; height: 1.5rem; background: var(--border); border-radius: 1.5rem; display: flex; align-items: center; padding: 0.2rem; cursor: pointer; position: relative; transition: var(--transition); }
@@ -275,7 +230,6 @@
     .autofill-box input[type="text"] { padding: 0.75rem 1rem; }
     .autofill-box textarea { padding: 1rem; font-family: 'Fira Code', monospace; font-size: 0.85rem; resize: none; line-height: 1.6; }
     .autofill-box select:focus, .autofill-box input[type="text"]:focus, .autofill-box textarea:focus { border-color: var(--border-focus); background: var(--surface); box-shadow: 0 0 0 4px var(--surface-hover); }
-    
     .textarea-sm { height: 90px; } .textarea-md { height: 140px; } .textarea-lg { height: 180px; }
     
     /* Buttons */
@@ -296,7 +250,6 @@
     .dropdown-trigger { position: relative; width: 100%; }
     .dropdown-trigger input { width: 100%; cursor: pointer; padding-right: 2.5rem !important; }
     .dropdown-trigger::after { content: ''; position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 12 12'%3E%3Cpath fill='%2380786D' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-size: contain; pointer-events: none; }
-    
     .dropdown-panel { display: none; position: absolute; top: calc(100% + 8px); left: 0; width: 460px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1rem; box-shadow: var(--shadow-hover); grid-template-columns: 1fr 1fr; gap: 1.5rem; max-height: 320px; overflow-y: auto; z-index: 9999; }
     .dropdown-panel.single-col { grid-template-columns: 1fr; width: 100%; }
     .dropdown-panel.show { display: grid; animation: dropFade 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -387,7 +340,6 @@
     }
     @media (max-width: 768px) {
       body { padding: 1.5rem 1rem; }
-      .header h1 { font-size: 2.2rem; }
       .mode-toggle, .settings-toggle { top: 1.5rem; right: 1.5rem; transform: scale(0.85); transform-origin: top right; }
       .settings-toggle { top: 5rem; }
       .container, .smart-row { grid-template-columns: 1fr; margin-top: 4rem; gap: 1rem; }
@@ -406,7 +358,6 @@
       <input class="auth-input" type="password" id="authPass" placeholder="Enter firm password" onkeydown="if(event.key==='Enter')checkAuth()">
       <button class="auth-btn" onclick="checkAuth()">Authenticate →</button>
       <div class="auth-error" id="authError"></div>
-      <div class="auth-attempts" id="authAttempts"></div>
     </div>
   </div>
 
@@ -417,44 +368,30 @@
   </div>
   <div class="ocean-background" id="oceanBackground"></div>
 
+  <!-- Animated Header -->
   <div class="header">
-    <div class="header-title-wrap">
-      <h1 id="title"></h1>
-      <div class="stats-tooltip" id="statsTooltip">
-        <div class="stats-header-row">
-          <span class="stats-title">Session Stats</span>
-          <span class="stats-window" id="statsWindowLabel">Rolling 24h</span>
-        </div>
-        <table class="stats-table">
-          <thead>
-            <tr>
-              <th>Action</th>
-              <th>Unique IDs</th>
-              <th>Copies</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="stat-label">▶ Fill Entry</td>
-              <td><span class="stat-num" id="statFillIds">0</span></td>
-              <td><span class="stat-num" id="statFillCopies">0</span></td>
-            </tr>
-            <tr>
-              <td class="stat-label">🔍 Extraction</td>
-              <td><span class="stat-num" id="statExtractIds">0</span></td>
-              <td><span class="stat-num" id="statExtractCopies">0</span></td>
-            </tr>
-            <tr>
-              <td class="stat-label">💬 Messages</td>
-              <td><span class="stat-num" id="statMsgIds">0</span></td>
-              <td><span class="stat-num" id="statMsgCopies">0</span></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="stats-expires" id="statsExpiresLabel"></div>
-        <button class="stats-reset-btn" onclick="resetStats(event)">Reset Session Stats</button>
-        <div class="stats-hint">Stats persist for 24h from login · hover to refresh</div>
+    <div class="brand-container" id="brandContainer">
+      <!-- Plane Elements -->
+      <div class="wind-lines">
+        <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
       </div>
+      <div class="vehicle plane-layer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M384 121.9V48c0-26.5-21.5-48-48-48s-48 21.5-48 48v73.9L49.1 213C18.6 225.2 0 254.5 0 287v72.3c0 14.5 14.2 24.8 28.1 20.2l259.9-86.6V398l-79.6 59.7c-9 6.8-14.4 17.5-14.4 28.8v22.8c0 12.3 12.8 20.3 24 14.7L320 480l102 43.7c11.2 4.8 24-3.2 24-14.7v-22.8c0-11.3-5.4-22-14.4-28.8L352 398v-105.1l259.9 86.6c13.9 4.6 28.1-5.7 28.1-20.2V287c0-32.5-18.6-61.8-49.1-74L384 121.9z"/></svg>
+      </div>
+
+      <!-- Ship Elements -->
+      <div class="water-env"></div>
+      <div class="vehicle ship-layer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M2.8 433.1C51.6 448 99 448 149.2 433.1c47.9-14.2 99.2-14.2 147.1 0c46.1 13.7 94.7 13.7 140.8 0c47.9-14.2 99.2-14.2 147.1 0c14.2 4.2 29.3-3.8 33.5-18c4.2-14.2-3.8-29.3-18-33.5c-56.1-16.7-115.4-16.7-171.5 0c-40.4 12-83.3 12-123.7 0c-56.1-16.7-115.4-16.7-171.5 0c-40.4 12-83.3 12-123.7 0c-56.1-16.7-115.4-16.7-171.5 0c-14.2-4.2-29.3 3.8-33.5 18c-4.2 14.2 3.8 29.3 18 33.5zM2.8 369.1c51.6 15.3 99 15.3 149.2 0c47.9-14.2 99.2-14.2 147.1 0c46.1 13.7 94.7 13.7 140.8 0c47.9-14.2 99.2-14.2 147.1 0c14.2 4.2 29.3-3.8 33.5-18c4.2-14.2-3.8-29.3-18-33.5c-56.1-16.7-115.4-16.7-171.5 0c-40.4 12-83.3 12-123.7 0c-56.1-16.7-115.4-16.7-171.5 0c-40.4 12-83.3 12-123.7 0c-56.1-16.7-115.4-16.7-171.5 0c-14.2-4.2-29.3 3.8-33.5 18c-4.2 14.2 3.8 29.3 18 33.5zM32.8 256h574.4c21.2 0 36.3-19.3 31.7-40l-26.7-120c-3.1-14.1-15.5-24-30.1-24H288 123.2c-14.7 0-27.1 9.9-30.1 24l-26.7 120c-2.4 10.9 .8 22.3 8.5 30.6s18.9 13.4 30.1 13.4zM224 40v24c0 4.4 3.6 8 8 8h16c4.4 0 8-3.6 8-8V40c0-22.1-17.9-40-40-40H112C89.9 0 72 17.9 72 40v24c0 4.4 3.6 8 8 8h16c4.4 0 8-3.6 8-8V40c0-4.4 3.6-8 8-8h96c4.4 0 8 3.6 8 8zM242.4 104H445.6l8.9 40H233.5l8.9-40z"/></svg>
+      </div>
+
+      <!-- Truck Elements -->
+      <div class="road-env"></div>
+      <div class="vehicle truck-layer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M48 0C21.5 0 0 21.5 0 48V368c0 26.5 21.5 48 48 48H64c0 53 43 96 96 96s96-43 96-96H384c0 53 43 96 96 96s96-43 96-96h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V288 256 237.3c0-17-6.7-33.3-18.7-45.3L512 114.7c-12-12-28.3-18.7-45.3-18.7H416V48c0-26.5-21.5-48-48-48H48zM416 160h50.7L544 237.3V256H416V160zM112 416a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm368-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
+      </div>
+
+      <div class="text-layer" id="brandText">DevEase.io</div>
     </div>
   </div>
 
@@ -805,38 +742,20 @@
     (function() {
       const FIRM_PASS    = "devease2025";
       const SESSION_KEY  = "devease_auth";
-      const LOGIN_TS_KEY = "devease_login_ts";
-      const MAX_ATTEMPTS = 5;
-      let attempts = parseInt(sessionStorage.getItem("devease_attempts") || "0");
 
       function isAuthed() { return sessionStorage.getItem(SESSION_KEY) === "ok"; }
 
       window.checkAuth = function() {
-        if (attempts >= MAX_ATTEMPTS) {
-          document.getElementById("authError").textContent = "Too many attempts. Close and reopen.";
-          return;
-        }
         const val = document.getElementById("authPass").value;
         if (val === FIRM_PASS) {
           sessionStorage.setItem(SESSION_KEY, "ok");
-          sessionStorage.removeItem("devease_attempts");
-          const existing = localStorage.getItem(LOGIN_TS_KEY);
-          if (!existing || (Date.now() - parseInt(existing)) > 24*60*60*1000) {
-            localStorage.setItem(LOGIN_TS_KEY, String(Date.now()));
-            resetStatsData();
-          }
           document.getElementById("authOverlay").classList.add("hidden");
         } else {
-          attempts++;
-          sessionStorage.setItem("devease_attempts", String(attempts));
           const card = document.querySelector(".auth-card");
           card.classList.remove("auth-shake");
           void card.offsetWidth;
           card.classList.add("auth-shake");
           document.getElementById("authError").textContent = "Incorrect passphrase.";
-          const left = MAX_ATTEMPTS - attempts;
-          document.getElementById("authAttempts").textContent =
-            left > 0 ? `${left} attempt${left === 1 ? "" : "s"} remaining` : "";
           document.getElementById("authPass").value = "";
           document.getElementById("authPass").focus();
         }
@@ -844,11 +763,6 @@
 
       if (isAuthed()) {
         document.getElementById("authOverlay").classList.add("hidden");
-        const loginTs = localStorage.getItem(LOGIN_TS_KEY);
-        if (!loginTs || (Date.now() - parseInt(loginTs)) > 24*60*60*1000) {
-          localStorage.setItem(LOGIN_TS_KEY, String(Date.now()));
-          resetStatsData();
-        }
       } else {
         window.addEventListener("load", () => {
           const el = document.getElementById("authPass");
@@ -857,91 +771,9 @@
       }
     })();
 
-    // ══════════════════════════════════════════════════════
-    //  DAILY STATS
-    // ══════════════════════════════════════════════════════
-    const STATS_KEY    = "devease_stats";
-    const LOGIN_TS_KEY = "devease_login_ts";
-
-    function defaultStats() { return { fill: { ids: [], copies: 0 }, extract: { ids: [], copies: 0 }, msg: { ids: [], copies: 0 } }; }
-    function getStats() { try { return JSON.parse(localStorage.getItem(STATS_KEY)) || defaultStats(); } catch(e) { return defaultStats(); } }
-    function saveStats(s) { localStorage.setItem(STATS_KEY, JSON.stringify(s)); }
-    function resetStatsData() { saveStats(defaultStats()); }
-
-    function trackStatId(category, id) {
-      if (!id || id === "string") return;
-      const s = getStats();
-      if (!s[category].ids.includes(id)) { s[category].ids.push(id); saveStats(s); }
-    }
-    function trackStatCopy(category) {
-      const s = getStats();
-      s[category].copies = (s[category].copies || 0) + 1;
-      saveStats(s);
-    }
-
-    function updateStatsDisplay() {
-      const s = getStats();
-      document.getElementById("statFillIds").textContent    = s.fill.ids.length;
-      document.getElementById("statFillCopies").textContent = s.fill.copies;
-      document.getElementById("statExtractIds").textContent    = s.extract.ids.length;
-      document.getElementById("statExtractCopies").textContent = s.extract.copies;
-      document.getElementById("statMsgIds").textContent    = s.msg.ids.length;
-      document.getElementById("statMsgCopies").textContent = s.msg.copies;
-
-      const loginTs = localStorage.getItem(LOGIN_TS_KEY);
-      if (loginTs) {
-        const expiresAt = parseInt(loginTs) + 24*60*60*1000;
-        const diffMs = expiresAt - Date.now();
-        if (diffMs > 0) {
-          const h = Math.floor(diffMs / 3600000);
-          const m = Math.floor((diffMs % 3600000) / 60000);
-          document.getElementById("statsExpiresLabel").textContent = `Resets in ${h}h ${m}m`;
-        } else {
-          document.getElementById("statsExpiresLabel").textContent = "Window expired — will reset on next login";
-        }
-      }
-    }
-
-    window.resetStats = function(e) {
-      e.stopPropagation();
-      if (!confirm("Reset all stats? This can't be undone.")) return;
-      resetStatsData();
-      localStorage.setItem(LOGIN_TS_KEY, String(Date.now()));
-      updateStatsDisplay();
-      showToast("Stats reset ✅");
-    };
-
-    document.addEventListener("DOMContentLoaded", () => {
-      buildClientDropdowns();
-      const wrap = document.querySelector(".header-title-wrap");
-      const tooltip = document.getElementById("statsTooltip");
-      if (wrap && tooltip) {
-        document.body.appendChild(tooltip);
-        let hideTimer = null;
-
-        wrap.addEventListener("mouseenter", () => {
-          clearTimeout(hideTimer);
-          updateStatsDisplay();
-          const rect = wrap.getBoundingClientRect();
-          tooltip.style.top = (rect.bottom + 15) + "px";
-          tooltip.classList.add("visible");
-          const loginTs = localStorage.getItem(LOGIN_TS_KEY);
-          if (loginTs) {
-            const d = new Date(parseInt(loginTs));
-            document.getElementById("statsWindowLabel").textContent = "From " + d.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
-          }
-        });
-
-        wrap.addEventListener("mouseleave", (e) => {
-          hideTimer = setTimeout(() => {
-            if (!tooltip.matches(":hover")) tooltip.classList.remove("visible");
-          }, 120);
-        });
-
-        tooltip.addEventListener("mouseenter", () => clearTimeout(hideTimer));
-        tooltip.addEventListener("mouseleave", () => tooltip.classList.remove("visible"));
-      }
-    });
+    // Stubs for removed stats logic to prevent breaking autofill hooks
+    function trackStatId(category, id) {}
+    function trackStatCopy(category) {}
 
     let autoCopyEnabled = false;
     document.getElementById("autoCopySwitch").addEventListener("change", function() {
@@ -982,12 +814,7 @@
     function showHistory() { renderHistory(); document.getElementById("historyDropdown").classList.add("show"); }
     function selectHistory(id) { document.getElementById("shipmentInput").value = id; document.getElementById("historyDropdown").classList.remove("show"); autofillJSON(); }
 
-    // ── TITLE & ANIMATIONS ──
-    function typeTitle() {
-      const el = document.getElementById("title"), text = "DevEase.io"; let i = 0;
-      function type() { if (i < text.length) { el.textContent += text[i++]; setTimeout(type, 100); } else { setTimeout(() => { el.textContent = ""; i = 0; type(); }, 2500); } }
-      type();
-    }
+    // ── ANIMATIONS ──
     function createShips() {
       const ocean = document.getElementById("oceanBackground");
       const n = window.innerWidth < 640 ? 4 : 7;
@@ -1346,7 +1173,6 @@
       }
     }
 
-
     // ── CARD 4 ──
     function handleSmartPaste() {
       updateActionButton(1);
@@ -1386,30 +1212,59 @@
     let forceFalse=false, activePredefinedPills=new Set(), activeCustomPills=new Set(), noneActive=true;
     function toggleForceFalse(el) { forceFalse=!forceFalse; el.classList.toggle("active",forceFalse); handleSmartPaste2(); }
     function toggleNone(el) { activePredefinedPills.clear(); activeCustomPills.clear(); noneActive=true; document.querySelectorAll(".skip-pill:not(.none-pill)").forEach(p=>p.classList.remove("active")); el.classList.add("active"); document.getElementById("customInputRow").style.display="none"; handleSmartPaste2(); }
+    
     function togglePredefinedPill(el) {
       const regex=el.getAttribute("data-regex");
-      if (el.classList.contains("active")) { el.classList.remove("active"); activePredefinedPills.delete(regex); }
-      else { document.querySelector(".none-pill").classList.remove("active"); noneActive=false; el.classList.add("active"); activePredefinedPills.add(regex); }
-      if (activePredefinedPills.size>0) { document.querySelectorAll(".custom-pill").forEach(p=>{p.classList.remove("active");activeCustomPills.delete(p.getAttribute("data-regex"));}); }
-      if (activePredefinedPills.size===0&&activeCustomPills.size===0) { document.querySelector(".none-pill").classList.add("active"); noneActive=true; }
+      if (el.classList.contains("active")) { 
+        el.classList.remove("active"); 
+        activePredefinedPills.delete(regex); 
+      } else { 
+        document.querySelector(".none-pill").classList.remove("active"); 
+        noneActive=false; 
+        el.classList.add("active"); 
+        activePredefinedPills.add(regex); 
+      }
+      if (activePredefinedPills.size===0 && activeCustomPills.size===0) { 
+        document.querySelector(".none-pill").classList.add("active"); 
+        noneActive=true; 
+      }
       handleSmartPaste2();
     }
+    
     function showCustomInput() { const row=document.getElementById("customInputRow"); row.style.display=row.style.display==="none"?"flex":"none"; if (row.style.display==="flex") document.getElementById("customFileInput").focus(); }
+    
     function addCustomFile() {
       const input=document.getElementById("customFileInput"), val=input.value.trim(); if (!val) return;
       const regex=`^(${val.replace(/\./g,"\\.")})$`; const pill=document.createElement("span");
       pill.className="skip-pill custom-pill active"; pill.setAttribute("data-regex",regex); pill.textContent=val+" ✕";
-      pill.onclick=function(){activeCustomPills.delete(regex);pill.remove();if(activePredefinedPills.size===0&&activeCustomPills.size===0){document.querySelector(".none-pill").classList.add("active");noneActive=true;}handleSmartPaste2();};
+      
+      pill.onclick=function(){
+        activeCustomPills.delete(regex);
+        pill.remove();
+        if(activePredefinedPills.size===0 && activeCustomPills.size===0){
+          document.querySelector(".none-pill").classList.add("active");
+          noneActive=true;
+        }
+        handleSmartPaste2();
+      };
+      
       document.querySelector("[data-add-custom]").parentNode.insertBefore(pill,document.querySelector("[data-add-custom]"));
-      activeCustomPills.add(regex); noneActive=false; document.querySelector(".none-pill").classList.remove("active");
-      document.querySelectorAll(".predefined-pill").forEach(p=>{p.classList.remove("active");activePredefinedPills.delete(p.getAttribute("data-regex"));});
-      input.value=""; document.getElementById("customInputRow").style.display="none"; handleSmartPaste2();
+      activeCustomPills.add(regex); 
+      noneActive=false; 
+      document.querySelector(".none-pill").classList.remove("active");
+      
+      input.value=""; document.getElementById("customInputRow").style.display="none"; 
+      handleSmartPaste2();
     }
+    
     function onSheetToggle() { document.getElementById("sheetActiveLabel").style.display=document.getElementById("skipSheetCheck").checked?"inline":"none"; handleSmartPaste2(); }
+    
     function getFileRegex() {
       if (noneActive) return "";
-      if (activePredefinedPills.size>0){const p=[...activePredefinedPills];return p.length===1?p[0]:"("+p.join("|")+")";}
-      if (activeCustomPills.size>0){const p=[...activeCustomPills];return p.length===1?p[0]:"("+p.join("|")+")";}
+      const allActivePills = [...activePredefinedPills, ...activeCustomPills];
+      if (allActivePills.length > 0) {
+        return allActivePills.length === 1 ? allActivePills[0] : "(" + allActivePills.join("|") + ")";
+      }
       return "";
     }
     function getSheetRegex() { return document.getElementById("skipSheetCheck").checked?"^(?!YOUR_TEXT_HERE$).*":""; }
@@ -1584,7 +1439,19 @@
       document.addEventListener("click",e=>{ if(!e.target.closest(".shipment-wrapper"))document.getElementById("historyDropdown").classList.remove("show"); if(!e.target.closest(".custom-dropdown"))document.querySelectorAll(".dropdown-panel").forEach(p=>p.style.display="none"); if(!e.target.closest(".settings-toggle"))document.querySelector(".settings-panel").classList.remove("active"); });
       document.getElementById("shipmentInput").addEventListener("click",function(e){ if(e.ctrlKey||e.metaKey){const id=getShipmentId();if(!id)return;window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/amari/apps/customs_assistant_main_migration`,"_blank");} });
       document.querySelectorAll("[data-template]").forEach(item=>{ item.addEventListener("click",function(){ const el=document.getElementById("templateSelect"); el.value=this.textContent.trim();el.setAttribute("data-value",this.getAttribute("data-template")); document.getElementById("templateDropdown").style.display="none";autofillTemplateJSON(); }); });
-      typeTitle(); createShips(); renderC4History(); renderC5History(); updateStatsDisplay();
+      
+      createShips(); 
+      renderC4History(); 
+      renderC5History(); 
+
+      // Header Hover Animation Trigger
+      const container = document.getElementById("brandContainer");
+      const modes = ["hover-plane", "hover-ship", "hover-truck"];
+      container.addEventListener("mouseenter", () => {
+        container.classList.remove(...modes);
+        const randomMode = modes[Math.floor(Math.random() * modes.length)];
+        container.classList.add(randomMode);
+      });
     });
   </script>
 </body>
