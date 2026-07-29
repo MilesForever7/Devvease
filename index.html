@@ -1255,6 +1255,17 @@
         box.value=""; status.className="status-bar warn show"; status.textContent = !matchedKey ? "⚠️ Client not recognised" : "⚠️ No Shipment ID"; _lastCard4State = null;
       }
     }
+    function extractThreadId(text) {
+  // 1. Check standard Slack alert pattern first ("Thread ID: `19faed...`")
+  const standardMatch = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i);
+  if (standardMatch) return standardMatch[1];
+
+  // 2. Fallback to check inside email reply content block (e.g. thread_id='19faed5860f1f393')
+  const emailReplyMatch = text.match(/thread_id=['"]([a-f0-9]{16})['"]/i);
+  if (emailReplyMatch) return emailReplyMatch[1];
+
+  return null;
+}
     function copySmartJSON(btn) { const box=document.getElementById("smartJsonBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"Copied!"); if (_lastCard4State) trackStatCopy("fill"); }
     function resetSmartPaste() { 
       document.getElementById("smartPaste").value=""; 
@@ -1355,7 +1366,7 @@
       const shipmentNotCreated = !shipmentIdRaw || /not created|not found|n\/a/i.test(shipmentIdRaw);
       const shipmentId = (!shipmentNotCreated && shipmentIdRaw && /[0-9a-f]{8}-[0-9a-f]{4}/i.test(shipmentIdRaw)) ? shipmentIdRaw : text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i)?.[0] || null;
 
-      const threadId  = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
+      const threadId = extractThreadId(text);
       const messageId = text.match(/Message ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
       const emailIdHex = text.match(/Email ID:\s*`?([a-f0-9]{16})`?/i)?.[1];
       const emailIdTmp = text.match(/Email ID:\s*`?(tmp_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})`?/i)?.[1];
@@ -1449,7 +1460,7 @@
       updateActionButton(3);
       const text=document.getElementById("smartMsg").value, pills=document.getElementById("msgPills"), status=document.getElementById("msgStatus"), box=document.getElementById("msgJsonBox"), warning=document.getElementById("msgStringWarning");
       if (!text.trim()){pills.innerHTML="";box.value="";status.className="status-bar";warning.classList.remove("show");_lastMsgThreadId=null;return;}
-      const threadId=text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1]; _lastMsgThreadId = threadId || null;
+      const threadId = extractThreadId(text);; _lastMsgThreadId = threadId || null;
       const {matchedKey,clientRaw}=extractClient(text), fullyDetected = detectError(text);
       let finalType, finalLabel;
       if (errorOverride) { finalType = errorOverride; finalLabel = document.querySelector(`#errorOverridePills [data-override="${errorOverride}"]`)?.textContent || errorOverride; } 
