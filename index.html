@@ -1417,12 +1417,26 @@
     }
 
     function openExtractionLogs() {
-      const text=document.getElementById("smartPaste2").value, threadId = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i)?.[1], emailIdHex= text.match(/Email ID:\s*`?([a-f0-9]{16})`?/i)?.[1], emailIdTmp= text.match(/Email ID:\s*`?(tmp_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})`?/i)?.[1];
+      const text = document.getElementById("smartPaste2").value, 
+            threadId = extractThreadId(text), // <-- Fixed: Now uses your updated helper function
+            emailIdHex = text.match(/Email ID:\s*`?([a-f0-9]{16})`?/i)?.[1], 
+            emailIdTmp = text.match(/Email ID:\s*`?(tmp_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})`?/i)?.[1];
+      
       try {
-        const json=JSON.parse(document.getElementById("smartJsonBox2").value);
-        if (emailIdTmp) { const w=window.open(`http://34.30.43.174:8080/commands/logs/${emailIdTmp}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank"); if(w){w.blur();window.focus();} } 
-        else { const logId = emailIdHex || threadId; if (!logId){showToast("⚠️ No Thread ID or Email ID found");return;} const w=window.open(`http://34.30.43.174:8080/commands/logs/${logId}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank"); if(w){w.blur();window.focus();} }
-      } catch(e){showToast("⚠️ Could not read root path — copy JSON first");}
+        const json = JSON.parse(document.getElementById("smartJsonBox2").value);
+        if (emailIdTmp) { 
+          const w = window.open(`http://34.30.43.174:8080/commands/logs/${emailIdTmp}/stream?token=operatorToken543&root_path=${json.root_path}`, "_blank"); 
+          if(w){ w.blur(); window.focus(); } 
+        } 
+        else { 
+          const logId = emailIdHex || threadId; 
+          if (!logId) { showToast("⚠️ No Thread ID or Email ID found"); return; } 
+          const w = window.open(`http://34.30.43.174:8080/commands/logs/${logId}/stream?token=operatorToken543&root_path=${json.root_path}`, "_blank"); 
+          if(w){ w.blur(); window.focus(); } 
+        }
+      } catch(e) {
+        showToast("⚠️ Could not read root path — copy JSON first");
+      }
     }
     function copySmartJSON2(btn) { const box=document.getElementById("smartJsonBox2"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"Copied!"); if (_lastCard5State) trackStatCopy("extract"); }
     function resetSmartPaste2(){
