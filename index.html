@@ -3,224 +3,260 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DevEase</title>
-  
-  <!-- Fresh Typography -->
+  <title>DevEase.io</title>
+
+  <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Lora:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
+
   <style>
     /* ── DESIGN SYSTEM & THEMING ── */
     :root {
-      --bg-color: #F4F1EA;
-      --bg-gradient: radial-gradient(circle at top right, #FCFAF6, #F4F1EA, #EBE6DC);
+      /* LIGHT MODE */
+      --bg-color: #F8FAFC;
+      --bg-gradient: radial-gradient(circle at top center, #FFFFFF, #F1F5F9, #E2E8F0);
       --surface: #FFFFFF;
-      --surface-alt: #FAFAFA;
-      --surface-hover: #F2EFE9;
-      --border: #E0D9CE;
-      --border-focus: #5A5146;
-      --text-main: #2C2926;
-      --text-muted: #80786D;
-      --btn-primary-bg: #2C2926;
-      --btn-primary-text: #F4F1EA;
-      --btn-primary-hover: #45403C;
-      --btn-secondary-bg: #EFECE5;
-      --btn-secondary-text: #2C2926;
-      --btn-secondary-hover: #E3DEC6;
-      --btn-danger-bg: #FBEAEA;
-      --btn-danger-text: #A83B3B;
-      --success-bg: #EAF4EE;
-      --success-text: #37704F;
-      --info-bg: #EAEFF6;
-      --info-text: #3B5A85;
-      --warn-bg: #FAF3E5;
-      --warn-text: #8C6A2E;
-      --shadow-soft: 0 12px 32px rgba(115, 105, 90, 0.08);
-      --shadow-hover: 0 16px 40px rgba(115, 105, 90, 0.12);
-      --radius-lg: 24px;
-      --radius-md: 14px;
+      --surface-alt: #F1F5F9;
+      --surface-hover: #EAEFF5;
+
+      --border: #CBD5E1;
+      --border-focus: #E11D48;
+
+      --text-main: #0F172A;
+      --text-muted: #475569;
+
+      --btn-primary-bg: #2563EB;
+      --btn-primary-text: #FFFFFF;
+      --btn-primary-hover: #1D4ED8;
+
+      --btn-secondary-bg: #F1F5F9;
+      --btn-secondary-text: #0F172A;
+      --btn-secondary-hover: #E2E8F0;
+
+      --btn-danger-bg: #FFE4E6;
+      --btn-danger-text: #E11D48;
+      --success-bg: #DCFCE7;
+      --success-text: #15803D;
+      --info-bg: #DBEAFE;
+      --info-text: #1E40AF;
+      --warn-bg: #FEF3C7;
+      --warn-text: #B45309;
+
+      --shadow-soft: 0 12px 32px rgba(37, 99, 235, 0.08);
+      --shadow-hover: 0 16px 40px rgba(225, 29, 72, 0.12);
+
+      --radius-lg: 20px;
+      --radius-md: 12px;
       --radius-sm: 8px;
-      --transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     body.dark-mode {
-      --bg-color: #1A1918;
-      --bg-gradient: radial-gradient(circle at top right, #242220, #1A1918, #141312);
-      --surface: #252321;
-      --surface-alt: #2D2A28;
-      --surface-hover: #35322F;
-      --border: #3A3734;
-      --border-focus: #B8AFA2;
-      --text-main: #EAE6DF;
-      --text-muted: #9E968B;
-      --btn-primary-bg: #D1C7BA;
-      --btn-primary-text: #1A1918;
-      --btn-primary-hover: #F4F1EA;
-      --btn-secondary-bg: #322F2C;
-      --btn-secondary-text: #D1C7BA;
-      --btn-secondary-hover: #403C38;
-      --btn-danger-bg: #3D2222;
-      --btn-danger-text: #E58C8C;
-      --success-bg: #203B2C;
-      --success-text: #8EC8A6;
-      --info-bg: #1F2E40;
-      --info-text: #8FAEDB;
-      --warn-bg: #3D321F;
-      --warn-text: #D6AD63;
-      --shadow-soft: 0 12px 32px rgba(0, 0, 0, 0.4);
-      --shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.6);
+      /* DARK MODE */
+      --bg-color: #0F172A;
+      --bg-gradient: radial-gradient(circle at top center, #1E293B, #0F172A, #020617);
+      --surface: #1E293B;
+      --surface-alt: #334155;
+      --surface-hover: #2A384D;
+
+      --border: #475569;
+      --border-focus: #EF4444;
+
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+
+      --btn-primary-bg: #EF4444;
+      --btn-primary-text: #FFFFFF;
+      --btn-primary-hover: #DC2626;
+
+      --btn-secondary-bg: #334155;
+      --btn-secondary-text: #F8FAFC;
+      --btn-secondary-hover: #475569;
+
+      --btn-danger-bg: #450A0A;
+      --btn-danger-text: #FCA5A5;
+      --success-bg: #064E3B;
+      --success-text: #86EFAC;
+      --info-bg: #1E3A8A;
+      --info-text: #93C5FD;
+      --warn-bg: #451A03;
+      --warn-text: #FDE047;
+
+      --shadow-soft: 0 12px 32px rgba(0, 0, 0, 0.5);
+      --shadow-hover: 0 16px 40px rgba(239, 68, 68, 0.15);
     }
 
     /* ── GLOBAL RESETS & BASE ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { 
-      background: var(--bg-gradient); 
+    body {
+      background: var(--bg-gradient);
       background-attachment: fixed;
-      font-family: 'Outfit', sans-serif; 
-      color: var(--text-main); 
-      min-height: 100vh; 
-      padding: 3rem 2rem; 
-      transition: var(--transition); 
-      overflow-x: hidden; 
+      font-family: 'Outfit', sans-serif;
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 3rem 2rem;
+      transition: background 0.5s ease, color 0.5s ease;
+      overflow-x: hidden;
     }
 
-    /* Background Animation */
-    .ocean-background { position: fixed; inset: 0; z-index: -2; pointer-events: none; }
-    .ship { 
-      position: absolute; font-size: 1.2rem; 
-      color: var(--text-muted); opacity: 0.15; 
-      filter: grayscale(100%);
-      transition: transform 0.4s ease-out; pointer-events: auto; 
+    /* ── SUBLIMINAL BACKGROUND ── */
+    .web-grid {
+      position: fixed; inset: 0; z-index: -2; pointer-events: none;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.15;
+      transition: opacity 0.5s ease;
+    }
+    body.dark-mode .web-grid { opacity: 0.05; }
+
+    .spidey-particles {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      fill: var(--text-muted);
+      opacity: 0.05;
+      transition: all 0.5s ease;
+    }
+    body.dark-mode .particle {
+      opacity: 0.08;
+      fill: var(--border-focus);
+      filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.4));
+    }
+
+    .p-1 { width: 160px; top: 2%; left: 1%; animation: float1 28s ease-in-out infinite; }
+    .p-2 { width: 180px; bottom: 3%; right: 2%; animation: float2 35s ease-in-out infinite reverse; }
+    .p-3 { width: 130px; top: 40%; left: 88%; animation: float1 30s ease-in-out infinite 2s; transform: rotate(15deg); }
+
+    @keyframes float1 {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(25px) rotate(6deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+    @keyframes float2 {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(-8deg); }
+      100% { transform: translateY(0) rotate(0deg); }
     }
 
     /* ── AUTH OVERLAY ── */
     #authOverlay {
       position: fixed; inset: 0; z-index: 9999;
-      background: rgba(26, 25, 24, 0.85); backdrop-filter: blur(12px);
+      background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px);
       display: flex; align-items: center; justify-content: center;
     }
     #authOverlay.hidden { opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
     .auth-card {
-      background: var(--surface); border: 1px solid var(--border);
+      background: var(--surface); border: 1.5px solid var(--border);
       border-radius: var(--radius-lg); padding: 3.5rem 3rem; width: 400px;
       box-shadow: 0 24px 64px rgba(0,0,0,0.3); text-align: center;
     }
     .auth-logo { font-family: 'Lora', serif; font-size: 2.2rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.5rem; letter-spacing: -0.5px; }
     .auth-sub { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2.5rem; }
     .auth-label { display: block; text-align: left; font-size: 0.8rem; font-weight: 500; color: var(--text-muted); margin-bottom: 0.5rem; }
-    .auth-input { width: 100%; padding: 1rem 1.2rem; background: var(--bg-color); border: 1.5px solid var(--border); border-radius: var(--radius-md); color: var(--text-main); font-size: 1rem; font-family: inherit; outline: none; transition: var(--transition); margin-bottom: 1.5rem; }
-    .auth-input:focus { border-color: var(--border-focus); box-shadow: 0 0 0 4px var(--surface-alt); }
-    .auth-btn { width: 100%; padding: 1rem; background: var(--btn-primary-bg); color: var(--btn-primary-text); border: none; border-radius: var(--radius-md); font-size: 1rem; font-weight: 500; font-family: inherit; cursor: pointer; transition: var(--transition); }
+    .auth-input { width: 100%; padding: 1rem 1.2rem; background: var(--bg-color); border: 2px solid var(--border); border-radius: var(--radius-md); color: var(--text-main); font-size: 1rem; font-family: inherit; outline: none; transition: var(--transition); margin-bottom: 1.5rem; }
+    .auth-input:focus { border-color: var(--border-focus); box-shadow: 0 0 0 4px var(--surface-hover); }
+    .auth-btn { width: 100%; padding: 1rem; background: var(--btn-primary-bg); color: var(--btn-primary-text); border: none; border-radius: var(--radius-md); font-size: 1rem; font-weight: 600; font-family: inherit; cursor: pointer; transition: var(--transition); }
     .auth-btn:hover { background: var(--btn-primary-hover); transform: translateY(-2px); }
     .auth-error { font-size: 0.85rem; color: var(--btn-danger-text); margin-top: 1rem; min-height: 1.2em; font-weight: 500; }
     .auth-shake { animation: authShake 0.4s ease; }
     @keyframes authShake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
 
-    /* ── CINEMATIC HEADER ANIMATIONS (UPGRADED) ── */
-    .header { text-align: center; margin-bottom: 3.5rem; display: flex; justify-content: center; position: relative; z-index: 2; }
-    
-    .brand-container { position: relative; width: 340px; height: 140px; display: flex; align-items: center; justify-content: center; cursor: pointer; overflow: hidden; border-radius: 16px; perspective: 1000px; }
-    
-    .text-layer { position: absolute; font-family: 'Lora', serif; font-size: 3rem; font-weight: 600; color: var(--text-main); letter-spacing: -1px; transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1); z-index: 5; user-select: none; transform-style: preserve-3d; transform-origin: center center; }
-    
-    .vehicle { position: absolute; opacity: 0; z-index: 10; pointer-events: none; }
-    .vehicle svg { fill: var(--text-main); display: block; filter: drop-shadow(0 12px 24px rgba(0,0,0,0.15)); }
+    /* ── CLEAN HEADER WITH ANIMATED SVG ── */
+    .header { text-align: center; margin-bottom: 3rem; display: flex; justify-content: center; position: relative; z-index: 2; }
 
-    /* --- THE PLANE SCENE (UPGRADED) --- */
-    .plane-layer { transform: translate(-300px, 60px) scale(0.6); transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); z-index: 4; }
-    
-    /* Top-down plane rotated to point right */
-    .plane-layer svg { width: 90px; height: auto; transform: rotate(90deg); }
-    
-    /* Dual Engine Trails */
-    .jet-stream-top, .jet-stream-bottom { position: absolute; left: -60px; width: 80px; height: 3px; background: linear-gradient(to left, var(--text-muted), transparent); border-radius: 10px; opacity: 0; filter: blur(1.5px); transform-origin: right; transform: scaleX(0); transition: all 0.5s ease; }
-    .jet-stream-top { top: 32%; }
-    .jet-stream-bottom { top: 66%; }
-    
-    /* Parallax Sky Environment */
-    .sky-env { position: absolute; inset: 0; opacity: 0; transition: opacity 0.5s ease; z-index: 2; pointer-events: none; }
-    .cloud { position: absolute; background: #FFF; border: 1.5px solid var(--border); border-radius: 50px; opacity: 0.7; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-    .cloud-1 { width: 65px; height: 16px; top: 15%; left: 110%; }
-    .cloud-2 { width: 90px; height: 22px; top: 75%; left: 110%; opacity: 0.5; }
-    .cloud-3 { width: 45px; height: 12px; top: 45%; left: 110%; opacity: 0.9; }
+    .brand-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      position: relative;
+      cursor: pointer;
+    }
 
-    /* Plane Interactions */
-    .brand-container.hover-plane:hover .text-layer { transform: translateZ(-400px) translateY(-40px) rotateX(40deg) rotateY(-15deg); opacity: 0; filter: blur(8px); }
-    .brand-container.hover-plane:hover .sky-env { opacity: 1; }
-    .brand-container.hover-plane:hover .cloud-1 { animation: cloudDrift 1.6s linear infinite; }
-    .brand-container.hover-plane:hover .cloud-2 { animation: cloudDrift 2.2s linear infinite 0.3s; }
-    .brand-container.hover-plane:hover .cloud-3 { animation: cloudDrift 1.1s linear infinite 0.7s; }
-    .brand-container.hover-plane:hover .plane-layer { transform: translate(0, 0) scale(1); opacity: 1; animation: planeHover 3s ease-in-out infinite alternate 0.8s; }
-    .brand-container.hover-plane:hover .jet-stream-top,
-    .brand-container.hover-plane:hover .jet-stream-bottom { opacity: 0.6; transform: scaleX(1); animation: jetFlicker 0.15s linear infinite; }
+    .brand-text {
+      font-family: 'Lora', serif;
+      font-size: 3.2rem;
+      font-weight: 600;
+      color: var(--text-main);
+      letter-spacing: -1px;
+      user-select: none;
+      transition: color 0.4s ease, text-shadow 0.4s ease, letter-spacing 0.4s ease;
+    }
 
-    /* --- THE SHIP SCENE --- */
-    .ship-layer { transform: translate(-220px, 20px) scale(0.6) rotate(-10deg); transition: all 0.9s cubic-bezier(0.25, 1, 0.5, 1); z-index: 4; }
-    .ship-layer svg { width: 110px; height: auto; }
-    .water-env { position: absolute; bottom: -40px; left: 0; right: 0; height: 60px; opacity: 0; transition: all 0.6s ease; z-index: 6; }
-    
-    .wave-back, .wave-front { position: absolute; width: 200%; height: 100%; background-repeat: repeat-x; background-size: 50px 100%; }
-    .wave-back { bottom: 10px; background-image: radial-gradient(circle at 25px 0px, transparent 24px, var(--info-text) 25px); opacity: 0.5; z-index: 3; }
-    .wave-front { bottom: 0; background-image: radial-gradient(circle at 25px 0px, transparent 24px, var(--info-text) 25px); z-index: 6; }
+    .brand-svg-anim {
+      width: 42px;
+      height: 42px;
+      display: inline-block;
+      vertical-align: middle;
+      transition: filter 0.4s ease, transform 0.4s ease;
+      transform-origin: center bottom;
+    }
+    .brand-svg-anim .spider-icon { transform-origin: 16px 14px; animation: spiderBob 3s ease-in-out infinite; }
+    @keyframes spiderBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
 
-    .brand-container.hover-ship:hover .text-layer { transform: translateY(80px) rotateX(-60deg) scale(0.8); opacity: 0; filter: blur(6px) sepia(40%) hue-rotate(180deg); }
-    .brand-container.hover-ship:hover .water-env { bottom: 0; opacity: 1; }
-    .brand-container.hover-ship:hover .wave-back { animation: waveRollBack 4s linear infinite; }
-    .brand-container.hover-ship:hover .wave-front { animation: waveRollFront 3s linear infinite; }
-    .brand-container.hover-ship:hover .ship-layer { transform: translate(0, 15px) scale(1) rotate(0deg); opacity: 1; animation: shipRock 4s ease-in-out infinite alternate 0.9s; }
+    /* thread the spider hangs from */
+    .brand-svg-anim .spider-thread { transform-box: fill-box; transform-origin: top; }
 
-    /* --- THE TRUCK SCENE --- */
-    .truck-layer { transform: translate(-280px, 15px) scale(0.7) rotate(5deg); transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); z-index: 6; }
-    .truck-layer svg { width: 110px; height: auto; }
-    
-    .road-env { position: absolute; bottom: -20px; left: 0; right: 0; height: 24px; background: var(--surface-alt); opacity: 0; transition: all 0.5s ease; z-index: 2; border-top: 2px solid var(--border-focus); box-shadow: inset 0 10px 10px rgba(0,0,0,0.05); }
-    .road-lines { position: absolute; top: 10px; left: 0; width: 200%; height: 2px; background: repeating-linear-gradient(90deg, var(--warn-text) 0, var(--warn-text) 30px, transparent 30px, transparent 60px); filter: blur(1px); }
+    /* ── Smart hover animation: the mark "notices" the cursor ── */
+    .brand-container:hover .brand-text {
+      color: var(--border-focus);
+      letter-spacing: -0.5px;
+      text-shadow: 0 0 16px var(--border-focus), 0 0 3px var(--border-focus);
+    }
+    .brand-container:hover .brand-svg-anim {
+      filter: drop-shadow(0 0 8px var(--border-focus));
+    }
+    .brand-container:hover .brand-svg-anim .spider-icon {
+      animation: spiderWiggle 0.45s ease-in-out infinite;
+    }
+    @keyframes spiderWiggle { 0%,100% { transform: rotate(-9deg);} 50% { transform: rotate(9deg);} }
 
-    .wheel { transform-origin: center; transform-box: fill-box; }
+    .brand-container:hover .brand-svg-anim .spider-thread {
+      animation: threadDrop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 1;
+    }
+    @keyframes threadDrop {
+      0%   { transform: scaleY(1); }
+      35%  { transform: scaleY(2.4); }
+      65%  { transform: scaleY(1.3); }
+      100% { transform: scaleY(1); }
+    }
 
-    .brand-container.hover-truck:hover .text-layer { transform: translateX(150px) skewX(-40deg) scaleY(0.1) rotateZ(-10deg); opacity: 0; filter: blur(4px); transform-origin: bottom left; }
-    .brand-container.hover-truck:hover .road-env { bottom: 0; opacity: 1; }
-    .brand-container.hover-truck:hover .road-lines { animation: roadDash 0.25s linear infinite; }
-    .brand-container.hover-truck:hover .truck-layer { transform: translate(0, 15px) scale(1.1); opacity: 1; }
-    .brand-container.hover-truck:hover .truck-body { animation: chassisVibrate 0.1s linear infinite; }
-    .brand-container.hover-truck:hover .wheel { animation: wheelSpin 0.3s linear infinite; }
-
-    /* --- HEADER KEYFRAMES --- */
-    @keyframes cloudDrift { 0% { transform: translateX(20px); } 100% { transform: translateX(-400px); } }
-    @keyframes planeHover { 0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(0, -6px) scale(1.02); } 100% { transform: translate(0, 0) scale(1); } }
-    @keyframes jetFlicker { 0% { opacity: 0.5; } 100% { opacity: 0.8; } }
-    
-    @keyframes waveRollFront { 0% { background-position: 0 0; } 100% { background-position: -50px 0; } }
-    @keyframes waveRollBack { 0% { background-position: 0 0; } 100% { background-position: -50px 0; } }
-    @keyframes shipRock { 0% { transform: translate(0, 15px) rotate(-2deg) scale(1); } 100% { transform: translate(0, 8px) rotate(2deg) scale(1); } }
-    
-    @keyframes roadDash { 0% { transform: translateX(0); } 100% { transform: translateX(-60px); } }
-    @keyframes chassisVibrate { 0% { transform: translateY(0); } 50% { transform: translateY(1.5px); } 100% { transform: translateY(0); } }
-    @keyframes wheelSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(-360deg); } }
+    .brand-container:hover .brand-svg-anim .spider-legs path {
+      animation: legScurry 0.4s ease-in-out infinite;
+    }
+    .brand-container:hover .brand-svg-anim .spider-legs path:nth-child(odd) { animation-delay: 0.1s; }
+    @keyframes legScurry {
+      0%, 100% { stroke-width: 1.6; opacity: 1; }
+      50% { stroke-width: 2.1; opacity: 0.7; }
+    }
 
     /* ── TOGGLES (Theme & Settings) ── */
     .mode-toggle, .settings-toggle { position: fixed; right: 2rem; z-index: 1000; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
     .mode-toggle { top: 2rem; }
-    .settings-toggle { top: 6rem; }
-    
-    .mode-toggle input { display: none; }
-    .mode-toggle label { background-color: var(--surface); border: 1.5px solid var(--border); width: 4.5rem; height: 2.2rem; border-radius: 2rem; display: flex; align-items: center; justify-content: space-between; padding: 0.3rem 0.6rem; cursor: pointer; position: relative; transition: var(--transition); box-shadow: var(--shadow-soft); }
-    .mode-toggle label:hover { border-color: var(--border-focus); }
-    .mode-toggle .sun, .mode-toggle .moon { font-size: 1rem; transition: transform 0.4s; }
-    .mode-toggle input:checked + label .sun { transform: scale(0.6); opacity: 0.4; }
-    .mode-toggle input:not(:checked) + label .moon { transform: scale(0.6); opacity: 0.4; }
-    .mode-toggle .ball { width: 1.6rem; height: 1.6rem; background: var(--text-main); position: absolute; top: 0.2rem; left: 0.3rem; border-radius: 50%; transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
-    .mode-toggle input:checked + label .ball { transform: translateX(2.1rem); background: var(--btn-primary-bg); }
-    .vibe { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; }
+    .settings-toggle { top: 6.5rem; }
 
-    .settings-toggle button { width: 3rem; height: 3rem; background: var(--surface); border: 1.5px solid var(--border); border-radius: 50%; font-size: 1.2rem; color: var(--text-main); cursor: pointer; transition: var(--transition); box-shadow: var(--shadow-soft); display: flex; align-items: center; justify-content: center; }
+    .mode-toggle input { display: none; }
+    .mode-toggle label { background-color: var(--surface); border: 2px solid var(--border); width: 4.8rem; height: 2.3rem; border-radius: 2rem; display: flex; align-items: center; justify-content: space-between; padding: 0.3rem 0.6rem; cursor: pointer; position: relative; transition: var(--transition); box-shadow: var(--shadow-soft); }
+    .mode-toggle label:hover { border-color: var(--border-focus); }
+    .mode-toggle .sun, .mode-toggle .moon { font-size: 1.1rem; transition: transform 0.4s; }
+    .mode-toggle input:checked + label .sun { transform: scale(0.6); opacity: 0.3; }
+    .mode-toggle input:not(:checked) + label .moon { transform: scale(0.6); opacity: 0.3; }
+    .mode-toggle .ball { width: 1.6rem; height: 1.6rem; background: var(--text-main); position: absolute; top: 0.2rem; left: 0.3rem; border-radius: 50%; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .mode-toggle input:checked + label .ball { transform: translateX(2.3rem); background: var(--btn-primary-bg); }
+    .vibe { font-size: 0.75rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; }
+
+    .settings-toggle button { width: 3rem; height: 3rem; background: var(--surface); border: 2px solid var(--border); border-radius: 50%; font-size: 1.2rem; color: var(--text-main); cursor: pointer; transition: var(--transition); box-shadow: var(--shadow-soft); display: flex; align-items: center; justify-content: center; }
     .settings-toggle button:hover { border-color: var(--border-focus); transform: rotate(45deg); }
-    
-    .settings-panel { display: none; position: fixed; top: 9.5rem; right: 2rem; background: var(--surface); padding: 1.5rem; border-radius: var(--radius-md); box-shadow: var(--shadow-hover); width: 260px; z-index: 1000; border: 1px solid var(--border); }
+
+    .settings-panel { display: none; position: fixed; top: 10rem; right: 2rem; background: var(--surface); padding: 1.5rem; border-radius: var(--radius-md); box-shadow: var(--shadow-hover); width: 260px; z-index: 1000; border: 1.5px solid var(--border); }
     .settings-panel.active { display: block; animation: panelFade 0.2s ease; }
     @keyframes panelFade { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-    
+
     .settings-panel .section-title { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 0.75rem; }
     .settings-panel .toggle-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
     .settings-panel .toggle-switch input { display: none; }
@@ -231,49 +267,49 @@
     .settings-panel .toggle-label { font-size: 0.9rem; color: var(--text-main); font-weight: 500; }
 
     /* ── BENTO GRID LAYOUT ── */
-    .container { 
-      display: grid; 
-      grid-template-columns: repeat(3, 1fr); 
-      gap: 1.5rem; 
-      max-width: 1560px; 
-      margin: 0 auto; 
-      position: relative; z-index: 2; 
+    .container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 1560px;
+      margin: 0 auto;
+      position: relative; z-index: 2;
     }
-    
-    .autofill-box { 
-      background: var(--surface); 
-      border: 1px solid var(--border); 
-      padding: 2rem; 
-      border-radius: var(--radius-lg); 
-      box-shadow: var(--shadow-soft); 
-      transition: var(--transition); 
-      position: relative; 
+
+    .autofill-box {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      transition: var(--transition);
+      position: relative;
       display: flex; flex-direction: column;
     }
-    .autofill-box:hover { box-shadow: var(--shadow-hover); border-color: var(--border-focus); }
-    
-    .card-header { display: flex; align-items: center; gap: 0.85rem; margin-bottom: 0.4rem; padding-bottom: 1rem; border-bottom: 2px dotted var(--border); }
+    .autofill-box:hover { box-shadow: var(--shadow-hover); border-color: var(--border-focus); transform: translateY(-4px); }
+
+    .card-header { display: flex; align-items: center; gap: 0.85rem; margin-bottom: 0.4rem; padding-bottom: 1rem; border-bottom: 2px dashed var(--border); }
     .card-icon { width: 42px; height: 42px; background: var(--surface-alt); border: 1px solid var(--border); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: var(--text-main); flex-shrink: 0; }
-    .card-title { font-family: 'Lora', serif; font-weight: 500; font-size: 1.3rem; color: var(--text-main); letter-spacing: -0.01em; }
-    
+    .card-title { font-family: 'Lora', serif; font-weight: 600; font-size: 1.3rem; color: var(--text-main); letter-spacing: -0.01em; }
+
     .field-group { margin-bottom: 1.25rem; }
-    .field-label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
-    
+    .field-label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+
     /* Inputs */
-    .autofill-box select, .autofill-box textarea, .autofill-box input[type="text"] { 
-      width: 100%; border-radius: var(--radius-md); font-family: inherit; background: var(--bg-color); color: var(--text-main); 
-      border: 1.5px solid var(--border); transition: var(--transition); outline: none; font-size: 0.95rem; 
+    .autofill-box select, .autofill-box textarea, .autofill-box input[type="text"] {
+      width: 100%; border-radius: var(--radius-md); font-family: inherit; background: var(--bg-color); color: var(--text-main);
+      border: 2px solid var(--border); transition: var(--transition); outline: none; font-size: 0.95rem;
     }
-    .autofill-box select { padding: 0.75rem 1rem; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 12 12'%3E%3Cpath fill='%2380786D' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
-    .autofill-box input[type="text"] { padding: 0.75rem 1rem; }
+    .autofill-box select { padding: 0.75rem 1rem; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 12 12'%3E%3Cpath fill='%23475569' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+    .autofill-box input[type="text"] { padding: 0.75rem 1rem; font-family: 'Fira Code', monospace; }
     .autofill-box textarea { padding: 1rem; font-family: 'Fira Code', monospace; font-size: 0.85rem; resize: none; line-height: 1.6; }
     .autofill-box select:focus, .autofill-box input[type="text"]:focus, .autofill-box textarea:focus { border-color: var(--border-focus); background: var(--surface); box-shadow: 0 0 0 4px var(--surface-hover); }
     .textarea-sm { height: 90px; } .textarea-md { height: 140px; } .textarea-lg { height: 180px; }
-    
+
     /* Buttons */
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.85rem 1.2rem; border: none; border-radius: var(--radius-md); font-family: inherit; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: var(--transition); white-space: nowrap; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.85rem 1.2rem; border: none; border-radius: var(--radius-md); font-family: inherit; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: var(--transition); white-space: nowrap; }
     .btn-primary { background: var(--btn-primary-bg); color: var(--btn-primary-text); }
-    .btn-primary:hover { background: var(--btn-primary-hover); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
+    .btn-primary:hover { background: var(--btn-primary-hover); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
     .btn-secondary { background: var(--btn-secondary-bg); color: var(--btn-secondary-text); }
     .btn-secondary:hover { background: var(--btn-secondary-hover); }
     .btn-danger { background: var(--btn-danger-bg); color: var(--btn-danger-text); }
@@ -282,61 +318,61 @@
     .btn-full { width: 100%; }
     .btn-row { display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap; }
     .btn-row .btn { flex: 1; min-width: 120px; }
-    
+
     /* Dropdowns */
     .custom-dropdown { position: relative; width: 100%; z-index: 100; }
     .dropdown-trigger { position: relative; width: 100%; }
     .dropdown-trigger input { width: 100%; cursor: pointer; padding-right: 2.5rem !important; }
-    .dropdown-trigger::after { content: ''; position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 12 12'%3E%3Cpath fill='%2380786D' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-size: contain; pointer-events: none; }
-    .dropdown-panel { display: none; position: absolute; top: calc(100% + 8px); left: 0; width: 460px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1rem; box-shadow: var(--shadow-hover); grid-template-columns: 1fr 1fr; gap: 1.5rem; max-height: 320px; overflow-y: auto; z-index: 9999; }
+    .dropdown-trigger::after { content: ''; position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 12 12'%3E%3Cpath fill='%23475569' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-size: contain; pointer-events: none; }
+    .dropdown-panel { display: none; position: absolute; top: calc(100% + 8px); left: 0; width: 460px; background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: 1rem; box-shadow: var(--shadow-hover); grid-template-columns: 1fr 1fr; gap: 1.5rem; max-height: 320px; overflow-y: auto; z-index: 9999; }
     .dropdown-panel.single-col { grid-template-columns: 1fr; width: 100%; }
     .dropdown-panel.show { display: grid; animation: dropFade 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
     @keyframes dropFade { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }
-    
+
     .dropdown-column div { padding: 0.6rem 0.8rem; cursor: pointer; border-radius: var(--radius-sm); font-size: 0.9rem; transition: var(--transition); color: var(--text-main); font-weight: 400; }
-    .dropdown-column div:hover { background: var(--surface-hover); color: var(--btn-primary-bg); font-weight: 500; padding-left: 1rem; }
-    .dropdown-title { font-family: 'Lora', serif; font-weight: 600; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; padding: 0.2rem 0.8rem; border-bottom: 1px solid var(--border); }
+    .dropdown-column div:hover { background: var(--surface-hover); color: var(--btn-primary-bg); font-weight: 600; padding-left: 1rem; }
+    .dropdown-title { font-family: 'Lora', serif; font-weight: 600; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; padding: 0.2rem 0.8rem; border-bottom: 1px dashed var(--border); }
     .dropdown-row { display: flex; gap: 0.75rem; }
     .dropdown-row .custom-dropdown { flex: 1; min-width: 0; }
-    
+
     /* Status & Smart Areas */
-    .status-bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 500; margin-top: 0.75rem; opacity: 0; transition: var(--transition); border: 1px solid transparent; }
+    .status-bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 600; margin-top: 0.75rem; opacity: 0; transition: var(--transition); border: 1px solid transparent; }
     .status-bar.show { opacity: 1; }
     .status-bar.info { background: var(--info-bg); color: var(--info-text); border-color: currentColor; }
     .status-bar.warn { background: var(--warn-bg); color: var(--warn-text); border-color: currentColor; }
-    
-    .smart-paste-area { width: 100%; min-height: 80px; padding: 1rem; border: 1.5px dashed var(--border); border-radius: var(--radius-md); font-family: 'Fira Code', monospace; font-size: 0.85rem; background: var(--bg-color); color: var(--text-muted); resize: none; line-height: 1.6; transition: var(--transition); }
-    .smart-paste-area:focus { border-color: var(--border-focus); border-style: solid; outline: none; background: var(--surface); color: var(--text-main); box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-    
+
+    .smart-paste-area { width: 100%; min-height: 80px; padding: 1rem; border: 2px dashed var(--border); border-radius: var(--radius-md); font-family: 'Fira Code', monospace; font-size: 0.85rem; background: var(--bg-color); color: var(--text-muted); resize: none; line-height: 1.6; transition: var(--transition); }
+    .smart-paste-area:focus { border-color: var(--border-focus); border-style: solid; outline: none; background: var(--surface); color: var(--text-main); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+
     .detected-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.25rem; }
-    .pill { font-size: 0.75rem; font-weight: 500; padding: 0.3rem 0.75rem; border-radius: 999px; background: var(--info-bg); color: var(--info-text); border: 1px solid currentColor; }
+    .pill { font-size: 0.75rem; font-weight: 600; padding: 0.3rem 0.75rem; border-radius: 999px; background: var(--info-bg); color: var(--info-text); border: 1px solid currentColor; }
     .pill.warn { background: var(--warn-bg); color: var(--warn-text); }
-    
+
     .smart-row { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    
+
     /* Skips & Overrides */
-    .skip-section, .error-override-section { background: var(--surface-alt); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1rem 1.25rem; margin-bottom: 0.25rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .skip-section, .error-override-section { background: var(--surface-alt); border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: 1rem 1.25rem; margin-bottom: 0.25rem; display: flex; flex-direction: column; gap: 0.75rem; }
     .skip-row { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
     .skip-row .field-label { margin-bottom: 0; flex-shrink: 0; margin-right: 0.5rem; }
-    
-    .skip-pill { padding: 0.35rem 0.8rem; border-radius: 999px; font-size: 0.8rem; font-weight: 500; cursor: pointer; border: 1.5px solid var(--border); background: var(--surface); color: var(--text-muted); transition: var(--transition); user-select: none; white-space: nowrap; }
+
+    .skip-pill { padding: 0.35rem 0.8rem; border-radius: 999px; font-size: 0.8rem; font-weight: 600; cursor: pointer; border: 1.5px solid var(--border); background: var(--surface); color: var(--text-muted); transition: var(--transition); user-select: none; white-space: nowrap; }
     .skip-pill:hover { border-color: var(--border-focus); color: var(--text-main); }
     .skip-pill.active { background: var(--btn-primary-bg); color: var(--btn-primary-text); border-color: var(--btn-primary-bg); }
     .skip-pill.none-pill.active { background: var(--text-muted); border-color: var(--text-muted); color: var(--surface); }
-    
+
     .sheet-check-row { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.25rem; }
     .sheet-check-row input[type="checkbox"] { cursor: pointer; width: 16px; height: 16px; flex-shrink: 0; accent-color: var(--btn-primary-bg); }
-    .sheet-check-row .field-label { margin-bottom: 0; cursor: pointer; text-transform: none; font-size: 0.85rem; letter-spacing: normal; font-weight: 500; }
-    
+    .sheet-check-row .field-label { margin-bottom: 0; cursor: pointer; text-transform: none; font-size: 0.85rem; letter-spacing: normal; font-weight: 600; }
+
     .custom-input-row { display: flex; gap: 0.5rem; }
     .custom-input-row input { flex: 1; padding: 0.5rem 0.75rem; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-size: 0.85rem; font-family: 'Fira Code', monospace; outline: none; background: var(--surface); color: var(--text-main); min-width: 0; }
     .custom-input-row input:focus { border-color: var(--border-focus); }
-    .custom-input-row button { padding: 0.5rem 1rem; background: var(--btn-primary-bg); color: var(--btn-primary-text); border: none; border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: var(--transition); }
+    .custom-input-row button { padding: 0.5rem 1rem; background: var(--btn-primary-bg); color: var(--btn-primary-text); border: none; border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: var(--transition); }
     .custom-input-row button:hover { background: var(--btn-primary-hover); }
 
     /* Shipment Histories */
     .shipment-wrapper { position: relative; }
-    .history-dropdown { display: none; position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-hover); z-index: 500; overflow: hidden; }
+    .history-dropdown { display: none; position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-hover); z-index: 500; overflow: hidden; }
     .history-dropdown.show { display: block; animation: dropFade 0.15s ease; }
     .history-item { padding: 0.75rem 1rem; font-size: 0.85rem; font-family: 'Fira Code', monospace; cursor: pointer; color: var(--text-main); display: flex; align-items: center; gap: 0.75rem; transition: var(--transition); border-bottom: 1px solid var(--bg-color); }
     .history-item:last-child { border-bottom: none; }
@@ -347,28 +383,28 @@
     .history-empty { padding: 1rem; font-size: 0.85rem; color: var(--text-muted); font-style: italic; text-align: center; }
 
     /* Shared History Panel (Cards 4 & 5) */
-    .c4-history { margin-top: 1.5rem; border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; background: var(--surface-alt); }
-    .c4-history-header { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); }
-    .c4-history-title { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+    .c4-history { margin-top: 1.5rem; border: 1.5px solid var(--border); border-radius: var(--radius-md); overflow: hidden; background: var(--surface-alt); }
+    .c4-history-header { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border-bottom: 1px dashed var(--border); }
+    .c4-history-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
     .c4-history-empty { padding: 1rem; font-size: 0.85rem; color: var(--text-muted); font-style: italic; text-align: center; }
-    .c4-hist-item { border-bottom: 1px solid var(--border); }
+    .c4-hist-item { border-bottom: 1px dashed var(--border); }
     .c4-hist-item:last-child { border-bottom: none; }
     .c4-hist-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; cursor: pointer; transition: var(--transition); }
     .c4-hist-row:hover { background: var(--surface-hover); }
     .c4-hist-id { flex: 1; font-family: 'Fira Code', monospace; font-size: 0.85rem; color: var(--text-main); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .c4-hist-client { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); background: var(--surface); border: 1px solid var(--border); padding: 0.2rem 0.6rem; border-radius: 999px; flex-shrink: 0; }
+    .c4-hist-client { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); background: var(--surface); border: 1px solid var(--border); padding: 0.2rem 0.6rem; border-radius: 999px; flex-shrink: 0; }
     .c4-hist-arrow { font-size: 0.7rem; color: var(--text-muted); flex-shrink: 0; transition: transform 0.3s; }
     .c4-hist-item.open .c4-hist-arrow { transform: rotate(90deg); }
     .c4-hist-remove { font-size: 0.75rem; color: var(--text-muted); padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0; }
     .c4-hist-remove:hover { color: var(--btn-danger-text); background: var(--btn-danger-bg); }
-    .c4-hist-preview { display: none; padding: 1rem; background: var(--surface); border-top: 1px solid var(--border); }
+    .c4-hist-preview { display: none; padding: 1rem; background: var(--surface); border-top: 1px dashed var(--border); }
     .c4-hist-item.open .c4-hist-preview { display: block; animation: dropFade 0.2s ease; }
     .c4-hist-json { font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--text-muted); white-space: pre; overflow-x: auto; margin-bottom: 0.75rem; line-height: 1.6; }
     .c4-hist-copy { padding: 0.4rem 0.8rem; background: var(--btn-secondary-bg); color: var(--btn-secondary-text); border: none; border-radius: var(--radius-sm); font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: var(--transition); }
     .c4-hist-copy:hover { background: var(--btn-secondary-hover); }
 
     /* Toast */
-    #toast { display: none; position: fixed; bottom: 2.5rem; left: 50%; transform: translateX(-50%); background: var(--btn-primary-bg); color: var(--btn-primary-text); padding: 0.85rem 1.5rem; border-radius: 999px; font-size: 0.95rem; font-weight: 500; z-index: 2000; box-shadow: var(--shadow-hover); animation: fadeInOut 2.5s cubic-bezier(0.16, 1, 0.3, 1); }
+    #toast { display: none; position: fixed; bottom: 2.5rem; left: 50%; transform: translateX(-50%); background: var(--btn-primary-bg); color: var(--btn-primary-text); padding: 0.85rem 1.5rem; border-radius: 999px; font-size: 0.95rem; font-weight: 600; z-index: 2000; box-shadow: var(--shadow-hover); animation: fadeInOut 2.5s cubic-bezier(0.16, 1, 0.3, 1); }
     @keyframes fadeInOut { 0%,100% { opacity: 0; transform: translate(-50%,20px) scale(0.9); } 10%,90% { opacity: 1; transform: translate(-50%,0) scale(1); } }
 
     /* Responsive */
@@ -388,6 +424,26 @@
 </head>
 <body>
 
+  <!-- Subliminal Background Grid & Scattered Particles -->
+  <div class="web-grid"></div>
+  <div class="spidey-particles">
+    <svg class="particle p-1" viewBox="0 0 1024 1419" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <g transform="translate(0,1419) scale(0.1,-0.1)">
+        <path d="M1870 14164 c-677 -226 -1096 -941 -1215 -2074 -18 -177 -39 -696 -30 -765 23 -186 242 -318 593 -357 l107 -11 135 53 c296 116 642 216 915 264 217 38 382 49 614 43 315 -8 508 -48 873 -180 l198 -72 -238 -12 c-497 -26 -935 -95 -1345 -212 -181 -52 -399 -164 -902 -466 -527 -316 -1221 -774 -1471 -973 -99 -78 -129 -194 -81 -312 62 -151 212 -307 612 -640 423 -351 528 -463 639 -680 222 -433 464 -1229 541 -1780 13 -97 108 -1235 437 -5253 23 -284 45 -514 49 -510 4 5 12 100 18 213 50 904 39 2815 -24 4275 -18 407 -14 370 -76 825 -26 201 -87 664 -134 1030 -132 1025 -187 1403 -243 1674 l-27 129 -105 62 c-58 34 -211 122 -340 195 -451 255 -660 411 -660 495 0 24 91 116 204 207 185 149 484 339 1171 743 357 210 576 343 736 447 172 111 349 172 593 204 139 19 362 14 536 -11 171 -24 163 -16 94 -87 -167 -170 -489 -407 -704 -517 -58 -30 -142 -64 -194 -77 -260 -69 -416 -213 -477 -441 -25 -93 -30 -295 -10 -413 30 -177 88 -374 171 -580 98 -243 326 -994 459 -1510 223 -869 374 -1737 421 -2425 11 -159 40 -792 65 -1415 49 -1200 70 -1647 100 -2135 29 -450 78 -1026 94 -1090 7 -26 8 -23 14 30 14 121 37 436 49 670 22 423 12 3647 -13 4020 -24 368 -76 802 -209 1740 -128 904 -158 1179 -175 1597 l-7 158 -84 82 c-144 140 -224 276 -270 457 -29 113 -33 321 -9 436 83 392 360 746 728 931 78 40 250 100 315 110 51 8 50 10 23 -146 -25 -140 -64 -237 -173 -426 -50 -88 -104 -186 -120 -220 l-28 -60 15 -150 c80 -793 396 -1803 751 -2394 l69 -115 3 98 3 97 264 0 264 0 3 -97 3 -98 59 95 c354 567 691 1642 766 2446 l12 121 -37 74 c-20 41 -73 135 -116 209 -103 178 -144 281 -169 428 -11 64 -20 123 -20 131 0 20 71 8 199 -34 445 -149 799 -544 891 -995 30 -147 25 -345 -14 -473 -52 -175 -136 -309 -276 -440 l-80 -75 0 -145 c0 -302 -38 -660 -171 -1597 -100 -711 -147 -1075 -185 -1450 -24 -238 -26 -310 -36 -1065 -16 -1219 -16 -2978 0 -3270 14 -252 49 -695 56 -702 16 -16 80 747 116 1382 21 383 47 954 80 1775 41 1024 66 1509 91 1760 100 1009 349 2132 744 3360 36 113 90 266 120 340 62 157 116 329 145 467 30 139 37 353 17 462 -49 255 -212 416 -491 486 -203 50 -577 294 -849 555 -68 65 -94 96 -85 101 7 4 72 15 143 25 176 25 482 25 610 1 228 -45 356 -95 538 -210 190 -121 360 -224 807 -488 627 -369 888 -536 1080 -690 108 -86 200 -180 200 -204 0 -88 -208 -240 -730 -535 -167 -95 -321 -183 -341 -197 l-37 -24 -31 -162 c-61 -322 -114 -691 -256 -1797 -47 -366 -103 -794 -125 -951 -40 -290 -52 -440 -70 -874 -58 -1411 -67 -3259 -19 -4130 6 -116 15 -217 20 -225 6 -12 8 -10 9 8 0 19 377 4622 445 5432 30 366 63 562 151 912 96 385 277 903 402 1153 117 235 240 370 657 715 497 412 644 590 633 765 -8 123 -40 154 -464 447 -586 407 -1358 879 -1780 1091 -130 65 -334 124 -644 187 -322 64 -564 94 -943 113 l-227 12 198 72 c365 132 558 172 873 180 128 4 258 1 340 -7 353 -32 755 -133 1174 -295 l150 -58 105 11 c285 32 499 134 566 269 17 35 19 64 19 323 -1 306 -12 464 -51 740 -74 522 -218 942 -436 1271 -62 94 -112 154 -207 249 -132 131 -219 196 -360 267 -82 42 -268 109 -277 101 -2 -3 36 -29 86 -58 352 -208 601 -571 720 -1050 66 -263 90 -486 90 -835 0 -333 -34 -742 -66 -792 -7 -11 -37 -33 -66 -47 -47 -23 -70 -27 -198 -32 -176 -8 -238 0 -535 67 -121 28 -256 57 -300 65 -471 84 -972 66 -1605 -57 -58 -11 -113 -23 -123 -25 -30 -9 178 242 251 302 232 193 587 296 1067 310 105 3 204 10 222 16 18 5 44 24 59 41 41 48 31 120 -45 347 -241 716 -518 1165 -796 1290 -113 52 -114 50 -20 -61 303 -358 454 -741 481 -1214 l7 -120 -41 -23 c-49 -27 -111 -39 -267 -52 -163 -14 -246 -28 -335 -58 -182 -60 -398 -197 -619 -392 -85 -75 -98 -83 -201 -119 l-110 -39 0 69 c0 38 -6 85 -14 103 -19 45 -77 101 -134 130 -45 22 -147 56 -171 56 -6 0 9 -37 33 -82 57 -105 86 -194 86 -258 0 -43 -5 -56 -33 -86 l-32 -36 -74 46 c-99 61 -159 80 -231 73 -67 -6 -116 -29 -191 -90 l-54 -44 -45 39 c-25 22 -72 53 -105 69 -104 50 -193 37 -331 -51 -64 -40 -66 -41 -86 -23 -37 33 -51 73 -45 129 6 59 50 174 96 253 18 29 30 56 27 59 -9 8 -96 -18 -161 -49 -113 -52 -164 -126 -165 -236 0 -35 -2 -63 -5 -63 -3 0 -51 16 -106 35 -89 31 -108 42 -182 108 -101 90 -216 178 -327 250 -212 137 -360 185 -639 207 -161 13 -225 25 -268 52 -33 19 -33 20 -33 96 0 42 5 118 10 167 47 419 192 759 465 1084 47 56 85 105 83 106 -7 8 -123 -46 -177 -81 -247 -162 -505 -615 -723 -1267 -67 -200 -77 -270 -45 -318 32 -47 75 -57 282 -63 477 -14 830 -112 1057 -295 85 -68 307 -328 271 -317 -36 10 -282 55 -413 75 -579 87 -1017 78 -1495 -30 -445 -102 -393 -93 -595 -93 -208 0 -248 8 -305 57 l-39 33 -17 155 c-105 916 13 1636 344 2106 115 163 327 352 485 432 77 39 51 41 -58 5z"/>
+      </g>
+    </svg>
+    <svg class="particle p-2" viewBox="0 0 1125 1626" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <g transform="translate(0,1626) scale(0.1,-0.1)">
+        <path d="M5220 16250 c-662 -47 -1316 -176 -1825 -362 -1133 -412 -2000 -1200 -2601 -2363 -409 -792 -652 -1665 -743 -2670 -39 -434 -46 -599 -46 -1165 0 -565 5 -672 46 -1090 75 -765 306 -1872 590 -2824 437 -1464 1134 -2937 1836 -3877 364 -489 817 -951 1218 -1244 447 -326 962 -543 1472 -620 359 -54 755 -43 1104 31 1004 212 1919 934 2736 2159 815 1223 1418 2675 1868 4500 213 865 324 1551 365 2265 15 239 7 1507 -9 1685 -49 534 -113 933 -217 1350 -354 1423 -1014 2512 -1946 3212 -310 233 -690 447 -1052 593 -499 201 -1109 343 -1736 406 -192 19 -861 28 -1060 14z m1005 -139 c311 -25 558 -61 745 -107 117 -29 240 -72 240 -84 0 -12 -203 -98 -330 -140 -780 -257 -1931 -233 -2660 55 -63 25 -130 54 -149 64 l-34 18 81 32 c201 77 536 135 927 161 94 6 195 12 225 14 107 7 827 -3 955 -13z m1215 -314 c0 -52 -95 -696 -155 -1052 -35 -209 -76 -467 -90 -574 -39 -285 -76 -376 -197 -486 -85 -76 -248 -152 -513 -239 -426 -139 -867 -173 -1305 -100 -363 60 -809 230 -951 362 -92 85 -112 136 -153 392 -164 1016 -247 1579 -243 1633 3 32 8 61 10 64 3 3 54 -11 114 -31 373 -124 798 -213 1233 -258 192 -20 725 -17 930 5 404 44 845 143 1196 267 60 21 112 39 117 39 4 1 7 -9 7 -22z m-3994 -91 c-45 -118 -97 -207 -215 -366 -96 -129 -358 -398 -516 -529 -429 -355 -934 -629 -1267 -687 -49 -8 -102 -14 -119 -12 l-30 3 109 145 c409 543 871 939 1462 1253 157 83 551 255 587 257 9 0 5 -19 -11 -64z m4421 19 c685 -183 1640 -901 2003 -1505 27 -46 50 -87 50 -92 0 -23 -195 5 -325 48 -337 109 -708 336 -1065 650 -145 127 -358 347 -469 484 -124 151 -316 440 -294 440 4 0 50 -11 100 -25z m-4167 -47 c0 -11 167 -1046 241 -1498 65 -393 36 -670 -102 -969 -93 -200 -292 -437 -469 -558 -216 -147 -458 -228 -760 -254 -183 -15 -521 4 -635 36 -90 26 -110 54 -269 362 -151 293 -526 1040 -526 1047 0 10 202 100 310 138 379 133 740 314 1030 516 348 243 669 564 927 927 103 146 180 238 211 252 35 16 42 16 42 1z m3977 -153 c567 -763 1324 -1303 2242 -1601 74 -24 135 -45 137 -47 2 -2 -5 -37 -15 -78 -14 -53 -103 -243 -312 -663 -316 -635 -327 -653 -427 -699 -45 -21 -62 -22 -375 -25 -251 -2 -354 1 -446 12 -292 38 -519 149 -740 361 -143 138 -246 278 -331 450 -104 211 -153 376 -153 510 0 130 269 1790 309 1904 6 18 4 20 111 -124z m-3257 -2072 c249 -109 537 -193 795 -233 264 -42 629 -37 898 11 289 51 625 162 877 289 45 23 85 39 88 36 3 -3 -23 -189 -57 -413 -61 -394 -93 -591 -200 -1223 -27 -162 -56 -339 -65 -393 -30 -184 -90 -262 -262 -337 -193 -84 -403 -146 -595 -174 -139 -21 -399 -21 -537 0 -278 41 -622 165 -736 265 -72 63 -94 110 -121 257 -44 236 -335 1996 -335 2024 0 4 30 -7 68 -26 37 -18 119 -56 182 -83z m-3223 45 c75 -119 206 -354 293 -523 373 -733 528 -1416 469 -2078 -27 -308 -122 -584 -285 -829 -69 -104 -168 -218 -189 -218 -16 0 -113 125 -197 255 -36 55 -131 220 -211 366 -143 262 -199 358 -263 453 l-32 48 -16 -23 c-39 -61 -99 -209 -146 -364 -54 -178 -121 -360 -143 -387 -10 -14 -32 3 -170 136 l-157 151 91 160 c503 880 804 1844 875 2803 6 88 8 92 30 92 17 0 31 -12 51 -42z m8953 -333 c86 -609 249 -1193 498 -1775 84 -198 284 -594 390 -774 45 -76 82 -142 82 -146 0 -11 -299 -245 -313 -245 -25 0 -97 171 -147 347 -28 98 -62 204 -76 235 -28 64 -82 153 -93 153 -11 0 -138 -214 -278 -470 -71 -129 -162 -288 -202 -352 -92 -147 -232 -333 -251 -333 -23 0 -203 276 -274 420 -113 227 -153 371 -182 655 -23 225 -15 613 16 815 31 204 65 350 125 530 68 206 133 356 249 575 51 96 124 234 161 305 75 144 184 338 224 400 l25 40 13 -115 c7 -63 22 -182 33 -265z m-9204 125 c23 -348 -127 -1020 -363 -1620 -96 -243 -342 -734 -360 -717 -7 8 15 248 43 453 92 688 281 1322 577 1938 l72 149 12 -54 c7 -30 15 -97 19 -149z m9524 -115 c299 -606 483 -1286 550 -2040 20 -219 20 -219 -107 30 -151 298 -256 537 -330 750 -172 495 -250 894 -259 1325 l-5 215 36 -60 c20 -33 71 -132 115 -220z m-6391 78 c18 -37 43 -168 107 -548 150 -897 204 -1278 204 -1430 0 -559 -452 -1106 -1000 -1209 -109 -21 -222 -21 -266 0 -19 9 -51 35 -70 58 -50 58 -1015 1988 -1039 2079 -10 37 -16 69 -14 71 2 2 166 6 364 9 404 5 495 16 690 81 383 128 664 377 881 779 56 104 93 157 112 157 4 0 18 -21 31 -47z m3176 -35 c262 -452 564 -729 925 -846 196 -64 338 -81 767 -91 172 -4 315 -9 317 -12 2 -2 -13 -49 -34 -104 -49 -132 -967 -1966 -1015 -2028 -51 -66 -101 -90 -190 -88 -86 1 -252 38 -361 80 -329 127 -620 441 -738 795 -65 196 -70 367 -21 726 26 192 204 1282 225 1377 13 58 72 273 76 273 1 0 23 -37 49 -82z m1949 -2523 c52 -274 146 -508 302 -751 171 -267 179 -313 76 -462 -87 -128 -875 -1112 -890 -1112 -4 0 -53 23 -109 51 -205 101 -322 265 -388 544 -62 256 -55 493 20 775 52 191 192 499 513 1130 119 234 255 500 302 592 69 136 90 169 115 181 l30 14 6 -436 c4 -353 9 -453 23 -526z m-6842 520 c245 -477 449 -896 557 -1142 129 -296 181 -515 181 -768 0 -279 -70 -534 -196 -711 -135 -191 -268 -212 -433 -67 -62 54 -240 265 -412 488 -437 568 -442 574 -441 670 0 62 23 111 97 210 195 261 318 575 354 907 6 54 11 263 11 466 0 203 3 372 7 376 4 4 18 6 31 4 21 -3 54 -62 244 -433z m4289 -331 c-16 -132 -73 -498 -126 -814 -123 -739 -133 -767 -310 -945 -150 -151 -309 -217 -520 -218 -130 0 -217 17 -405 80 -181 60 -258 102 -325 176 -73 81 -108 166 -135 337 -12 74 -71 434 -132 800 -104 628 -109 669 -99 733 5 38 11 71 14 73 2 2 46 -14 98 -35 230 -94 475 -158 697 -182 140 -15 428 -7 562 16 203 34 448 110 625 194 44 21 81 34 83 30 2 -3 -11 -114 -27 -245z m-2077 -554 c177 -1036 170 -988 169 -1165 0 -183 -16 -261 -78 -387 -84 -174 -209 -294 -399 -388 -190 -93 -245 -100 -319 -39 -38 32 -29 12 -553 1080 -173 352 -184 378 -178 416 6 40 8 41 51 48 134 20 341 89 483 160 285 143 537 402 692 709 23 45 43 77 44 71 2 -5 42 -233 88 -505z m2308 372 c174 -242 243 -327 328 -413 145 -146 262 -212 623 -349 l219 -83 -6 -46 c-4 -33 -102 -239 -340 -716 -184 -368 -348 -689 -365 -712 -62 -86 -131 -93 -287 -28 -226 93 -365 219 -454 410 -60 127 -75 211 -74 410 2 191 21 339 124 950 102 599 123 714 131 709 5 -3 50 -62 101 -132z m-6637 -960 c93 -278 107 -420 76 -782 -16 -194 -10 -526 14 -749 30 -278 85 -570 176 -935 59 -234 77 -346 84 -516 l6 -125 -25 45 c-142 263 -335 1212 -411 2020 -44 478 -48 990 -9 1234 l6 40 19 -50 c11 -27 39 -109 64 -182z m10871 -302 c4 -244 3 -428 -5 -550 -38 -591 -133 -1179 -322 -2000 -73 -318 -64 -293 -102 -285 -18 4 -33 9 -35 10 -2 1 2 70 8 153 12 156 23 213 83 417 184 630 251 1335 196 2078 -17 227 0 321 98 535 19 42 40 88 46 102 10 23 11 20 19 -35 4 -33 11 -224 14 -425z m-10100 -12 c55 -45 95 -91 151 -172 496 -720 1150 -1465 1983 -2261 341 -326 407 -385 745 -671 138 -117 308 -267 379 -335 l128 -124 -88 -58 c-126 -82 -349 -189 -489 -236 -238 -78 -470 -115 -725 -115 -404 2 -759 119 -1063 351 -97 74 -272 248 -359 357 -356 444 -607 1016 -713 1626 -50 292 -57 387 -62 885 -5 405 -3 494 13 643 9 94 19 172 21 172 2 0 37 -28 79 -62z m9307 16 l35 -17 11 -101 c37 -333 40 -895 7 -1176 -83 -695 -292 -1277 -656 -1820 -139 -209 -326 -411 -498 -538 -482 -358 -1109 -436 -1757 -221 -145 48 -400 165 -497 228 -39 25 -88 87 -76 95 2 2 127 110 278 241 971 843 1557 1418 2160 2120 223 260 392 473 690 869 139 185 257 336 261 336 5 0 24 -7 42 -16z m-6828 -514 c234 -418 355 -716 385 -944 21 -156 -18 -293 -115 -404 -88 -99 -168 -126 -251 -84 -23 11 -101 74 -175 138 -148 131 -669 605 -669 610 0 2 35 27 77 56 198 133 331 321 416 583 28 88 106 417 107 452 0 4 27 -43 60 -104 32 -62 107 -198 165 -303z m4494 293 c103 -473 253 -748 504 -927 l68 -48 -48 -52 c-203 -220 -274 -292 -390 -398 -163 -148 -315 -271 -369 -298 -57 -28 -109 -26 -169 9 -102 59 -185 181 -204 303 -15 92 9 299 48 410 34 98 518 1108 531 1108 3 0 16 -48 29 -107z m-1692 -438 c-3 -79 -24 -235 -60 -455 -31 -184 -67 -412 -81 -506 -28 -190 -50 -262 -100 -320 -75 -88 -192 -124 -406 -124 -288 0 -416 45 -483 168 -31 56 -39 102 -142 777 -36 237 -69 453 -73 480 -10 60 4 115 28 115 9 0 84 -14 166 -30 482 -98 605 -97 1024 12 104 27 126 31 129 18 2 -8 1 -68 -2 -135z m-1393 -490 c79 -484 116 -733 116 -788 0 -126 -182 -295 -336 -313 -76 -9 -142 16 -198 76 -35 38 -88 135 -249 457 l-205 409 217 106 c141 69 237 123 276 155 33 27 114 113 180 191 95 112 122 138 127 124 4 -9 37 -197 72 -417z m1685 255 c156 -177 237 -234 496 -345 61 -26 113 -50 118 -54 10 -10 -139 -343 -277 -618 -151 -301 -186 -338 -322 -337 -60 0 -81 5 -138 33 -80 39 -173 127 -204 192 -13 27 -22 65 -22 92 0 56 40 330 121 831 32 202 59 373 59 380 0 12 38 -27 169 -174z m-2411 -977 c66 -131 143 -294 172 -361 44 -106 51 -130 46 -164 -7 -41 -64 -198 -72 -198 -17 0 -184 93 -259 144 -98 66 -349 307 -343 329 3 12 330 486 335 487 2 0 56 -107 121 -237z m3373 -259 c6 -8 -50 -63 -173 -171 -352 -307 -361 -313 -425 -279 -49 25 -93 114 -95 191 -1 49 18 93 209 484 l133 274 171 -244 c94 -134 175 -249 180 -255z m-1495 -71 c-3 -16 -22 -131 -41 -258 -51 -327 -79 -458 -105 -494 -52 -74 -171 -107 -345 -96 -184 13 -237 58 -264 230 -6 39 -31 197 -56 352 -25 155 -45 285 -45 288 0 3 194 5 431 5 l431 0 -6 -27z m-938 -265 c50 -277 82 -488 82 -543 0 -39 -12 -63 -90 -193 -23 -38 -29 -42 -66 -42 l-42 0 -201 398 -200 399 227 106 c125 59 232 106 238 107 6 0 28 -100 52 -232z m1392 92 c69 -29 129 -56 133 -60 12 -10 -79 -205 -251 -537 l-146 -282 -40 22 c-91 49 -156 140 -156 217 0 13 29 191 65 397 36 206 65 376 65 378 0 4 72 -25 330 -135z m-5684 -635 c57 -118 104 -219 104 -224 0 -5 -31 -12 -68 -16 -91 -9 -136 9 -159 62 -13 31 -14 61 -9 168 7 138 16 225 23 225 3 0 51 -97 109 -215z m9729 30 c22 -149 16 -204 -26 -239 -32 -27 -89 -39 -160 -34 l-46 3 100 208 c61 125 103 203 108 195 4 -7 15 -67 24 -133z m-4630 -238 c63 -30 123 -81 156 -134 18 -29 19 -35 5 -60 -8 -16 -36 -49 -63 -74 -89 -83 -216 -114 -447 -107 -133 3 -145 5 -206 34 -45 21 -86 52 -132 100 -38 37 -68 74 -68 80 0 27 68 110 111 137 82 50 123 56 364 54 218 -2 221 -2 280 -30z m-4860 -246 c56 -26 89 -59 198 -196 167 -211 374 -395 605 -538 178 -111 433 -228 544 -251 175 -36 274 -123 333 -293 13 -38 38 -147 55 -243 29 -164 45 -237 84 -385 47 -176 -7 -345 -166 -522 -466 -520 -564 -623 -588 -623 -14 0 -29 4 -35 8 -6 4 -10 101 -11 252 -1 262 -12 402 -49 626 -60 357 -171 692 -340 1022 -188 370 -413 679 -722 993 l-144 147 38 10 c64 17 154 14 198 -7z m9326 9 l36 -10 -122 -124 c-648 -655 -1008 -1395 -1110 -2281 -9 -77 -19 -262 -22 -412 l-6 -272 -85 72 c-70 59 -419 437 -596 646 -133 158 -153 267 -92 523 19 78 55 244 81 368 26 124 57 248 69 275 45 99 119 157 243 189 425 110 841 385 1218 807 66 73 134 147 150 163 61 59 149 80 236 56z m49 -253 c-80 -555 -717 -2102 -1094 -2657 l-71 -105 -3 75 c-4 91 13 352 34 510 88 679 334 1286 738 1820 145 193 397 473 404 450 2 -6 -1 -48 -8 -93z m-9558 6 c171 -139 382 -404 553 -696 75 -129 220 -430 280 -582 204 -517 300 -1038 254 -1386 -6 -46 -14 -87 -18 -91 -18 -20 -372 669 -543 1057 -227 515 -445 1108 -618 1680 -11 39 -23 79 -27 90 -6 19 -5 19 23 1 16 -11 59 -43 96 -73z m4961 -39 c52 -18 108 -73 132 -131 17 -41 50 -166 60 -230 l7 -43 -397 0 -397 0 4 113 c3 95 8 121 30 168 29 63 73 101 133 118 58 16 84 18 241 20 105 1 152 -3 187 -15z m-963 -369 c17 -16 38 -52 49 -79 26 -70 44 -196 35 -253 -9 -64 -159 -564 -401 -1333 -229 -730 -229 -730 -257 -700 -7 8 -81 96 -163 195 -163 196 -294 328 -388 392 -78 53 -219 123 -430 213 -93 40 -172 74 -174 76 -23 20 638 790 946 1102 138 139 207 187 461 323 179 96 189 100 240 96 41 -3 59 -10 82 -32z m1723 -6 c78 -26 230 -106 325 -172 109 -75 205 -168 310 -302 113 -143 165 -202 423 -485 237 -260 229 -251 366 -426 l111 -141 -82 -17 c-466 -99 -823 -378 -1079 -845 l-35 -63 -45 138 c-84 257 -586 1898 -603 1969 -35 150 5 294 95 342 56 29 130 30 214 2z m-811 -134 c40 -8 114 -35 165 -60 99 -49 156 -102 198 -185 26 -52 169 -504 434 -1370 27 -91 84 -275 125 -410 72 -237 83 -300 52 -300 -14 0 -217 38 -426 79 -356 70 -607 97 -795 86 -197 -11 -330 -31 -795 -118 -102 -19 -202 -38 -224 -42 l-39 -6 5 83 c4 55 16 117 37 183 18 55 79 244 136 420 185 571 247 778 334 1113 28 107 63 217 78 245 16 29 58 82 94 118 146 147 389 211 621 164z m2068 -276 c294 -39 539 -75 543 -79 5 -4 -12 -93 -37 -196 -25 -104 -66 -290 -91 -413 -25 -123 -46 -225 -47 -226 -2 -1 -22 2 -45 7 -39 8 -57 26 -220 211 -587 664 -686 780 -662 774 13 -3 265 -38 559 -78z m-3942 19 c-385 -459 -562 -660 -742 -845 -71 -74 -130 -132 -132 -130 -8 7 -194 853 -192 866 2 12 118 31 523 87 286 40 535 72 554 73 l33 1 -44 -52z m4319 -1264 c15 -3 40 -14 55 -26 27 -19 798 -900 798 -912 0 -3 -40 -26 -89 -51 -668 -335 -1146 -852 -1416 -1532 l-48 -123 -34 56 c-24 40 -65 158 -139 403 -58 190 -153 497 -210 682 -58 185 -109 364 -115 398 -22 142 48 355 188 565 169 254 431 433 757 517 136 35 177 39 253 23z m-4975 -18 c331 -84 610 -280 783 -551 95 -148 185 -374 185 -464 0 -53 -73 -303 -331 -1138 l-134 -432 -81 167 c-179 365 -364 623 -635 888 -229 223 -449 381 -741 534 l-127 66 61 94 c70 110 86 130 358 435 113 127 224 253 248 281 115 137 223 168 414 120z m2696 -751 c319 -45 725 -179 847 -279 23 -19 58 -58 77 -88 48 -70 112 -260 354 -1053 128 -419 137 -455 136 -524 -1 -41 -4 -76 -7 -79 -2 -3 -154 23 -337 57 -667 123 -925 151 -1398 151 -480 0 -728 -27 -1418 -156 -162 -30 -298 -54 -302 -54 -5 0 -16 13 -25 29 -14 28 -11 40 51 248 292 977 406 1337 444 1397 46 76 162 141 389 220 220 76 437 125 653 146 121 11 405 4 536 -15z m3037 -411 c7 -41 -12 -78 -163 -306 -219 -330 -508 -682 -807 -984 -108 -109 -257 -224 -291 -224 -6 0 -19 9 -29 20 -17 19 -18 26 -6 68 18 71 98 265 153 376 180 360 452 663 808 901 109 73 303 184 321 185 4 0 10 -16 14 -36z m-6668 -14 c583 -249 1113 -876 1208 -1429 9 -51 14 -95 12 -97 -11 -12 -248 195 -408 355 -197 198 -283 298 -474 552 -119 160 -445 637 -445 653 0 10 9 7 107 -34z m3743 -1521 c284 -23 595 -71 880 -134 225 -50 435 -108 434 -120 -1 -5 -51 -44 -112 -85 -400 -271 -863 -433 -1375 -481 -166 -15 -554 -7 -697 16 -419 65 -759 184 -1061 371 -103 64 -249 170 -249 182 0 10 298 91 483 132 290 64 648 113 954 130 171 10 561 4 743 -11z"/>
+      </g>
+    </svg>
+    <svg class="particle p-3" viewBox="0 0 860 1033" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <g transform="translate(0,1033) scale(0.1,-0.1)">
+        <path d="M2448 9906 c-15 -8 -46 -32 -69 -53 -185 -167 -294 -273 -422 -407 -136 -143 -158 -171 -264 -343 -263 -427 -412 -727 -554 -1119 -122 -338 -200 -650 -299 -1201 -22 -122 -53 -283 -69 -358 -28 -124 -29 -139 -17 -185 7 -28 16 -53 19 -56 6 -6 55 15 122 54 105 61 122 70 205 102 154 59 378 74 702 45 555 -49 1049 -182 1506 -407 45 -22 85 -44 87 -48 2 -4 -24 -10 -58 -13 -34 -4 -136 -16 -227 -27 -409 -50 -616 -72 -855 -90 -188 -15 -199 -17 -375 -85 -693 -268 -943 -342 -1186 -353 l-120 -5 -85 57 c-93 62 -110 63 -130 13 -6 -18 -19 -47 -28 -66 -14 -31 -13 -51 2 -207 32 -315 153 -934 272 -1384 111 -421 284 -918 465 -1340 32 -75 41 -94 127 -285 25 -55 93 -193 150 -306 99 -194 112 -215 225 -350 134 -160 405 -435 513 -521 139 -109 281 -190 397 -226 81 -25 183 -38 192 -24 3 5 -52 61 -122 125 -277 250 -579 576 -701 755 -46 69 -201 352 -307 562 -334 665 -560 1409 -615 2020 -21 235 4 595 44 637 18 18 167 98 292 155 277 128 696 278 1090 391 244 71 654 173 725 182 l55 6 -33 -20 c-17 -11 -85 -48 -150 -82 -600 -314 -1020 -638 -1186 -916 l-59 -98 13 -60 c21 -103 118 -429 211 -707 196 -586 403 -1034 680 -1468 77 -120 343 -474 376 -500 31 -25 98 -45 217 -66 97 -18 457 -26 472 -11 5 5 -3 29 -16 54 -22 40 -33 49 -85 68 -130 48 -280 133 -492 280 -50 34 -275 398 -396 641 -204 408 -379 977 -417 1361 -14 139 -8 163 71 285 229 349 534 627 956 872 121 70 420 226 434 226 3 0 -12 -66 -33 -147 -100 -388 -152 -693 -169 -998 -39 -694 138 -1256 519 -1648 47 -48 89 -87 94 -87 4 0 8 100 8 223 l0 223 155 0 155 0 0 -223 c0 -126 4 -223 9 -223 5 0 49 42 98 94 282 298 459 709 504 1170 15 158 6 604 -15 754 -33 231 -140 733 -177 830 -5 14 -8 27 -5 29 6 6 289 -137 416 -210 467 -268 791 -574 1030 -970 19 -33 22 -51 21 -123 -2 -206 -90 -593 -211 -939 -128 -366 -325 -752 -530 -1042 -61 -87 -73 -97 -195 -179 -136 -90 -256 -155 -364 -195 -50 -19 -69 -32 -87 -61 -13 -21 -24 -44 -24 -51 0 -53 496 -22 652 40 27 11 56 37 92 82 511 643 809 1247 1115 2261 37 124 78 266 91 316 l22 91 -47 84 c-91 162 -228 304 -461 480 -201 151 -502 338 -731 452 -50 26 -113 60 -140 78 l-48 31 50 -7 c93 -12 566 -132 822 -209 447 -134 898 -307 1169 -449 125 -65 129 -70 148 -174 116 -634 -194 -1839 -716 -2777 -28 -50 -72 -131 -97 -181 -95 -183 -236 -359 -513 -640 -103 -104 -237 -233 -297 -285 -60 -52 -108 -99 -107 -105 5 -18 119 -6 203 21 243 78 544 325 874 714 149 177 146 171 272 425 274 548 465 1025 637 1591 154 508 319 1294 360 1722 12 118 11 124 -11 180 -23 58 -45 92 -61 92 -5 0 -45 -25 -88 -55 l-79 -55 -93 0 c-222 0 -483 73 -1063 295 -176 68 -338 126 -360 129 -22 3 -101 11 -175 16 -267 21 -484 44 -1005 109 l-140 17 46 27 c171 100 621 264 910 331 415 96 900 138 1164 101 120 -16 221 -53 364 -133 154 -85 146 -85 167 -5 9 37 7 62 -17 170 -16 71 -47 229 -69 353 -179 990 -364 1514 -781 2212 -164 275 -207 332 -377 503 -401 405 -522 498 -522 400 0 -24 32 -66 118 -158 132 -139 278 -330 385 -505 264 -427 609 -1457 731 -2184 l7 -36 -53 -7 c-730 -92 -1291 -263 -2022 -614 -93 -45 -171 -80 -173 -78 -4 5 223 219 319 300 242 206 477 369 927 648 58 35 108 67 113 70 4 3 4 19 -1 35 -6 16 -42 139 -81 274 -39 135 -78 265 -86 290 -7 25 -75 252 -149 505 -187 636 -182 621 -225 707 -57 114 -106 184 -185 263 -109 110 -247 186 -378 209 -37 7 -38 7 -31 -21 4 -15 28 -52 54 -80 55 -63 108 -156 154 -272 59 -148 67 -188 171 -846 97 -611 134 -870 128 -876 -5 -3 -48 -40 -98 -81 -219 -181 -455 -409 -710 -687 l-130 -141 -12 93 c-33 244 -179 562 -364 792 l-64 79 -6 -89 c-4 -50 -7 -147 -8 -216 -1 -69 -4 -167 -7 -217 l-7 -92 -102 0 -102 0 -7 38 c-3 20 -6 100 -7 177 -1 77 -4 199 -8 270 l-6 130 -53 -63 c-199 -239 -354 -582 -381 -841 l-6 -63 -141 153 c-202 219 -495 504 -661 643 -79 66 -143 124 -143 130 0 11 33 225 90 591 151 959 152 964 225 1144 43 106 87 180 146 245 25 28 49 64 53 80 7 28 7 28 -30 22 -88 -17 -166 -50 -250 -105 -102 -67 -185 -151 -255 -258 -79 -121 -99 -179 -278 -789 -38 -131 -89 -302 -112 -379 -22 -77 -54 -183 -69 -235 -16 -52 -56 -189 -90 -304 -33 -114 -60 -210 -58 -211 2 -2 102 -65 223 -141 401 -250 652 -430 865 -618 65 -57 271 -258 268 -261 -2 -1 -57 24 -123 56 -287 140 -518 237 -800 337 -433 154 -779 236 -1262 297 -31 4 -53 12 -53 19 0 35 59 311 111 525 108 437 247 864 396 1216 183 431 322 651 627 989 87 96 107 123 104 145 -4 31 -31 38 -70 17z m593 -567 c-61 -130 -106 -295 -141 -514 -64 -405 -80 -509 -145 -923 -37 -233 -65 -424 -63 -426 1 -1 59 -49 128 -107 395 -329 877 -839 1005 -1064 53 -92 175 -235 201 -235 20 0 65 42 60 56 -3 7 -48 69 -100 138 -73 94 -101 140 -116 188 -66 203 -15 437 168 767 l47 84 7 -39 c4 -22 7 -121 7 -221 l1 -183 205 0 205 0 0 223 1 222 20 -24 c32 -39 111 -189 149 -286 60 -148 83 -247 84 -360 2 -169 -22 -223 -195 -441 -27 -34 -49 -65 -49 -70 0 -15 43 -54 60 -54 28 0 142 131 195 225 93 164 446 562 735 829 85 79 213 192 283 251 116 97 128 110 123 134 -3 14 -19 112 -35 216 -112 722 -195 1242 -211 1310 -26 110 -64 224 -105 313 -20 41 -33 77 -31 79 8 8 132 -104 179 -163 72 -89 139 -236 196 -429 28 -93 136 -460 241 -813 104 -354 190 -647 190 -651 0 -4 -64 -47 -142 -96 -554 -342 -864 -583 -1257 -978 l-154 -155 22 -31 c12 -17 28 -31 35 -31 7 0 127 58 267 128 586 295 1062 475 1565 592 295 68 642 112 727 91 20 -5 39 -6 42 -2 7 13 -102 531 -156 739 -51 198 -162 573 -198 673 -11 30 -38 104 -60 165 -87 241 -241 603 -317 744 l-34 65 30 -35 c17 -19 72 -99 122 -178 279 -442 485 -878 620 -1312 64 -206 149 -556 177 -730 60 -362 106 -600 127 -653 6 -16 3 -17 -22 -12 -16 4 -69 26 -119 50 -175 84 -147 79 -400 83 -771 13 -1509 -171 -2167 -541 -71 -40 -128 -75 -128 -79 0 -9 23 -12 290 -38 124 -12 350 -37 502 -56 152 -18 330 -39 395 -44 65 -6 188 -17 273 -24 l155 -14 260 -100 c463 -178 759 -277 905 -302 36 -7 106 -23 155 -36 128 -34 194 -32 251 7 43 29 46 30 69 15 19 -13 23 -22 19 -48 -2 -18 -9 -78 -14 -133 -13 -126 -112 -653 -176 -940 -173 -765 -431 -1486 -796 -2217 -112 -223 -126 -246 -231 -375 -141 -175 -423 -457 -547 -549 -182 -135 -185 -128 -20 42 242 247 409 450 484 587 18 34 60 112 94 172 426 776 690 1555 776 2290 22 183 16 511 -12 657 -11 59 -23 112 -26 117 -10 16 -211 118 -386 195 -588 261 -1539 537 -2002 581 l-67 6 -12 -40 c-7 -23 -10 -43 -8 -44 14 -11 301 -173 384 -217 252 -134 526 -306 724 -454 141 -105 332 -294 396 -392 l55 -83 -14 -58 c-21 -86 -98 -346 -156 -528 -273 -854 -578 -1455 -1009 -1992 -63 -78 -69 -83 -131 -102 -77 -23 -190 -41 -257 -41 l-48 0 98 55 c54 31 149 91 210 135 l112 79 102 153 c157 237 270 444 377 692 184 423 333 986 338 1272 2 115 -1 122 -117 299 -222 341 -533 622 -965 872 -218 126 -643 333 -657 320 -3 -4 12 -46 35 -94 48 -102 98 -267 152 -502 203 -875 134 -1579 -204 -2086 -41 -60 -86 -121 -100 -134 l-26 -24 0 161 0 162 -245 0 -245 0 0 -160 c0 -88 -4 -160 -8 -160 -10 0 -96 115 -146 193 -216 343 -318 811 -287 1310 18 276 38 415 102 707 54 242 109 427 159 535 22 48 40 91 40 96 0 20 -467 -211 -690 -341 -435 -254 -761 -560 -980 -921 l-75 -124 2 -111 c5 -315 172 -919 375 -1356 110 -237 281 -535 403 -702 56 -75 180 -169 361 -270 l99 -56 -50 0 c-65 0 -212 24 -275 45 -45 15 -58 27 -148 143 -356 455 -614 932 -840 1552 -124 340 -310 954 -298 985 19 50 111 166 208 262 212 211 500 412 899 628 104 56 436 243 447 251 6 4 -19 73 -28 79 -13 8 -244 -21 -370 -45 -353 -69 -950 -246 -1374 -407 -285 -107 -650 -275 -694 -317 -51 -50 -78 -493 -48 -776 33 -297 92 -585 186 -899 69 -229 176 -529 245 -686 7 -16 37 -84 66 -150 82 -189 248 -509 392 -760 83 -145 212 -299 451 -544 135 -137 162 -169 129 -151 -149 82 -473 387 -680 641 -102 125 -120 153 -216 345 -131 261 -180 364 -271 579 -199 465 -371 974 -490 1450 -67 267 -206 968 -225 1130 -25 216 -25 200 3 213 23 10 31 8 70 -18 58 -39 119 -40 274 -1 64 16 153 36 197 46 117 25 453 139 740 250 337 130 379 145 417 145 70 0 417 33 723 70 176 21 421 48 545 60 300 29 296 28 279 45 -8 7 -59 38 -113 70 -619 354 -1361 545 -2123 545 -122 0 -244 -5 -272 -11 -27 -6 -92 -32 -143 -59 -84 -43 -167 -75 -175 -67 -1 2 8 46 21 98 13 52 34 155 46 229 163 991 358 1555 772 2244 179 298 282 437 187 253 -198 -384 -414 -979 -559 -1543 -68 -262 -165 -727 -156 -743 3 -5 25 -5 51 1 69 15 392 -20 590 -63 589 -129 1164 -343 1783 -665 100 -52 169 -83 180 -79 9 3 26 17 36 32 l19 26 -204 201 c-112 111 -256 246 -319 300 -229 196 -540 417 -888 630 -78 49 -142 93 -142 99 0 12 32 121 193 662 52 176 136 462 187 635 115 394 167 511 285 639 43 47 135 124 141 118 2 -2 -14 -42 -35 -88z"/>
+      </g>
+    </svg>
+  </div>
+
   <div id="authOverlay">
     <div class="auth-card">
       <div class="auth-logo">DevEase.io</div>
@@ -401,56 +457,31 @@
 
   <div class="mode-toggle">
     <input type="checkbox" id="themeSwitch" onchange="toggleTheme()" checked />
-    <label for="themeSwitch"><span class="sun">☀️</span><span class="moon">🌙</span><div class="ball"></div></label>
-    <span class="vibe">Theme</span>
+    <label for="themeSwitch"><span class="sun">🏙️</span><span class="moon">🕷️</span><div class="ball"></div></label>
+    <span class="vibe">Suit</span>
   </div>
-  <div class="ocean-background" id="oceanBackground"></div>
 
-  <!-- Animated Header (Upgraded Cinematic version) -->
+  <!-- Clean Header with small animated icon -->
   <div class="header">
     <div class="brand-container" id="brandContainer">
-      
-      <!-- Plane Scene -->
-      <div class="sky-env">
-        <div class="cloud cloud-1"></div>
-        <div class="cloud cloud-2"></div>
-        <div class="cloud cloud-3"></div>
-      </div>
-      <div class="vehicle plane-layer">
-        <div class="jet-stream-top"></div>
-        <div class="jet-stream-bottom"></div>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-          <path d="M256 0c-17.7 0-32 14.3-32 32V172.9L34.1 63.8C20 56.1 2.3 64.5 .3 80.5c-1.3 10.6 5.4 20.4 15.6 23.3l179.9 51.4L6.9 285.3C2.3 287.4 0 292.1 0 297.1V312c0 9.9 9.1 17.3 18.8 14.9L224 278.6v115l-68.2 51.2c-7.3 5.5-11.8 14.1-11.8 23.2v20.2c0 9.4 9.5 15.8 18.3 12.5L256 464l93.7 36.7c8.8 3.3 18.3-3.1 18.3-12.5v-20.2c0-9.1-4.5-17.7-11.8-23.2L288 393.6V278.6l205.2 48.3c9.7 2.4 18.8-5 18.8-14.9V297.1c0-5-2.3-9.7-6.9-11.8L316.3 155.2l179.9-51.4c10.2-2.9 16.9-12.7 15.6-23.3-2-16-19.7-24.4-33.8-16.7L288 172.9V32c0-17.7-14.3-32-32-32z"/>
-        </svg>
-      </div>
-
-      <!-- Ship Scene -->
-      <div class="water-env">
-        <div class="wave-back"></div>
-        <div class="wave-front"></div>
-      </div>
-      <div class="vehicle ship-layer">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
-          <path opacity="0.8" d="M160 224h64v64h-64zM256 224h64v64h-64zM352 224h64v64h-64zM160 128h64v64h-64zM256 128h64v64h-64zM352 128h64v64h-64z"/>
-          <path d="M14.9 336.5C41.3 355.6 73 368 106.7 368c37.5 0 72.8-14.6 98.7-39.7c26-25 61.3-39.7 98.7-39.7s72.8 14.6 98.7 39.7C428.6 353.4 464 368 501.5 368c37.5 0 72.8-14.6 98.7-39.7c7-6.7 18.2-5.4 23.7 2.9c5.4 8.4 2.9 19.8-5.6 26.2c-31 23.4-69 36.6-108.5 36.6c-41.9 0-81.8-16.1-111-44.2c-23.7-22.8-54.3-35.4-86.7-35.4s-63.1 12.6-86.7 35.4c-29.2 28.1-69 44.2-111 44.2c-39.4 0-77.5-13.2-108.5-36.6c-8.6-6.4-11-17.8-5.6-26.2c5.5-8.3 16.7-9.6 23.7-2.9zM632 256v32c0 10.6-5.7 20-14.6 25c-30.8 17.5-66.2 27-103.5 27c-38.3 0-74.9-10-106.6-28.2c-29.4-16.9-63-25.8-97.4-25.8s-68.1 8.9-97.4 25.8c-31.7 18.2-68.3 28.2-106.6 28.2c-37.4 0-72.7-9.5-103.5-27C8.9 308.1 3.2 298.7 3.2 288V224H0V96C0 78.3 14.3 64 32 64h64c17.7 0 32 14.3 32 32v64h32v32h160v-32h32V96c0-17.7 14.3-32 32-32h64c17.7 0 32 14.3 32 32v96h64c17.7 0 32 14.3 32 32v64h16z"/>
-        </svg>
-      </div>
-
-      <!-- Truck Scene -->
-      <div class="road-env">
-        <div class="road-lines"></div>
-      </div>
-      <div class="vehicle truck-layer">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
-          <g class="truck-body">
-            <path d="M64 48c-26.5 0-48 21.5-48 48v224h12.5C23.7 341.2 32 366.1 47 384H32c-17.7 0-32-14.3-32-32V96C0 43 43 0 96 0h256c53 0 96 43 96 96v256h-16v32h16v64h-32c0-17.7-14.3-32-32-32H128c-17.7 0-32 14.3-32 32H64v-64h16V96c0-26.5-21.5-48-48-48zM448 96v192h149.3l-42.7-128H448zM640 320V256l-64-192H416v288h224z"/>
+      <span class="brand-text">DevEase.io</span>
+      <svg class="brand-svg-anim" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <g class="spider-icon">
+          <line class="spider-thread" x1="16" y1="0" x2="16" y2="8" stroke="var(--border-focus)" stroke-width="1.2" opacity="0.6"/>
+          <ellipse cx="16" cy="19" rx="6" ry="7" fill="var(--border-focus)"/>
+          <circle cx="16" cy="10" r="4" fill="var(--border-focus)"/>
+          <g class="spider-legs" stroke="var(--border-focus)" stroke-width="1.6" stroke-linecap="round" fill="none">
+            <path d="M11 14 L4 10"/>
+            <path d="M11 17 L3 17"/>
+            <path d="M11 20 L4 24"/>
+            <path d="M11 23 L6 29"/>
+            <path d="M21 14 L28 10"/>
+            <path d="M21 17 L29 17"/>
+            <path d="M21 20 L28 24"/>
+            <path d="M21 23 L26 29"/>
           </g>
-          <path class="wheel" d="M192 480a64 64 0 1 0 0-128 64 64 0 1 0 0 128zm-32-64a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/>
-          <path class="wheel" d="M512 480a64 64 0 1 0 0-128 64 64 0 1 0 0 128zm-32-64a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/>
-        </svg>
-      </div>
-
-      <div class="text-layer" id="brandText">DevEase.io</div>
+        </g>
+      </svg>
     </div>
   </div>
 
@@ -713,7 +744,7 @@
     // ══════════════════════════════════════════════════════
     const DEFAULT_ROOT = "/home/dev/parse_api/amari/apps/customs_assistant_main_migration";
     const GHY_ROOT = "/home/dev/parse_api/amari/apps/customs_assistant";
-    
+
     const CLIENT_DATA = [
       { id: "guardian",      name: "Guardian",        category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/guardian-customs.yaml",            aliases: ["guardian", "guardian-customs"] },
       { id: "ilogix",        name: "Ilogix",          category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/ilogix.yaml",                      aliases: ["ilogix"] },
@@ -729,7 +760,7 @@
       { id: "pinnacle",      name: "Pinnacle",        category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/pinnacle-clearing-solution.yaml",  aliases: ["pinnacle", "pinnacle-clearing-solution", "pinnacle clearing"] },
       { id: "Jaak",          name: "Jaak",            category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jti.yaml",                         aliases: ["jaak", "jti", "jaak-transport"] },
       { id: "Tkk",           name: "Tkk",             category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/tkk.yaml",                         aliases: ["tkk"] },
-      
+
       { id: "onpointhub",    name: "On Point Hub",    category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/on-point-hub.yaml",                aliases: ["on-point-hub", "onpointhub", "on point hub", "label:on-point-hub"] },
       { id: "perennial1",    name: "Perennial",       category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/perennial-1.yaml",                 aliases: ["perennial", "perennial-1"] },
       { id: "slchbnhp",      name: "SLCHB NHP",       category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/slchb-nhp.yaml",                   aliases: ["slchb-nhp", "slchbnhp"] },
@@ -744,7 +775,7 @@
       { id: "casas",         name: "Casas",           category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/casas.yaml",                       aliases: ["casas"] },
       { id: "crane",         name: "Crane",           category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/crane.yaml",                       aliases: ["crane"] },
       { id: "yeschb",        name: "YesCHB",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/yeschb.yaml",                      aliases: ["yeschb"] },
-      { id: "prochb",        name: "ProCHB",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/prochb.yaml",                      aliases: ["prochb"] }      
+      { id: "prochb",        name: "ProCHB",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/prochb.yaml",                      aliases: ["prochb"] }
     ];
 
     const configMap = {};
@@ -840,7 +871,7 @@
     });
     function autoCopyToClipboard(text) {
       if (!autoCopyEnabled) return;
-      try { navigator.clipboard.writeText(text).then(() => showToast("⚡ Auto-copied!")); } 
+      try { navigator.clipboard.writeText(text).then(() => showToast("⚡ Auto-copied!")); }
       catch(e) {
         const ta = document.createElement("textarea"); ta.value = text;
         document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
@@ -872,22 +903,7 @@
     function showHistory() { renderHistory(); document.getElementById("historyDropdown").classList.add("show"); }
     function selectHistory(id) { document.getElementById("shipmentInput").value = id; document.getElementById("historyDropdown").classList.remove("show"); autofillJSON(); }
 
-    // ── ANIMATIONS ──
-    function createShips() {
-      const ocean = document.getElementById("oceanBackground");
-      const n = window.innerWidth < 640 ? 4 : 7;
-      for (let i = 0; i < n; i++) {
-        const ship = document.createElement("div");
-        ship.className = "ship"; ship.textContent = "✦"; 
-        ship.style.left = `${Math.random()*100}vw`; ship.style.top = `${Math.random()*100}vh`;
-        ship.style.animation = `sail ${15+Math.random()*15}s linear ${Math.random()*5}s infinite`;
-        ocean.appendChild(ship);
-      }
-      const style = document.createElement("style");
-      style.textContent = `@keyframes sail { 0% { transform:translateX(0) translateY(0) scale(1) opacity:0.1; } 50% { transform:translateX(${Math.random()*40-20}vw) translateY(${Math.random()*10-5}vh) scale(1.5) opacity:0.3; } 100% { transform:translateX(0) translateY(0) scale(1) opacity:0.1; } }`;
-      document.head.appendChild(style);
-    }
-
+    // ── THEME / SETTINGS ──
     function toggleTheme() {
       document.body.classList.toggle("dark-mode");
       const isDark = document.body.classList.contains("dark-mode");
@@ -1266,13 +1282,13 @@
   return null;
 }
     function copySmartJSON(btn) { const box=document.getElementById("smartJsonBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"Copied!"); if (_lastCard4State) trackStatCopy("fill"); }
-    function resetSmartPaste() { 
-      document.getElementById("smartPaste").value=""; 
-      document.getElementById("smartJsonBox").value=""; 
-      document.getElementById("smartPills").innerHTML=""; 
-      const s=document.getElementById("smartStatus"); s.className="status-bar"; s.textContent=""; 
-      document.getElementById("logsBtn1").style.display="none"; 
-      _lastCard4State = null; 
+    function resetSmartPaste() {
+      document.getElementById("smartPaste").value="";
+      document.getElementById("smartJsonBox").value="";
+      document.getElementById("smartPills").innerHTML="";
+      const s=document.getElementById("smartStatus"); s.className="status-bar"; s.textContent="";
+      document.getElementById("logsBtn1").style.display="none";
+      _lastCard4State = null;
       updateActionButton(1);
     }
     function openFillEntryLogs() { try { const json=JSON.parse(document.getElementById("smartJsonBox").value); if (!json.shipment_id||json.shipment_id==="string"){showToast("⚠️ No Shipment ID");return;} const w=window.open(`http://34.30.43.174:8080/commands/logs/shipment/${json.shipment_id}/stream?token=operatorToken543&root_path=${json.root_path}`,"_blank"); if(w){w.blur();window.focus();} } catch(e){showToast("⚠️ Could not read JSON");} }
@@ -1281,32 +1297,32 @@
     let forceFalse=false, activePredefinedPills=new Set(), activeCustomPills=new Set(), noneActive=true;
     function toggleForceFalse(el) { forceFalse=!forceFalse; el.classList.toggle("active",forceFalse); handleSmartPaste2(); }
     function toggleNone(el) { activePredefinedPills.clear(); activeCustomPills.clear(); noneActive=true; document.querySelectorAll(".skip-pill:not(.none-pill)").forEach(p=>p.classList.remove("active")); el.classList.add("active"); document.getElementById("customInputRow").style.display="none"; handleSmartPaste2(); }
-    
+
     function togglePredefinedPill(el) {
       const regex=el.getAttribute("data-regex");
-      if (el.classList.contains("active")) { 
-        el.classList.remove("active"); 
-        activePredefinedPills.delete(regex); 
-      } else { 
-        document.querySelector(".none-pill").classList.remove("active"); 
-        noneActive=false; 
-        el.classList.add("active"); 
-        activePredefinedPills.add(regex); 
+      if (el.classList.contains("active")) {
+        el.classList.remove("active");
+        activePredefinedPills.delete(regex);
+      } else {
+        document.querySelector(".none-pill").classList.remove("active");
+        noneActive=false;
+        el.classList.add("active");
+        activePredefinedPills.add(regex);
       }
-      if (activePredefinedPills.size===0 && activeCustomPills.size===0) { 
-        document.querySelector(".none-pill").classList.add("active"); 
-        noneActive=true; 
+      if (activePredefinedPills.size===0 && activeCustomPills.size===0) {
+        document.querySelector(".none-pill").classList.add("active");
+        noneActive=true;
       }
       handleSmartPaste2();
     }
-    
+
     function showCustomInput() { const row=document.getElementById("customInputRow"); row.style.display=row.style.display==="none"?"flex":"none"; if (row.style.display==="flex") document.getElementById("customFileInput").focus(); }
-    
+
     function addCustomFile() {
       const input=document.getElementById("customFileInput"), val=input.value.trim(); if (!val) return;
       const regex=`^(${val.replace(/\./g,"\\.")})$`; const pill=document.createElement("span");
       pill.className="skip-pill custom-pill active"; pill.setAttribute("data-regex",regex); pill.textContent=val+" ✕";
-      
+
       pill.onclick=function(){
         activeCustomPills.delete(regex);
         pill.remove();
@@ -1316,18 +1332,18 @@
         }
         handleSmartPaste2();
       };
-      
+
       document.querySelector("[data-add-custom]").parentNode.insertBefore(pill,document.querySelector("[data-add-custom]"));
-      activeCustomPills.add(regex); 
-      noneActive=false; 
+      activeCustomPills.add(regex);
+      noneActive=false;
       document.querySelector(".none-pill").classList.remove("active");
-      
-      input.value=""; document.getElementById("customInputRow").style.display="none"; 
+
+      input.value=""; document.getElementById("customInputRow").style.display="none";
       handleSmartPaste2();
     }
-    
+
     function onSheetToggle() { document.getElementById("sheetActiveLabel").style.display=document.getElementById("skipSheetCheck").checked?"inline":"none"; handleSmartPaste2(); }
-    
+
     function getFileRegex() {
       if (noneActive) return "";
       const allActivePills = [...activePredefinedPills, ...activeCustomPills];
@@ -1338,7 +1354,7 @@
     }
     function getSheetRegex() { return document.getElementById("skipSheetCheck").checked?"^(?!YOUR_TEXT_HERE$).*":""; }
 
-    let _lastSmartPasteText = ""; 
+    let _lastSmartPasteText = "";
     function handleSmartPaste2() {
       updateActionButton(2);
       const text=document.getElementById("smartPaste2").value, pills=document.getElementById("smartPills2"), status=document.getElementById("smartStatus2"), box=document.getElementById("smartJsonBox2");
@@ -1349,10 +1365,10 @@
         const hasImageError = /image\/(?:png|jpe?g|gif)|appears to be a(?:n)? image|image format.*not supported|unsupported image/i.test(tLower);
         const hasPdfError = tLower.includes("the pdf specified was not valid");
         let changedPills = false; const imgRegex = ".*\\.(jpg|jpeg|png|gif)$"; const pdfRegex = ".*\\.pdf$";
-        
-        if (hasImageError && !activePredefinedPills.has(imgRegex)) { activePredefinedPills.add(imgRegex); const el = document.querySelector(`.predefined-pill[data-regex="${imgRegex}"]`); if (el) el.classList.add("active"); changedPills = true; } 
+
+        if (hasImageError && !activePredefinedPills.has(imgRegex)) { activePredefinedPills.add(imgRegex); const el = document.querySelector(`.predefined-pill[data-regex="${imgRegex}"]`); if (el) el.classList.add("active"); changedPills = true; }
         else if (!hasImageError && activePredefinedPills.has(imgRegex)) { activePredefinedPills.delete(imgRegex); const el = document.querySelector(`.predefined-pill[data-regex="${imgRegex}"]`); if (el) el.classList.remove("active"); changedPills = true; }
-        if (hasPdfError && !activePredefinedPills.has(pdfRegex)) { activePredefinedPills.add(pdfRegex); const el = document.querySelector(`.predefined-pill[data-regex="${pdfRegex}"]`); if (el) el.classList.add("active"); changedPills = true; } 
+        if (hasPdfError && !activePredefinedPills.has(pdfRegex)) { activePredefinedPills.add(pdfRegex); const el = document.querySelector(`.predefined-pill[data-regex="${pdfRegex}"]`); if (el) el.classList.add("active"); changedPills = true; }
         else if (!hasPdfError && activePredefinedPills.has(pdfRegex)) { activePredefinedPills.delete(pdfRegex); const el = document.querySelector(`.predefined-pill[data-regex="${pdfRegex}"]`); if (el) el.classList.remove("active"); changedPills = true; }
 
         if (changedPills) {
@@ -1411,27 +1427,27 @@
         document.getElementById("logsBtn2").style.display = (isTmpEmail || !!threadId || !!emailIdHex) ? "" : "none";
         _lastCard5State = { shipmentId: shipmentId || tmpUUID || resolvedId, isGHY, rootPath: cfg.root };
         autoCopyToClipboard(jsonStr); if (displayId) { saveToC5History(displayId, displayIdType, matchedKey, jsonStr); trackStatId("extract", displayId); }
-      } else if (!matchedKey) { box.value=""; status.className="status-bar warn show"; status.textContent="⚠️ Client not recognised"; _lastCard5State = null; } 
+      } else if (!matchedKey) { box.value=""; status.className="status-bar warn show"; status.textContent="⚠️ Client not recognised"; _lastCard5State = null; }
       else { box.value=""; status.className="status-bar warn show"; status.textContent="⚠️ No Shipment ID found"; _lastCard5State = null; }
     }
 
     function openExtractionLogs() {
-      const text = document.getElementById("smartPaste2").value, 
-            threadId = extractThreadId(text), // <-- Fixed: Now uses your updated helper function
-            emailIdHex = text.match(/Email ID:\s*`?([a-f0-9]{16})`?/i)?.[1], 
+      const text = document.getElementById("smartPaste2").value,
+            threadId = extractThreadId(text),
+            emailIdHex = text.match(/Email ID:\s*`?([a-f0-9]{16})`?/i)?.[1],
             emailIdTmp = text.match(/Email ID:\s*`?(tmp_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})`?/i)?.[1];
-      
+
       try {
         const json = JSON.parse(document.getElementById("smartJsonBox2").value);
-        if (emailIdTmp) { 
-          const w = window.open(`http://34.30.43.174:8080/commands/logs/${emailIdTmp}/stream?token=operatorToken543&root_path=${json.root_path}`, "_blank"); 
-          if(w){ w.blur(); window.focus(); } 
-        } 
-        else { 
-          const logId = emailIdHex || threadId; 
-          if (!logId) { showToast("⚠️ No Thread ID or Email ID found"); return; } 
-          const w = window.open(`http://34.30.43.174:8080/commands/logs/${logId}/stream?token=operatorToken543&root_path=${json.root_path}`, "_blank"); 
-          if(w){ w.blur(); window.focus(); } 
+        if (emailIdTmp) {
+          const w = window.open(`http://34.30.43.174:8080/commands/logs/${emailIdTmp}/stream?token=operatorToken543&root_path=${json.root_path}`, "_blank");
+          if(w){ w.blur(); window.focus(); }
+        }
+        else {
+          const logId = emailIdHex || threadId;
+          if (!logId) { showToast("⚠️ No Thread ID or Email ID found"); return; }
+          const w = window.open(`http://34.30.43.174:8080/commands/logs/${logId}/stream?token=operatorToken543&root_path=${json.root_path}`, "_blank");
+          if(w){ w.blur(); window.focus(); }
         }
       } catch(e) {
         showToast("⚠️ Could not read root path — copy JSON first");
@@ -1448,7 +1464,7 @@
     // ── CARD 6: Smart Message ──
     let errorOverride = null;
     function setErrorOverride(type, el) { errorOverride = type; document.querySelectorAll("#errorOverridePills .skip-pill").forEach(p => p.classList.remove("active")); el.classList.add("active"); handleSmartMessage(); }
-    
+
     function detectError(text) {
       const cleanText = text.replace(/\[\d{1,2}:\d{2}\s*(?:AM|PM)\]/gi, "").replace(/\d{1,2}:\d{2}\s*(?:AM|PM)/g, ""); const t = cleanText.toLowerCase();
       const hasMID = t.includes("mid not found") || (t.includes("manufacturer") && t.includes("not found")) || t.includes("confirm ai picked correct mid") || t.includes("mid value for manufacturer");
@@ -1476,7 +1492,7 @@
       const threadId = extractThreadId(text);; _lastMsgThreadId = threadId || null;
       const {matchedKey,clientRaw}=extractClient(text), fullyDetected = detectError(text);
       let finalType, finalLabel;
-      if (errorOverride) { finalType = errorOverride; finalLabel = document.querySelector(`#errorOverridePills [data-override="${errorOverride}"]`)?.textContent || errorOverride; } 
+      if (errorOverride) { finalType = errorOverride; finalLabel = document.querySelector(`#errorOverridePills [data-override="${errorOverride}"]`)?.textContent || errorOverride; }
       else { finalType = fullyDetected.type; finalLabel = fullyDetected.label; }
       const { midName, iorName, extractedName } = fullyDetected;
 
@@ -1496,11 +1512,11 @@
       if (!finalType) {status.className="status-bar warn show";status.textContent="⚠️ Could not detect error type — check paste";box.value="";warning.classList.remove("show");return;}
 
       const cfg=configMap[matchedKey]; let msg;
-      if (finalType === "midior") { msg = messageTemplates.midior; if (midName) msg = msg.replace("STRING_MID", midName); if (iorName) msg = msg.replace("STRING_IOR", iorName); } 
-      else if (finalType === "mid") { msg = messageTemplates.mid; if (midName) msg = msg.replace("STRING", midName); else if (extractedName) msg = msg.replace("STRING", extractedName); } 
-      else if (finalType === "importer") { msg = messageTemplates.importer; if (iorName) msg = msg.replace("STRING", iorName); else if (extractedName) msg = msg.replace("STRING", extractedName); } 
-      else if (finalType === "fileref") { msg = messageTemplates.fileref; if (extractedName) msg = msg.replace("STRING", extractedName); } 
-      else if (finalType === "yaml") { msg = document.getElementById("yamlInput").value.trim(); } 
+      if (finalType === "midior") { msg = messageTemplates.midior; if (midName) msg = msg.replace("STRING_MID", midName); if (iorName) msg = msg.replace("STRING_IOR", iorName); }
+      else if (finalType === "mid") { msg = messageTemplates.mid; if (midName) msg = msg.replace("STRING", midName); else if (extractedName) msg = msg.replace("STRING", extractedName); }
+      else if (finalType === "importer") { msg = messageTemplates.importer; if (iorName) msg = msg.replace("STRING", iorName); else if (extractedName) msg = msg.replace("STRING", extractedName); }
+      else if (finalType === "fileref") { msg = messageTemplates.fileref; if (extractedName) msg = msg.replace("STRING", extractedName); }
+      else if (finalType === "yaml") { msg = document.getElementById("yamlInput").value.trim(); }
       else { msg = messageTemplates[finalType]; }
 
       const jsonStr=JSON.stringify({thread_id:threadId,root_path:cfg.root,config_path:cfg.config,message:msg},null,2);
@@ -1518,23 +1534,14 @@
 
     // ── DOM READY ──
     document.addEventListener("DOMContentLoaded",()=>{
+      buildClientDropdowns();
       document.getElementById("customFileInput").addEventListener("keydown",e=>{ if(e.key==="Enter")addCustomFile(); if(e.key==="Escape")document.getElementById("customInputRow").style.display="none"; });
       document.addEventListener("click",e=>{ if(!e.target.closest(".shipment-wrapper"))document.getElementById("historyDropdown").classList.remove("show"); if(!e.target.closest(".custom-dropdown"))document.querySelectorAll(".dropdown-panel").forEach(p=>p.style.display="none"); if(!e.target.closest(".settings-toggle"))document.querySelector(".settings-panel").classList.remove("active"); });
       document.getElementById("shipmentInput").addEventListener("click",function(e){ if(e.ctrlKey||e.metaKey){const id=getShipmentId();if(!id)return;window.open(`http://34.30.43.174:8080/commands/logs/shipment/${id}/stream?token=operatorToken543&root_path=/home/dev/parse_api/amari/apps/customs_assistant_main_migration`,"_blank");} });
       document.querySelectorAll("[data-template]").forEach(item=>{ item.addEventListener("click",function(){ const el=document.getElementById("templateSelect"); el.value=this.textContent.trim();el.setAttribute("data-value",this.getAttribute("data-template")); document.getElementById("templateDropdown").style.display="none";autofillTemplateJSON(); }); });
-      
-      createShips(); 
-      renderC4History(); 
-      renderC5History(); 
 
-      // Header Hover Animation Trigger
-      const container = document.getElementById("brandContainer");
-      const modes = ["hover-plane", "hover-ship", "hover-truck"];
-      container.addEventListener("mouseenter", () => {
-        container.classList.remove(...modes);
-        const randomMode = modes[Math.floor(Math.random() * modes.length)];
-        container.classList.add(randomMode);
-      });
+      renderC4History();
+      renderC5History();
     });
   </script>
 </body>
