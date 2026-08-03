@@ -167,14 +167,18 @@
     @keyframes authShake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
 
     /* ── CLEAN HEADER WITH ANIMATED SVG ── */
-    .header { text-align: center; margin-bottom: 3rem; display: flex; justify-content: center; position: relative; z-index: 2; }
+    .header { 
+      text-align: center; 
+      margin-bottom: 3rem; 
+      display: flex; 
+      justify-content: center; 
+      position: relative; 
+      z-index: 2; 
+    }
 
     .brand-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
       position: relative;
+      display: inline-block; /* Fixes the layout warping */
       cursor: pointer;
     }
 
@@ -185,56 +189,53 @@
       color: var(--text-main);
       letter-spacing: -1px;
       user-select: none;
-      transition: color 0.4s ease, text-shadow 0.4s ease, letter-spacing 0.4s ease;
+      transition: color 0.4s ease, text-shadow 0.4s ease;
+      position: relative;
+      z-index: 2;
     }
 
-    .brand-svg-anim {
-      width: 42px;
-      height: 42px;
-      display: inline-block;
-      vertical-align: middle;
-      transition: filter 0.4s ease, transform 0.4s ease;
-      transform-origin: center bottom;
+    /* ── SPIDEY DROP CONTAINER ── */
+    .spidey-drop-container {
+      position: absolute;
+      /* Positioned exactly where your original spider was */
+      right: -35px; 
+      top: -120px; /* Starts hidden high above */
+      width: 65px;
+      height: 180px;
+      pointer-events: none; /* Allows hovering over the text seamlessly */
+      overflow: visible;
+      z-index: 1; /* Drops slightly behind/around the text */
     }
-    .brand-svg-anim .spider-icon { transform-origin: 16px 14px; animation: spiderBob 3s ease-in-out infinite; }
-    @keyframes spiderBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
 
-    /* thread the spider hangs from */
-    .brand-svg-anim .spider-thread { transform-box: fill-box; transform-origin: top; }
+    .spidey-svg {
+      width: 100%;
+      height: 100%;
+      transform: translateY(0);
+      /* Bungee drop physics */
+      transition: transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1); 
+    }
 
-    /* ── Smart hover animation: the mark "notices" the cursor ── */
+    /* Gentle idle sway for the thread */
+    .spidey-sway {
+      transform-origin: 50px -100px; /* Anchored far up the web line */
+      animation: spiderSway 4s ease-in-out infinite;
+    }
+
+    @keyframes spiderSway {
+      0%, 100% { transform: rotate(-3deg); }
+      50% { transform: rotate(3deg); }
+    }
+
+    /* ── HOVER INTERACTIONS ── */
     .brand-container:hover .brand-text {
       color: var(--border-focus);
-      letter-spacing: -0.5px;
-      text-shadow: 0 0 16px var(--border-focus), 0 0 3px var(--border-focus);
-    }
-    .brand-container:hover .brand-svg-anim {
-      filter: drop-shadow(0 0 8px var(--border-focus));
-    }
-    .brand-container:hover .brand-svg-anim .spider-icon {
-      animation: spiderWiggle 0.45s ease-in-out infinite;
-    }
-    @keyframes spiderWiggle { 0%,100% { transform: rotate(-9deg);} 50% { transform: rotate(9deg);} }
-
-    .brand-container:hover .brand-svg-anim .spider-thread {
-      animation: threadDrop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 1;
-    }
-    @keyframes threadDrop {
-      0%   { transform: scaleY(1); }
-      35%  { transform: scaleY(2.4); }
-      65%  { transform: scaleY(1.3); }
-      100% { transform: scaleY(1); }
+      text-shadow: 0 0 16px rgba(225, 29, 72, 0.3);
     }
 
-    .brand-container:hover .brand-svg-anim .spider-legs path {
-      animation: legScurry 0.4s ease-in-out infinite;
+    .brand-container:hover .spidey-svg {
+      /* Drops him perfectly down beside the ".io" */
+      transform: translateY(85px); 
     }
-    .brand-container:hover .brand-svg-anim .spider-legs path:nth-child(odd) { animation-delay: 0.1s; }
-    @keyframes legScurry {
-      0%, 100% { stroke-width: 1.6; opacity: 1; }
-      50% { stroke-width: 2.1; opacity: 0.7; }
-    }
-
     /* ── TOGGLES (Theme & Settings) ── */
     .mode-toggle, .settings-toggle { position: fixed; right: 2rem; z-index: 1000; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
     .mode-toggle { top: 2rem; }
@@ -462,26 +463,44 @@
   </div>
 
   <!-- Clean Header with small animated icon -->
+  <!-- Clean Header with Upside-Down Spidey Drop -->
   <div class="header">
     <div class="brand-container" id="brandContainer">
       <span class="brand-text">DevEase.io</span>
-      <svg class="brand-svg-anim" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-        <g class="spider-icon">
-          <line class="spider-thread" x1="16" y1="0" x2="16" y2="8" stroke="var(--border-focus)" stroke-width="1.2" opacity="0.6"/>
-          <ellipse cx="16" cy="19" rx="6" ry="7" fill="var(--border-focus)"/>
-          <circle cx="16" cy="10" r="4" fill="var(--border-focus)"/>
-          <g class="spider-legs" stroke="var(--border-focus)" stroke-width="1.6" stroke-linecap="round" fill="none">
-            <path d="M11 14 L4 10"/>
-            <path d="M11 17 L3 17"/>
-            <path d="M11 20 L4 24"/>
-            <path d="M11 23 L6 29"/>
-            <path d="M21 14 L28 10"/>
-            <path d="M21 17 L29 17"/>
-            <path d="M21 20 L28 24"/>
-            <path d="M21 23 L26 29"/>
+      
+      <!-- Spidey hangs off the top right -->
+      <div class="spidey-drop-container">
+        <svg class="spidey-svg" viewBox="0 0 100 160" xmlns="http://www.w3.org/2000/svg">
+          <!-- Swaying group anchored at the top of the thread -->
+          <g class="spidey-sway">
+            <!-- Web Thread -->
+            <line x1="50" y1="-100" x2="50" y2="70" stroke="var(--border)" stroke-width="2"/>
+            
+            <g class="spidey-body">
+              <!-- Folded blue legs -->
+              <path d="M 30 50 C 40 30, 60 30, 70 50 C 75 60, 65 70, 50 65 C 35 70, 25 60, 30 50 Z" fill="#2563EB" stroke="var(--text-main)" stroke-width="2.5" stroke-linejoin="round"/>
+              <!-- Red boots -->
+              <path d="M 23 38 C 35 25, 45 40, 30 50 Z" fill="#E11D48" stroke="var(--text-main)" stroke-width="2.5" stroke-linejoin="round"/>
+              <path d="M 77 38 C 65 25, 55 40, 70 50 Z" fill="#E11D48" stroke="var(--text-main)" stroke-width="2.5" stroke-linejoin="round"/>
+              
+              <!-- Red Torso -->
+              <path d="M 35 60 C 35 90, 65 90, 65 60 Z" fill="#E11D48" stroke="var(--text-main)" stroke-width="2.5" stroke-linejoin="round"/>
+              <!-- Blue sides -->
+              <path d="M 35 60 C 35 75, 40 85, 45 85 C 40 70, 35 60, 35 60 Z" fill="#2563EB" />
+              <path d="M 65 60 C 65 75, 60 85, 55 85 C 60 70, 65 60, 65 60 Z" fill="#2563EB" />
+
+              <!-- Upside-down Head -->
+              <ellipse cx="50" cy="100" rx="24" ry="28" fill="#E11D48" stroke="var(--text-main)" stroke-width="2.5"/>
+              
+              <!-- Spidey Eyes (White with thick black outlines) -->
+              <!-- Left Eye -->
+              <path d="M 47 88 C 28 80, 18 97, 24 110 C 31 118, 47 105, 47 88 Z" fill="#FFF" stroke="var(--text-main)" stroke-width="3" stroke-linejoin="round"/>
+              <!-- Right Eye -->
+              <path d="M 53 88 C 72 80, 82 97, 76 110 C 69 118, 53 105, 53 88 Z" fill="#FFF" stroke="var(--text-main)" stroke-width="3" stroke-linejoin="round"/>
+            </g>
           </g>
-        </g>
-      </svg>
+        </svg>
+      </div>
     </div>
   </div>
 
