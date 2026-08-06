@@ -718,35 +718,43 @@
           <div class="card-icon">💬</div>
           <span class="card-title">Smart Message</span>
         </div>
+        
         <div class="field-group">
           <label class="field-label">Paste Slack Alert</label>
-          <textarea id="smartMsg" class="smart-paste-area" style="min-height:90px" placeholder="Paste full error — client, thread ID & type detected automatically…" oninput="handleSmartMessage()"></textarea>
+          <!-- Increased input height with reclaimed space -->
+          <textarea id="smartMsg" class="smart-paste-area" style="min-height:140px" placeholder="Paste full error — client, thread ID & type detected automatically…" oninput="handleSmartMessage()"></textarea>
         </div>
-        <div class="error-override-section">
-          <span class="field-label">Override detected error</span>
-          <div class="error-override-pills" id="errorOverridePills" style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.25rem;">
-            <span class="skip-pill none-pill active" id="autoDetectPill" onclick="setErrorOverride(null,this)">Auto-detect</span>
-            <span class="skip-pill" data-override="importer" onclick="setErrorOverride('importer',this)">Importer ID</span>
-            <span class="skip-pill" data-override="autocomplete" onclick="setErrorOverride('autocomplete',this)">Could not find</span>
-            <span class="skip-pill" data-override="mid" onclick="setErrorOverride('mid',this)">MID</span>
-            <span class="skip-pill" data-override="midior" onclick="setErrorOverride('midior',this)">MID + IOR</span>
-            <span class="skip-pill" data-override="profile" onclick="setErrorOverride('profile',this)">Profile not found</span>
-            <span class="skip-pill" data-override="masterbol" onclick="setErrorOverride('masterbol',this)">Master BOL</span>
-            <span class="skip-pill" data-override="hts" onclick="setErrorOverride('hts',this)">HTS not found</span>
-            <span class="skip-pill" data-override="invoice" onclick="setErrorOverride('invoice',this)">Invoice not found</span>
-            <span class="skip-pill" data-override="fileref" onclick="setErrorOverride('fileref',this)">File reference</span>
-            <span class="skip-pill" data-override="corrupted" onclick="setErrorOverride('corrupted',this)">Corrupted</span>
-            <span class="skip-pill" data-override="consignee" onclick="setErrorOverride('consignee',this)">Consignee not IOR</span>
-            <span class="skip-pill" data-override="yaml" onclick="setErrorOverride('yaml',this)">YAML</span>
-          </div>
+        
+        <div class="field-group">
+          <label class="field-label">Override detected error</label>
+          <select id="errorOverrideSelect" onchange="setErrorOverride(this.value)">
+            <option value="">Auto-detect</option>
+            <option value="importer">Importer ID</option>
+            <option value="autocomplete">Could not find</option>
+            <option value="mid">MID</option>
+            <option value="midior">MID + IOR</option>
+            <option value="profile">Profile not found</option>
+            <option value="masterbol">Master BOL</option>
+            <option value="hts">HTS not found</option>
+            <option value="invoice">Invoice not found</option>
+            <option value="fileref">File reference</option>
+            <option value="corrupted">Corrupted</option>
+            <option value="consignee">Consignee not IOR</option>
+            <option value="yaml">YAML</option>
+          </select>
         </div>
+
         <div id="msgPills" class="detected-pills"></div>
         <div id="msgStatus" class="status-bar" style="margin-top:0.75rem"></div>
+        
         <div class="field-group" style="margin-top:1rem">
           <label class="field-label">Output JSON</label>
-          <textarea id="msgJsonBox" class="textarea-lg" readonly placeholder="JSON will appear here…"></textarea>
+          <!-- Increased output height with reclaimed space -->
+          <textarea id="msgJsonBox" class="textarea-lg" style="height:220px" readonly placeholder="JSON will appear here…"></textarea>
         </div>
+        
         <div id="msgStringWarning" class="status-bar warn">⚠️ Contains unreplaced STRING</div>
+        
         <div class="btn-row">
           <button class="btn btn-primary" onclick="copyMsgJSON(this)">Copy JSON</button>
           <button id="btnAction3" class="btn btn-secondary" onclick="toggleSmartAction(3)">Paste</button>
@@ -1481,9 +1489,10 @@
     }
 
     // ── CARD 6: Smart Message ──
-    let errorOverride = null;
-    function setErrorOverride(type, el) { errorOverride = type; document.querySelectorAll("#errorOverridePills .skip-pill").forEach(p => p.classList.remove("active")); el.classList.add("active"); handleSmartMessage(); }
-
+    function setErrorOverride(type) { 
+      errorOverride = type || null; 
+      handleSmartMessage(); 
+    }
     function detectError(text) {
       const cleanText = text.replace(/\[\d{1,2}:\d{2}\s*(?:AM|PM)\]/gi, "").replace(/\d{1,2}:\d{2}\s*(?:AM|PM)/g, ""); const t = cleanText.toLowerCase();
       const hasMID = t.includes("mid not found") || (t.includes("manufacturer") && t.includes("not found")) || t.includes("confirm ai picked correct mid") || t.includes("mid value for manufacturer");
@@ -1507,12 +1516,21 @@
     function handleSmartMessage() {
       updateActionButton(3);
       const text=document.getElementById("smartMsg").value, pills=document.getElementById("msgPills"), status=document.getElementById("msgStatus"), box=document.getElementById("msgJsonBox"), warning=document.getElementById("msgStringWarning");
+      
       if (!text.trim()){pills.innerHTML="";box.value="";status.className="status-bar";warning.classList.remove("show");_lastMsgThreadId=null;return;}
-      const threadId = extractThreadId(text);; _lastMsgThreadId = threadId || null;
+      
+      const threadId = extractThreadId(text); _lastMsgThreadId = threadId || null;
       const {matchedKey,clientRaw}=extractClient(text), fullyDetected = detectError(text);
       let finalType, finalLabel;
-      if (errorOverride) { finalType = errorOverride; finalLabel = document.querySelector(`#errorOverridePills [data-override="${errorOverride}"]`)?.textContent || errorOverride; }
+      
+      // Updated to grab the label text directly from the active select option
+      if (errorOverride) { 
+        finalType = errorOverride; 
+        const selectEl = document.getElementById("errorOverrideSelect");
+        finalLabel = selectEl.options[selectEl.selectedIndex].text; 
+      }
       else { finalType = fullyDetected.type; finalLabel = fullyDetected.label; }
+      
       const { midName, iorName, extractedName } = fullyDetected;
 
       const pillsHTML=[];
@@ -1540,13 +1558,31 @@
 
       const jsonStr=JSON.stringify({thread_id:threadId,root_path:cfg.root,config_path:cfg.config,message:msg},null,2);
       box.value=jsonStr;
+      
       const hasUnfilled=jsonStr.includes("STRING_MID")||jsonStr.includes("STRING_IOR")||(jsonStr.includes('"STRING"'));
       warning.classList.toggle("show",hasUnfilled); status.className="status-bar info show"; status.textContent=`✅ ${finalLabel} — message ready`; trackStatId("msg", threadId); autoCopyToClipboard(jsonStr);
     }
 
-    function copyMsgJSON(btn) { const box=document.getElementById("msgJsonBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"Copied!"); if (_lastMsgThreadId) trackStatCopy("msg"); errorOverride=null; document.querySelectorAll("#errorOverridePills .skip-pill").forEach(p=>p.classList.remove("active")); document.getElementById("autoDetectPill").classList.add("active"); }
-    function resetSmartMsg(){ document.getElementById("smartMsg").value="";document.getElementById("msgJsonBox").value=""; document.getElementById("msgPills").innerHTML=""; const s=document.getElementById("msgStatus");s.className="status-bar";s.textContent=""; document.getElementById("msgStringWarning").classList.remove("show"); errorOverride=null; _lastMsgThreadId=null; document.querySelectorAll("#errorOverridePills .skip-pill").forEach(p=>p.classList.remove("active")); document.getElementById("autoDetectPill").classList.add("active"); updateActionButton(3); }
-
+    function copyMsgJSON(btn) { 
+      const box=document.getElementById("msgJsonBox"); 
+      if(!box.value){showToast("Nothing to copy yet");return;} 
+      box.select();document.execCommand("copy");flashBtn(btn,"Copied!"); 
+      if (_lastMsgThreadId) trackStatCopy("msg"); 
+      errorOverride=null; 
+      document.getElementById("errorOverrideSelect").value = ""; 
+    }
+    
+    function resetSmartMsg(){ 
+      document.getElementById("smartMsg").value="";
+      document.getElementById("msgJsonBox").value=""; 
+      document.getElementById("msgPills").innerHTML=""; 
+      const s=document.getElementById("msgStatus");s.className="status-bar";s.textContent=""; 
+      document.getElementById("msgStringWarning").classList.remove("show"); 
+      errorOverride=null; 
+      _lastMsgThreadId=null; 
+      document.getElementById("errorOverrideSelect").value = ""; 
+      updateActionButton(3); 
+    }
     // ── SHARED ──
     function copyPill(text,el){navigator.clipboard.writeText(text).then(()=>{const orig=el.textContent;el.textContent="Copied!";setTimeout(()=>el.textContent=orig,1500);});}
     function flashBtn(btn,msg){const orig=btn.innerHTML;btn.innerHTML=msg;btn.classList.add("btn-success");setTimeout(()=>{btn.innerHTML=orig;btn.classList.remove("btn-success");},1500);}
