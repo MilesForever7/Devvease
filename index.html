@@ -178,7 +178,7 @@
 
     .brand-container {
       position: relative;
-      display: inline-block; /* Fixes the layout warping */
+      display: inline-block;
       cursor: pointer;
     }
 
@@ -197,27 +197,25 @@
     /* ── SPIDEY DROP CONTAINER ── */
     .spidey-drop-container {
       position: absolute;
-      /* Positioned exactly where your original spider was */
       right: -35px; 
-      top: -120px; /* Starts hidden high above */
+      top: -120px;
       width: 65px;
       height: 180px;
-      pointer-events: none; /* Allows hovering over the text seamlessly */
+      pointer-events: none;
       overflow: visible;
-      z-index: 1; /* Drops slightly behind/around the text */
+      z-index: 1;
     }
 
     .spidey-svg {
       width: 100%;
       height: 100%;
       transform: translateY(0);
-      /* Bungee drop physics */
       transition: transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1); 
     }
 
     /* Gentle idle sway for the thread */
     .spidey-sway {
-      transform-origin: 50px -100px; /* Anchored far up the web line */
+      transform-origin: 50px -100px;
       animation: spiderSway 4s ease-in-out infinite;
     }
 
@@ -233,9 +231,9 @@
     }
 
     .brand-container:hover .spidey-svg {
-      /* Drops him perfectly down beside the ".io" */
       transform: translateY(85px); 
     }
+
     /* ── TOGGLES (Theme & Settings) ── */
     .mode-toggle, .settings-toggle { position: fixed; right: 2rem; z-index: 1000; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
     .mode-toggle { top: 2rem; }
@@ -337,7 +335,13 @@
     .dropdown-row .custom-dropdown { flex: 1; min-width: 0; }
 
     /* Status & Smart Areas */
-    .status-bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 600; margin-top: 0.75rem; opacity: 0; transition: var(--transition); border: 1px solid transparent; }
+    .status-bar { 
+      display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; 
+      border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 600; 
+      margin-top: 0.75rem; opacity: 0; transition: var(--transition); 
+      border: 1px solid transparent; 
+      min-height: 44px; /* Rigid spacing fix */
+    }
     .status-bar.show { opacity: 1; }
     .status-bar.info { background: var(--info-bg); color: var(--info-text); border-color: currentColor; }
     .status-bar.warn { background: var(--warn-bg); color: var(--warn-text); border-color: currentColor; }
@@ -345,7 +349,10 @@
     .smart-paste-area { width: 100%; min-height: 80px; padding: 1rem; border: 2px dashed var(--border); border-radius: var(--radius-md); font-family: 'Fira Code', monospace; font-size: 0.85rem; background: var(--bg-color); color: var(--text-muted); resize: none; line-height: 1.6; transition: var(--transition); }
     .smart-paste-area:focus { border-color: var(--border-focus); border-style: solid; outline: none; background: var(--surface); color: var(--text-main); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 
-    .detected-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.25rem; }
+    .detected-pills { 
+      display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.25rem; 
+      min-height: 26px; /* Rigid spacing fix */
+    }
     .pill { font-size: 0.75rem; font-weight: 600; padding: 0.3rem 0.75rem; border-radius: 999px; background: var(--info-bg); color: var(--info-text); border: 1px solid currentColor; }
     .pill.warn { background: var(--warn-bg); color: var(--warn-text); }
 
@@ -462,7 +469,6 @@
     <span class="vibe">Suit</span>
   </div>
 
-  <!-- Clean Header with small animated icon -->
   <!-- Clean Header with Upside-Down Spidey Drop -->
   <div class="header">
     <div class="brand-container" id="brandContainer">
@@ -644,13 +650,13 @@
         </div>
         <div class="field-group">
           <label class="field-label">Paste Alert Text</label>
-          <textarea id="smartPaste" class="smart-paste-area" placeholder="Paste alert text — client + ID detected automatically…" oninput="handleSmartPaste()"></textarea>
+          <textarea id="smartPaste" class="smart-paste-area" style="min-height: 130px;" placeholder="Paste alert text — client + ID detected automatically…" oninput="handleSmartPaste()"></textarea>
         </div>
         <div id="smartPills" class="detected-pills"></div>
         <div id="smartStatus" class="status-bar" style="margin-top:0.75rem"></div>
         <div class="field-group" style="margin-top:1rem">
           <label class="field-label">Output JSON</label>
-          <textarea id="smartJsonBox" class="textarea-md" readonly placeholder="JSON will appear here…"></textarea>
+          <textarea id="smartJsonBox" class="textarea-lg" style="height: 190px;" readonly placeholder="JSON will appear here…"></textarea>
         </div>
         <div class="btn-row">
           <button class="btn btn-primary" onclick="copySmartJSON(this)">Copy JSON</button>
@@ -718,13 +724,10 @@
           <div class="card-icon">💬</div>
           <span class="card-title">Smart Message</span>
         </div>
-        
         <div class="field-group">
           <label class="field-label">Paste Slack Alert</label>
-          <!-- Increased input height with reclaimed space -->
-          <textarea id="smartMsg" class="smart-paste-area" style="min-height:140px" placeholder="Paste full error — client, thread ID & type detected automatically…" oninput="handleSmartMessage()"></textarea>
+          <textarea id="smartMsg" class="smart-paste-area" style="min-height: 180px;" placeholder="Paste full error — client, thread ID & type detected automatically…" oninput="handleSmartMessage()"></textarea>
         </div>
-        
         <div class="field-group">
           <label class="field-label">Override detected error</label>
           <select id="errorOverrideSelect" onchange="setErrorOverride(this.value)">
@@ -743,18 +746,13 @@
             <option value="yaml">YAML</option>
           </select>
         </div>
-
         <div id="msgPills" class="detected-pills"></div>
         <div id="msgStatus" class="status-bar" style="margin-top:0.75rem"></div>
-        
         <div class="field-group" style="margin-top:1rem">
           <label class="field-label">Output JSON</label>
-          <!-- Increased output height with reclaimed space -->
-          <textarea id="msgJsonBox" class="textarea-lg" style="height:220px" readonly placeholder="JSON will appear here…"></textarea>
+          <textarea id="msgJsonBox" class="textarea-lg" style="height: 250px;" readonly placeholder="JSON will appear here…"></textarea>
         </div>
-        
         <div id="msgStringWarning" class="status-bar warn">⚠️ Contains unreplaced STRING</div>
-        
         <div class="btn-row">
           <button class="btn btn-primary" onclick="copyMsgJSON(this)">Copy JSON</button>
           <button id="btnAction3" class="btn btn-secondary" onclick="toggleSmartAction(3)">Paste</button>
@@ -773,36 +771,36 @@
     const GHY_ROOT = "/home/dev/parse_api/amari/apps/customs_assistant";
 
     const CLIENT_DATA = [
-      { id: "guardian",      name: "Guardian",        category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/guardian-customs.yaml",            aliases: ["guardian", "guardian-customs"] },
-      { id: "ilogix",        name: "Ilogix",          category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/ilogix.yaml",                      aliases: ["ilogix"] },
-      { id: "ever",          name: "Ever",            category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/ever-customs.yaml",                aliases: ["ever", "ever-customs"] },
-      { id: "whitzard",      name: "Whitzard",        category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/whitzard-customs.yaml",            aliases: ["whitzard", "whitzard-customs"] },
-      { id: "jl",            name: "JL",              category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jl-customs-service-2-1.yaml",      aliases: ["jl", "jl-customs", "jl-customs-service"] },
-      { id: "jtz",           name: "JTZ",             category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jtz.yaml",                         aliases: ["jtz"] },
-      { id: "meekoo",        name: "Meekoo",          category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/meekoo.yaml",                      aliases: ["meekoo"] },
-      { id: "leesa",         name: "Leesa",           category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/leesa.yaml",                       aliases: ["leesa-chb", "leesa"] },
-      { id: "transworld",    name: "Transworld",      category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/transworld-chb.yaml",              aliases: ["transworld", "transworld-chb"] },
-      { id: "ldglobal",      name: "Ld-global",       category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/ld-global.yaml",                   aliases: ["ld-global", "ldglobal", "ld global"] },
-      { id: "jdusa",         name: "JD USA",          category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jd-usa.yaml",                      aliases: ["jdusa", "jd-usa", "jd usa"] },
-      { id: "pinnacle",      name: "Pinnacle",        category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/pinnacle-clearing-solution.yaml",  aliases: ["pinnacle", "pinnacle-clearing-solution", "pinnacle clearing"] },
-      { id: "Jaak",          name: "Jaak",            category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jti.yaml",                         aliases: ["jaak", "jti", "jaak-transport"] },
-      { id: "Tkk",           name: "Tkk",             category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/tkk.yaml",                         aliases: ["tkk"] },
+      { id: "guardian",      name: "Guardian",      category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/guardian-customs.yaml",            aliases: ["guardian", "guardian-customs"] },
+      { id: "ilogix",        name: "Ilogix",        category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/ilogix.yaml",                      aliases: ["ilogix"] },
+      { id: "ever",          name: "Ever",          category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/ever-customs.yaml",                aliases: ["ever", "ever-customs"] },
+      { id: "whitzard",      name: "Whitzard",      category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/whitzard-customs.yaml",            aliases: ["whitzard", "whitzard-customs"] },
+      { id: "jl",            name: "JL",            category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jl-customs-service-2-1.yaml",      aliases: ["jl", "jl-customs", "jl-customs-service"] },
+      { id: "jtz",           name: "JTZ",           category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jtz.yaml",                         aliases: ["jtz"] },
+      { id: "meekoo",        name: "Meekoo",        category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/meekoo.yaml",                      aliases: ["meekoo"] },
+      { id: "leesa",         name: "Leesa",         category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/leesa.yaml",                       aliases: ["leesa-chb", "leesa"] },
+      { id: "transworld",    name: "Transworld",    category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/transworld-chb.yaml",              aliases: ["transworld", "transworld-chb"] },
+      { id: "ldglobal",      name: "Ld-global",       category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/ld-global.yaml",                  aliases: ["ld-global", "ldglobal", "ld global"] },
+      { id: "jdusa",         name: "JD USA",          category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jd-usa.yaml",                     aliases: ["jdusa", "jd-usa", "jd usa"] },
+      { id: "pinnacle",      name: "Pinnacle",        category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/pinnacle-clearing-solution.yaml", aliases: ["pinnacle", "pinnacle-clearing-solution", "pinnacle clearing"] },
+      { id: "Jaak",          name: "Jaak",            category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jti.yaml",                        aliases: ["jaak", "jti", "jaak-transport"] },
+      { id: "Tkk",           name: "Tkk",             category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/tkk.yaml",                        aliases: ["tkk"] },
 
       { id: "onpointhub",    name: "On Point Hub",    category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/on-point-hub.yaml",                aliases: ["on-point-hub", "onpointhub", "on point hub", "label:on-point-hub"] },
-      { id: "perennial1",    name: "Perennial",       category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/perennial-1.yaml",                 aliases: ["perennial", "perennial-1"] },
-      { id: "slchbnhp",      name: "SLCHB NHP",       category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/slchb-nhp.yaml",                   aliases: ["slchb-nhp", "slchbnhp"] },
-      { id: "slchb",         name: "SLCHB",           category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/slchb.yaml",                       aliases: ["slchb"] },
-      { id: "yifangchb",     name: "Yifang CHB",      category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/yifangchb.yaml",                   aliases: ["yifangchb", "yifang", "lz management"] },
-      { id: "pieschb",       name: "Pies CHB",        category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/pieschb.yaml",                     aliases: ["pieschb", "pies"] },
-      { id: "bhchb",         name: "BH CHB",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/bhchb.yaml",                       aliases: ["bhchb", "bh chb"] },
-      { id: "abj",           name: "ABJ",             category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/abj.yaml",                         aliases: ["abj"] },
-      { id: "newave",        name: "Newave",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/newave.yaml",                      aliases: ["newave"] },
-      { id: "GHY",           name: "GHY",             category: "Web Platform",      root: GHY_ROOT,     config: "data/config/dev/ghy.yaml",                         aliases: ["ghy"] },
-      { id: "grandchb",      name: "Grand CHB",       category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/grand-chb.yaml",                   aliases: ["grand-chb", "grandchb", "grand chb"] },
-      { id: "casas",         name: "Casas",           category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/casas.yaml",                       aliases: ["casas"] },
-      { id: "crane",         name: "Crane",           category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/crane.yaml",                       aliases: ["crane"] },
-      { id: "yeschb",        name: "YesCHB",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/yeschb.yaml",                      aliases: ["yeschb"] },
-      { id: "prochb",        name: "ProCHB",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/prochb.yaml",                      aliases: ["prochb"] }
+      { id: "perennial1",    name: "Perennial",       category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/perennial-1.yaml",                aliases: ["perennial", "perennial-1"] },
+      { id: "slchbnhp",      name: "SLCHB NHP",       category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/slchb-nhp.yaml",                  aliases: ["slchb-nhp", "slchbnhp"] },
+      { id: "slchb",         name: "SLCHB",           category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/slchb.yaml",                      aliases: ["slchb"] },
+      { id: "yifangchb",     name: "Yifang CHB",      category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/yifangchb.yaml",                  aliases: ["yifangchb", "yifang", "lz management"] },
+      { id: "pieschb",       name: "Pies CHB",        category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/pieschb.yaml",                    aliases: ["pieschb", "pies"] },
+      { id: "bhchb",         name: "BH CHB",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/bhchb.yaml",                      aliases: ["bhchb", "bh chb"] },
+      { id: "abj",           name: "ABJ",             category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/abj.yaml",                        aliases: ["abj"] },
+      { id: "newave",        name: "Newave",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/newave.yaml",                     aliases: ["newave"] },
+      { id: "GHY",           name: "GHY",             category: "Web Platform",      root: GHY_ROOT,     config: "data/config/dev/ghy.yaml",                        aliases: ["ghy"] },
+      { id: "grandchb",      name: "Grand CHB",       category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/grand-chb.yaml",                  aliases: ["grand-chb", "grandchb", "grand chb"] },
+      { id: "casas",         name: "Casas",           category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/casas.yaml",                      aliases: ["casas"] },
+      { id: "crane",         name: "Crane",           category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/crane.yaml",                      aliases: ["crane"] },
+      { id: "yeschb",        name: "YesCHB",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/yeschb.yaml",                     aliases: ["yeschb"] },
+      { id: "prochb",        name: "ProCHB",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/prochb.yaml",                     aliases: ["prochb"] }
     ];
 
     const configMap = {};
@@ -964,7 +962,7 @@
 
     function openReviewLinks(shipmentId, isGHY) {
       if (isGHY) window.open(`https://app.amari.ai/review/${shipmentId}`, "_blank");
-      else window.open(`https://app.amari.ai/review/${shipmentId}`, "_blank");
+      else window.open(`https://app.useanchor.ai/review/${shipmentId}`, "_blank");
     }
 
     let _lastCard4State = null;
@@ -1297,17 +1295,19 @@
         box.value=""; status.className="status-bar warn show"; status.textContent = !matchedKey ? "⚠️ Client not recognised" : "⚠️ No Shipment ID"; _lastCard4State = null;
       }
     }
+    
     function extractThreadId(text) {
-  // 1. Check standard Slack alert pattern first ("Thread ID: `19faed...`")
-  const standardMatch = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i);
-  if (standardMatch) return standardMatch[1];
+      // 1. Check standard Slack alert pattern first ("Thread ID: `19faed...`")
+      const standardMatch = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i);
+      if (standardMatch) return standardMatch[1];
 
-  // 2. Fallback to check inside email reply content block (e.g. thread_id='19faed5860f1f393')
-  const emailReplyMatch = text.match(/thread_id=['"]([a-f0-9]{16})['"]/i);
-  if (emailReplyMatch) return emailReplyMatch[1];
+      // 2. Fallback to check inside email reply content block (e.g. thread_id='19faed5860f1f393')
+      const emailReplyMatch = text.match(/thread_id=['"]([a-f0-9]{16})['"]/i);
+      if (emailReplyMatch) return emailReplyMatch[1];
 
-  return null;
-}
+      return null;
+    }
+
     function copySmartJSON(btn) { const box=document.getElementById("smartJsonBox"); if(!box.value){showToast("Nothing to copy yet");return;} box.select();document.execCommand("copy");flashBtn(btn,"Copied!"); if (_lastCard4State) trackStatCopy("fill"); }
     function resetSmartPaste() {
       document.getElementById("smartPaste").value="";
@@ -1489,10 +1489,13 @@
     }
 
     // ── CARD 6: Smart Message ──
-    function setErrorOverride(type) { 
-      errorOverride = type || null; 
-      handleSmartMessage(); 
+    let errorOverride = null;
+
+    function setErrorOverride(type) {
+      errorOverride = type || null;
+      handleSmartMessage();
     }
+    
     function detectError(text) {
       const cleanText = text.replace(/\[\d{1,2}:\d{2}\s*(?:AM|PM)\]/gi, "").replace(/\d{1,2}:\d{2}\s*(?:AM|PM)/g, ""); const t = cleanText.toLowerCase();
       const hasMID = t.includes("mid not found") || (t.includes("manufacturer") && t.includes("not found")) || t.includes("confirm ai picked correct mid") || t.includes("mid value for manufacturer");
@@ -1583,6 +1586,7 @@
       document.getElementById("errorOverrideSelect").value = ""; 
       updateActionButton(3); 
     }
+
     // ── SHARED ──
     function copyPill(text,el){navigator.clipboard.writeText(text).then(()=>{const orig=el.textContent;el.textContent="Copied!";setTimeout(()=>el.textContent=orig,1500);});}
     function flashBtn(btn,msg){const orig=btn.innerHTML;btn.innerHTML=msg;btn.classList.add("btn-success");setTimeout(()=>{btn.innerHTML=orig;btn.classList.remove("btn-success");},1500);}
