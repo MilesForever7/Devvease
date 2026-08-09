@@ -597,6 +597,7 @@
                 <div data-template="hts">HTS not Found</div>
                 <div data-template="invoice">Invoice not Found</div>
                 <div data-template="fileref">File Reference Error</div>
+                <div data-template="bond">Bond Type</div>
               </div>
             </div>
           </div>
@@ -957,7 +958,8 @@
       invoice:      `Hi,\n\nAI cannot find Invoice And Packing list. Please clarify\n\nBest Regards`,
       fileref:      `Hi,\n\nThe File Reference Number, STRING, already exists in the database.\n\nPlease review\n\nBest regards`,
       corrupted:    `Hi,\n\nThe documents appear to be corrupted.\n\nCould you please resend them?\n\nBest Regards`,
-      consignee:    `Hi,\n\nThe consignee cannot be used as the Importer of Record.\n\nPlease suggest an alternative IOR.\n\nBest Regards`
+      consignee:    `Hi,\n\nThe consignee cannot be used as the Importer of Record.\n\nPlease suggest an alternative IOR.\n\nBest Regards`,
+      bondtype:    `Hi,\n\nThe consignee has no bond type set on NetCHB,could you please provide an alternate consignee or update this one with a bond.\n\nBest Regards`
     };
 
     function openReviewLinks(shipmentId, isGHY) {
