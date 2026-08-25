@@ -597,6 +597,7 @@
                 <div data-template="hts">HTS not Found</div>
                 <div data-template="invoice">Invoice not Found</div>
                 <div data-template="fileref">File Reference Error</div>
+                <div data-template="consignee">Consignee not IOR</div>
               </div>
             </div>
           </div>
@@ -775,7 +776,7 @@
       { id: "ilogix",        name: "Ilogix",        category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/ilogix.yaml",                      aliases: ["ilogix"] },
       { id: "ever",          name: "Ever",          category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/ever-customs.yaml",                aliases: ["ever", "ever-customs"] },
       { id: "whitzard",      name: "Whitzard",      category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/whitzard-customs.yaml",            aliases: ["whitzard", "whitzard-customs"] },
-      { id: "jl",            name: "JL",            category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jl-customs-service-2-1.yaml",      aliases: ["jl", "jl-customs", "jl-customs-service"] },
+      { id: "jl",            name: "JL",            category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jl-customs-service-2-1.yaml",      aliases: ["jl", "jl-customs", "jl-customs-service", "jl-customs-service-2", "jl-customs-service-2-1"] },
       { id: "jtz",           name: "JTZ",           category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jtz.yaml",                         aliases: ["jtz"] },
       { id: "meekoo",        name: "Meekoo",        category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/meekoo.yaml",                      aliases: ["meekoo"] },
       { id: "leesa",         name: "Leesa",         category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/leesa.yaml",                       aliases: ["leesa-chb", "leesa"] },
@@ -783,8 +784,8 @@
       { id: "ldglobal",      name: "Ld-global",       category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/ld-global.yaml",                  aliases: ["ld-global", "ldglobal", "ld global"] },
       { id: "jdusa",         name: "JD USA",          category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jd-usa.yaml",                     aliases: ["jdusa", "jd-usa", "jd usa"] },
       { id: "pinnacle",      name: "Pinnacle",        category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/pinnacle-clearing-solution.yaml", aliases: ["pinnacle", "pinnacle-clearing-solution", "pinnacle clearing"] },
-      { id: "Jaak",          name: "Jaak",            category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jti.yaml",                        aliases: ["jaak", "jti", "jaak-transport"] },
-      { id: "Tkk",           name: "Tkk",             category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/tkk.yaml",                        aliases: ["tkk"] },
+      { id: "Jaak",          name: "Jaak",            category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/jti.yaml",                         aliases: ["jaak", "jti", "jaak-transport"] },
+      { id: "Tkk",           name: "Tkk",             category: "Web Platform Main", root: DEFAULT_ROOT, config: "data/config/dev/tkk.yaml",                         aliases: ["tkk"] },
 
       { id: "onpointhub",    name: "On Point Hub",    category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/on-point-hub.yaml",                aliases: ["on-point-hub", "onpointhub", "on point hub", "label:on-point-hub"] },
       { id: "perennial1",    name: "Perennial",       category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/perennial-1.yaml",                aliases: ["perennial", "perennial-1"] },
@@ -793,14 +794,14 @@
       { id: "yifangchb",     name: "Yifang CHB",      category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/yifangchb.yaml",                  aliases: ["yifangchb", "yifang", "lz management"] },
       { id: "pieschb",       name: "Pies CHB",        category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/pieschb.yaml",                    aliases: ["pieschb", "pies"] },
       { id: "bhchb",         name: "BH CHB",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/bhchb.yaml",                      aliases: ["bhchb", "bh chb"] },
-      { id: "abj",           name: "ABJ",             category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/abj.yaml",                        aliases: ["abj"] },
-      { id: "newave",        name: "Newave",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/newave.yaml",                     aliases: ["newave"] },
-      { id: "GHY",           name: "GHY",             category: "Web Platform",      root: GHY_ROOT,     config: "data/config/dev/ghy.yaml",                        aliases: ["ghy"] },
+      { id: "abj",           name: "ABJ",             category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/abj.yaml",                         aliases: ["abj"] },
+      { id: "newave",        name: "Newave",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/newave.yaml",                      aliases: ["newave"] },
+      { id: "GHY",           name: "GHY",             category: "Web Platform",      root: GHY_ROOT,     config: "data/config/dev/ghy.yaml",                         aliases: ["ghy"] },
       { id: "grandchb",      name: "Grand CHB",       category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/grand-chb.yaml",                  aliases: ["grand-chb", "grandchb", "grand chb"] },
       { id: "casas",         name: "Casas",           category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/casas.yaml",                      aliases: ["casas"] },
       { id: "crane",         name: "Crane",           category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/crane.yaml",                      aliases: ["crane"] },
-      { id: "yeschb",        name: "YesCHB",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/yeschb.yaml",                     aliases: ["yeschb"] },
-      { id: "prochb",        name: "ProCHB",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/prochb.yaml",                     aliases: ["prochb"] }
+      { id: "yeschb",        name: "YesCHB",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/yeschb.yaml",                      aliases: ["yeschb"] },
+      { id: "prochb",        name: "ProCHB",          category: "Web Platform",      root: DEFAULT_ROOT, config: "data/config/dev/prochb.yaml",                      aliases: ["prochb"] }
     ];
 
     const configMap = {};
@@ -1116,7 +1117,7 @@
 
     function extractClient(text) {
       const textLower = text.toLowerCase();
-      const clientRaw = text.match(/Customer(?:\s+Name)?:\s*`([^`]+)`/i)?.[1]?.trim().toLowerCase() || text.match(/Email Label:\s*`?label:([^`\s]+)`?/i)?.[1]?.trim().toLowerCase();
+      const clientRaw = text.match(/Customer(?:\s+Name)?:\s*`?([^`\n]+)`?/i)?.[1]?.trim().toLowerCase() || text.match(/Email Label:\s*`?label:([^`\s]+)`?/i)?.[1]?.trim().toLowerCase();
       const sortedEntries = Object.entries(clientAliases).sort((a,b) => Math.max(...b[1].map(x=>x.length)) - Math.max(...a[1].map(x=>x.length)));
       const wordBoundaryMatch = (haystack, needle) => {
         const idx = haystack.indexOf(needle);
@@ -1297,11 +1298,15 @@
     }
     
     function extractThreadId(text) {
-      // 1. Check standard Slack alert pattern first ("Thread ID: `19faed...`")
+      // 1. Check standard Slack alert pattern ("Thread ID: `19faed...`" or bare "Thread ID: 19faed...")
       const standardMatch = text.match(/Thread ID:\s*`?([a-f0-9]{16})`?/i);
       if (standardMatch) return standardMatch[1];
 
-      // 2. Fallback to check inside email reply content block (e.g. thread_id='19faed5860f1f393')
+      // 2. Check inside log filename (e.g. /app/logs/email-1a03814176435bb6.log)
+      const logMatch = text.match(/\/logs\/email-([a-f0-9]{16})\.log/i);
+      if (logMatch) return logMatch[1];
+
+      // 3. Fallback to check inside email reply content block (e.g. thread_id='19faed5860f1f393')
       const emailReplyMatch = text.match(/thread_id=['"]([a-f0-9]{16})['"]/i);
       if (emailReplyMatch) return emailReplyMatch[1];
 
@@ -1498,13 +1503,29 @@
     
     function detectError(text) {
       const cleanText = text.replace(/\[\d{1,2}:\d{2}\s*(?:AM|PM)\]/gi, "").replace(/\d{1,2}:\d{2}\s*(?:AM|PM)/g, ""); const t = cleanText.toLowerCase();
-      const hasMID = t.includes("mid not found") || (t.includes("manufacturer") && t.includes("not found")) || t.includes("confirm ai picked correct mid") || t.includes("mid value for manufacturer");
-      const hasImporter = t.includes("importer id not found") || t.includes("trade partner") || (t.includes("consignee") && t.includes("not found"));
-      function extractMIDName(s) { const raw = s.match(/MID not found for manufacturer:\s*(.+?)(?:\n|$)/i)?.[1]?.trim() || s.match(/confirm AI picked correct MID value for manufacturer(?:\s+name)?:\s*(.+?)(?:\n|$)/i)?.[1]?.trim() || s.match(/MID value for manufacturer(?:\s+name)?:\s*(.+?)(?:\n|$)/i)?.[1]?.trim() || s.match(/manufacturer[:\s]+([A-Z][^\n]+?)(?:\n|$)/im)?.[1]?.trim() || null; return raw ? raw.replace(/\s*\d{1,2}:\d{2}\s*(?:AM|PM)?/gi, "").trim() || null : null; }
-      function extractIORName(s) { const raw = s.match(/Importer ID not found for\s+(.+?)(?:\n|$)/i)?.[1]?.trim() || s.match(/(?:trade partner|consignee)[:\s"]+([A-Z][^\n"]+?)(?:"\n|$)/im)?.[1]?.trim() || null; return raw ? raw.replace(/\s*\d{1,2}:\d{2}\s*(?:AM|PM)?/gi, "").trim() || null : null; }
+      
+      const hasConsignee = t.includes("consignee cannot be used as the importer of record") || t.includes("consignee cannot be used as ior") || t.includes("consignee cannot be used as importer");
+      const hasMID = t.includes("mid not found") || (t.includes("manufacturer") && t.includes("not found")) || t.includes("confirm ai picked correct mid") || t.includes("mid value for manufacturer") || t.includes("mid is required");
+      const hasImporter = t.includes("importer id not found") || t.includes("trade partner") || (!hasConsignee && t.includes("consignee") && t.includes("not found"));
+      
+      function extractMIDName(s) { 
+        const raw = s.match(/MID not found for manufacturer:\s*(.+?)(?:\n|$)/i)?.[1]?.trim() || 
+                    s.match(/confirm AI picked correct MID value for manufacturer(?:\s+name)?:\s*(.+?)(?:\n|$)/i)?.[1]?.trim() || 
+                    s.match(/MID value for manufacturer(?:\s+name)?:\s*(.+?)(?:\n|$)/i)?.[1]?.trim() || 
+                    s.match(/manufacturer[:\s]+([A-Z][^\n]+?)(?:\n|$)/im)?.[1]?.trim() || null; 
+        return raw ? raw.replace(/\s*\d{1,2}:\d{2}\s*(?:AM|PM)?/gi, "").trim() || null : null; 
+      }
+      function extractIORName(s) { 
+        const raw = s.match(/Importer ID not found for\s+(.+?)(?:\n|$)/i)?.[1]?.trim() || 
+                    s.match(/(?:trade partner|consignee)[:\s"]+([A-Z][^\n"]+?)(?:"\n|$)/im)?.[1]?.trim() || null; 
+        return raw ? raw.replace(/\s*\d{1,2}:\d{2}\s*(?:AM|PM)?/gi, "").trim() || null : null; 
+      }
+
       const midName = extractMIDName(cleanText), iorName = extractIORName(cleanText);
+      
+      if (hasConsignee) return { type: "consignee", extractedName: null, midName, iorName, label: "Consignee not IOR" };
       if (hasMID && hasImporter) return { type: "midior", midName, iorName, extractedName: null, label: "MID + IOR Error" };
-      if (hasMID)      return { type: "mid",      extractedName: midName,  midName, iorName, label: "MID Error" };
+      if (hasMID)       return { type: "mid",       extractedName: midName,  midName, iorName, label: "MID Error" };
       if (hasImporter) return { type: "importer", extractedName: iorName,  midName, iorName, label: "Importer ID Error" };
       if (t.includes("autocomplete")||t.includes("could not find matching")) return {type:"autocomplete",extractedName:null,midName,iorName,label:"Could Not Find"};
       if (t.includes("master bol")||t.includes("master awb")||t.includes("bol is required")||t.includes("awb is required")) return {type:"masterbol",extractedName:null,midName,iorName,label:"Master BOL Error"};
@@ -1526,13 +1547,15 @@
       const {matchedKey,clientRaw}=extractClient(text), fullyDetected = detectError(text);
       let finalType, finalLabel;
       
-      // Updated to grab the label text directly from the active select option
       if (errorOverride) { 
         finalType = errorOverride; 
         const selectEl = document.getElementById("errorOverrideSelect");
         finalLabel = selectEl.options[selectEl.selectedIndex].text; 
       }
-      else { finalType = fullyDetected.type; finalLabel = fullyDetected.label; }
+      else { 
+        finalType = fullyDetected.type; 
+        finalLabel = fullyDetected.label; 
+      }
       
       const { midName, iorName, extractedName } = fullyDetected;
 
