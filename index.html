@@ -1512,8 +1512,11 @@
         const raw = s.match(/MID not found for manufacturer:\s*(.+?)(?:\n|$)/i)?.[1]?.trim() || 
                     s.match(/confirm AI picked correct MID value for manufacturer(?:\s+name)?:\s*(.+?)(?:\n|$)/i)?.[1]?.trim() || 
                     s.match(/MID value for manufacturer(?:\s+name)?:\s*(.+?)(?:\n|$)/i)?.[1]?.trim() || 
+                    s.match(/\(manufacturer:\s*([^)]+)\)/i)?.[1]?.trim() || // <-- NEW: Handles (manufacturer: NAME)
                     s.match(/manufacturer[:\s]+([A-Z][^\n]+?)(?:\n|$)/im)?.[1]?.trim() || null; 
-        return raw ? raw.replace(/\s*\d{1,2}:\d{2}\s*(?:AM|PM)?/gi, "").trim() || null : null; 
+        
+        // Added a quick replace to strip any accidental trailing parentheses just in case the fallback regex catches one
+        return raw ? raw.replace(/\s*\d{1,2}:\d{2}\s*(?:AM|PM)?/gi, "").replace(/\)$/, "").trim() || null : null; 
       }
       function extractIORName(s) { 
         const raw = s.match(/Importer ID not found for\s+(.+?)(?:\n|$)/i)?.[1]?.trim() || 
